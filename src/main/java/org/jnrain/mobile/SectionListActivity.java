@@ -56,7 +56,7 @@ public class SectionListActivity extends SpicedRoboActivity {
 
 		@Override
 		public void onRequestSuccess(ListSections sections) {
-			// Log.v(TAG, "got section list: " + sections.toString());
+			Log.v(TAG, "got section list: " + sections.toString());
 
 			ListView lv = (ListView) findViewById(R.id.listSections);
 			SectionListAdapter adapter = new SectionListAdapter(
