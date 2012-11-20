@@ -15,12 +15,15 @@
  */
 package org.jnrain.weiyu.entity;
 
+import java.util.List;
+
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Section {
 	private String _ord;
 	private String _name;
+	private List<String> _topics;
 
 	public String getOrd() {
 		return this._ord;
@@ -37,8 +40,17 @@ public class Section {
 	public void setName(String name) {
 		this._name = name;
 	}
-	
+
+	public List<String> getTopics() {
+		return this._topics;
+	}
+
+	public void setTopics(List<String> topics) {
+		this._topics = topics;
+	}
+
 	public String toString() {
-		return "<Section: " + this._ord + ". " + this._name + ">";
+		return ("<Section: " + this._ord + ". " + this._name + " topics: "
+				+ this._topics.toString() + ">");
 	}
 }
