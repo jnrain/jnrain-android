@@ -24,7 +24,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:text="A"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@color/section_list_item_ord"
         android:textSize="64sp" />
@@ -33,17 +32,25 @@
         android:id="@+id/textName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textOrd"
         android:layout_alignBottom="@+id/textOrd"
         android:layout_marginLeft="16dp"
-        android:text="分区名称"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/section_list_item_name"
         android:textSize="36sp" />
 
+    <TextView
+        android:id="@+id/textTopics"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textOrd"
+        android:layout_alignParentRight="true"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/section_list_item_topics"
+        android:textSize="18sp" />
+
     <View
         android:layout_width="fill_parent"
-        android:layout_height="1dip"
+        android:layout_height="1dp"
         android:layout_below="@+id/textOrd"
         android:layout_centerVertical="true"
         android:background="#40ffffff" />
