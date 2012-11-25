@@ -14,11 +14,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<resources>
-    <string name="app_name">JNRain</string>
-    <string name="hello_world">TODO</string>
-    <string name="menu_settings">Settings</string>
-    <string name="title_activity_section_list">Sections</string>
-    <string name="title_activity_board_list">Boards</string>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-</resources>
+    <item android:color="#40FFFFFF"/>
+    <item android:state_focused="true" android:color="#80FFFFFF"/>
+
+</selector>

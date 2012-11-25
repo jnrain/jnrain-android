@@ -14,11 +14,20 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<resources>
-    <string name="app_name">JNRain</string>
-    <string name="hello_world">TODO</string>
-    <string name="menu_settings">Settings</string>
-    <string name="title_activity_section_list">Sections</string>
-    <string name="title_activity_board_list">Boards</string>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".BoardListActivity" >
 
-</resources>
+    <ListView
+        android:id="@+id/listBoards"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        tools:listitem="@layout/board_item" >
+
+    </ListView>
+
+</RelativeLayout>

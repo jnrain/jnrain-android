@@ -15,9 +15,9 @@
  */
 package org.jnrain.mobile;
 
-import org.jnrain.mobile.network.SectionListRequest;
-import org.jnrain.weiyu.collection.ListSections;
-import org.jnrain.weiyu.entity.Section;
+import org.jnrain.mobile.network.BoardListRequest;
+import org.jnrain.weiyu.collection.ListBoards;
+import org.jnrain.weiyu.entity.Board;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -31,63 +31,63 @@ import com.octo.android.robospice.persistence.DurationInMillis;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
 
-public class SectionListActivity extends SpicedRoboActivity {
-	private static final String TAG = "SectionListActivity";
-	private static final String CACHE_KEY = "secs_json";
+public class BoardListActivity extends SpicedRoboActivity {
+	private static final String TAG = "BoardListActivity";
+	private static final String CACHE_KEY = "brds_json";
 
-	public static final String SEC_ORD = "org.jnrain.mobile.SEC_ORD";
-
-	private ListSections _secs;
+	private String _sec_ord;
+	private ListBoards _boards;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_section_list);
+		setContentView(R.layout.activity_board_list);
 
-		spiceManager.execute(new SectionListRequest(), CACHE_KEY,
-				DurationInMillis.NEVER, new SectionListRequestListener());
+		Intent intent = getIntent();
+		this._sec_ord = intent.getStringExtra(SectionListActivity.SEC_ORD);
+		spiceManager.execute(new BoardListRequest(this._sec_ord), CACHE_KEY,
+				DurationInMillis.NEVER, new BoardListRequestListener());
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_section_list, menu);
+		getMenuInflater().inflate(R.menu.activity_board_list, menu);
 		return true;
 	}
 
-	private class SectionListRequestListener implements
-			RequestListener<ListSections> {
+	private class BoardListRequestListener implements
+			RequestListener<ListBoards> {
 		@Override
 		public void onRequestFailure(SpiceException arg0) {
 			Log.d(TAG, "err on req: " + arg0.toString());
 		}
 
 		@Override
-		public void onRequestSuccess(ListSections sections) {
-			Log.v(TAG, "got section list: " + sections.toString());
-			_secs = sections;
+		public void onRequestSuccess(ListBoards boards) {
+			Log.v(TAG, "got section list: " + boards.toString());
+			_boards = boards;
 
-			ListView lv = (ListView) findViewById(R.id.listSections);
-			SectionListAdapter adapter = new SectionListAdapter(
-					getApplicationContext(), _secs);
+			ListView lv = (ListView) findViewById(R.id.listBoards);
+			BoardListAdapter adapter = new BoardListAdapter(
+					getApplicationContext(), _boards);
 			lv.setAdapter(adapter);
 
 			lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 				@Override
 				public void onItemClick(AdapterView<?> parent, View view,
 						int position, long id) {
-					Section sec = _secs.getSections().get(position);
+					Board brd = _boards.getBoards().get(position);
 
 					Log.i(TAG, "clicked: " + position + ", id=" + id + ", sec="
-							+ sec.toString());
+							+ brd.toString());
 
-					Intent intent = new Intent(SectionListActivity.this,
-							BoardListActivity.class);
-					intent.putExtra(SEC_ORD, sec.getOrd());
-					startActivity(intent);
+					// Intent intent = new Intent(SectionListActivity.this,
+					// BoardListActivity.class);
+					// intent.putExtra(SEC_ORD, brd.getOrd());
+					// startActivity(intent);
 				}
 			});
 		}
 	}
-
 }
