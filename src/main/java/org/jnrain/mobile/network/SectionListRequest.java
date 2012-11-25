@@ -27,6 +27,7 @@ public class SectionListRequest extends RestContentRequest<ListSections> {
 	@Override
 	public ListSections loadDataFromNetwork() throws Exception {
 		return getRestTemplate().getForObject(
-				"http://rhymin.jnrain.com/api/sec/", ListSections.class);
+		/* "http://rhymin.jnrain.com/api/sec/", */
+		"http://bbs.jnrain.com/rainstyle/sec_json.php", ListSections.class);
 	}
 }
