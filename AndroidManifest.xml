@@ -17,7 +17,7 @@
         android:label="@string/app_name" >
         <activity
             android:name="org.jnrain.mobile.SectionListActivity"
-            android:label="@string/title_activity_section_list" >
+            android:label="@string/title_activity_section_list" android:theme="@android:style/Theme.NoTitleBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -33,7 +33,7 @@
 
         <activity
             android:name="org.jnrain.mobile.BoardListActivity"
-            android:label="@string/title_activity_board_list" >
+            android:label="@string/title_activity_board_list" android:theme="@android:style/Theme.NoTitleBar">
         </activity>
     </application>
 
