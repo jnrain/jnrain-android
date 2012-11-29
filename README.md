@@ -29,5 +29,10 @@
 
 * 大区列表 API
 * 版面列表 API
+* 热帖（十大） API
+    * 全站
 
 同样因为原型开发的原因，客户端没有接入[落花/微雨项目](https://github.com/xen0n/weiyu)的API终点，而是接入了江南听雨BBS PHP的实验API终点，以利用已经成熟的数据源。
+
+
+<!-- vim:set ai et ts=4 sw=4 sts=4 ff=unix fenc=utf-8: -->
