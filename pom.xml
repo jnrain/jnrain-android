@@ -9,6 +9,8 @@
   <name>jnrain-android</name>
 
   <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
     <platform.version>4.0.1.2</platform.version>
     <robospice.version>1.2.0</robospice.version>
     <jackson.version>1.9.7</jackson.version>
