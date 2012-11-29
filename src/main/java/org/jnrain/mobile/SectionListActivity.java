@@ -22,7 +22,6 @@ import org.jnrain.weiyu.entity.Section;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -46,13 +45,6 @@ public class SectionListActivity extends SpicedRoboActivity {
 
 		spiceManager.execute(new SectionListRequest(), CACHE_KEY,
 				DurationInMillis.NEVER, new SectionListRequestListener());
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_section_list, menu);
-		return true;
 	}
 
 	private class SectionListRequestListener implements
