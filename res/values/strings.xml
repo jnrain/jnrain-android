@@ -15,10 +15,20 @@
   limitations under the License.
 -->
 <resources>
+
     <string name="app_name">JNRain</string>
     <string name="hello_world">TODO</string>
     <string name="menu_settings">Settings</string>
     <string name="title_activity_section_list">Sections</string>
     <string name="title_activity_board_list">Boards</string>
+    <string name="title_activity_global_hot_posts_list">Hot posts</string>
+    <string name="app_name_en">JNRain</string>
+    <string name="splash_image_desc">Splash image</string>
+
+    <!-- loading messages -->
+    <string name="loading_global_hot_posts">Loading global hot posts…</string>
+
+    <!-- failure messages -->
+    <string name="fail_load_global_hot_posts">Failed loading global hot posts.</string>
 
 </resources>
