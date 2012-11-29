@@ -15,11 +15,10 @@
  */
 package org.jnrain.mobile;
 
+import com.github.rtyley.android.sherlock.roboguice.activity.RoboSherlockActivity;
 import com.octo.android.robospice.SpiceManager;
 
-import roboguice.activity.RoboActivity;
-
-public class SpicedRoboActivity extends RoboActivity {
+public class SpicedRoboActivity extends RoboSherlockActivity {
 	protected SpiceManager spiceManager = new SpiceManager(
 			JNRainSpiceService.class);
 

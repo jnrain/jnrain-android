@@ -9,10 +9,12 @@
   <name>jnrain-android</name>
 
   <properties>
-    <platform.version>2.3.3</platform.version>
+    <platform.version>4.0.1.2</platform.version>
     <robospice.version>1.2.0</robospice.version>
     <jackson.version>1.9.7</jackson.version>
     <roboguice.version>2.0</roboguice.version>
+    <abs.version>4.2.0</abs.version>
+    <robosherlock.version>1.5</robosherlock.version>
   </properties>
 
   <dependencies>
@@ -31,6 +33,24 @@
       <groupId>org.roboguice</groupId>
       <artifactId>roboguice</artifactId>
       <version>${roboguice.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.actionbarsherlock</groupId>
+      <artifactId>actionbarsherlock</artifactId>
+      <version>${abs.version}</version>
+      <type>apklib</type>
+    </dependency>
+    <dependency>
+      <groupId>com.actionbarsherlock</groupId>
+      <artifactId>actionbarsherlock</artifactId>
+      <version>${abs.version}</version>
+      <type>jar</type>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.github.rtyley</groupId>
+      <artifactId>roboguice-sherlock</artifactId>
+      <version>${robosherlock.version}</version>
     </dependency>
 
     <dependency>
@@ -53,7 +73,7 @@
           <resourceDirectory>${project.basedir}/res</resourceDirectory>
           <nativeLibrariesDirectory>${project.basedir}/src/main/native</nativeLibrariesDirectory>
           <sdk>
-            <platform>10</platform>
+            <platform>15</platform>
           </sdk>
           <undeployBeforeDeploy>true</undeployBeforeDeploy>
         </configuration>
