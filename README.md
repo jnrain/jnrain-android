@@ -1,5 +1,7 @@
 # JNRain for Android
 
+[![Build Status](https://travis-ci.org/jnrainerds/jnrain-android.png)](https://travis-ci.org/jnrainerds/jnrain-android)
+
 这是[江南听雨 BBS](http://bbs.jnrain.com/) 的 Android 客户端。项目刚刚起步，十分欢迎各种形式的贡献。有意愿参与的可通过 pull request 的方式与我们互动。
 
 
