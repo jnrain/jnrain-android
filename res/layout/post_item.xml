@@ -52,11 +52,4 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textSize="12sp" />
 
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="1sp"
-        android:layout_below="@+id/textReplies"
-        android:layout_centerVertical="true"
-        android:background="#40ffffff" />
-
 </RelativeLayout>

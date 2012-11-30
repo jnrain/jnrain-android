@@ -38,11 +38,5 @@
         android:text="版面名称"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textSize="24sp" />
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:layout_below="@+id/textBoardName"
-        android:layout_centerVertical="true"
-        android:background="#40ffffff" />
 
 </RelativeLayout>
