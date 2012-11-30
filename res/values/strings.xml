@@ -22,6 +22,7 @@
     <string name="title_activity_section_list">Sections</string>
     <string name="title_activity_board_list">Boards</string>
     <string name="title_activity_global_hot_posts_list">Hot posts</string>
+    <string name="title_activity_board">View threads</string>
     <string name="app_name_en">JNRain</string>
     <string name="splash_image_desc">Splash image</string>
 

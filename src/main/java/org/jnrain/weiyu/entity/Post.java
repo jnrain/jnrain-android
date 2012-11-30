@@ -23,6 +23,7 @@ public class Post {
 	private String _title;
 	private String _author;
 	private String _board;
+	private int _replies;
 	private String _content;
 
 	public long getID() {
@@ -55,6 +56,14 @@ public class Post {
 
 	public void setBoard(String board) {
 		this._board = board;
+	}
+
+	public int getReplies() {
+		return this._replies;
+	}
+
+	public void setReplies(int replies) {
+		this._replies = replies;
 	}
 
 	public String getContent() {

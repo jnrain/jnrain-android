@@ -44,6 +44,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="org.jnrain.mobile.PostsListActivity"
+            android:label="@string/title_activity_board" android:theme="@style/Theme.JNRain.DefaultDark">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.jnrain.mobile.BoardListActivity" />
+        </activity>
     </application>
 
 </manifest>
