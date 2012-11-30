@@ -35,7 +35,7 @@ public class PostsListActivity extends SpicedRoboActivity {
 	private ListPosts _posts;
 
 	private static final String TAG = "PostsListActivity";
-	private static final String CACHE_KEY = "brds_json";
+	private static final String CACHE_KEY_PREFIX = "brd_json_";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +51,9 @@ public class PostsListActivity extends SpicedRoboActivity {
 		getSupportActionBar().setTitle(this._brd_id);
 
 		// fetch thread list
-		spiceManager.execute(new PostsListRequest(this._brd_id), CACHE_KEY,
-				DurationInMillis.ONE_MINUTE, new PostsListRequestListener());
+		spiceManager.execute(new PostsListRequest(this._brd_id),
+				CACHE_KEY_PREFIX + this._brd_id, DurationInMillis.ONE_MINUTE,
+				new PostsListRequestListener());
 	}
 
 	private class PostsListRequestListener implements
