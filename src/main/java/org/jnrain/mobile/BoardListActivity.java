@@ -38,7 +38,7 @@ public class BoardListActivity extends SpicedRoboActivity {
 	public static final String BRD_ID = "org.jnrain.mobile.BRD_ID";
 
 	private static final String TAG = "BoardListActivity";
-	private static final String CACHE_KEY = "brds_json";
+	private static final String CACHE_KEY_PREFIX = "brds_sec_";
 
 	private String _sec_ord;
 	private ListBoards _boards;
@@ -50,8 +50,9 @@ public class BoardListActivity extends SpicedRoboActivity {
 
 		Intent intent = getIntent();
 		this._sec_ord = intent.getStringExtra(SectionListActivity.SEC_ORD);
-		spiceManager.execute(new BoardListRequest(this._sec_ord), CACHE_KEY,
-				DurationInMillis.ONE_WEEK, new BoardListRequestListener());
+		spiceManager.execute(new BoardListRequest(this._sec_ord),
+				CACHE_KEY_PREFIX + this._sec_ord, DurationInMillis.ONE_WEEK,
+				new BoardListRequestListener());
 	}
 
 	public synchronized void updateData() {
