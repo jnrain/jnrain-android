@@ -19,6 +19,7 @@ import org.jnrain.mobile.network.BoardListRequest;
 import org.jnrain.weiyu.collection.ListBoards;
 import org.jnrain.weiyu.entity.Board;
 
+import roboguice.inject.InjectView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,6 +32,9 @@ import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
 
 public class BoardListActivity extends SpicedRoboActivity {
+	@InjectView(R.id.listBoards)
+	ListView listBoards;
+
 	public static final String BRD_ID = "org.jnrain.mobile.BRD_ID";
 
 	private static final String TAG = "BoardListActivity";
@@ -47,7 +51,30 @@ public class BoardListActivity extends SpicedRoboActivity {
 		Intent intent = getIntent();
 		this._sec_ord = intent.getStringExtra(SectionListActivity.SEC_ORD);
 		spiceManager.execute(new BoardListRequest(this._sec_ord), CACHE_KEY,
-				DurationInMillis.NEVER, new BoardListRequestListener());
+				DurationInMillis.ONE_WEEK, new BoardListRequestListener());
+	}
+
+	public synchronized void updateData() {
+		BoardListAdapter adapter = new BoardListAdapter(
+				getApplicationContext(), _boards);
+		listBoards.setAdapter(adapter);
+
+		listBoards
+				.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+					@Override
+					public void onItemClick(AdapterView<?> parent, View view,
+							int position, long id) {
+						Board brd = _boards.getBoards().get(position);
+
+						Log.i(TAG, "clicked: " + position + ", id=" + id
+								+ ", sec=" + brd.toString());
+
+						Intent intent = new Intent(BoardListActivity.this,
+								PostsListActivity.class);
+						intent.putExtra(BRD_ID, brd.getID());
+						startActivity(intent);
+					}
+				});
 	}
 
 	private class BoardListRequestListener implements
@@ -62,26 +89,7 @@ public class BoardListActivity extends SpicedRoboActivity {
 			Log.v(TAG, "got section list: " + boards.toString());
 			_boards = boards;
 
-			ListView lv = (ListView) findViewById(R.id.listBoards);
-			BoardListAdapter adapter = new BoardListAdapter(
-					getApplicationContext(), _boards);
-			lv.setAdapter(adapter);
-
-			lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-				@Override
-				public void onItemClick(AdapterView<?> parent, View view,
-						int position, long id) {
-					Board brd = _boards.getBoards().get(position);
-
-					Log.i(TAG, "clicked: " + position + ", id=" + id + ", sec="
-							+ brd.toString());
-
-					// Intent intent = new Intent(BoardListActivity.this,
-					// 		BoardActivity.class);
-					// intent.putExtra(BRD_ID, brd.getID());
-					// startActivity(intent);
-				}
-			});
+			updateData();
 		}
 	}
 }

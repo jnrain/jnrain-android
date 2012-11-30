@@ -36,6 +36,8 @@ import com.octo.android.robospice.request.listener.RequestListener;
 public class GlobalHotPostsListActivity extends SpicedRoboActivity {
 	@InjectView(R.id.textGlobalHotPostsStatus)
 	TextView textStatus;
+	@InjectView(R.id.listGlobalHotPosts)
+	ListView listHotPosts;
 
 	@InjectResource(R.string.fail_load_global_hot_posts)
 	public String LOAD_FAIL_MSG;
@@ -51,8 +53,38 @@ public class GlobalHotPostsListActivity extends SpicedRoboActivity {
 		setContentView(R.layout.activity_global_hot_posts_list);
 
 		spiceManager.execute(new HotPostsListRequest(ListHotPosts.GLOBAL),
-				CACHE_KEY, DurationInMillis.NEVER,
+				CACHE_KEY, DurationInMillis.ONE_MINUTE,
 				new GlobalHotPostsListRequestListener());
+	}
+
+	public synchronized void updateData() {
+		// empty the status display
+		textStatus.setText("");
+
+		// populate list
+		HotPostsListAdapter adapter = new HotPostsListAdapter(
+				getApplicationContext(), _posts);
+		listHotPosts.setAdapter(adapter);
+
+		// attach click event
+		listHotPosts
+				.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+					@Override
+					public void onItemClick(AdapterView<?> parent, View view,
+							int position, long id) {
+						Post post = _posts.getPosts().get(position);
+
+						Log.i(TAG, "clicked: " + position + ", post.title="
+								+ post.getTitle());
+
+						finish();
+
+						Intent intent = new Intent(
+								GlobalHotPostsListActivity.this,
+								SectionListActivity.class);
+						startActivity(intent);
+					}
+				});
 	}
 
 	private class GlobalHotPostsListRequestListener implements
@@ -66,32 +98,8 @@ public class GlobalHotPostsListActivity extends SpicedRoboActivity {
 		@Override
 		public void onRequestSuccess(ListHotPosts posts) {
 			Log.v(TAG, "got hot posts list: " + posts.toString());
-			textStatus.setText("");
 			_posts = posts;
-
-			ListView lv = (ListView) findViewById(R.id.listGlobalHotPosts);
-			HotPostsListAdapter adapter = new HotPostsListAdapter(
-					getApplicationContext(), _posts);
-			lv.setAdapter(adapter);
-
-			lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-				@Override
-				public void onItemClick(AdapterView<?> parent, View view,
-						int position, long id) {
-					Post post = _posts.getPosts().get(position);
-
-					Log.i(TAG,
-							"clicked: " + position + ", post.title="
-									+ post.getTitle());
-
-					GlobalHotPostsListActivity.this.finish();
-
-					Intent intent = new Intent(GlobalHotPostsListActivity.this,
-							SectionListActivity.class);
-					startActivity(intent);
-				}
-			});
+			updateData();
 		}
 	}
-
 }

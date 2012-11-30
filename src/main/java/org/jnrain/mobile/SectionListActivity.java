@@ -19,6 +19,7 @@ import org.jnrain.mobile.network.SectionListRequest;
 import org.jnrain.weiyu.collection.ListSections;
 import org.jnrain.weiyu.entity.Section;
 
+import roboguice.inject.InjectView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,6 +32,9 @@ import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
 
 public class SectionListActivity extends SpicedRoboActivity {
+	@InjectView(R.id.listSections)
+	ListView listSections;
+
 	private static final String TAG = "SectionListActivity";
 	private static final String CACHE_KEY = "secs_json";
 
@@ -38,13 +42,36 @@ public class SectionListActivity extends SpicedRoboActivity {
 
 	private ListSections _secs;
 
+	public synchronized void updateData() {
+		SectionListAdapter adapter = new SectionListAdapter(
+				getApplicationContext(), _secs);
+		listSections.setAdapter(adapter);
+
+		listSections
+				.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+					@Override
+					public void onItemClick(AdapterView<?> parent, View view,
+							int position, long id) {
+						Section sec = _secs.getSections().get(position);
+
+						Log.i(TAG, "clicked: " + position + ", id=" + id
+								+ ", sec=" + sec.toString());
+
+						Intent intent = new Intent(SectionListActivity.this,
+								BoardListActivity.class);
+						intent.putExtra(SEC_ORD, sec.getOrd());
+						startActivity(intent);
+					}
+				});
+	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_section_list);
 
 		spiceManager.execute(new SectionListRequest(), CACHE_KEY,
-				DurationInMillis.NEVER, new SectionListRequestListener());
+				DurationInMillis.ONE_WEEK, new SectionListRequestListener());
 	}
 
 	private class SectionListRequestListener implements
@@ -59,26 +86,7 @@ public class SectionListActivity extends SpicedRoboActivity {
 			Log.v(TAG, "got section list: " + sections.toString());
 			_secs = sections;
 
-			ListView lv = (ListView) findViewById(R.id.listSections);
-			SectionListAdapter adapter = new SectionListAdapter(
-					getApplicationContext(), _secs);
-			lv.setAdapter(adapter);
-
-			lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-				@Override
-				public void onItemClick(AdapterView<?> parent, View view,
-						int position, long id) {
-					Section sec = _secs.getSections().get(position);
-
-					Log.i(TAG, "clicked: " + position + ", id=" + id + ", sec="
-							+ sec.toString());
-
-					Intent intent = new Intent(SectionListActivity.this,
-							BoardListActivity.class);
-					intent.putExtra(SEC_ORD, sec.getOrd());
-					startActivity(intent);
-				}
-			});
+			updateData();
 		}
 	}
 
