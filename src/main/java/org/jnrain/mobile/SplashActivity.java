@@ -28,12 +28,32 @@ public class SplashActivity extends RoboActivity {
 	protected ImageView imgSplash;
 	private Thread splashThread;
 
+	// prevent repeated thread creation when activity restarts
+	protected Boolean _started_flag;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		Boolean last_started_flag;
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_splash);
 
-		// The thread to wait for splash screen events
+		synchronized (this) {
+			this._started_flag = (Boolean) getLastNonConfigurationInstance();
+			last_started_flag = this._started_flag;
+			if (last_started_flag == null) {
+				last_started_flag = false;
+			}
+			if (this._started_flag == null) {
+				this._started_flag = true;
+			}
+		}
+
+		if (last_started_flag) {
+			return;
+		}
+
+		// create a thread
 		splashThread = new Thread() {
 			@Override
 			public void run() {
@@ -59,4 +79,8 @@ public class SplashActivity extends RoboActivity {
 		splashThread.start();
 	}
 
+	@Override
+	public Object onRetainNonConfigurationInstance() {
+		return this._started_flag;
+	}
 }
