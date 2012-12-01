@@ -25,12 +25,12 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-public class PostsListAdapter extends BaseAdapter {
+public class ThreadListAdapter extends BaseAdapter {
 	// private static final String TAG = "PostsListAdapter";
 	private LayoutInflater _inflater;
 	private ListPosts _data;
 
-	public PostsListAdapter(Context context, ListPosts data) {
+	public ThreadListAdapter(Context context, ListPosts data) {
 		this._inflater = LayoutInflater.from(context);
 		this._data = data;
 	}

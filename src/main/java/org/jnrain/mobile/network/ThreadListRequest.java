@@ -19,18 +19,18 @@ import org.jnrain.weiyu.collection.ListPosts;
 
 import com.octo.android.robospice.request.springandroid.RestContentRequest;
 
-public class PostsListRequest extends RestContentRequest<ListPosts> {
+public class ThreadListRequest extends RestContentRequest<ListPosts> {
 	private String _brd;
 	private int _page;
 
-	public PostsListRequest(String board) {
+	public ThreadListRequest(String board) {
 		super(ListPosts.class);
 
 		this._brd = board;
 		this._page = 1;
 	}
 
-	public PostsListRequest(String board, int page) {
+	public ThreadListRequest(String board, int page) {
 		super(ListPosts.class);
 
 		this._brd = board;

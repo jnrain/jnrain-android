@@ -71,7 +71,7 @@ public class BoardListActivity extends SpicedRoboActivity {
 								+ ", sec=" + brd.toString());
 
 						Intent intent = new Intent(BoardListActivity.this,
-								PostsListActivity.class);
+								ThreadListActivity.class);
 						intent.putExtra(BRD_ID, brd.getID());
 						startActivity(intent);
 					}

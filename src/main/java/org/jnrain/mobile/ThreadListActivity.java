@@ -15,7 +15,7 @@
  */
 package org.jnrain.mobile;
 
-import org.jnrain.mobile.network.PostsListRequest;
+import org.jnrain.mobile.network.ThreadListRequest;
 import org.jnrain.weiyu.collection.ListPosts;
 import org.jnrain.weiyu.entity.Post;
 
@@ -30,17 +30,17 @@ import com.octo.android.robospice.persistence.DurationInMillis;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
 
-public class PostsListActivity extends SpicedRoboActivity {
+public class ThreadListActivity extends SpicedRoboActivity {
 	private String _brd_id;
 	private ListPosts _posts;
 
-	private static final String TAG = "PostsListActivity";
+	private static final String TAG = "ThreadListActivity";
 	private static final String CACHE_KEY_PREFIX = "brd_json_";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_posts_list);
+		setContentView(R.layout.activity_thread_list);
 		// Show the Up button in the action bar.
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -51,12 +51,12 @@ public class PostsListActivity extends SpicedRoboActivity {
 		getSupportActionBar().setTitle(this._brd_id);
 
 		// fetch thread list
-		spiceManager.execute(new PostsListRequest(this._brd_id),
+		spiceManager.execute(new ThreadListRequest(this._brd_id),
 				CACHE_KEY_PREFIX + this._brd_id, DurationInMillis.ONE_MINUTE,
-				new PostsListRequestListener());
+				new ThreadListRequestListener());
 	}
 
-	private class PostsListRequestListener implements
+	private class ThreadListRequestListener implements
 			RequestListener<ListPosts> {
 		@Override
 		public void onRequestFailure(SpiceException arg0) {
@@ -69,7 +69,7 @@ public class PostsListActivity extends SpicedRoboActivity {
 			_posts = posts;
 
 			ListView lv = (ListView) findViewById(R.id.listPosts);
-			PostsListAdapter adapter = new PostsListAdapter(
+			ThreadListAdapter adapter = new ThreadListAdapter(
 					getApplicationContext(), _posts);
 			lv.setAdapter(adapter);
 

@@ -45,7 +45,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="org.jnrain.mobile.PostsListActivity"
+            android:name="org.jnrain.mobile.ThreadListActivity"
             android:label="@string/title_activity_board" android:theme="@style/Theme.JNRain.DefaultDark">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
