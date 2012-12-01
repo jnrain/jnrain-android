@@ -63,7 +63,7 @@ public class ThreadListAdapter extends BaseAdapter {
 		Post post = getItem(position);
 
 		if (convertView == null) {
-			convertView = this._inflater.inflate(R.layout.post_item, null);
+			convertView = this._inflater.inflate(R.layout.thread_item, null);
 		}
 
 		TextView textTitle = (TextView) convertView
