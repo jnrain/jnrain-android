@@ -17,7 +17,6 @@ package org.jnrain.mobile;
 
 import org.jnrain.mobile.network.HotPostsListRequest;
 import org.jnrain.weiyu.collection.ListHotPosts;
-import org.jnrain.weiyu.entity.Post;
 
 import roboguice.inject.InjectResource;
 import roboguice.inject.InjectView;
@@ -25,7 +24,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
+import android.view.View.OnClickListener;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -38,6 +38,8 @@ public class GlobalHotPostsListActivity extends SpicedRoboActivity {
 	TextView textStatus;
 	@InjectView(R.id.listGlobalHotPosts)
 	ListView listHotPosts;
+	@InjectView(R.id.btnReturn)
+	ImageButton btnReturn;
 
 	@InjectResource(R.string.fail_load_global_hot_posts)
 	public String LOAD_FAIL_MSG;
@@ -51,6 +53,18 @@ public class GlobalHotPostsListActivity extends SpicedRoboActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_global_hot_posts_list);
+
+		btnReturn.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// Log.i(TAG, "return button clicked");
+				finish();
+
+				Intent intent = new Intent(GlobalHotPostsListActivity.this,
+						SectionListActivity.class);
+				startActivity(intent);
+			}
+		});
 
 		spiceManager.execute(new HotPostsListRequest(ListHotPosts.GLOBAL),
 				CACHE_KEY, DurationInMillis.ONE_MINUTE,
@@ -67,24 +81,21 @@ public class GlobalHotPostsListActivity extends SpicedRoboActivity {
 		listHotPosts.setAdapter(adapter);
 
 		// attach click event
-		listHotPosts
-				.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-					@Override
-					public void onItemClick(AdapterView<?> parent, View view,
-							int position, long id) {
-						Post post = _posts.getPosts().get(position);
-
-						Log.i(TAG, "clicked: " + position + ", post.title="
-								+ post.getTitle());
-
-						finish();
-
-						Intent intent = new Intent(
-								GlobalHotPostsListActivity.this,
-								SectionListActivity.class);
-						startActivity(intent);
-					}
-				});
+		/*
+		 * listHotPosts .setOnItemClickListener(new
+		 * AdapterView.OnItemClickListener() {
+		 * 
+		 * @Override public void onItemClick(AdapterView<?> parent, View view,
+		 * int position, long id) { Post post = _posts.getPosts().get(position);
+		 * 
+		 * Log.i(TAG, "clicked: " + position + ", post.title=" +
+		 * post.getTitle());
+		 * 
+		 * finish();
+		 * 
+		 * Intent intent = new Intent( GlobalHotPostsListActivity.this,
+		 * SectionListActivity.class); startActivity(intent); } });
+		 */
 	}
 
 	private class GlobalHotPostsListRequestListener implements
