@@ -23,14 +23,17 @@
     <string name="title_activity_board_list">版面列表</string>
     <string name="title_activity_global_hot_posts_list">全站热帖</string>
     <string name="title_activity_board">帖子列表</string>
+    <string name="title_activity_read_thread">读帖</string>
     <string name="app_name_en">JNRain</string>
     <string name="splash_image_desc">欢迎图像</string>
-    
+
     <!-- loading messages -->
     <string name="loading_global_hot_posts">全站热帖加载中…</string>
 
     <!-- failure messages -->
     <string name="fail_load_global_hot_posts">加载全站热帖失败。</string>
-    
+
+    <!-- GlobalHotPostsListActivity -->
+    <string name="return_desc">返回</string>
 
 </resources>

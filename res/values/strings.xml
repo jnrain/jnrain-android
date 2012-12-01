@@ -23,6 +23,7 @@
     <string name="title_activity_board_list">Boards</string>
     <string name="title_activity_global_hot_posts_list">Hot posts</string>
     <string name="title_activity_board">View threads</string>
+    <string name="title_activity_read_thread">Read thread</string>
     <string name="app_name_en">JNRain</string>
     <string name="splash_image_desc">Splash image</string>
 
@@ -31,5 +32,8 @@
 
     <!-- failure messages -->
     <string name="fail_load_global_hot_posts">Failed loading global hot posts.</string>
+    
+    <!-- GlobalHotPostsListActivity -->
+    <string name="return_desc">Return</string>
 
 </resources>

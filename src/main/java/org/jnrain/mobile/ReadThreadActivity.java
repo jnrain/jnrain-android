@@ -15,7 +15,7 @@
  */
 package org.jnrain.mobile;
 
-import org.jnrain.mobile.network.ThreadListRequest;
+import org.jnrain.mobile.network.ThreadRequest;
 import org.jnrain.weiyu.collection.ListPosts;
 import org.jnrain.weiyu.entity.Post;
 
@@ -31,18 +31,17 @@ import com.octo.android.robospice.persistence.DurationInMillis;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
 
-public class ThreadListActivity extends SpicedRoboActivity {
+public class ReadThreadActivity extends SpicedRoboActivity {
 	@InjectView(R.id.listPosts)
 	ListView listPosts;
 
-	public static final String THREAD_ID = "org.jnrain.mobile.THREAD_ID";
-	public static final String THREAD_TITLE = "org.jnrain.mobile.THREAD_TITLE";
-
 	private String _brd_id;
+	private String _title;
+	private long _tid;
 	private ListPosts _posts;
 
-	private static final String TAG = "ThreadListActivity";
-	private static final String CACHE_KEY_PREFIX = "brd_json_";
+	private static final String TAG = "ReadThreadActivity";
+	private static final String CACHE_KEY_PREFIX = "tid_json_";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -53,18 +52,22 @@ public class ThreadListActivity extends SpicedRoboActivity {
 
 		Intent intent = getIntent();
 		this._brd_id = intent.getStringExtra(BoardListActivity.BRD_ID);
+		this._tid = intent.getLongExtra(ThreadListActivity.THREAD_ID, -1);
+		this._title = intent.getStringExtra(ThreadListActivity.THREAD_TITLE);
 
 		// update title of action bar
-		getSupportActionBar().setTitle(this._brd_id);
+		getSupportActionBar().setTitle(this._title);
 
-		// fetch thread list
-		spiceManager.execute(new ThreadListRequest(this._brd_id),
-				CACHE_KEY_PREFIX + this._brd_id, DurationInMillis.ONE_MINUTE,
-				new ThreadListRequestListener());
+		// fetch posts
+		spiceManager.execute(
+				new ThreadRequest(this._brd_id, this._tid),
+				CACHE_KEY_PREFIX + this._brd_id + "_"
+						+ Long.toString(this._tid) + "_1",
+				DurationInMillis.ONE_MINUTE, new ThreadRequestListener());
 	}
 
 	public synchronized void updateData() {
-		ThreadListAdapter adapter = new ThreadListAdapter(
+		ThreadAdapter adapter = new ThreadAdapter(
 				getApplicationContext(), _posts);
 		listPosts.setAdapter(adapter);
 
@@ -76,20 +79,11 @@ public class ThreadListActivity extends SpicedRoboActivity {
 
 				Log.i(TAG, "clicked: " + position + ", id=" + id + ", post="
 						+ post.toString());
-
-				Intent intent = new Intent(ThreadListActivity.this,
-						ReadThreadActivity.class);
-				intent.putExtra(BoardListActivity.BRD_ID, post.getBoard());
-				intent.putExtra(THREAD_ID, post.getID());
-				intent.putExtra(THREAD_TITLE, post.getTitle());
-
-				startActivity(intent);
 			}
 		});
 	}
 
-	private class ThreadListRequestListener implements
-			RequestListener<ListPosts> {
+	private class ThreadRequestListener implements RequestListener<ListPosts> {
 		@Override
 		public void onRequestFailure(SpiceException arg0) {
 			Log.d(TAG, "err on req: " + arg0.toString());

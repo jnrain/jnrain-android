@@ -17,6 +17,7 @@ package org.jnrain.mobile;
 
 import org.jnrain.mobile.network.HotPostsListRequest;
 import org.jnrain.weiyu.collection.ListHotPosts;
+import org.jnrain.weiyu.entity.Post;
 
 import roboguice.inject.InjectResource;
 import roboguice.inject.InjectView;
@@ -25,6 +26,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -81,21 +83,32 @@ public class GlobalHotPostsListActivity extends SpicedRoboActivity {
 		listHotPosts.setAdapter(adapter);
 
 		// attach click event
-		/*
-		 * listHotPosts .setOnItemClickListener(new
-		 * AdapterView.OnItemClickListener() {
-		 * 
-		 * @Override public void onItemClick(AdapterView<?> parent, View view,
-		 * int position, long id) { Post post = _posts.getPosts().get(position);
-		 * 
-		 * Log.i(TAG, "clicked: " + position + ", post.title=" +
-		 * post.getTitle());
-		 * 
-		 * finish();
-		 * 
-		 * Intent intent = new Intent( GlobalHotPostsListActivity.this,
-		 * SectionListActivity.class); startActivity(intent); } });
-		 */
+
+		listHotPosts
+				.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+					@Override
+					public void onItemClick(AdapterView<?> parent, View view,
+							int position, long id) {
+						Post post = _posts.getPosts().get(position);
+
+						Log.i(TAG, "clicked: " + position + ", post.title="
+								+ post.getTitle());
+
+						Intent intent = new Intent(
+								GlobalHotPostsListActivity.this,
+								ReadThreadActivity.class);
+						intent.putExtra(BoardListActivity.BRD_ID,
+								post.getBoard());
+						intent.putExtra(ThreadListActivity.THREAD_ID,
+								post.getID());
+						intent.putExtra(ThreadListActivity.THREAD_TITLE,
+								post.getTitle());
+
+						startActivity(intent);
+					}
+				});
+
 	}
 
 	private class GlobalHotPostsListRequestListener implements
