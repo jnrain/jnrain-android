@@ -17,6 +17,8 @@
     <roboguice.version>2.0</roboguice.version>
     <abs.version>4.2.0</abs.version>
     <robosherlock.version>1.5</robosherlock.version>
+    <lmlv.version>0.1.0</lmlv.version>
+    
   </properties>
 
   <dependencies>
@@ -53,6 +55,20 @@
       <groupId>com.github.rtyley</groupId>
       <artifactId>roboguice-sherlock</artifactId>
       <version>${robosherlock.version}</version>
+    </dependency>
+    
+    <dependency>
+    <groupId>com.costum</groupId>
+    <artifactId>loadmorelistview</artifactId>
+    <version>${lmlv.version}</version>
+    <type>apklib</type>
+    </dependency>
+    <dependency>
+      <groupId>com.costum</groupId>
+      <artifactId>loadmorelistview</artifactId>
+      <version>${lmlv.version}</version>
+      <type>jar</type>
+      <scope>provided</scope>
     </dependency>
 
     <dependency>

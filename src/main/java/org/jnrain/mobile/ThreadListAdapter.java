@@ -22,15 +22,16 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-public class ThreadListAdapter extends BaseAdapter {
+public class ThreadListAdapter extends ArrayAdapter<Post> {
 	// private static final String TAG = "PostsListAdapter";
 	private LayoutInflater _inflater;
 	private ListPosts _data;
 
 	public ThreadListAdapter(Context context, ListPosts data) {
+		super(context, R.layout.thread_item, data.getPosts());
 		this._inflater = LayoutInflater.from(context);
 		this._data = data;
 	}

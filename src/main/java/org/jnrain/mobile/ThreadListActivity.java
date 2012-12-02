@@ -25,21 +25,25 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ListView;
 
+import com.costum.android.widget.LoadMoreListView;
+import com.costum.android.widget.LoadMoreListView.OnLoadMoreListener;
 import com.octo.android.robospice.persistence.DurationInMillis;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
 
 public class ThreadListActivity extends SpicedRoboActivity {
 	@InjectView(R.id.listPosts)
-	ListView listPosts;
+	LoadMoreListView listPosts;
 
 	public static final String THREAD_ID = "org.jnrain.mobile.THREAD_ID";
 	public static final String THREAD_TITLE = "org.jnrain.mobile.THREAD_TITLE";
 
 	private String _brd_id;
 	private ListPosts _posts;
+	private int _page;
+
+	private ThreadListAdapter _adapter;
 
 	private static final String TAG = "ThreadListActivity";
 	private static final String CACHE_KEY_PREFIX = "brd_json_";
@@ -53,20 +57,37 @@ public class ThreadListActivity extends SpicedRoboActivity {
 
 		Intent intent = getIntent();
 		this._brd_id = intent.getStringExtra(BoardListActivity.BRD_ID);
+		this._page = 1;
 
 		// update title of action bar
 		getSupportActionBar().setTitle(this._brd_id);
 
 		// fetch thread list
-		spiceManager.execute(new ThreadListRequest(this._brd_id),
-				CACHE_KEY_PREFIX + this._brd_id, DurationInMillis.ONE_MINUTE,
-				new ThreadListRequestListener());
+		makeRequest(_page);
+
+		// load more handler
+		listPosts.setOnLoadMoreListener(new OnLoadMoreListener() {
+			@Override
+			public void onLoadMore() {
+				_page++;
+				makeRequest(_page);
+			}
+		});
+	}
+
+	public void makeRequest(int page) {
+		spiceManager
+				.execute(
+						new ThreadListRequest(this._brd_id, page),
+						CACHE_KEY_PREFIX + this._brd_id + "_p"
+								+ Integer.toString(page),
+						DurationInMillis.ONE_MINUTE,
+						new ThreadListRequestListener());
 	}
 
 	public synchronized void updateData() {
-		ThreadListAdapter adapter = new ThreadListAdapter(
-				getApplicationContext(), _posts);
-		listPosts.setAdapter(adapter);
+		_adapter = new ThreadListAdapter(getApplicationContext(), _posts);
+		listPosts.setAdapter(_adapter);
 
 		listPosts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
@@ -98,9 +119,33 @@ public class ThreadListActivity extends SpicedRoboActivity {
 		@Override
 		public void onRequestSuccess(ListPosts posts) {
 			Log.v(TAG, "got posts list: " + posts.toString());
-			_posts = posts;
+			if (_posts == null) {
+				_posts = posts;
 
-			updateData();
+				runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+						updateData();
+					}
+				});
+			} else {
+				// update the current list instead
+				runOnUiThread(new Runnable() {
+					private ListPosts _posts;
+
+					public Runnable setPosts(ListPosts posts) {
+						this._posts = posts;
+						return this;
+					}
+
+					@Override
+					public void run() {
+						ThreadListActivity.this._posts.getPosts().addAll(
+								_posts.getPosts());
+						_adapter.notifyDataSetChanged();
+					}
+				}.setPosts(posts));
+			}
 		}
 	}
 }
