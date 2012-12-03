@@ -6,7 +6,3 @@ before_install:
   - export ANDROID_HOME=~/builds/jnrainerds/jnrain-android/android-sdk-linux
   - export PATH=${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:${PATH}
   - android update sdk --filter 1,4 --no-ui --force
-  - git clone https://github.com/xen0n/android-pulltorefresh-and-loadmore.git
-  - cd android-pulltorefresh-and-loadmore/pulltorefresh-and-loadmore
-  - mvn clean install --quiet -DskipTests=true
-  - cd ../..

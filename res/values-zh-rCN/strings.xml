@@ -36,4 +36,7 @@
     <!-- GlobalHotPostsListActivity -->
     <string name="return_desc">返回</string>
 
+    <!-- Dynamic page fragments -->
+    <string name="page_nr">第 {0} 页</string>
+
 </resources>

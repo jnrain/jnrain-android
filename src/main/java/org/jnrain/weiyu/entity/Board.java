@@ -25,6 +25,7 @@ public class Board {
 	private String _name;
 	private List<String> _bm;
 	private List<String> _topics;
+	private int _threads;
 
 	public String getID() {
 		return this._id;
@@ -56,6 +57,14 @@ public class Board {
 
 	public void setTopics(List<String> topics) {
 		this._topics = topics;
+	}
+
+	public int getThreads() {
+		return _threads;
+	}
+
+	public void setThreads(int threads) {
+		this._threads = threads;
 	}
 
 	public String toString() {

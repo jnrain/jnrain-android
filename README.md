@@ -27,6 +27,7 @@ Eclipse 用户注意：由于 m2e-android 的[已知问题](https://github.com/r
 * [RoboGuice](http://code.google.com/p/roboguice/): 简化 UI 代码。
 * [ActionBarSherlock](http://actionbarsherlock.com/): 兼容低版本系统的 action bar 实现。
 * [roboguice-sherlock](https://github.com/rtyley/roboguice-sherlock/): 结合 RoboGuice 和 ActionBarSherlock 的 glue code。
+* [ViewPagerIndicator](http://viewpagerindicator.com/): 提供 `Fragment` 选项卡的支持。
 
 
 ## 功能特性
@@ -40,6 +41,7 @@ Eclipse 用户注意：由于 m2e-android 的[已知问题](https://github.com/r
     * *TODO: 大区*
     * *TODO: 版面*
 * 帖子列表 API
+* 读帖 API
 
 同样因为原型开发的原因，客户端没有接入[落花](https://github.com/xen0n/luohua/)/[微雨](https://github.com/xen0n/weiyu/)项目的API终点，而是接入了江南听雨BBS PHP的实验API终点，以利用已经成熟的数据源。
 

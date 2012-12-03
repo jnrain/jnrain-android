@@ -16,7 +16,9 @@
 package org.jnrain.mobile;
 
 import org.jnrain.mobile.network.HotPostsListRequest;
+import org.jnrain.mobile.util.SpicedRoboActivity;
 import org.jnrain.weiyu.collection.ListHotPosts;
+import org.jnrain.weiyu.collection.ListPosts;
 import org.jnrain.weiyu.entity.Post;
 
 import roboguice.inject.InjectResource;
@@ -35,7 +37,7 @@ import com.octo.android.robospice.persistence.DurationInMillis;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
 
-public class GlobalHotPostsListActivity extends SpicedRoboActivity {
+public class GlobalHotPostsListActivity extends SpicedRoboActivity<ListPosts> {
 	@InjectView(R.id.textGlobalHotPostsStatus)
 	TextView textStatus;
 	@InjectView(R.id.listGlobalHotPosts)
@@ -104,6 +106,7 @@ public class GlobalHotPostsListActivity extends SpicedRoboActivity {
 								post.getID());
 						intent.putExtra(ThreadListActivity.THREAD_TITLE,
 								post.getTitle());
+						// TODO: no. of replies!
 
 						startActivity(intent);
 					}

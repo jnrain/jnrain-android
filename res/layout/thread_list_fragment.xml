@@ -20,14 +20,13 @@
     android:layout_height="match_parent"
     tools:context=".BoardActivity" >
 
-    <com.costum.android.widget.LoadMoreListView
+    <ListView
         android:id="@+id/listPosts"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         tools:listitem="@layout/post_item" >
-
-    </com.costum.android.widget.LoadMoreListView>
+    </ListView>
 
 </RelativeLayout>

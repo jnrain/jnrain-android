@@ -44,6 +44,9 @@
     <style name="Theme.JNRain.DefaultDark" parent="@style/Theme.Sherlock">
         <item name="android:windowNoTitle">true</item>
     </style>
+    
+    <style name="Theme.JNRain.DefaultDark.FragmentActivity" parent="@style/Theme.Sherlock">
+    </style>
 
     <style name="Theme.JNRain.DefaultDark.NoActionBar" parent="@style/Theme.Sherlock.NoActionBar">
         <item name="android:windowNoTitle">true</item>

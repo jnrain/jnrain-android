@@ -15,38 +15,48 @@
  */
 package org.jnrain.mobile;
 
-import org.jnrain.mobile.network.ThreadRequest;
+import org.jnrain.mobile.util.SpicedRoboFragmentActivity;
 import org.jnrain.weiyu.collection.ListPosts;
-import org.jnrain.weiyu.entity.Post;
 
 import roboguice.inject.InjectView;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
 
-import com.octo.android.robospice.persistence.DurationInMillis;
-import com.octo.android.robospice.persistence.exception.SpiceException;
-import com.octo.android.robospice.request.listener.RequestListener;
+import com.viewpagerindicator.TitlePageIndicator;
+import com.viewpagerindicator.TitlePageIndicator.IndicatorStyle;
 
-public class ReadThreadActivity extends SpicedRoboActivity {
-	@InjectView(R.id.listPosts)
-	ListView listPosts;
+public class ReadThreadActivity extends SpicedRoboFragmentActivity<ListPosts>
+		implements ReadThreadActivityListener {
+	@InjectView(R.id.pager)
+	ViewPager viewPager;
+	@InjectView(R.id.indicator)
+	TitlePageIndicator indicator;
+
+	ReadThreadFragmentAdapter _adapter;
 
 	private String _brd_id;
 	private String _title;
 	private long _tid;
-	private ListPosts _posts;
+	private int _totalposts;
 
+	private int _page;
+	private int _totalpages;
+
+	public static final int POSTS_PER_PAGE = 10;
 	private static final String TAG = "ReadThreadActivity";
-	private static final String CACHE_KEY_PREFIX = "tid_json_";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_thread_list);
+		setContentView(R.layout.dyn_pages);
+		_adapter = new ReadThreadFragmentAdapter(getSupportFragmentManager(),
+				getApplicationContext());
+		viewPager.setAdapter(_adapter);
+		indicator.setViewPager(viewPager);
+		indicator.setFooterIndicatorStyle(IndicatorStyle.Triangle);
+
 		// Show the Up button in the action bar.
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -54,47 +64,54 @@ public class ReadThreadActivity extends SpicedRoboActivity {
 		this._brd_id = intent.getStringExtra(BoardListActivity.BRD_ID);
 		this._tid = intent.getLongExtra(ThreadListActivity.THREAD_ID, -1);
 		this._title = intent.getStringExtra(ThreadListActivity.THREAD_TITLE);
+		this._totalposts = intent.getIntExtra(BoardListActivity.NUM_POSTS, 1);
 
 		// update title of action bar
 		getSupportActionBar().setTitle(this._title);
 
-		// fetch posts
-		spiceManager.execute(
-				new ThreadRequest(this._brd_id, this._tid),
-				CACHE_KEY_PREFIX + this._brd_id + "_"
-						+ Long.toString(this._tid) + "_1",
-				DurationInMillis.ONE_MINUTE, new ThreadRequestListener());
-	}
+		_totalpages = (int) Math.ceil((double) _totalposts / POSTS_PER_PAGE);
 
-	public synchronized void updateData() {
-		ThreadAdapter adapter = new ThreadAdapter(
-				getApplicationContext(), _posts);
-		listPosts.setAdapter(adapter);
+		// initial tabs
+		addReplyPage(1);
+		if (_totalpages == 1) {
+			_page = 1;
+		} else {
+			_page = 2;
+			addReplyPage(2);
+		}
 
-		listPosts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+		// pager listener
+		indicator.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				Post post = _posts.getPosts().get(position);
+			public void onPageScrollStateChanged(int state) {
+				// intentionally left blank
+				// Log.d(TAG, "PageScrollStateChanged: " +
+				// Integer.toString(state));
+			}
 
-				Log.i(TAG, "clicked: " + position + ", id=" + id + ", post="
-						+ post.toString());
+			@Override
+			public void onPageScrolled(int position, float positionOffset,
+					int positionOffsetPixels) {
+				// intentionally left blank
+			}
+
+			@Override
+			public void onPageSelected(int position) {
+				Log.d(TAG, "PageSelected: " + Integer.toString(position)
+						+ ", _page = " + Integer.toString(_page));
+				if (position == _page - 1) {
+					// last tab, add another page if there are still enough
+					// threads to display
+					if (_page < _totalpages) {
+						_page++;
+						addReplyPage(_page);
+					}
+				}
 			}
 		});
 	}
 
-	private class ThreadRequestListener implements RequestListener<ListPosts> {
-		@Override
-		public void onRequestFailure(SpiceException arg0) {
-			Log.d(TAG, "err on req: " + arg0.toString());
-		}
-
-		@Override
-		public void onRequestSuccess(ListPosts posts) {
-			Log.v(TAG, "got posts list: " + posts.toString());
-			_posts = posts;
-
-			updateData();
-		}
+	public void addReplyPage(int page) {
+		_adapter.addItem(this._brd_id, this._tid, page);
 	}
 }

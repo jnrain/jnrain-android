@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.jnrain.mobile</groupId>
   <artifactId>jnrain-android</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.0.2-SNAPSHOT</version>
   <packaging>apk</packaging>
   <name>jnrain-android</name>
 
@@ -17,8 +17,7 @@
     <roboguice.version>2.0</roboguice.version>
     <abs.version>4.2.0</abs.version>
     <robosherlock.version>1.5</robosherlock.version>
-    <lmlv.version>0.1.0</lmlv.version>
-    
+    <vpi.version>2.4.1</vpi.version>
   </properties>
 
   <dependencies>
@@ -56,19 +55,12 @@
       <artifactId>roboguice-sherlock</artifactId>
       <version>${robosherlock.version}</version>
     </dependency>
-    
+
     <dependency>
-    <groupId>com.costum</groupId>
-    <artifactId>loadmorelistview</artifactId>
-    <version>${lmlv.version}</version>
-    <type>apklib</type>
-    </dependency>
-    <dependency>
-      <groupId>com.costum</groupId>
-      <artifactId>loadmorelistview</artifactId>
-      <version>${lmlv.version}</version>
-      <type>jar</type>
-      <scope>provided</scope>
+      <groupId>com.viewpagerindicator</groupId>
+      <artifactId>library</artifactId>
+      <version>${vpi.version}</version>
+      <type>apklib</type>
     </dependency>
 
     <dependency>

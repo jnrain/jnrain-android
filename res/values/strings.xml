@@ -32,8 +32,11 @@
 
     <!-- failure messages -->
     <string name="fail_load_global_hot_posts">Failed loading global hot posts.</string>
-    
+
     <!-- GlobalHotPostsListActivity -->
     <string name="return_desc">Return</string>
+
+    <!-- Dynamic page fragments -->
+    <string name="page_nr">Page {0}</string>
 
 </resources>

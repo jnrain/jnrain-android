@@ -22,7 +22,7 @@
         </activity>
 
         <service
-            android:name="org.jnrain.mobile.JNRainSpiceService"
+            android:name="org.jnrain.mobile.service.JNRainSpiceService"
             android:enabled="true"
             android:exported="false" >
         </service>
@@ -48,7 +48,7 @@
         <activity
             android:name="org.jnrain.mobile.ThreadListActivity"
             android:label="@string/title_activity_board"
-            android:theme="@style/Theme.JNRain.DefaultDark" >
+            android:theme="@style/Theme.JNRain.DefaultDark.FragmentActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.jnrain.mobile.BoardListActivity" />

@@ -16,7 +16,9 @@
 package org.jnrain.mobile;
 
 import org.jnrain.mobile.network.BoardListRequest;
+import org.jnrain.mobile.util.SpicedRoboActivity;
 import org.jnrain.weiyu.collection.ListBoards;
+import org.jnrain.weiyu.collection.ListPosts;
 import org.jnrain.weiyu.entity.Board;
 
 import roboguice.inject.InjectView;
@@ -31,11 +33,12 @@ import com.octo.android.robospice.persistence.DurationInMillis;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
 
-public class BoardListActivity extends SpicedRoboActivity {
+public class BoardListActivity extends SpicedRoboActivity<ListPosts> {
 	@InjectView(R.id.listBoards)
 	ListView listBoards;
 
 	public static final String BRD_ID = "org.jnrain.mobile.BRD_ID";
+	public static final String NUM_POSTS = "org.jnrain.mobile.NUM_POSTS";
 
 	private static final String TAG = "BoardListActivity";
 	private static final String CACHE_KEY_PREFIX = "brds_sec_";
@@ -51,7 +54,7 @@ public class BoardListActivity extends SpicedRoboActivity {
 		Intent intent = getIntent();
 		this._sec_ord = intent.getStringExtra(SectionListActivity.SEC_ORD);
 		spiceManager.execute(new BoardListRequest(this._sec_ord),
-				CACHE_KEY_PREFIX + this._sec_ord, DurationInMillis.ONE_WEEK,
+				CACHE_KEY_PREFIX + this._sec_ord, DurationInMillis.ONE_HOUR,
 				new BoardListRequestListener());
 	}
 
@@ -73,6 +76,7 @@ public class BoardListActivity extends SpicedRoboActivity {
 						Intent intent = new Intent(BoardListActivity.this,
 								ThreadListActivity.class);
 						intent.putExtra(BRD_ID, brd.getID());
+						intent.putExtra(NUM_POSTS, brd.getThreads());
 
 						startActivity(intent);
 					}

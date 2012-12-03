@@ -13,24 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jnrain.mobile;
+package org.jnrain.mobile.util;
 
-import com.github.rtyley.android.sherlock.roboguice.activity.RoboSherlockActivity;
-import com.octo.android.robospice.SpiceManager;
+import com.octo.android.robospice.request.SpiceRequest;
+import com.octo.android.robospice.request.listener.RequestListener;
 
-public class SpicedRoboActivity extends RoboSherlockActivity {
-	protected SpiceManager spiceManager = new SpiceManager(
-			JNRainSpiceService.class);
-
-	@Override
-	protected void onStart() {
-		super.onStart();
-		spiceManager.start(this);
-	}
-
-	@Override
-	protected void onStop() {
-		spiceManager.shouldStop();
-		super.onStop();
-	}
+public interface SpiceRequestListener<T> {
+	public void makeSpiceRequest(SpiceRequest<T> request,
+			String requestCacheKey, long cacheDuration,
+			RequestListener<T> requestListener);
 }

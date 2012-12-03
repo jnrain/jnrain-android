@@ -16,6 +16,7 @@
 package org.jnrain.mobile;
 
 import org.jnrain.mobile.network.SectionListRequest;
+import org.jnrain.mobile.util.SpicedRoboActivity;
 import org.jnrain.weiyu.collection.ListSections;
 import org.jnrain.weiyu.entity.Section;
 
@@ -31,7 +32,7 @@ import com.octo.android.robospice.persistence.DurationInMillis;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
 
-public class SectionListActivity extends SpicedRoboActivity {
+public class SectionListActivity extends SpicedRoboActivity<ListSections> {
 	@InjectView(R.id.listSections)
 	ListView listSections;
 
