@@ -67,19 +67,10 @@ public class ThreadAdapter extends BaseAdapter {
 			convertView = this._inflater.inflate(R.layout.post_item, null);
 		}
 
-		TextView textTitle = (TextView) convertView
-				.findViewById(R.id.textTitle);
-		TextView textAuthor = (TextView) convertView
-				.findViewById(R.id.textAuthor);
 		TextView textContent = (TextView) convertView
 				.findViewById(R.id.textContent);
-		TextView textSignature = (TextView) convertView
-				.findViewById(R.id.textSignature);
 
-		textTitle.setText(post.getTitle());
-		textAuthor.setText(post.getAuthor());
 		textContent.setText(Html.fromHtml(post.getContent()));
-		textSignature.setText(Html.fromHtml(post.getSign()));
 
 		return convertView;
 	}

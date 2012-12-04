@@ -19,40 +19,10 @@
     android:layout_height="match_parent" >
 
     <TextView
-        android:id="@+id/textTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:text="帖子标题"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@color/jnrain_green_dark"
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/textAuthor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textTitle"
-        android:layout_below="@+id/textTitle"
-        android:text="author"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="@color/jnrain_green"
-        android:textSize="12sp" />
-
-    <TextView
         android:id="@+id/textContent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textAuthor"
-        android:text="帖子内容" />
-
-    <TextView
-        android:id="@+id/textSignature"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textContent"
-        android:text="qmd" />
+        android:layout_alignParentTop="true" />
 
 </RelativeLayout>
