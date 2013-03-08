@@ -27,4 +27,14 @@
         <item name="selectedBold">true</item>
     </style>
 
+    <style name="ListItem">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingRight">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
+        <item name="android:paddingLeft">4dp</item>
+        <item name="android:background">@drawable/list_item_bkgnd</item>
+    </style>
+
 </resources>
