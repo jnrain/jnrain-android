@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  Copyright 2012 JNRain
+  Copyright 2012-2013 JNRain
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -16,10 +16,8 @@
 -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <style name="Animations" parent="@android:Animation" />
-
-    <style name="Animations.SplashScreen">
-        <item name="android:windowEnterAnimation">@anim/splash_fadein</item>
-    </style>
+    <color name="jnrain_green_light">#F8FCF3</color>
+    <color name="jnrain_green">#A9D46D</color>
+    <color name="jnrain_green_dark">#669A1F</color>
 
 </resources>

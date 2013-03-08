@@ -16,10 +16,15 @@
 -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <style name="Animations" parent="@android:Animation" />
-
-    <style name="Animations.SplashScreen">
-        <item name="android:windowEnterAnimation">@anim/splash_fadein</item>
+    <style name="JNRainTitlePageIndicator">
+        <item name="android:background">#18A9D46D</item>
+        <item name="footerColor">#FF669A1F</item>
+        <item name="footerLineHeight">1dp</item>
+        <item name="footerIndicatorHeight">3dp</item>
+        <item name="footerIndicatorStyle">underline</item>
+        <item name="android:textColor">#CCA9D46D</item>
+        <item name="selectedColor">#FF669A1F</item>
+        <item name="selectedBold">true</item>
     </style>
 
 </resources>
