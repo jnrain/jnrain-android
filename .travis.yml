@@ -8,5 +8,5 @@ before_install:
   - export PATH=${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:${PATH}
   - pwd
   - ls -l
-  - ls -l ${ANDROID_HOME} ${ANDROID_HOME}/tools ${ANDROID_HOME}/platform_tools
+  - ls -l ${ANDROID_HOME} ${ANDROID_HOME}/tools ${ANDROID_HOME}/platform-tools
   - android update sdk --filter platform-tools,android-16 --no-ui --force
