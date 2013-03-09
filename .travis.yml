@@ -5,4 +5,6 @@ before_install:
   - tar -zxf android-sdk_r21-linux.tgz
   - export ANDROID_HOME=~/builds/jnrainerds/jnrain-android/android-sdk-linux
   - export PATH=${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:${PATH}
+  - echo $PATH
+  - ls -l ${ANDROID_HOME} ${ANDROID_HOME}/tools ${ANDROID_HOME}/platform_tools
   - android update sdk --filter platform-tools,android-16 --no-ui --force
