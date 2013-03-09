@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 JNRain
+ * Copyright 2012-2013 JNRain
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,9 +15,11 @@
  */
 package org.jnrain.mobile;
 
+import org.jnrain.mobile.util.URLImageGetter;
 import org.jnrain.weiyu.collection.ListPosts;
 import org.jnrain.weiyu.entity.Post;
 
+import android.app.Activity;
 import android.content.Context;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -27,12 +29,15 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 public class ThreadAdapter extends BaseAdapter {
-	// private static final String TAG = "PostsListAdapter";
+	// private static final String TAG = "ThreadAdapter";
+	public static final String RESOURCE_BASE_URL = "http://bbs.jnrain.com/rainstyle/";
 	private LayoutInflater _inflater;
+	private Activity _activity;
 	private ListPosts _data;
 
-	public ThreadAdapter(Context context, ListPosts data) {
-		this._inflater = LayoutInflater.from(context);
+	public ThreadAdapter(Activity activity, ListPosts data) {
+		this._inflater = LayoutInflater.from(activity.getApplicationContext());
+		this._activity = activity;
 		this._data = data;
 	}
 
@@ -78,8 +83,14 @@ public class ThreadAdapter extends BaseAdapter {
 
 		textTitle.setText(post.getTitle());
 		textAuthor.setText(post.getAuthor());
-		textContent.setText(Html.fromHtml(post.getContent()));
-		textSignature.setText(Html.fromHtml(post.getSign()));
+
+		// network image enabled content
+		Context ctx = _activity.getApplicationContext();
+		textContent.setText(Html.fromHtml(post.getContent(),
+				new URLImageGetter(_activity, textContent, ctx,
+						RESOURCE_BASE_URL), null));
+		textSignature.setText(Html.fromHtml(post.getSign(), new URLImageGetter(
+				_activity, textSignature, ctx, RESOURCE_BASE_URL), null));
 
 		return convertView;
 	}
