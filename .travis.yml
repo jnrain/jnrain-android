@@ -9,4 +9,4 @@ before_install:
   - pwd
   - ls -l
   - android update sdk --filter platform-tools,android-16 --no-ui --force
-  - ls -l ${ANDROID_HOME} ${ANDROID_HOME}/tools ${ANDROID_HOME}/platforms
+  - ls -l ${ANDROID_HOME} ${ANDROID_HOME}/platform-tools
