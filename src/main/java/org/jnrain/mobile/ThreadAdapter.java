@@ -15,8 +15,8 @@
  */
 package org.jnrain.mobile;
 
+import org.jnrain.mobile.util.JNRainURLImageGetter;
 import org.jnrain.mobile.util.SpiceRequestListener;
-import org.jnrain.mobile.util.URLImageGetter;
 import org.jnrain.weiyu.collection.ListPosts;
 import org.jnrain.weiyu.entity.Post;
 
@@ -91,11 +91,11 @@ public class ThreadAdapter extends BaseAdapter {
 		// network image enabled content
 		Context ctx = _activity.getApplicationContext();
 		textContent.setText(Html.fromHtml(post.getContent(),
-				new URLImageGetter(_activity, textContent, ctx,
+				new JNRainURLImageGetter(_activity, textContent, ctx,
 						RESOURCE_BASE_URL, _listener), null));
-		textSignature.setText(Html.fromHtml(post.getSign(), new URLImageGetter(
-				_activity, textSignature, ctx, RESOURCE_BASE_URL, _listener),
-				null));
+		textSignature.setText(Html.fromHtml(post.getSign(),
+				new JNRainURLImageGetter(_activity, textSignature, ctx,
+						RESOURCE_BASE_URL, _listener), null));
 
 		return convertView;
 	}
