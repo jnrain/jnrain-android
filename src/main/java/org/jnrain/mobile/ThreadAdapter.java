@@ -15,7 +15,8 @@
  */
 package org.jnrain.mobile;
 
-import org.jnrain.mobile.util.URLImageGetter;
+import org.jnrain.mobile.util.JNRainURLImageGetter;
+import org.jnrain.mobile.util.SpiceRequestListener;
 import org.jnrain.weiyu.collection.ListPosts;
 import org.jnrain.weiyu.entity.Post;
 
@@ -34,11 +35,14 @@ public class ThreadAdapter extends BaseAdapter {
 	private LayoutInflater _inflater;
 	private Activity _activity;
 	private ListPosts _data;
+	private SpiceRequestListener _listener;
 
-	public ThreadAdapter(Activity activity, ListPosts data) {
+	public ThreadAdapter(Activity activity, ListPosts data,
+			SpiceRequestListener listener) {
 		this._inflater = LayoutInflater.from(activity.getApplicationContext());
 		this._activity = activity;
 		this._data = data;
+		this._listener = listener;
 	}
 
 	@Override
@@ -87,10 +91,11 @@ public class ThreadAdapter extends BaseAdapter {
 		// network image enabled content
 		Context ctx = _activity.getApplicationContext();
 		textContent.setText(Html.fromHtml(post.getContent(),
-				new URLImageGetter(_activity, textContent, ctx,
-						RESOURCE_BASE_URL), null));
-		textSignature.setText(Html.fromHtml(post.getSign(), new URLImageGetter(
-				_activity, textSignature, ctx, RESOURCE_BASE_URL), null));
+				new JNRainURLImageGetter(_activity, textContent, ctx,
+						RESOURCE_BASE_URL, _listener), null));
+		textSignature.setText(Html.fromHtml(post.getSign(),
+				new JNRainURLImageGetter(_activity, textSignature, ctx,
+						RESOURCE_BASE_URL, _listener), null));
 
 		return convertView;
 	}

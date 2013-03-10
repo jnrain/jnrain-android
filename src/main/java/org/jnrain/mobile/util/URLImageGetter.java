@@ -15,27 +15,28 @@
  */
 package org.jnrain.mobile.util;
 
-import java.io.IOException;
+import java.io.File;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.commons.codec.binary.Hex;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.jnrain.mobile.R;
 
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
 import android.text.Html.ImageGetter;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.octo.android.robospice.persistence.DurationInMillis;
+import com.octo.android.robospice.request.simple.BigBinaryRequest;
+
 /*
  * this code taken from
  * stackoverflow.com/questions/7424512/android-html-imagegetter-as-asynctask
+ * migrated to RoboSpice with the example robospice-sample-core.
  */
 public class URLImageGetter implements ImageGetter {
 	private static final String TAG = "URLImageGetter";
@@ -44,6 +45,7 @@ public class URLImageGetter implements ImageGetter {
 	protected View _container;
 	protected String _baseURL;
 	protected Activity _activity;
+	protected SpiceRequestListener<InputStream> _listener;
 
 	/***
 	 * Construct the URLImageParser which will execute AsyncTask and refresh the
@@ -53,103 +55,69 @@ public class URLImageGetter implements ImageGetter {
 	 * @param c
 	 * @param baseURL
 	 */
-	public URLImageGetter(Activity activity, View t, Context c, String baseURL) {
+	public URLImageGetter(Activity activity, View t, Context c, String baseURL,
+			SpiceRequestListener<InputStream> listener) {
 		_activity = activity;
 		_c = c;
 		_container = t;
 		_baseURL = baseURL;
+		_listener = listener;
+	}
+
+	protected String transformSource(String source) {
+		if (source.startsWith("http://") || source.startsWith("https://")) {
+			// Don't transform absolute source for now
+			return source;
+		}
+
+		return transformRelativeSource(source);
+	}
+
+	protected String transformRelativeSource(String source) {
+		return source;
 	}
 
 	public Drawable getDrawable(String source) {
-		Log.d(TAG, "Image request: " + source);
+		Log.v(TAG, "Image request: " + source);
+
+		// Transform source
+		String actualSource = transformSource(source);
+		Log.v(TAG, "Transformed => " + actualSource);
+
+		// set image to loading state
 		URLDrawable urlDrawable = new URLDrawable(_activity.getResources()
 				.getDrawable(R.drawable.loading_pic));
 
 		// get the actual source
-		// TODO: migrate to RoboSpice
-		ImageGetterAsyncTask asyncTask = new ImageGetterAsyncTask(urlDrawable);
+		String absoluteURL;
 
-		asyncTask.execute(source);
+		if (actualSource.startsWith("http://")
+				|| actualSource.startsWith("https://")) {
+			absoluteURL = actualSource;
+		} else {
+			absoluteURL = _baseURL + actualSource;
+		}
+
+		// make the request
+		// hash the url
+		// NOTE: we cannot directly use DigestUtils.sha1Hex, because of the
+		// Android-specific quirk described in
+		// stackoverflow.com/questions/9126567/method-not-found-using-digestutils-in-android
+		String absURLHash = new String(Hex.encodeHex(DigestUtils
+				.sha1(absoluteURL)));
+
+		File cacheFile = new File(_activity.getApplication().getCacheDir(),
+				absURLHash);
+		BigBinaryRequest req = new BigBinaryRequest(absoluteURL, cacheFile);
+
+		_listener
+				.makeSpiceRequest(req, null, DurationInMillis.ONE_DAY,
+						new URLImageRequestListener((TextView) _container,
+								urlDrawable));
 
 		// return reference to URLDrawable where I will change with actual image
 		// from
 		// the src tag
 		return urlDrawable;
-	}
-
-	public class ImageGetterAsyncTask extends AsyncTask<String, Void, Drawable> {
-		URLDrawable urlDrawable;
-
-		public ImageGetterAsyncTask(URLDrawable d) {
-			this.urlDrawable = d;
-		}
-
-		@Override
-		protected Drawable doInBackground(String... params) {
-			String source = params[0];
-			return fetchDrawable(source);
-		}
-
-		@Override
-		protected void onPostExecute(Drawable result) {
-			if (result == null) {
-				// Fetch failed, show the failed image instead
-				// TODO: assign a "failed" image here
-			} else {
-				// set the correct bound according to the result from HTTP call
-				urlDrawable.setBounds(0, 0, 0 + result.getIntrinsicWidth(),
-						0 + result.getIntrinsicHeight());
-
-				// change the reference of the current drawable to the result
-				// from the HTTP call
-				urlDrawable.setDrawable(result);
-			}
-
-			// // redraw the image by invalidating the container
-			// URLImageGetter.this._container.invalidate();
-
-			// according to this SO question,
-			// stackoverflow.com/questions/7739649/async-imagegetter-not-functioning-properly
-			// we need to force a reflow of the container.
-			// TODO: extract interface for reusability here
-			TextView v = (TextView) _container;
-			v.setText(v.getText());
-		}
-
-		/***
-		 * Get the Drawable from URL
-		 * 
-		 * @param urlString
-		 * @return
-		 */
-		public Drawable fetchDrawable(String urlString) {
-			try {
-				InputStream is = fetch(urlString);
-				Drawable drawable = Drawable.createFromStream(is, "src");
-				drawable.setBounds(0, 0, 0 + drawable.getIntrinsicWidth(),
-						0 + drawable.getIntrinsicHeight());
-				return drawable;
-			} catch (Exception e) {
-				return null;
-			}
-		}
-
-		private InputStream fetch(String urlString)
-				throws MalformedURLException, IOException {
-			DefaultHttpClient httpClient = new DefaultHttpClient();
-			String absoluteURL;
-
-			if (urlString.startsWith("http://")
-					|| urlString.startsWith("https://")) {
-				absoluteURL = urlString;
-			} else {
-				absoluteURL = _baseURL + urlString;
-			}
-
-			HttpGet request = new HttpGet(absoluteURL);
-			HttpResponse response = httpClient.execute(request);
-
-			return response.getEntity().getContent();
-		}
 	}
 }
