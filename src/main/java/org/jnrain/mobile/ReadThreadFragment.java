@@ -83,7 +83,8 @@ public class ReadThreadFragment extends RoboSherlockFragment {
 	}
 
 	public synchronized void updateData() {
-		ThreadAdapter adapter = new ThreadAdapter(this.getActivity(), _posts);
+		ThreadAdapter adapter = new ThreadAdapter(this.getActivity(), _posts,
+				_listener);
 		listPosts.setAdapter(adapter);
 
 		listPosts.setOnItemClickListener(new AdapterView.OnItemClickListener() {

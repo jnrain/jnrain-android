@@ -15,6 +15,7 @@
  */
 package org.jnrain.mobile;
 
+import org.jnrain.mobile.util.SpiceRequestListener;
 import org.jnrain.mobile.util.URLImageGetter;
 import org.jnrain.weiyu.collection.ListPosts;
 import org.jnrain.weiyu.entity.Post;
@@ -34,11 +35,14 @@ public class ThreadAdapter extends BaseAdapter {
 	private LayoutInflater _inflater;
 	private Activity _activity;
 	private ListPosts _data;
+	private SpiceRequestListener _listener;
 
-	public ThreadAdapter(Activity activity, ListPosts data) {
+	public ThreadAdapter(Activity activity, ListPosts data,
+			SpiceRequestListener listener) {
 		this._inflater = LayoutInflater.from(activity.getApplicationContext());
 		this._activity = activity;
 		this._data = data;
+		this._listener = listener;
 	}
 
 	@Override
@@ -88,9 +92,10 @@ public class ThreadAdapter extends BaseAdapter {
 		Context ctx = _activity.getApplicationContext();
 		textContent.setText(Html.fromHtml(post.getContent(),
 				new URLImageGetter(_activity, textContent, ctx,
-						RESOURCE_BASE_URL), null));
+						RESOURCE_BASE_URL, _listener), null));
 		textSignature.setText(Html.fromHtml(post.getSign(), new URLImageGetter(
-				_activity, textSignature, ctx, RESOURCE_BASE_URL), null));
+				_activity, textSignature, ctx, RESOURCE_BASE_URL, _listener),
+				null));
 
 		return convertView;
 	}
