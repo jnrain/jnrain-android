@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 JNRain
+ * Copyright 2012-2013 JNRain
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,9 +15,12 @@
  */
 package org.jnrain.mobile;
 
+import org.jnrain.mobile.util.JNRainURLImageGetter;
+import org.jnrain.mobile.util.SpiceRequestListener;
 import org.jnrain.weiyu.collection.ListPosts;
 import org.jnrain.weiyu.entity.Post;
 
+import android.app.Activity;
 import android.content.Context;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -27,13 +30,19 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 public class ThreadAdapter extends BaseAdapter {
-	// private static final String TAG = "PostsListAdapter";
+	// private static final String TAG = "ThreadAdapter";
+	public static final String RESOURCE_BASE_URL = "http://bbs.jnrain.com/rainstyle/";
 	private LayoutInflater _inflater;
+	private Activity _activity;
 	private ListPosts _data;
+	private SpiceRequestListener _listener;
 
-	public ThreadAdapter(Context context, ListPosts data) {
-		this._inflater = LayoutInflater.from(context);
+	public ThreadAdapter(Activity activity, ListPosts data,
+			SpiceRequestListener listener) {
+		this._inflater = LayoutInflater.from(activity.getApplicationContext());
+		this._activity = activity;
 		this._data = data;
+		this._listener = listener;
 	}
 
 	@Override
@@ -70,7 +79,11 @@ public class ThreadAdapter extends BaseAdapter {
 		TextView textContent = (TextView) convertView
 				.findViewById(R.id.textContent);
 
-		textContent.setText(Html.fromHtml(post.getContent()));
+		// network image enabled content
+		Context ctx = _activity.getApplicationContext();
+		textContent.setText(Html.fromHtml(post.getContent(),
+				new JNRainURLImageGetter(_activity, textContent, ctx,
+						RESOURCE_BASE_URL, _listener), null));
 
 		return convertView;
 	}

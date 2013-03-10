@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 JNRain
+ * Copyright 2012-2013 JNRain
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -83,8 +83,8 @@ public class ReadThreadFragment extends RoboSherlockFragment {
 	}
 
 	public synchronized void updateData() {
-		ThreadAdapter adapter = new ThreadAdapter(this.getActivity()
-				.getApplicationContext(), _posts);
+		ThreadAdapter adapter = new ThreadAdapter(this.getActivity(), _posts,
+				_listener);
 		listPosts.setAdapter(adapter);
 
 		listPosts.setOnItemClickListener(new AdapterView.OnItemClickListener() {

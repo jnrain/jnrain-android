@@ -16,63 +16,10 @@
 -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <color name="jnrain_green_light">#F8FCF3</color>
-    <color name="jnrain_green">#A9D46D</color>
-    <color name="jnrain_green_dark">#669A1F</color>
-
     <style name="Animations" parent="@android:Animation" />
 
     <style name="Animations.SplashScreen">
         <item name="android:windowEnterAnimation">@anim/splash_fadein</item>
-        <!-- <item name="android:windowExitAnimation">@anim/disappear</item> -->
-    </style>
-
-    <style name="Theme.SplashScreen" parent="android:Theme.NoTitleBar.Fullscreen">
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:background">@drawable/splash_bg</item>
-
-        <!--
-        <item name="android:windowContentOverlay">@null</item>
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowContentOverlay">@null</item>
-        <item name="android:windowIsFloating">true</item>
-        <item name="android:backgroundDimEnabled">false</item>
-        -->
-
-        <item name="android:windowAnimationStyle">@style/Animations.SplashScreen</item>
-    </style>
-
-    <style name="Theme.JNRain.DefaultDark" parent="@style/Theme.Sherlock">
-        <item name="android:windowNoTitle">true</item>
-    </style>
-
-    <style name="Theme.JNRain.DefaultDark.FragmentActivity" parent="@style/Theme.Sherlock"></style>
-
-    <style name="Theme.JNRain.DefaultDark.NoActionBar" parent="@style/Theme.Sherlock.NoActionBar">
-        <item name="android:windowNoTitle">true</item>
-    </style>
-
-    <style name="Theme.JNRain.DefaultLight" parent="@style/Theme.Sherlock.Light">
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowBackground">@color/jnrain_green_light</item>
-        <item name="vpiTitlePageIndicatorStyle">@style/JNRainTitlePageIndicator</item>
-    </style>
-
-    <style name="Theme.JNRain.DefaultLight.NoActionBar" parent="@style/Theme.Sherlock.Light.NoActionBar">
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowBackground">@color/jnrain_green_light</item>
-    </style>
-
-    <style name="JNRainTitlePageIndicator">
-        <item name="android:background">#18A9D46D</item>
-        <item name="footerColor">#FF669A1F</item>
-        <item name="footerLineHeight">1dp</item>
-        <item name="footerIndicatorHeight">3dp</item>
-        <item name="footerIndicatorStyle">underline</item>
-        <!-- <item name="footerIndicatorStyle">triangle</item> -->
-        <item name="android:textColor">#CCA9D46D</item>
-        <item name="selectedColor">#FF669A1F</item>
-        <item name="selectedBold">true</item>
     </style>
 
 </resources>
