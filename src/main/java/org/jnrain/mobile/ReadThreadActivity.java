@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 JNRain
+ * Copyright 2012-2013 JNRain
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,6 @@
 package org.jnrain.mobile;
 
 import org.jnrain.mobile.util.SpicedRoboFragmentActivity;
-import org.jnrain.weiyu.collection.ListPosts;
 
 import roboguice.inject.InjectView;
 import android.content.Intent;
@@ -27,8 +26,8 @@ import android.util.Log;
 import com.viewpagerindicator.TitlePageIndicator;
 import com.viewpagerindicator.TitlePageIndicator.IndicatorStyle;
 
-public class ReadThreadActivity extends SpicedRoboFragmentActivity<ListPosts>
-		implements ReadThreadActivityListener {
+public class ReadThreadActivity extends SpicedRoboFragmentActivity implements
+		ReadThreadActivityListener {
 	@InjectView(R.id.pager)
 	ViewPager viewPager;
 	@InjectView(R.id.indicator)

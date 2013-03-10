@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.jnrain.mobile</groupId>
   <artifactId>jnrain-android</artifactId>
-  <version>0.0.2-SNAPSHOT</version>
+  <version>0.0.4</version>
   <packaging>apk</packaging>
   <name>jnrain-android</name>
 
@@ -14,6 +14,7 @@
     <platform.version>4.0.1.2</platform.version>
     <robospice.version>1.2.0</robospice.version>
     <jackson.version>1.9.7</jackson.version>
+    <ccodec.version>1.7</ccodec.version>
     <roboguice.version>2.0</roboguice.version>
     <abs.version>4.2.0</abs.version>
     <robosherlock.version>1.5</robosherlock.version>
@@ -30,6 +31,11 @@
       <groupId>org.codehaus.jackson</groupId>
       <artifactId>jackson-mapper-asl</artifactId>
       <version>${jackson.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-codec</groupId>
+      <artifactId>commons-codec</artifactId>
+      <version>${ccodec.version}</version>
     </dependency>
 
     <dependency>

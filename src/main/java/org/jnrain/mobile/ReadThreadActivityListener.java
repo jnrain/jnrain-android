@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 JNRain
+ * Copyright 2012-2013 JNRain
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,8 +16,6 @@
 package org.jnrain.mobile;
 
 import org.jnrain.mobile.util.SpiceRequestListener;
-import org.jnrain.weiyu.collection.ListPosts;
 
-public interface ReadThreadActivityListener extends
-		SpiceRequestListener<ListPosts> {
+public interface ReadThreadActivityListener extends SpiceRequestListener {
 }
