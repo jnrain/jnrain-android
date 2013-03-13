@@ -19,6 +19,8 @@ import org.jnrain.mobile.util.JNRainURLImageGetter;
 import org.jnrain.mobile.util.SpiceRequestListener;
 import org.jnrain.weiyu.collection.ListPosts;
 import org.jnrain.weiyu.entity.Post;
+import org.jnrain.weiyu.pres.formatter.post.JNRainPostFormatter;
+import org.jnrain.weiyu.pres.formatter.post.PostFormatter;
 
 import android.app.Activity;
 import android.content.Context;
@@ -90,10 +92,12 @@ public class ThreadAdapter extends BaseAdapter {
 
 		// network image enabled content
 		Context ctx = _activity.getApplicationContext();
-		textContent.setText(Html.fromHtml(post.getContent(),
+		PostFormatter fmtr = new JNRainPostFormatter();
+
+		textContent.setText(Html.fromHtml(fmtr.preprocessContent(post),
 				new JNRainURLImageGetter(_activity, textContent, ctx,
 						RESOURCE_BASE_URL, _listener), null));
-		textSignature.setText(Html.fromHtml(post.getSign(),
+		textSignature.setText(Html.fromHtml(fmtr.preprocessSign(post),
 				new JNRainURLImageGetter(_activity, textSignature, ctx,
 						RESOURCE_BASE_URL, _listener), null));
 

@@ -27,6 +27,7 @@ public class Post {
 	private String _board;
 	private Date _ctime;
 	private int _replies;
+	private int _popularity;
 	private String _content;
 	private String _sign;
 
@@ -76,6 +77,14 @@ public class Post {
 
 	public void setReplies(int replies) {
 		this._replies = replies;
+	}
+
+	public int getPopularity() {
+		return this._popularity;
+	}
+
+	public void setPopularity(int popularity) {
+		this._popularity = popularity;
 	}
 
 	public String getContent() {
