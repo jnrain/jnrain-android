@@ -110,10 +110,9 @@ public class URLImageGetter implements ImageGetter {
 				absURLHash);
 		BigBinaryRequest req = new BigBinaryRequest(absoluteURL, cacheFile);
 
-		_listener
-				.makeSpiceRequest(req, null, DurationInMillis.ONE_DAY,
-						new URLImageRequestListener((TextView) _container,
-								urlDrawable));
+		_listener.makeSpiceRequest(req, absURLHash, DurationInMillis.ONE_DAY,
+				new URLImageRequestListener((TextView) _container, urlDrawable,
+						absoluteURL, _activity));
 
 		// return reference to URLDrawable where I will change with actual image
 		// from
