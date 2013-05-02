@@ -19,12 +19,13 @@ import roboguice.activity.RoboActivity;
 import roboguice.inject.InjectView;
 import android.content.Intent;
 import android.os.Bundle;
+import android.webkit.CookieSyncManager;
 import android.widget.ImageView;
 
 public class SplashActivity extends RoboActivity {
 	public static final int SPLASH_DURATION_MS = 3000;
 
-	@InjectView(R.id.imageSplash)
+	@InjectView(R.id.imageLogo)
 	protected ImageView imgSplash;
 	private Thread splashThread;
 
@@ -65,10 +66,12 @@ public class SplashActivity extends RoboActivity {
 				} catch (InterruptedException ex) {
 				}
 
+				// cookie manager
+				CookieSyncManager.createInstance(getApplicationContext());
+
 				// Run next activity
 				Intent intent = new Intent();
-				intent.setClass(SplashActivity.this,
-						GlobalHotPostsListActivity.class);
+				intent.setClass(SplashActivity.this, LoginActivity.class);
 				startActivity(intent);
 
 				// finish off self

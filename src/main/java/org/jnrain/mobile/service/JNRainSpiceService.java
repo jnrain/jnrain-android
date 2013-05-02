@@ -15,13 +15,23 @@
  */
 package org.jnrain.mobile.service;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.http.HttpRequest;
+import org.springframework.http.client.ClientHttpRequestExecution;
+import org.springframework.http.client.ClientHttpRequestInterceptor;
+import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.http.converter.FormHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJacksonHttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
+
+import android.app.Application;
+import android.util.Log;
+import android.webkit.CookieManager;
 
 import com.octo.android.robospice.SpringAndroidContentService;
 import com.octo.android.robospice.persistence.CacheManager;
@@ -29,9 +39,18 @@ import com.octo.android.robospice.persistence.binary.InFileInputStreamObjectPers
 import com.octo.android.robospice.persistence.json.jackson.JacksonObjectPersisterFactory;
 import com.octo.android.robospice.persistence.string.InFileStringObjectPersister;
 
-import android.app.Application;
-
 public class JNRainSpiceService extends SpringAndroidContentService {
+	private ArrayList<ClientHttpRequestInterceptor> _interceptors;
+
+	public JNRainSpiceService() {
+		super();
+
+		// session interceptor should be a singleton
+		Log.d(getClass().getSimpleName(), ">>> setting up interceptor(s)");
+		_interceptors = new ArrayList<ClientHttpRequestInterceptor>();
+		_interceptors.add(new AuthCookieHttpRequestInterceptor());
+	}
+
 	public CacheManager createCacheManager(Application application) {
 		CacheManager cacheManager = new CacheManager();
 
@@ -69,6 +88,61 @@ public class JNRainSpiceService extends SpringAndroidContentService {
 		listHttpMessageConverters.add(formHttpMessageConverter);
 		listHttpMessageConverters.add(stringHttpMessageConverter);
 		restTemplate.setMessageConverters(listHttpMessageConverters);
+
+		// session interceptor
+		restTemplate.setInterceptors(_interceptors);
+
 		return restTemplate;
+	}
+
+	/*
+	 * source code referenced from SO question
+	 * 7101677/spring-android-using-resttemplate-with-https-and-cookies
+	 */
+	class AuthCookieHttpRequestInterceptor implements
+			ClientHttpRequestInterceptor {
+		public static final String COOKIE = "cookie";
+		public static final String SET_COOKIE = "set-cookie";
+		public static final String COOKIE_STORE = "cookieStore";
+
+		@Override
+		public ClientHttpResponse intercept(HttpRequest request, byte[] body,
+				ClientHttpRequestExecution execution) throws IOException {
+			Log.d(getClass().getSimpleName(), ">>> entering intercept");
+
+			List<String> cookies = request.getHeaders().get(COOKIE);
+			// if the header doesn't exist, add any existing, saved cookies
+			if (cookies == null) {
+				/*
+				 * @SuppressWarnings("unchecked") List<String> cookieStore =
+				 * (List<String>) StaticCacheHelper
+				 * .retrieveObjectFromCache(COOKIE_STORE); // if we have stored
+				 * cookies, add them to the headers if (cookieStore != null) {
+				 * for (String cookie : cookieStore) {
+				 * request.getHeaders().add(COOKIE, cookie); } }
+				 */
+				request.getHeaders().add(
+						COOKIE,
+						CookieManager.getInstance().getCookie(
+								"http://bbs.jnrain.com/"));
+			}
+
+			ClientHttpResponse response = execution.execute(request, body);
+
+			cookies = response.getHeaders().get(SET_COOKIE);
+			if (cookies != null) {
+				for (String cookie : cookies) {
+					Log.d(getClass().getSimpleName(), ">>> response cookie = "
+							+ cookie);
+					CookieManager.getInstance().setCookie(
+							"http://bbs.jnrain.com/", cookie);
+				}
+				// StaticCacheHelper.storeObjectInCache(COOKIE_STORE, cookies);
+			}
+
+			Log.d(getClass().getSimpleName(), ">>> leaving intercept");
+
+			return response;
+		}
 	}
 }

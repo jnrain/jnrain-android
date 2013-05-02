@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.jnrain.mobile"
-    android:versionCode="4"
-    android:versionName="0.0.4" >
+    android:versionCode="5"
+    android:versionName="0.0.5" >
 
     <uses-sdk
         android:minSdkVersion="8"
@@ -60,6 +60,8 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.jnrain.mobile.ThreadListActivity" />
+        </activity>
+        <activity android:name="org.jnrain.mobile.LoginActivity" >
         </activity>
     </application>
 
