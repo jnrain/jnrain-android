@@ -7,24 +7,26 @@ import org.jnrain.mobile.util.DynPageFragmentAdapter;
 import android.content.Context;
 import android.support.v4.app.FragmentManager;
 
-class ThreadListFragmentAdapter extends
-		DynPageFragmentAdapter<ThreadListFragment> {
-	protected Context _ctx;
 
-	public ThreadListFragmentAdapter(FragmentManager fm, Context ctx) {
-		super(fm);
-		this._ctx = ctx;
-	}
+class ThreadListFragmentAdapter
+        extends DynPageFragmentAdapter<ThreadListFragment> {
+    protected Context _ctx;
 
-	@Override
-	public CharSequence getPageTitle(int position) {
-		// return "Page" + Integer.toString(position + 1);
-		return MessageFormat.format(this._ctx.getString(R.string.page_nr),
-				Integer.toString(position + 1));
-	}
+    public ThreadListFragmentAdapter(FragmentManager fm, Context ctx) {
+        super(fm);
+        this._ctx = ctx;
+    }
 
-	public void addItem(String brd_id, int page) {
-		_contents.add(new ThreadListFragment(brd_id, page));
-		notifyDataSetChanged();
-	}
+    @Override
+    public CharSequence getPageTitle(int position) {
+        // return "Page" + Integer.toString(position + 1);
+        return MessageFormat.format(
+                this._ctx.getString(R.string.page_nr),
+                Integer.toString(position + 1));
+    }
+
+    public void addItem(String brd_id, int page) {
+        _contents.add(new ThreadListFragment(brd_id, page));
+        notifyDataSetChanged();
+    }
 }
