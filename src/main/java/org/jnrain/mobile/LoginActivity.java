@@ -101,7 +101,7 @@ public class LoginActivity extends SpicedRoboActivity<AuthResult> {
 			switch (status) {
 			case 0:
 				// successful
-				Toast.makeText(getApplicationContext(), "success",
+				Toast.makeText(getApplicationContext(), MSG_LOGIN_SUCCESS,
 						Toast.LENGTH_SHORT).show();
 
 				// go to hot posts activity
