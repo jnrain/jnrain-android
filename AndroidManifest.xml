@@ -61,6 +61,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.jnrain.mobile.ThreadListActivity" />
         </activity>
+        <activity android:name="org.jnrain.mobile.LoginActivity" >
+        </activity>
     </application>
 
 </manifest>
