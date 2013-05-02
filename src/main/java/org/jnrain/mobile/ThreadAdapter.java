@@ -15,6 +15,8 @@
  */
 package org.jnrain.mobile;
 
+import java.io.InputStream;
+
 import org.jnrain.mobile.util.JNRainURLImageGetter;
 import org.jnrain.mobile.util.SpiceRequestListener;
 import org.jnrain.weiyu.collection.ListPosts;
@@ -37,10 +39,10 @@ public class ThreadAdapter extends BaseAdapter {
 	private LayoutInflater _inflater;
 	private Activity _activity;
 	private ListPosts _data;
-	private SpiceRequestListener _listener;
+	private SpiceRequestListener<InputStream> _listener;
 
 	public ThreadAdapter(Activity activity, ListPosts data,
-			SpiceRequestListener listener) {
+			SpiceRequestListener<InputStream> listener) {
 		this._inflater = LayoutInflater.from(activity.getApplicationContext());
 		this._activity = activity;
 		this._data = data;
