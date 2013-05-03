@@ -118,7 +118,9 @@ public class GlobalHotPostsListActivity
                     intent.putExtra(
                             ThreadListActivity.THREAD_TITLE,
                             post.getTitle());
-                    // TODO: no. of replies!
+                    intent.putExtra(
+                            BoardListActivity.NUM_POSTS,
+                            post.getReplies());
 
                     startActivity(intent);
                 }
