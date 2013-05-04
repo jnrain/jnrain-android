@@ -45,8 +45,9 @@
             android:layout_height="match_parent"
             android:ems="8"
             android:hint="@string/field_uid"
-            android:imeOptions="actionNext|flagNavigateNext|flagForceAscii"
+            android:imeOptions="actionNext"
             android:maxLength="14"
+            android:nextFocusDown="@+id/editPassword"
             android:singleLine="true" />
 
         <EditText
@@ -57,12 +58,15 @@
             android:hint="@string/field_psw"
             android:imeOptions="actionDone"
             android:inputType="textPassword"
-            android:singleLine="true" />
+            android:nextFocusDown="@+id/btnLogin"
+            android:singleLine="true"
+            android:typeface="monospace" />
 
         <Button
             android:id="@+id/btnLogin"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:nextFocusRight="@+id/btnGuestLogin"
             android:text="@string/login" />
 
         <Button

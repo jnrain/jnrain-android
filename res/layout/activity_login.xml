@@ -46,8 +46,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/field_uid"
-            android:imeOptions="actionNext|flagNavigateNext|flagForceAscii"
+            android:imeOptions="actionNext"
             android:maxLength="14"
+            android:nextFocusDown="@+id/editPassword"
             android:singleLine="true" >
 
             <requestFocus />
@@ -60,7 +61,9 @@
             android:hint="@string/field_psw"
             android:imeOptions="actionDone"
             android:inputType="textPassword"
-            android:singleLine="true" />
+            android:nextFocusDown="@+id/btnLogin"
+            android:singleLine="true"
+            android:typeface="monospace" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -72,6 +75,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:nextFocusRight="@+id/btnGuestLogin"
                 android:text="@string/login" />
 
             <Button
@@ -80,7 +84,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/guest_login" />
-
         </LinearLayout>
     </LinearLayout>
 
