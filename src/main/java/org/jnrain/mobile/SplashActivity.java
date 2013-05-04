@@ -33,6 +33,7 @@ public class SplashActivity extends RoboActivity {
     // prevent repeated thread creation when activity restarts
     protected Boolean _started_flag;
 
+    @SuppressWarnings("deprecation")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Boolean last_started_flag;

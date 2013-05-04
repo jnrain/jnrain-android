@@ -18,5 +18,6 @@ package org.jnrain.mobile;
 import org.jnrain.mobile.util.SpiceRequestListener;
 
 
+@SuppressWarnings("rawtypes")
 public interface ReadThreadActivityListener extends SpiceRequestListener {
 }
