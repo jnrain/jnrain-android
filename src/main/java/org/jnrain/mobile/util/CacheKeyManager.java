@@ -23,6 +23,8 @@ public class CacheKeyManager {
     public static final String KEY_PREFIX_SEC_HOT_POSTS = "sec_hot_json_";
     public static final String KEY_PREFIX_BOARD_HOT_POSTS = "board_hot_json_";
 
+    public static final String KEY_PREFIX_BOARD_LIST = "brds_sec_";
+
     public static String keyForHotPosts(String type) {
         // TODO: refactor this to something numeric for switch()ification
         if (type.equals(ListHotPosts.GLOBAL)) {
@@ -47,5 +49,9 @@ public class CacheKeyManager {
         }
 
         throw new IllegalArgumentException("invalid hot posts type");
+    }
+
+    public static String keyForBoardList(String sec_id, String uid) {
+        return KEY_PREFIX_BOARD_LIST + uid + "_" + sec_id;
     }
 }

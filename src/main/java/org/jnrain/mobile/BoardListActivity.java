@@ -16,6 +16,8 @@
 package org.jnrain.mobile;
 
 import org.jnrain.mobile.network.BoardListRequest;
+import org.jnrain.mobile.util.CacheKeyManager;
+import org.jnrain.mobile.util.GlobalState;
 import org.jnrain.mobile.util.SpicedRoboActivity;
 import org.jnrain.weiyu.collection.ListBoards;
 import org.jnrain.weiyu.collection.ListPosts;
@@ -42,7 +44,6 @@ public class BoardListActivity extends SpicedRoboActivity<ListPosts> {
     public static final String NUM_POSTS = "org.jnrain.mobile.NUM_POSTS";
 
     private static final String TAG = "BoardListActivity";
-    private static final String CACHE_KEY_PREFIX = "brds_sec_";
 
     private String _sec_ord;
     private ListBoards _boards;
@@ -53,10 +54,12 @@ public class BoardListActivity extends SpicedRoboActivity<ListPosts> {
         setContentView(R.layout.activity_board_list);
 
         Intent intent = getIntent();
-        this._sec_ord = intent.getStringExtra(SectionListActivity.SEC_ORD);
+        _sec_ord = intent.getStringExtra(SectionListActivity.SEC_ORD);
         spiceManager.execute(
                 new BoardListRequest(this._sec_ord),
-                CACHE_KEY_PREFIX + this._sec_ord,
+                CacheKeyManager.keyForBoardList(
+                        _sec_ord,
+                        GlobalState.getUserName()),
                 DurationInMillis.ONE_HOUR,
                 new BoardListRequestListener());
     }
