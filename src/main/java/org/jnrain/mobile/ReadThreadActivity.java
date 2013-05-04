@@ -27,6 +27,7 @@ import com.viewpagerindicator.TitlePageIndicator;
 import com.viewpagerindicator.TitlePageIndicator.IndicatorStyle;
 
 
+@SuppressWarnings("rawtypes")
 public class ReadThreadActivity extends SpicedRoboFragmentActivity
         implements ReadThreadActivityListener {
     @InjectView(R.id.pager)

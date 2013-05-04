@@ -16,6 +16,8 @@
 package org.jnrain.mobile;
 
 import org.jnrain.mobile.network.ThreadRequest;
+import org.jnrain.mobile.util.CacheKeyManager;
+import org.jnrain.mobile.util.GlobalState;
 import org.jnrain.weiyu.collection.ListPosts;
 import org.jnrain.weiyu.entity.Post;
 
@@ -47,7 +49,6 @@ public class ReadThreadFragment extends RoboSherlockFragment {
     protected ReadThreadActivityListener _listener;
 
     private static final String TAG = "ReadThreadFragment";
-    private static final String CACHE_KEY_PREFIX = "tid_json_";
 
     public ReadThreadFragment(String brd_id, long tid, int page) {
         this._brd_id = brd_id;
@@ -66,6 +67,7 @@ public class ReadThreadFragment extends RoboSherlockFragment {
         }
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public View onCreateView(
             LayoutInflater inflater,
@@ -78,10 +80,12 @@ public class ReadThreadFragment extends RoboSherlockFragment {
 
         // fetch posts
         _listener.makeSpiceRequest(
-                new ThreadRequest(this._brd_id, this._tid, this._page),
-                CACHE_KEY_PREFIX + this._brd_id + "_"
-                        + Long.toString(this._tid) + "_"
-                        + Integer.toString(this._page),
+                new ThreadRequest(_brd_id, _tid, _page),
+                CacheKeyManager.keyForPagedPostList(
+                        _brd_id,
+                        _tid,
+                        _page,
+                        GlobalState.getUserName()),
                 DurationInMillis.ONE_MINUTE,
                 new ThreadRequestListener());
 
@@ -89,6 +93,7 @@ public class ReadThreadFragment extends RoboSherlockFragment {
     }
 
     public synchronized void updateData() {
+        @SuppressWarnings("unchecked")
         ThreadAdapter adapter = new ThreadAdapter(
                 this.getActivity(),
                 _posts,

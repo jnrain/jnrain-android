@@ -16,6 +16,8 @@
 package org.jnrain.mobile;
 
 import org.jnrain.mobile.network.ThreadListRequest;
+import org.jnrain.mobile.util.CacheKeyManager;
+import org.jnrain.mobile.util.GlobalState;
 import org.jnrain.weiyu.collection.ListPosts;
 import org.jnrain.weiyu.entity.Post;
 
@@ -47,11 +49,10 @@ public class ThreadListFragment extends RoboSherlockFragment {
     private ThreadListAdapter _adapter;
 
     private static final String TAG = "ThreadListFragment";
-    private static final String CACHE_KEY_PREFIX = "brd_json_";
 
     public ThreadListFragment(String brd_id, int page) {
-        this._brd_id = brd_id;
-        this._page = page;
+        _brd_id = brd_id;
+        _page = page;
     }
 
     @Override
@@ -83,16 +84,18 @@ public class ThreadListFragment extends RoboSherlockFragment {
                 false);
 
         // fetch a page of thread list
-        makeRequest(this._page);
+        makeRequest(_page);
 
         return view;
     }
 
     public void makeRequest(int page) {
         _listener.makeSpiceRequest(
-                new ThreadListRequest(this._brd_id, page),
-                CACHE_KEY_PREFIX + this._brd_id + "_p"
-                        + Integer.toString(page),
+                new ThreadListRequest(_brd_id, page),
+                CacheKeyManager.keyForPagedThreadList(
+                        _brd_id,
+                        page,
+                        GlobalState.getUserName()),
                 DurationInMillis.ONE_MINUTE,
                 new ThreadListRequestListener());
     }

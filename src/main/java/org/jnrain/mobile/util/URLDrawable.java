@@ -27,6 +27,7 @@ import android.graphics.drawable.Drawable;
 public class URLDrawable extends BitmapDrawable {
     protected Drawable _drawable;
 
+    @SuppressWarnings("deprecation")
     public URLDrawable(Drawable drawable) {
         _drawable = drawable;
     }
