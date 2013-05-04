@@ -18,6 +18,7 @@ package org.jnrain.mobile;
 import java.text.MessageFormat;
 
 import org.jnrain.mobile.network.LoginRequest;
+import org.jnrain.mobile.util.GlobalState;
 import org.jnrain.mobile.util.SpicedRoboActivity;
 import org.jnrain.weiyu.entity.AuthResult;
 
@@ -46,10 +47,6 @@ public class LoginActivity extends SpicedRoboActivity<AuthResult> {
     @InjectView(R.id.btnGuestLogin)
     Button btnGuestLogin;
 
-    private static final String TAG = "LoginActivity";
-    public static final String GUEST_UID = "guest";
-    public static final String GUEST_PSW = "";
-
     @InjectResource(R.string.msg_network_fail)
     public String MSG_NETWORK_FAIL;
     @InjectResource(R.string.msg_unknown_status)
@@ -73,10 +70,20 @@ public class LoginActivity extends SpicedRoboActivity<AuthResult> {
     @InjectResource(R.string.msg_login_ipacl)
     public String MSG_LOGIN_IPACL;
 
+    private static final String TAG = "LoginActivity";
+    public static final String GUEST_UID = "guest";
+    public static final String GUEST_PSW = "";
+
+    private String _uid;
+    private String _psw;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        _uid = "";
+        _psw = "";
 
         btnLogin.setOnClickListener(new OnClickListener() {
             @Override
@@ -84,9 +91,13 @@ public class LoginActivity extends SpicedRoboActivity<AuthResult> {
                 Log.i(TAG, "Login button clicked");
 
                 String uid = editUID.getText().toString();
-                String psw = editPassword.getText().toString();
+
+                // remember uid
+                _uid = uid.toLowerCase();
+                _psw = editPassword.getText().toString();
+
                 spiceManager.execute(
-                        new LoginRequest(uid, psw),
+                        new LoginRequest(_uid, _psw),
                         new LoginRequestListener());
             }
         });
@@ -95,6 +106,9 @@ public class LoginActivity extends SpicedRoboActivity<AuthResult> {
             @Override
             public void onClick(View v) {
                 Log.i(TAG, "Guest login button clicked");
+
+                _uid = GUEST_UID;
+                _psw = GUEST_PSW;
 
                 spiceManager.execute(
                         new LoginRequest(GUEST_UID, GUEST_PSW),
@@ -120,6 +134,10 @@ public class LoginActivity extends SpicedRoboActivity<AuthResult> {
 
             switch (status) {
                 case 0:
+                    // record username in global state
+                    assert _uid.length() > 0;
+                    GlobalState.setUserName(_uid);
+
                     // successful
                     Toast.makeText(
                             getApplicationContext(),
@@ -196,6 +214,5 @@ public class LoginActivity extends SpicedRoboActivity<AuthResult> {
                     break;
             }
         }
-
     }
 }
