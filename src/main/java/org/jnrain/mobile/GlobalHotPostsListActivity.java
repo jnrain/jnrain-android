@@ -16,6 +16,7 @@
 package org.jnrain.mobile;
 
 import org.jnrain.mobile.network.HotPostsListRequest;
+import org.jnrain.mobile.util.CacheKeyManager;
 import org.jnrain.mobile.util.SpicedRoboActivity;
 import org.jnrain.weiyu.collection.ListHotPosts;
 import org.jnrain.weiyu.collection.ListPosts;
@@ -51,7 +52,6 @@ public class GlobalHotPostsListActivity
     public String LOAD_FAIL_MSG;
 
     private static final String TAG = "GlobalHotPostsListActivity";
-    private static final String CACHE_KEY = "global_hot_json";
 
     private ListHotPosts _posts;
 
@@ -75,7 +75,7 @@ public class GlobalHotPostsListActivity
 
         spiceManager.execute(
                 new HotPostsListRequest(ListHotPosts.GLOBAL),
-                CACHE_KEY,
+                CacheKeyManager.keyForHotPosts(ListHotPosts.GLOBAL),
                 DurationInMillis.ONE_MINUTE,
                 new GlobalHotPostsListRequestListener());
     }
