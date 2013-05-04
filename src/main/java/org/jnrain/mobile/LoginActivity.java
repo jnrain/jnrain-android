@@ -43,8 +43,12 @@ public class LoginActivity extends SpicedRoboActivity<AuthResult> {
     EditText editPassword;
     @InjectView(R.id.btnLogin)
     Button btnLogin;
+    @InjectView(R.id.btnGuestLogin)
+    Button btnGuestLogin;
 
     private static final String TAG = "LoginActivity";
+    public static final String GUEST_UID = "guest";
+    public static final String GUEST_PSW = "";
 
     @InjectResource(R.string.msg_network_fail)
     public String MSG_NETWORK_FAIL;
@@ -83,6 +87,17 @@ public class LoginActivity extends SpicedRoboActivity<AuthResult> {
                 String psw = editPassword.getText().toString();
                 spiceManager.execute(
                         new LoginRequest(uid, psw),
+                        new LoginRequestListener());
+            }
+        });
+
+        btnGuestLogin.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i(TAG, "Guest login button clicked");
+
+                spiceManager.execute(
+                        new LoginRequest(GUEST_UID, GUEST_PSW),
                         new LoginRequestListener());
             }
         });

@@ -43,6 +43,8 @@
     <string name="field_uid">User ID</string>
     <string name="field_psw">Password</string>
     <string name="login">Login</string>
+    <string name="guest_login">Guest login</string>
+    <string name="guest_login_land">Guest</string>
 
     <!-- Status toasts -->
     <!-- General -->
