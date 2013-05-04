@@ -43,6 +43,8 @@
     <string name="field_uid">用户 ID</string>
     <string name="field_psw">密码</string>
     <string name="login">登陆</string>
+    <string name="guest_login">匿名登陆</string>
+    <string name="guest_login_land">匿名</string>
 
     <!-- Status toasts -->
     <!-- General -->

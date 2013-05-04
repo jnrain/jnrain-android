@@ -62,11 +62,26 @@
             android:inputType="textPassword"
             android:singleLine="true" />
 
-        <Button
-            android:id="@+id/btnLogin"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/login" />
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/btnLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/login" />
+
+            <Button
+                android:id="@+id/btnGuestLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/guest_login" />
+
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>
