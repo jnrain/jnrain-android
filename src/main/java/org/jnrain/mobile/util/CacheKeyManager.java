@@ -24,6 +24,7 @@ public class CacheKeyManager {
     public static final String KEY_PREFIX_BOARD_HOT_POSTS = "board_hot_json_";
 
     public static final String KEY_PREFIX_BOARD_LIST = "brds_sec_";
+    public static final String KEY_PREFIX_THREAD_LIST = "brd_json_";
 
     public static String keyForHotPosts(String type) {
         // TODO: refactor this to something numeric for switch()ification
@@ -53,5 +54,13 @@ public class CacheKeyManager {
 
     public static String keyForBoardList(String sec_id, String uid) {
         return KEY_PREFIX_BOARD_LIST + uid + "_" + sec_id;
+    }
+
+    public static String keyForPagedThreadList(
+            String brd_id,
+            int page,
+            String uid) {
+        return KEY_PREFIX_THREAD_LIST + uid + "_" + brd_id + "_p"
+                + Integer.toString(page);
     }
 }
