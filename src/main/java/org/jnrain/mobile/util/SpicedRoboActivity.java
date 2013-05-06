@@ -47,6 +47,13 @@ public class SpicedRoboActivity<T> extends RoboSherlockActivity
     @Override
     public void makeSpiceRequest(
             SpiceRequest<T> request,
+            RequestListener<T> requestListener) {
+        spiceManager.execute(request, requestListener);
+    }
+
+    @Override
+    public void makeSpiceRequest(
+            SpiceRequest<T> request,
             String requestCacheKey,
             long cacheDuration,
             RequestListener<T> requestListener) {

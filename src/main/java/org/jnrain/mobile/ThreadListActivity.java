@@ -25,6 +25,9 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 import com.viewpagerindicator.TitlePageIndicator;
 import com.viewpagerindicator.TitlePageIndicator.IndicatorStyle;
 
@@ -124,6 +127,35 @@ public class ThreadListActivity
                     }
                 }
             });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getSupportMenuInflater();
+        inflater.inflate(R.menu.thread_list, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.action_new_post:
+                Log.d(TAG, "new post menu item selected");
+
+                Intent intent = new Intent();
+                intent.setClass(
+                        ThreadListActivity.this,
+                        NewPostActivity.class);
+                intent.putExtra(BoardListActivity.BRD_ID, _brd_id);
+                intent.putExtra(NewPostActivity.IS_NEW_THREAD, true);
+
+                startActivity(intent);
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     // @Override

@@ -48,6 +48,13 @@ public class SpicedRoboFragmentActivity<T>
     @Override
     public void makeSpiceRequest(
             SpiceRequest<T> request,
+            RequestListener<T> requestListener) {
+        spiceManager.execute(request, requestListener);
+    }
+
+    @Override
+    public void makeSpiceRequest(
+            SpiceRequest<T> request,
             String requestCacheKey,
             long cacheDuration,
             RequestListener<T> requestListener) {
