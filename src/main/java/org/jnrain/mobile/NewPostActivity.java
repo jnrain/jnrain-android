@@ -127,6 +127,11 @@ public class NewPostActivity extends SpicedRoboActivity<SimpleReturnCode> {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         switch (item.getItemId()) {
+            case android.R.id.home:
+                // TODO: confirmation
+                finish();
+                return true;
+
             case R.id.action_do_post:
                 Log.d(TAG, "do post activated");
 
