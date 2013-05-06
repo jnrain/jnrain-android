@@ -16,7 +16,16 @@
 package org.jnrain.mobile.util;
 
 public class GlobalState {
-    protected static String _userName;
+    protected static boolean _cookieInited = false;
+    protected static String _userName = "";
+
+    public static synchronized boolean getCookieInited() {
+        return _cookieInited;
+    }
+
+    public static void setCookieInited(boolean inited) {
+        _cookieInited = inited;
+    }
 
     public static synchronized String getUserName() {
         return _userName;

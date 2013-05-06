@@ -29,6 +29,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.webkit.CookieSyncManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -84,6 +85,14 @@ public class LoginActivity extends SpicedRoboActivity<SimpleReturnCode> {
 
         _uid = "";
         _psw = "";
+
+        // cookie manager
+        synchronized (this) {
+            if (!GlobalState.getCookieInited()) {
+                CookieSyncManager.createInstance(getApplicationContext());
+                GlobalState.setCookieInited(true);
+            }
+        }
 
         btnLogin.setOnClickListener(new OnClickListener() {
             @Override
