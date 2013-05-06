@@ -51,6 +51,7 @@
     <string name="action_new_post">发表新帖</string>
     <string name="post_title">标题</string>
     <string name="post_content">帖子正文</string>
+    <string name="action_do_post">发帖</string>
 
     <!-- Status toasts -->
     <!-- General -->

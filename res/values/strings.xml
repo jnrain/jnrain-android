@@ -51,6 +51,7 @@
     <string name="action_new_post">New post</string>
     <string name="post_title">Title</string>
     <string name="post_content">Content</string>
+    <string name="action_do_post">Post</string>
 
     <!-- Status toasts -->
     <!-- General -->

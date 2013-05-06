@@ -22,6 +22,10 @@ import com.octo.android.robospice.request.listener.RequestListener;
 public interface SpiceRequestListener<T> {
     public void makeSpiceRequest(
             SpiceRequest<T> request,
+            RequestListener<T> requestListener);
+
+    public void makeSpiceRequest(
+            SpiceRequest<T> request,
             String requestCacheKey,
             long cacheDuration,
             RequestListener<T> requestListener);

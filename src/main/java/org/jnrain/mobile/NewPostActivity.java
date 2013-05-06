@@ -17,6 +17,7 @@ package org.jnrain.mobile;
 
 import java.text.MessageFormat;
 
+import org.jnrain.mobile.network.NewPostRequest;
 import org.jnrain.mobile.util.SpicedRoboActivity;
 import org.jnrain.weiyu.entity.SimpleReturnCode;
 
@@ -28,6 +29,9 @@ import android.util.Log;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
 
@@ -63,11 +67,53 @@ public class NewPostActivity extends SpicedRoboActivity<SimpleReturnCode> {
         }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getSupportMenuInflater();
+        inflater.inflate(R.menu.new_post, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.action_do_post:
+                Log.d(TAG, "do post activated");
+
+                String _title = editTitle.getText().toString();
+                String _content = editContent.getText().toString();
+
+                makeSpiceRequest(
+                        new NewPostRequest(
+                                _brd_id,
+                                _title,
+                                _content,
+                                NewPostRequest.SIGN_RANDOM),
+                        new NewPostRequestListener());
+
+                // disable edit while performing request
+                setEditableStatus(false);
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    public synchronized void setEditableStatus(boolean enabled) {
+        editTitle.setEnabled(enabled);
+        editContent.setEnabled(enabled);
+    }
+
     private class NewPostRequestListener
             implements RequestListener<SimpleReturnCode> {
         @Override
         public void onRequestFailure(SpiceException spiceException) {
             Log.d(TAG, "err on req: " + spiceException.toString());
+
+            // restore editable status
+            NewPostActivity.this.setEditableStatus(true);
         }
 
         @Override
@@ -88,6 +134,9 @@ public class NewPostActivity extends SpicedRoboActivity<SimpleReturnCode> {
                                         MSG_UNKNOWN_STATUS,
                                         status),
                                 Toast.LENGTH_SHORT).show();
+
+                    // restore editable status
+                    NewPostActivity.this.setEditableStatus(true);
                     break;
             }
         }
