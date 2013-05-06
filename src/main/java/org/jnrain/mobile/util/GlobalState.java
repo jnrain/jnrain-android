@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 JNRain
+ * Copyright 2013 JNRain
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may
  * not use this file except in compliance with the License. You may obtain a
@@ -13,22 +13,25 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package org.jnrain.mobile.network;
+package org.jnrain.mobile.util;
 
-import org.jnrain.weiyu.collection.ListSections;
+public class GlobalState {
+    protected static boolean _cookieInited = false;
+    protected static String _userName = "";
 
-import com.octo.android.robospice.request.springandroid.RestContentRequest;
-
-
-public class SectionListRequest extends RestContentRequest<ListSections> {
-    public SectionListRequest() {
-        super(ListSections.class);
+    public static synchronized boolean getCookieInited() {
+        return _cookieInited;
     }
 
-    @Override
-    public ListSections loadDataFromNetwork() throws Exception {
-        return getRestTemplate().getForObject(
-        /* "http://rhymin.jnrain.com/api/sec/", */
-        "http://bbs.jnrain.com/rainstyle/sec_json.php", ListSections.class);
+    public static void setCookieInited(boolean inited) {
+        _cookieInited = inited;
+    }
+
+    public static synchronized String getUserName() {
+        return _userName;
+    }
+
+    public static synchronized void setUserName(String userName) {
+        _userName = userName;
     }
 }

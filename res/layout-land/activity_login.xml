@@ -43,22 +43,37 @@
             android:id="@+id/editUID"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:ems="10"
-            android:hint="@string/field_uid" />
+            android:ems="8"
+            android:hint="@string/field_uid"
+            android:imeOptions="actionNext|flagForceAscii"
+            android:maxLength="14"
+            android:nextFocusRight="@+id/editPassword"
+            android:singleLine="true" />
 
         <EditText
             android:id="@+id/editPassword"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:ems="10"
+            android:ems="8"
             android:hint="@string/field_psw"
-            android:inputType="textPassword" />
+            android:imeOptions="actionDone"
+            android:inputType="textPassword"
+            android:nextFocusRight="@+id/btnLogin"
+            android:singleLine="true"
+            android:typeface="monospace" />
 
         <Button
             android:id="@+id/btnLogin"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:nextFocusRight="@+id/btnGuestLogin"
             android:text="@string/login" />
+
+        <Button
+            android:id="@+id/btnGuestLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/guest_login_land" />
     </LinearLayout>
 
 </LinearLayout>

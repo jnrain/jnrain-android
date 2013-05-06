@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  Copyright 2012 JNRain
+  Copyright 2013 JNRain
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -14,10 +14,11 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<set xmlns:android="http://schemas.android.com/apk/res/android">
-    <alpha
-        android:interpolator="@android:anim/accelerate_interpolator"
-        android:fromAlpha="0.0" android:toAlpha="1.0"
-        android:duration="500"
-    />
-</set>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/action_reply"
+        android:orderInCategory="100"
+        android:title="@string/action_reply"/>
+
+</menu>

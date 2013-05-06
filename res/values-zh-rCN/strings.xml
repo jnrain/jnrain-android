@@ -24,6 +24,7 @@
     <string name="title_activity_global_hot_posts_list">全站热帖</string>
     <string name="title_activity_board">帖子列表</string>
     <string name="title_activity_read_thread">读帖</string>
+    <string name="title_activity_new_post">发表新帖</string>
     <string name="app_name_en">JNRain</string>
     <string name="splash_image_desc">欢迎图像</string>
 
@@ -43,6 +44,17 @@
     <string name="field_uid">用户 ID</string>
     <string name="field_psw">密码</string>
     <string name="login">登陆</string>
+    <string name="guest_login">匿名登陆</string>
+    <string name="guest_login_land">匿名</string>
+
+    <!-- Read thread -->
+    <string name="action_reply">回复此帖</string>
+
+    <!-- New post -->
+    <string name="action_new_post">发表新帖</string>
+    <string name="post_title">标题</string>
+    <string name="post_content">帖子正文</string>
+    <string name="action_do_post">发帖</string>
 
     <!-- Status toasts -->
     <!-- General -->
@@ -59,5 +71,27 @@
     <string name="msg_login_freq">请勿频繁登陆</string>
     <string name="msg_login_capacity">系统在线人数已达上限</string>
     <string name="msg_login_ipacl">此 ID 不允许从当前 IP 登陆</string>
+    <string name="msg_logout_success">{0} 已注销</string>
+
+    <!-- New post -->
+    <string name="msg_post_success">发帖成功</string>
+    <string name="msg_post_success_reply">回复成功</string>
+    <string name="msg_post_no_guest_post">游客不能发帖</string>
+    <string name="msg_post_no_brd_given">版面未指定</string>
+    <string name="msg_post_no_such_brd">指定的版面不存在</string>
+    <string name="msg_post_eperm">没有此版面的阅读权限</string>
+    <string name="msg_post_erofs">此版面只读</string>
+    <string name="msg_post_denied">不能在此版面发帖</string>
+    <string name="msg_post_no_title">标题为空</string>
+    <string name="msg_post_no_content">内容为空</string>
+    <string name="msg_post_ebadf">所回帖 ID 出错</string>
+    <string name="msg_post_locked">该帖不可回复</string>
+    <string name="msg_post_river_crab">文章内容待审核，请不要重试发送</string>
+    <string name="msg_post_directory">不能在二级目录版发帖</string>
+    <string name="msg_post_banned">账号被版务禁言</string>
+    <string name="msg_post_eagain">操作过于频繁</string>
+    <string name="msg_post_idx_io">服务器严重错误：无法读取索引</string>
+    <string name="msg_post_internal_err">服务器严重错误：未知内部错误</string>
+    <string name="msg_post_silent_night">论坛处于宵禁状态</string>
 
 </resources>

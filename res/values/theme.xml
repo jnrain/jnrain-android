@@ -16,12 +16,6 @@
 -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <style name="Theme.SplashScreen" parent="android:Theme.NoTitleBar.Fullscreen">
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:background">@drawable/splash_bg</item>
-        <item name="android:windowAnimationStyle">@style/Animations.SplashScreen</item>
-    </style>
-
     <style name="Theme.JNRain.DefaultDark" parent="@style/Theme.Sherlock"></style>
 
     <style name="Theme.JNRain.DefaultDark.FragmentActivity" parent="@style/Theme.Sherlock"></style>
@@ -35,6 +29,11 @@
 
     <style name="Theme.JNRain.DefaultLight.NoActionBar" parent="@style/Theme.Sherlock.Light.NoActionBar">
         <item name="android:windowBackground">@color/jnrain_green_light</item>
+    </style>
+
+    <style name="Theme.JNRain.LoginScreen" parent="@style/Theme.JNRain.DefaultLight.NoActionBar">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@style/Animations.SplashScreen</item>
     </style>
 
 </resources>

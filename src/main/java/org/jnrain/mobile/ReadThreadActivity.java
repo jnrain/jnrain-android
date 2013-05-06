@@ -1,17 +1,17 @@
 /*
  * Copyright 2012-2013 JNRain
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *  http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain a
+ * copy of the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
  */
 package org.jnrain.mobile;
 
@@ -26,91 +26,99 @@ import android.util.Log;
 import com.viewpagerindicator.TitlePageIndicator;
 import com.viewpagerindicator.TitlePageIndicator.IndicatorStyle;
 
-public class ReadThreadActivity extends SpicedRoboFragmentActivity implements
-		ReadThreadActivityListener {
-	@InjectView(R.id.pager)
-	ViewPager viewPager;
-	@InjectView(R.id.indicator)
-	TitlePageIndicator indicator;
 
-	ReadThreadFragmentAdapter _adapter;
+@SuppressWarnings("rawtypes")
+public class ReadThreadActivity extends SpicedRoboFragmentActivity
+        implements ReadThreadActivityListener {
+    @InjectView(R.id.pager)
+    ViewPager viewPager;
+    @InjectView(R.id.indicator)
+    TitlePageIndicator indicator;
 
-	private String _brd_id;
-	private String _title;
-	private long _tid;
-	private int _totalposts;
+    ReadThreadFragmentAdapter _adapter;
 
-	private int _page;
-	private int _totalpages;
+    private String _brd_id;
+    private String _title;
+    private long _tid;
+    private int _totalposts;
 
-	public static final int POSTS_PER_PAGE = 10;
-	private static final String TAG = "ReadThreadActivity";
+    private int _page;
+    private int _totalpages;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.dyn_pages);
-		_adapter = new ReadThreadFragmentAdapter(getSupportFragmentManager(),
-				getApplicationContext());
-		viewPager.setAdapter(_adapter);
-		indicator.setViewPager(viewPager);
-		indicator.setFooterIndicatorStyle(IndicatorStyle.Triangle);
+    public static final int POSTS_PER_PAGE = 10;
+    private static final String TAG = "ReadThreadActivity";
 
-		// Show the Up button in the action bar.
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.dyn_pages);
+        _adapter = new ReadThreadFragmentAdapter(
+                getSupportFragmentManager(),
+                getApplicationContext());
+        viewPager.setAdapter(_adapter);
+        indicator.setViewPager(viewPager);
+        indicator.setFooterIndicatorStyle(IndicatorStyle.Triangle);
 
-		Intent intent = getIntent();
-		this._brd_id = intent.getStringExtra(BoardListActivity.BRD_ID);
-		this._tid = intent.getLongExtra(ThreadListActivity.THREAD_ID, -1);
-		this._title = intent.getStringExtra(ThreadListActivity.THREAD_TITLE);
-		this._totalposts = intent.getIntExtra(BoardListActivity.NUM_POSTS, 1);
+        // Show the Up button in the action bar.
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-		// update title of action bar
-		getSupportActionBar().setTitle(this._title);
+        Intent intent = getIntent();
+        this._brd_id = intent.getStringExtra(BoardListActivity.BRD_ID);
+        this._tid = intent.getLongExtra(ThreadListActivity.THREAD_ID, -1);
+        this._title = intent.getStringExtra(ThreadListActivity.THREAD_TITLE);
+        this._totalposts = intent
+            .getIntExtra(BoardListActivity.NUM_POSTS, 1);
 
-		_totalpages = (int) Math.ceil((double) _totalposts / POSTS_PER_PAGE);
+        // update title of action bar
+        getSupportActionBar().setTitle(this._title);
 
-		// initial tabs
-		addReplyPage(1);
-		if (_totalpages == 1) {
-			_page = 1;
-		} else {
-			_page = 2;
-			addReplyPage(2);
-		}
+        _totalpages = (int) Math.ceil((double) _totalposts / POSTS_PER_PAGE);
 
-		// pager listener
-		indicator.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-			@Override
-			public void onPageScrollStateChanged(int state) {
-				// intentionally left blank
-				// Log.d(TAG, "PageScrollStateChanged: " +
-				// Integer.toString(state));
-			}
+        // initial tabs
+        addReplyPage(1);
+        if (_totalpages == 1) {
+            _page = 1;
+        } else {
+            _page = 2;
+            addReplyPage(2);
+        }
 
-			@Override
-			public void onPageScrolled(int position, float positionOffset,
-					int positionOffsetPixels) {
-				// intentionally left blank
-			}
+        // pager listener
+        indicator
+            .setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                @Override
+                public void onPageScrollStateChanged(int state) {
+                    // intentionally left blank
+                    // Log.d(TAG, "PageScrollStateChanged: " +
+                    // Integer.toString(state));
+                }
 
-			@Override
-			public void onPageSelected(int position) {
-				Log.d(TAG, "PageSelected: " + Integer.toString(position)
-						+ ", _page = " + Integer.toString(_page));
-				if (position == _page - 1) {
-					// last tab, add another page if there are still enough
-					// threads to display
-					if (_page < _totalpages) {
-						_page++;
-						addReplyPage(_page);
-					}
-				}
-			}
-		});
-	}
+                @Override
+                public void onPageScrolled(
+                        int position,
+                        float positionOffset,
+                        int positionOffsetPixels) {
+                    // intentionally left blank
+                }
 
-	public void addReplyPage(int page) {
-		_adapter.addItem(this._brd_id, this._tid, page);
-	}
+                @Override
+                public void onPageSelected(int position) {
+                    Log.d(TAG, "PageSelected: " + Integer.toString(position)
+                            + ", _page = " + Integer.toString(_page));
+                    if (position == _page - 1) {
+                        // last tab, add another page if there are still
+                        // enough
+                        // threads to display
+                        if (_page < _totalpages) {
+                            _page++;
+                            addReplyPage(_page);
+                        }
+                    }
+                }
+            });
+    }
+
+    public void addReplyPage(int page) {
+        _adapter.addItem(this._brd_id, this._tid, page);
+    }
 }
