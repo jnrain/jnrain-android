@@ -46,7 +46,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/field_uid"
-            android:imeOptions="actionNext"
+            android:imeOptions="actionNext|flagForceAscii"
             android:maxLength="14"
             android:nextFocusDown="@+id/editPassword"
             android:singleLine="true" >
