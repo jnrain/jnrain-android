@@ -71,6 +71,7 @@
     <string name="msg_login_freq">Too frequent logins</string>
     <string name="msg_login_capacity">System capacity exceeded</string>
     <string name="msg_login_ipacl">Logging in from your IP disallowed</string>
+    <string name="msg_logout_success">{0} is now logged out</string>
 
     <!-- New post -->
     <string name="msg_post_success">Post successful</string>
