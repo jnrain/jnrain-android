@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.jnrain.mobile</groupId>
   <artifactId>jnrain-android</artifactId>
-  <version>0.1-dev</version>
+  <version>0.2-dev</version>
   <packaging>apk</packaging>
   <name>jnrain-android</name>
 
