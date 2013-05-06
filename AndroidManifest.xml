@@ -63,6 +63,11 @@
         </activity>
         <activity android:name="org.jnrain.mobile.LoginActivity" >
         </activity>
+        <activity
+            android:name="org.jnrain.mobile.NewPostActivity"
+            android:label="@string/title_activity_new_post"
+            android:theme="@style/Theme.JNRain.DefaultLight" >
+        </activity>
     </application>
 
 </manifest>

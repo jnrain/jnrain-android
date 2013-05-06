@@ -24,6 +24,7 @@
     <string name="title_activity_global_hot_posts_list">Hot posts</string>
     <string name="title_activity_board">View threads</string>
     <string name="title_activity_read_thread">Read thread</string>
+    <string name="title_activity_new_post">New post</string>
     <string name="app_name_en">JNRain</string>
     <string name="splash_image_desc">Splash image</string>
 
@@ -48,6 +49,8 @@
 
     <!-- New post -->
     <string name="action_new_post">New post</string>
+    <string name="post_title">Title</string>
+    <string name="post_content">Content</string>
 
     <!-- Status toasts -->
     <!-- General -->
