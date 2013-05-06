@@ -99,12 +99,13 @@ public class SectionListActivity extends SpicedRoboActivity<ListSections> {
     }
 
     @Override
-    protected void onStop() {
-        // logout
+    public void onBackPressed() {
+        // this is the last activity on the task stack. logout
         spiceManager.execute(
                 new LogoutRequest(),
                 new LogoutRequestListener());
-        super.onStop();
+
+        super.onBackPressed();
     }
 
     private class SectionListRequestListener
