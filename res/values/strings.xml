@@ -72,4 +72,25 @@
     <string name="msg_login_capacity">System capacity exceeded</string>
     <string name="msg_login_ipacl">Logging in from your IP disallowed</string>
 
+    <!-- New post -->
+    <string name="msg_post_success">Post successful</string>
+    <string name="msg_post_success_reply">Reply successful</string>
+    <string name="msg_post_no_guest_post">Guest posts not allowed</string>
+    <string name="msg_post_no_brd_given">Board not specified</string>
+    <string name="msg_post_no_such_brd">Specified board does not exist</string>
+    <string name="msg_post_eperm">Read permission of board denied</string>
+    <string name="msg_post_erofs">Board is read-only</string>
+    <string name="msg_post_denied">Cannot post on the board</string>
+    <string name="msg_post_no_title">Title empty</string>
+    <string name="msg_post_no_content">Content empty</string>
+    <string name="msg_post_ebadf">Bad post ID to reply</string>
+    <string name="msg_post_locked">Post is locked</string>
+    <string name="msg_post_river_crab">Post is filtered</string>
+    <string name="msg_post_directory">Posting to directory disallowed</string>
+    <string name="msg_post_banned">Account banned by board OP</string>
+    <string name="msg_post_eagain">Operation too frequent</string>
+    <string name="msg_post_idx_io">Server error: reading of index failed</string>
+    <string name="msg_post_internal_err">Internal server error</string>
+    <string name="msg_post_silent_night">No posting during midnight</string>
+
 </resources>
