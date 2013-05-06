@@ -17,6 +17,16 @@
         android:label="@string/app_name"
         android:theme="@style/Theme.JNRain.DefaultLight.NoActionBar" >
         <activity
+            android:name="org.jnrain.mobile.LoginActivity"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.JNRain.LoginScreen" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name="org.jnrain.mobile.SectionListActivity"
             android:label="@string/title_activity_section_list" >
         </activity>
@@ -36,16 +46,6 @@
             android:label="@string/title_activity_global_hot_posts_list" >
         </activity>
         <activity
-            android:name="org.jnrain.mobile.SplashActivity"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.SplashScreen" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
             android:name="org.jnrain.mobile.ThreadListActivity"
             android:label="@string/title_activity_board"
             android:theme="@style/Theme.JNRain.DefaultLight" >
@@ -60,8 +60,6 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.jnrain.mobile.ThreadListActivity" />
-        </activity>
-        <activity android:name="org.jnrain.mobile.LoginActivity" >
         </activity>
         <activity
             android:name="org.jnrain.mobile.NewPostActivity"
