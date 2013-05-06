@@ -47,6 +47,9 @@
     <string name="guest_login">Guest login</string>
     <string name="guest_login_land">Guest</string>
 
+    <!-- Read thread -->
+    <string name="action_reply">Reply to this post</string>
+
     <!-- New post -->
     <string name="action_new_post">New post</string>
     <string name="post_title">Title</string>

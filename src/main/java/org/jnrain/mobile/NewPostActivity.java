@@ -45,11 +45,15 @@ public class NewPostActivity extends SpicedRoboActivity<SimpleReturnCode> {
     @InjectResource(R.string.msg_unknown_status)
     public String MSG_UNKNOWN_STATUS;
 
-    public static final String IS_NEW_THREAD = "org.jnrain.mobile.IS_NEW_THREAD";
     private static final String TAG = "NewPostActivity";
+    public static final String IS_NEW_THREAD = "org.jnrain.mobile.IS_NEW_THREAD";
+    public static final String IN_REPLY_TO = "org.jnrain.mobile.IN_REPLY_TO";
 
     private String _brd_id;
     private boolean _is_new_thread;
+    private long _tid;
+    private long _reid;
+    private String _title = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +67,14 @@ public class NewPostActivity extends SpicedRoboActivity<SimpleReturnCode> {
         _brd_id = intent.getStringExtra(BoardListActivity.BRD_ID);
         _is_new_thread = intent.getBooleanExtra(IS_NEW_THREAD, false);
         if (!_is_new_thread) {
-            // TODO: tid and reid extraction
+            _tid = intent.getLongExtra(ThreadListActivity.THREAD_ID, 0);
+            _reid = intent.getLongExtra(IN_REPLY_TO, 0);
+            _title = intent.getStringExtra(ThreadListActivity.THREAD_TITLE);
+        }
+
+        // set title
+        if (_title != null) {
+            editTitle.setText(_title);
         }
     }
 
@@ -81,16 +92,29 @@ public class NewPostActivity extends SpicedRoboActivity<SimpleReturnCode> {
             case R.id.action_do_post:
                 Log.d(TAG, "do post activated");
 
-                String _title = editTitle.getText().toString();
-                String _content = editContent.getText().toString();
+                String title = editTitle.getText().toString();
+                String content = editContent.getText().toString();
 
-                makeSpiceRequest(
-                        new NewPostRequest(
-                                _brd_id,
-                                _title,
-                                _content,
-                                NewPostRequest.SIGN_RANDOM),
-                        new NewPostRequestListener());
+                // TODO: proper signature selection
+                if (_is_new_thread) {
+                    makeSpiceRequest(
+                            new NewPostRequest(
+                                    _brd_id,
+                                    title,
+                                    content,
+                                    NewPostRequest.SIGN_RANDOM),
+                            new NewPostRequestListener());
+                } else {
+                    makeSpiceRequest(
+                            new NewPostRequest(
+                                    _brd_id,
+                                    _tid,
+                                    _reid,
+                                    title,
+                                    content,
+                                    NewPostRequest.SIGN_RANDOM),
+                            new NewPostRequestListener());
+                }
 
                 // disable edit while performing request
                 setEditableStatus(false);
