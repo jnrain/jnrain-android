@@ -20,7 +20,7 @@ import java.text.MessageFormat;
 import org.jnrain.mobile.network.LoginRequest;
 import org.jnrain.mobile.util.GlobalState;
 import org.jnrain.mobile.util.SpicedRoboActivity;
-import org.jnrain.weiyu.entity.AuthResult;
+import org.jnrain.weiyu.entity.SimpleReturnCode;
 
 import roboguice.inject.InjectResource;
 import roboguice.inject.InjectView;
@@ -37,7 +37,7 @@ import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
 
 
-public class LoginActivity extends SpicedRoboActivity<AuthResult> {
+public class LoginActivity extends SpicedRoboActivity<SimpleReturnCode> {
     @InjectView(R.id.editUID)
     EditText editUID;
     @InjectView(R.id.editPassword)
@@ -118,7 +118,7 @@ public class LoginActivity extends SpicedRoboActivity<AuthResult> {
     }
 
     private class LoginRequestListener
-            implements RequestListener<AuthResult> {
+            implements RequestListener<SimpleReturnCode> {
         @Override
         public void onRequestFailure(SpiceException spiceException) {
             Log.d(TAG, "err on req: " + spiceException.toString());
@@ -129,7 +129,7 @@ public class LoginActivity extends SpicedRoboActivity<AuthResult> {
         }
 
         @Override
-        public void onRequestSuccess(AuthResult result) {
+        public void onRequestSuccess(SimpleReturnCode result) {
             int status = result.getStatus();
 
             switch (status) {
