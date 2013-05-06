@@ -15,11 +15,17 @@
  */
 package org.jnrain.mobile;
 
+import java.text.MessageFormat;
+
+import org.jnrain.mobile.network.LogoutRequest;
 import org.jnrain.mobile.network.SectionListRequest;
+import org.jnrain.mobile.util.GlobalState;
 import org.jnrain.mobile.util.SpicedRoboActivity;
 import org.jnrain.weiyu.collection.ListSections;
 import org.jnrain.weiyu.entity.Section;
+import org.jnrain.weiyu.entity.SimpleReturnCode;
 
+import roboguice.inject.InjectResource;
 import roboguice.inject.InjectView;
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,6 +33,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.octo.android.robospice.persistence.DurationInMillis;
 import com.octo.android.robospice.persistence.exception.SpiceException;
@@ -36,6 +43,13 @@ import com.octo.android.robospice.request.listener.RequestListener;
 public class SectionListActivity extends SpicedRoboActivity<ListSections> {
     @InjectView(R.id.listSections)
     ListView listSections;
+
+    @InjectResource(R.string.msg_network_fail)
+    public String MSG_NETWORK_FAIL;
+    @InjectResource(R.string.msg_unknown_status)
+    public String MSG_UNKNOWN_STATUS;
+    @InjectResource(R.string.msg_logout_success)
+    public String MSG_LOGOUT_SUCCESS;
 
     private static final String TAG = "SectionListActivity";
     private static final String CACHE_KEY = "secs_json";
@@ -84,6 +98,15 @@ public class SectionListActivity extends SpicedRoboActivity<ListSections> {
                 new SectionListRequestListener());
     }
 
+    @Override
+    protected void onStop() {
+        // logout
+        spiceManager.execute(
+                new LogoutRequest(),
+                new LogoutRequestListener());
+        super.onStop();
+    }
+
     private class SectionListRequestListener
             implements RequestListener<ListSections> {
         @Override
@@ -100,4 +123,46 @@ public class SectionListActivity extends SpicedRoboActivity<ListSections> {
         }
     }
 
+    private class LogoutRequestListener
+            implements RequestListener<SimpleReturnCode> {
+        @Override
+        public void onRequestFailure(SpiceException spiceException) {
+            Log.d(TAG, "err on req: " + spiceException.toString());
+            Toast.makeText(
+                    getApplicationContext(),
+                    MSG_NETWORK_FAIL,
+                    Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onRequestSuccess(SimpleReturnCode result) {
+            int status = result.getStatus();
+
+            switch (status) {
+                case 0:
+                    String uid = GlobalState.getUserName();
+
+                    // erase user name
+                    GlobalState.setUserName("");
+
+                    // successful
+                    Toast.makeText(
+                            getApplicationContext(),
+                            MessageFormat.format(MSG_LOGOUT_SUCCESS, uid),
+                            Toast.LENGTH_SHORT).show();
+
+                    break;
+
+                default:
+                    Toast
+                        .makeText(
+                                getApplicationContext(),
+                                MessageFormat.format(
+                                        MSG_UNKNOWN_STATUS,
+                                        status),
+                                Toast.LENGTH_SHORT).show();
+                    break;
+            }
+        }
+    }
 }

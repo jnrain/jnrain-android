@@ -71,6 +71,7 @@
     <string name="msg_login_freq">请勿频繁登陆</string>
     <string name="msg_login_capacity">系统在线人数已达上限</string>
     <string name="msg_login_ipacl">此 ID 不允许从当前 IP 登陆</string>
+    <string name="msg_logout_success">{0} 已注销</string>
 
     <!-- New post -->
     <string name="msg_post_success">发帖成功</string>
