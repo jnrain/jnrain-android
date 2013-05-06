@@ -19,7 +19,7 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class AuthResult {
+public class SimpleReturnCode {
     private int _status;
 
     public int getStatus() {
@@ -31,6 +31,6 @@ public class AuthResult {
     }
 
     public String toString() {
-        return ("<AuthResult: [" + _status + "]>");
+        return ("<Return code: [" + _status + "]>");
     }
 }

@@ -15,7 +15,7 @@
  */
 package org.jnrain.mobile.network;
 
-import org.jnrain.weiyu.entity.AuthResult;
+import org.jnrain.weiyu.entity.SimpleReturnCode;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -25,13 +25,13 @@ import org.springframework.util.MultiValueMap;
 import com.octo.android.robospice.request.springandroid.RestContentRequest;
 
 
-public class LoginRequest extends RestContentRequest<AuthResult> {
+public class LoginRequest extends RestContentRequest<SimpleReturnCode> {
 
     private String _uid;
     private String _password;
 
     public LoginRequest(String uid, String password) {
-        super(AuthResult.class);
+        super(SimpleReturnCode.class);
 
         // TODO: validation
         _uid = uid;
@@ -39,7 +39,7 @@ public class LoginRequest extends RestContentRequest<AuthResult> {
     }
 
     @Override
-    public AuthResult loadDataFromNetwork() throws Exception {
+    public SimpleReturnCode loadDataFromNetwork() throws Exception {
         MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
         params.set("uid", _uid);
         params.set("psw", _password);
@@ -54,6 +54,6 @@ public class LoginRequest extends RestContentRequest<AuthResult> {
                 /* "http://rhymin.jnrain.com/api/login/", */
                 "http://bbs.jnrain.com/rainstyle/apilogin.php",
                 req,
-                AuthResult.class);
+                SimpleReturnCode.class);
     }
 }
