@@ -25,6 +25,8 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
 import com.viewpagerindicator.TitlePageIndicator;
 import com.viewpagerindicator.TitlePageIndicator.IndicatorStyle;
 
@@ -124,6 +126,13 @@ public class ThreadListActivity
                     }
                 }
             });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getSupportMenuInflater();
+        inflater.inflate(R.menu.thread_list, menu);
+        return true;
     }
 
     // @Override

@@ -46,6 +46,9 @@
     <string name="guest_login">Guest login</string>
     <string name="guest_login_land">Guest</string>
 
+    <!-- New post -->
+    <string name="action_new_post">New post</string>
+
     <!-- Status toasts -->
     <!-- General -->
     <string name="msg_network_fail">Network failure</string>
