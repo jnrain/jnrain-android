@@ -23,7 +23,9 @@
         android:id="@+id/editTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/post_title" />
+        android:hint="@string/post_title"
+        android:nextFocusDown="@+id/editContent"
+        android:singleLine="true" />
 
     <EditText
         android:id="@+id/editContent"
@@ -31,9 +33,6 @@
         android:layout_height="fill_parent"
         android:gravity="top"
         android:hint="@string/post_content"
-        android:inputType="textImeMultiLine" >
-
-        <requestFocus />
-    </EditText>
+        android:inputType="textMultiLine" />
 
 </LinearLayout>
