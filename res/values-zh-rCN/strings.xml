@@ -47,6 +47,9 @@
     <string name="guest_login">匿名登陆</string>
     <string name="guest_login_land">匿名</string>
 
+    <!-- Read thread -->
+    <string name="action_reply">回复此帖</string>
+
     <!-- New post -->
     <string name="action_new_post">发表新帖</string>
     <string name="post_title">标题</string>

@@ -23,12 +23,18 @@ import org.jnrain.weiyu.entity.Post;
 
 import roboguice.inject.InjectView;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 
 import com.github.rtyley.android.sherlock.roboguice.fragment.RoboSherlockFragment;
@@ -92,6 +98,54 @@ public class ReadThreadFragment extends RoboSherlockFragment {
         return view;
     }
 
+    @Override
+    public void onCreateContextMenu(
+            ContextMenu menu,
+            View v,
+            ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = this.getActivity().getMenuInflater();
+        inflater.inflate(R.menu.read_thread_context, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
+            .getMenuInfo();
+        switch (item.getItemId()) {
+            case R.id.action_reply:
+                Post post = ((ThreadAdapter) listPosts.getAdapter())
+                    .getItem(info.position);
+
+                Log.d(TAG, "reply to post " + post.toString() + " pressed");
+
+                // reply title
+                String postTitle = post.getTitle();
+                String replyTitle = "";
+                if (postTitle.startsWith("Re:")) {
+                    // prevent flooding of "Re: "'s
+                    replyTitle = postTitle;
+                } else {
+                    replyTitle = "Re: " + postTitle;
+                }
+
+                // fire up post activity
+                Intent intent = new Intent();
+                intent.setClass(getActivity(), NewPostActivity.class);
+                intent.putExtra(BoardListActivity.BRD_ID, _brd_id);
+                intent.putExtra(NewPostActivity.IS_NEW_THREAD, false);
+                intent.putExtra(ThreadListActivity.THREAD_ID, _tid);
+                intent.putExtra(NewPostActivity.IN_REPLY_TO, post.getID());
+                intent.putExtra(ThreadListActivity.THREAD_TITLE, replyTitle);
+
+                startActivity(intent);
+
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
+    }
+
     public synchronized void updateData() {
         @SuppressWarnings("unchecked")
         ThreadAdapter adapter = new ThreadAdapter(
@@ -114,6 +168,9 @@ public class ReadThreadFragment extends RoboSherlockFragment {
                             + ", post=" + post.toString());
                 }
             });
+
+        // context menu
+        registerForContextMenu(listPosts);
     }
 
     private class ThreadRequestListener
