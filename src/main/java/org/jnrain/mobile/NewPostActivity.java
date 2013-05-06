@@ -44,6 +44,44 @@ public class NewPostActivity extends SpicedRoboActivity<SimpleReturnCode> {
 
     @InjectResource(R.string.msg_unknown_status)
     public String MSG_UNKNOWN_STATUS;
+    @InjectResource(R.string.msg_post_success)
+    public String MSG_POST_SUCCESS;
+    @InjectResource(R.string.msg_post_success_reply)
+    public String MSG_POST_SUCCESS_REPLY;
+    @InjectResource(R.string.msg_post_no_guest_post)
+    public String MSG_POST_NO_GUEST_POST;
+    @InjectResource(R.string.msg_post_no_brd_given)
+    public String MSG_POST_NO_BRD_GIVEN;
+    @InjectResource(R.string.msg_post_no_such_brd)
+    public String MSG_POST_NO_SUCH_BRD;
+    @InjectResource(R.string.msg_post_eperm)
+    public String MSG_POST_EPERM;
+    @InjectResource(R.string.msg_post_erofs)
+    public String MSG_POST_EROFS;
+    @InjectResource(R.string.msg_post_denied)
+    public String MSG_POST_DENIED;
+    @InjectResource(R.string.msg_post_no_title)
+    public String MSG_POST_NO_TITLE;
+    @InjectResource(R.string.msg_post_no_content)
+    public String MSG_POST_NO_CONTENT;
+    @InjectResource(R.string.msg_post_ebadf)
+    public String MSG_POST_EBADF;
+    @InjectResource(R.string.msg_post_locked)
+    public String MSG_POST_LOCKED;
+    @InjectResource(R.string.msg_post_river_crab)
+    public String MSG_POST_RIVER_CRAB;
+    @InjectResource(R.string.msg_post_directory)
+    public String MSG_POST_DIRECTORY;
+    @InjectResource(R.string.msg_post_banned)
+    public String MSG_POST_BANNED;
+    @InjectResource(R.string.msg_post_eagain)
+    public String MSG_POST_EAGAIN;
+    @InjectResource(R.string.msg_post_idx_io)
+    public String MSG_POST_IDX_IO;
+    @InjectResource(R.string.msg_post_internal_err)
+    public String MSG_POST_INTERNAL_ERR;
+    @InjectResource(R.string.msg_post_silent_night)
+    public String MSG_POST_SILENT_NIGHT;
 
     private static final String TAG = "NewPostActivity";
     public static final String IS_NEW_THREAD = "org.jnrain.mobile.IS_NEW_THREAD";
@@ -146,8 +184,136 @@ public class NewPostActivity extends SpicedRoboActivity<SimpleReturnCode> {
 
             switch (status) {
                 case 0:
+                    // toast according to action type
+                    Toast.makeText(
+                            getApplicationContext(),
+                            _is_new_thread
+                                    ? MSG_POST_SUCCESS
+                                    : MSG_POST_SUCCESS_REPLY,
+                            Toast.LENGTH_SHORT).show();
                     // finish off self
                     finish();
+
+                    break;
+                case 1:
+                    Toast.makeText(
+                            getApplicationContext(),
+                            MSG_POST_NO_GUEST_POST,
+                            Toast.LENGTH_SHORT).show();
+
+                    break;
+                case 2:
+                    Toast.makeText(
+                            getApplicationContext(),
+                            MSG_POST_NO_BRD_GIVEN,
+                            Toast.LENGTH_SHORT).show();
+
+                    break;
+                case 3:
+                case 12:
+                    Toast.makeText(
+                            getApplicationContext(),
+                            MSG_POST_NO_SUCH_BRD,
+                            Toast.LENGTH_SHORT).show();
+
+                    break;
+                case 4:
+                    Toast.makeText(
+                            getApplicationContext(),
+                            MSG_POST_EPERM,
+                            Toast.LENGTH_SHORT).show();
+
+                    break;
+                case 5:
+                    Toast.makeText(
+                            getApplicationContext(),
+                            MSG_POST_EROFS,
+                            Toast.LENGTH_SHORT).show();
+
+                    break;
+                case 6:
+                case 15:
+                    Toast.makeText(
+                            getApplicationContext(),
+                            MSG_POST_DENIED,
+                            Toast.LENGTH_SHORT).show();
+
+                    break;
+                case 7:
+                case 14:
+                    Toast.makeText(
+                            getApplicationContext(),
+                            MSG_POST_NO_TITLE,
+                            Toast.LENGTH_SHORT).show();
+
+                    break;
+                case 8:
+                    Toast.makeText(
+                            getApplicationContext(),
+                            MSG_POST_NO_CONTENT,
+                            Toast.LENGTH_SHORT).show();
+                case 9:
+                    Toast.makeText(
+                            getApplicationContext(),
+                            MSG_POST_EBADF,
+                            Toast.LENGTH_SHORT).show();
+
+                    break;
+                case 10:
+                case 19:
+                    Toast.makeText(
+                            getApplicationContext(),
+                            MSG_POST_LOCKED,
+                            Toast.LENGTH_SHORT).show();
+
+                    break;
+                case 11:
+                    Toast.makeText(
+                            getApplicationContext(),
+                            MSG_POST_RIVER_CRAB,
+                            Toast.LENGTH_SHORT).show();
+
+                    break;
+                case 13:
+                    Toast.makeText(
+                            getApplicationContext(),
+                            MSG_POST_DIRECTORY,
+                            Toast.LENGTH_SHORT).show();
+
+                    break;
+                case 16:
+                    Toast.makeText(
+                            getApplicationContext(),
+                            MSG_POST_BANNED,
+                            Toast.LENGTH_SHORT).show();
+
+                    break;
+                case 17:
+                    Toast.makeText(
+                            getApplicationContext(),
+                            MSG_POST_EAGAIN,
+                            Toast.LENGTH_SHORT).show();
+
+                    break;
+                case 18:
+                    Toast.makeText(
+                            getApplicationContext(),
+                            MSG_POST_IDX_IO,
+                            Toast.LENGTH_SHORT).show();
+
+                    break;
+                case 20:
+                    Toast.makeText(
+                            getApplicationContext(),
+                            MSG_POST_INTERNAL_ERR,
+                            Toast.LENGTH_SHORT).show();
+
+                    break;
+                case 21:
+                    Toast.makeText(
+                            getApplicationContext(),
+                            MSG_POST_SILENT_NIGHT,
+                            Toast.LENGTH_SHORT).show();
 
                     break;
                 default:
@@ -159,10 +325,11 @@ public class NewPostActivity extends SpicedRoboActivity<SimpleReturnCode> {
                                         status),
                                 Toast.LENGTH_SHORT).show();
 
-                    // restore editable status
-                    NewPostActivity.this.setEditableStatus(true);
                     break;
             }
+
+            // restore editable status
+            NewPostActivity.this.setEditableStatus(true);
         }
     }
 }
