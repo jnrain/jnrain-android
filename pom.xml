@@ -92,6 +92,10 @@
             <platform>16</platform>
           </sdk>
           <undeployBeforeDeploy>true</undeployBeforeDeploy>
+          <proguard>
+            <skip>false</skip>
+            <config>./proguard.cfg</config>
+          </proguard>
         </configuration>
         <extensions>true</extensions>
       </plugin>
