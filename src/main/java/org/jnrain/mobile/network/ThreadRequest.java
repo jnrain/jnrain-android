@@ -17,10 +17,10 @@ package org.jnrain.mobile.network;
 
 import org.jnrain.weiyu.collection.ListPosts;
 
-import com.octo.android.robospice.request.springandroid.RestContentRequest;
+import com.octo.android.robospice.request.springandroid.SpringAndroidSpiceRequest;
 
 
-public class ThreadRequest extends RestContentRequest<ListPosts> {
+public class ThreadRequest extends SpringAndroidSpiceRequest<ListPosts> {
     private String _brd;
     private long _tid;
     private int _page;

@@ -17,10 +17,10 @@ package org.jnrain.mobile.network;
 
 import org.jnrain.weiyu.collection.ListBoards;
 
-import com.octo.android.robospice.request.springandroid.RestContentRequest;
+import com.octo.android.robospice.request.springandroid.SpringAndroidSpiceRequest;
 
 
-public class BoardListRequest extends RestContentRequest<ListBoards> {
+public class BoardListRequest extends SpringAndroidSpiceRequest<ListBoards> {
     private String _sec_id;
 
     public BoardListRequest(String sec_id) {
