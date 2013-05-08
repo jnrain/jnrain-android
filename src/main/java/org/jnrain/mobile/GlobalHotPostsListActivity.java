@@ -16,6 +16,8 @@
 package org.jnrain.mobile;
 
 import org.jnrain.mobile.network.HotPostsListRequest;
+import org.jnrain.mobile.network.LogoutRequest;
+import org.jnrain.mobile.network.listeners.LogoutRequestListener;
 import org.jnrain.mobile.util.CacheKeyManager;
 import org.jnrain.mobile.util.SpicedRoboActivity;
 import org.jnrain.weiyu.collection.ListHotPosts;
@@ -78,6 +80,15 @@ public class GlobalHotPostsListActivity
                 CacheKeyManager.keyForHotPosts(ListHotPosts.GLOBAL),
                 DurationInMillis.ONE_MINUTE,
                 new GlobalHotPostsListRequestListener());
+    }
+
+    @Override
+    public void onBackPressed() {
+        // this is the last activity on the task stack. logout
+        spiceManager.execute(new LogoutRequest(), new LogoutRequestListener(
+                this));
+
+        super.onBackPressed();
     }
 
     public synchronized void updateData() {
