@@ -33,14 +33,14 @@ import android.app.Application;
 import android.util.Log;
 import android.webkit.CookieManager;
 
-import com.octo.android.robospice.SpringAndroidContentService;
+import com.octo.android.robospice.SpringAndroidSpiceService;
 import com.octo.android.robospice.persistence.CacheManager;
 import com.octo.android.robospice.persistence.binary.InFileInputStreamObjectPersister;
-import com.octo.android.robospice.persistence.json.jackson.JacksonObjectPersisterFactory;
+import com.octo.android.robospice.persistence.springandroid.json.jackson.JacksonObjectPersisterFactory;
 import com.octo.android.robospice.persistence.string.InFileStringObjectPersister;
 
 
-public class JNRainSpiceService extends SpringAndroidContentService {
+public class JNRainSpiceService extends SpringAndroidSpiceService {
     private ArrayList<ClientHttpRequestInterceptor> _interceptors;
 
     public JNRainSpiceService() {

@@ -23,10 +23,11 @@ import org.springframework.http.MediaType;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
-import com.octo.android.robospice.request.springandroid.RestContentRequest;
+import com.octo.android.robospice.request.springandroid.SpringAndroidSpiceRequest;
 
 
-public class NewPostRequest extends RestContentRequest<SimpleReturnCode> {
+public class NewPostRequest
+        extends SpringAndroidSpiceRequest<SimpleReturnCode> {
     public static final int SIGN_RANDOM = -1;
 
     private String _brd;

@@ -17,10 +17,11 @@ package org.jnrain.mobile.network;
 
 import org.jnrain.weiyu.collection.ListHotPosts;
 
-import com.octo.android.robospice.request.springandroid.RestContentRequest;
+import com.octo.android.robospice.request.springandroid.SpringAndroidSpiceRequest;
 
 
-public class HotPostsListRequest extends RestContentRequest<ListHotPosts> {
+public class HotPostsListRequest
+        extends SpringAndroidSpiceRequest<ListHotPosts> {
 
     private String _type;
     private String _name;
