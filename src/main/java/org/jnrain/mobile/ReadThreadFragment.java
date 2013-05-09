@@ -57,9 +57,10 @@ public class ReadThreadFragment extends RoboSherlockFragment {
     private static final String TAG = "ReadThreadFragment";
 
     public ReadThreadFragment(String brd_id, long tid, int page) {
-        this._brd_id = brd_id;
-        this._tid = tid;
-        this._page = page;
+        _brd_id = brd_id;
+        _tid = tid;
+        _page = page;
+        _posts = null;
     }
 
     @Override
@@ -85,17 +86,28 @@ public class ReadThreadFragment extends RoboSherlockFragment {
                 false);
 
         // fetch posts
-        _listener.makeSpiceRequest(
-                new ThreadRequest(_brd_id, _tid, _page),
-                CacheKeyManager.keyForPagedPostList(
-                        _brd_id,
-                        _tid,
-                        _page,
-                        GlobalState.getUserName()),
-                DurationInMillis.ONE_MINUTE,
-                new ThreadRequestListener());
+        if (_posts == null) {
+            _listener.makeSpiceRequest(
+                    new ThreadRequest(_brd_id, _tid, _page),
+                    CacheKeyManager.keyForPagedPostList(
+                            _brd_id,
+                            _tid,
+                            _page,
+                            GlobalState.getUserName()),
+                    DurationInMillis.ONE_MINUTE,
+                    new ThreadRequestListener());
+        }
 
         return view;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        if (_posts != null) {
+            updateData();
+        }
     }
 
     @Override
