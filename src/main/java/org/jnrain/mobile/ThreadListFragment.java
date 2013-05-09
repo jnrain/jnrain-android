@@ -53,6 +53,7 @@ public class ThreadListFragment extends RoboSherlockFragment {
     public ThreadListFragment(String brd_id, int page) {
         _brd_id = brd_id;
         _page = page;
+        _posts = null;
     }
 
     @Override
@@ -84,9 +85,20 @@ public class ThreadListFragment extends RoboSherlockFragment {
                 false);
 
         // fetch a page of thread list
-        makeRequest(_page);
+        if (_posts == null) {
+            makeRequest(_page);
+        }
 
         return view;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        if (_posts != null) {
+            updateData();
+        }
     }
 
     public void makeRequest(int page) {
@@ -136,13 +148,7 @@ public class ThreadListFragment extends RoboSherlockFragment {
             Log.v(TAG, "got posts list: " + posts.toString());
             _posts = posts;
 
-            ThreadListFragment.this.getActivity().runOnUiThread(
-                    new Runnable() {
-                        @Override
-                        public void run() {
-                            updateData();
-                        }
-                    });
+            updateData();
         }
     }
 }
