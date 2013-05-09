@@ -27,11 +27,13 @@ import org.jnrain.weiyu.pres.formatter.post.PostFormatter;
 import android.app.Activity;
 import android.content.Context;
 import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+import android.widget.TextView.BufferType;
 
 
 public class ThreadAdapter extends BaseAdapter {
@@ -100,6 +102,11 @@ public class ThreadAdapter extends BaseAdapter {
         Context ctx = _activity.getApplicationContext();
         PostFormatter fmtr = new JNRainPostFormatter();
 
+        // movement method
+        textContent.setMovementMethod(LinkMovementMethod.getInstance());
+        textSignature.setMovementMethod(LinkMovementMethod.getInstance());
+
+        // TODO: render UBB code client-side
         textContent.setText(Html.fromHtml(
                 fmtr.preprocessContent(post),
                 new JNRainURLImageGetter(
@@ -108,7 +115,7 @@ public class ThreadAdapter extends BaseAdapter {
                         ctx,
                         RESOURCE_BASE_URL,
                         _listener),
-                null));
+                null), BufferType.SPANNABLE);
         textSignature.setText(Html.fromHtml(
                 fmtr.preprocessSign(post),
                 new JNRainURLImageGetter(
@@ -117,7 +124,7 @@ public class ThreadAdapter extends BaseAdapter {
                         ctx,
                         RESOURCE_BASE_URL,
                         _listener),
-                null));
+                null), BufferType.SPANNABLE);
 
         return convertView;
     }
