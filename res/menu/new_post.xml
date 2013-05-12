@@ -18,6 +18,7 @@
 
     <item
         android:id="@+id/action_do_post"
+        android:icon="@drawable/ic_send"
         android:orderInCategory="100"
         android:showAsAction="ifRoom"
         android:title="@string/action_do_post"/>
