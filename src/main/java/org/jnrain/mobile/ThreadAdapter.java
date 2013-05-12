@@ -30,8 +30,10 @@ import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.TextView.BufferType;
 
@@ -48,21 +50,20 @@ public class ThreadAdapter extends BaseAdapter {
             Activity activity,
             ListPosts data,
             SpiceRequestListener<InputStream> listener) {
-        this._inflater = LayoutInflater.from(activity
-            .getApplicationContext());
-        this._activity = activity;
-        this._data = data;
-        this._listener = listener;
+        _inflater = LayoutInflater.from(activity.getApplicationContext());
+        _activity = activity;
+        _data = data;
+        _listener = listener;
     }
 
     @Override
     public int getCount() {
-        return this._data.getPosts().size();
+        return _data.getPosts().size();
     }
 
     @Override
     public Post getItem(int position) throws IndexOutOfBoundsException {
-        return this._data.getPosts().get(position);
+        return _data.getPosts().get(position);
     }
 
     @Override
@@ -80,7 +81,7 @@ public class ThreadAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Post post = getItem(position);
+        final Post post = getItem(position);
 
         if (convertView == null) {
             convertView = this._inflater.inflate(R.layout.post_item, null);
@@ -94,6 +95,8 @@ public class ThreadAdapter extends BaseAdapter {
             .findViewById(R.id.textContent);
         TextView textSignature = (TextView) convertView
             .findViewById(R.id.textSignature);
+        ImageButton btnReply = (ImageButton) convertView
+            .findViewById(R.id.btnReply);
 
         textTitle.setText(post.getTitle());
         textAuthor.setText(post.getAuthor());
@@ -125,6 +128,15 @@ public class ThreadAdapter extends BaseAdapter {
                         RESOURCE_BASE_URL,
                         _listener),
                 null), BufferType.SPANNABLE);
+
+        // bind reply button
+        btnReply.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ReadThreadActivityListener listener = (ReadThreadActivityListener) _activity;
+                listener.showReplyActivityFor(post);
+            }
+        });
 
         return convertView;
     }

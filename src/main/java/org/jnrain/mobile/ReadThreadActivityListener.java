@@ -16,8 +16,10 @@
 package org.jnrain.mobile;
 
 import org.jnrain.mobile.util.SpiceRequestListener;
+import org.jnrain.weiyu.entity.Post;
 
 
 @SuppressWarnings("rawtypes")
 public interface ReadThreadActivityListener extends SpiceRequestListener {
+    public void showReplyActivityFor(Post post);
 }
