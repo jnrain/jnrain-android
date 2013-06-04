@@ -22,7 +22,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:text="帖子标题"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/jnrain_green_dark"
         android:textSize="16sp" />
@@ -33,7 +32,6 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textTitle"
         android:layout_below="@+id/textTitle"
-        android:text="author"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="@color/jnrain_green"
         android:textSize="12sp" />
@@ -43,16 +41,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textAuthor"
-        android:text="帖子内容" />
+        android:layout_below="@+id/textAuthor" />
 
     <TextView
         android:id="@+id/textSignature"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textContent"
-        android:text="qmd" />
+        android:layout_below="@+id/textContent" />
 
     <ImageButton
         android:id="@+id/btnReply"
