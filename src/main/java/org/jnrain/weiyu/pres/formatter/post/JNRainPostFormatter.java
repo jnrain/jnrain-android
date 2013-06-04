@@ -37,6 +37,9 @@ public class JNRainPostFormatter implements PostFormatter {
         // trim
         tmp = tmp.substring(idx);
 
+        // XXX kludge to get rid of all the IE6 icons
+        tmp = tmp.replace("<img src=\"pic/url.gif\" />", "");
+
         return tmp;
     }
 

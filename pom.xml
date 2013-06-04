@@ -4,19 +4,19 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.jnrain.mobile</groupId>
   <artifactId>jnrain-android</artifactId>
-  <version>0.1</version>
+  <version>0.2</version>
   <packaging>apk</packaging>
   <name>jnrain-android</name>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-    <platform.version>4.0.1.2</platform.version>
-    <robospice.version>1.2.0</robospice.version>
-    <jackson.version>1.9.7</jackson.version>
-    <ccodec.version>1.7</ccodec.version>
+    <platform.version>4.1.1.4</platform.version>
+    <robospice.version>1.4.0</robospice.version>
+    <jackson.version>1.9.12</jackson.version>
+    <ccodec.version>1.8</ccodec.version>
     <roboguice.version>2.0</roboguice.version>
-    <abs.version>4.2.0</abs.version>
+    <abs.version>4.3.1</abs.version>
     <robosherlock.version>1.5</robosherlock.version>
     <vpi.version>2.4.1</vpi.version>
   </properties>
@@ -82,7 +82,7 @@
       <plugin>
         <groupId>com.jayway.maven.plugins.android.generation2</groupId>
         <artifactId>android-maven-plugin</artifactId>
-        <version>3.4.1</version>
+        <version>3.5.3</version>
         <configuration>
           <androidManifestFile>${project.basedir}/AndroidManifest.xml</androidManifestFile>
           <assetsDirectory>${project.basedir}/assets</assetsDirectory>
@@ -92,13 +92,29 @@
             <platform>16</platform>
           </sdk>
           <undeployBeforeDeploy>true</undeployBeforeDeploy>
+          <zipalign>
+            <skip>false</skip>
+          </zipalign>
+          <proguard>
+            <skip>false</skip>
+            <config>./proguard.cfg</config>
+          </proguard>
         </configuration>
+        <executions>
+          <execution>
+            <id>zipalign</id>
+            <phase>package</phase>
+            <goals>
+              <goal>zipalign</goal>
+            </goals>
+          </execution>
+        </executions>
         <extensions>true</extensions>
       </plugin>
 
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>2.3.2</version>
+        <version>3.1</version>
         <configuration>
           <source>1.6</source>
           <target>1.6</target>

@@ -23,7 +23,6 @@ import org.jnrain.weiyu.entity.Post;
 
 import roboguice.inject.InjectView;
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -57,9 +56,10 @@ public class ReadThreadFragment extends RoboSherlockFragment {
     private static final String TAG = "ReadThreadFragment";
 
     public ReadThreadFragment(String brd_id, long tid, int page) {
-        this._brd_id = brd_id;
-        this._tid = tid;
-        this._page = page;
+        _brd_id = brd_id;
+        _tid = tid;
+        _page = page;
+        _posts = null;
     }
 
     @Override
@@ -85,17 +85,28 @@ public class ReadThreadFragment extends RoboSherlockFragment {
                 false);
 
         // fetch posts
-        _listener.makeSpiceRequest(
-                new ThreadRequest(_brd_id, _tid, _page),
-                CacheKeyManager.keyForPagedPostList(
-                        _brd_id,
-                        _tid,
-                        _page,
-                        GlobalState.getUserName()),
-                DurationInMillis.ONE_MINUTE,
-                new ThreadRequestListener());
+        if (_posts == null) {
+            _listener.makeSpiceRequest(
+                    new ThreadRequest(_brd_id, _tid, _page),
+                    CacheKeyManager.keyForPagedPostList(
+                            _brd_id,
+                            _tid,
+                            _page,
+                            GlobalState.getUserName()),
+                    DurationInMillis.ONE_MINUTE,
+                    new ThreadRequestListener());
+        }
 
         return view;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        if (_posts != null) {
+            updateData();
+        }
     }
 
     @Override
@@ -117,28 +128,7 @@ public class ReadThreadFragment extends RoboSherlockFragment {
                 Post post = ((ThreadAdapter) listPosts.getAdapter())
                     .getItem(info.position);
 
-                Log.d(TAG, "reply to post " + post.toString() + " pressed");
-
-                // reply title
-                String postTitle = post.getTitle();
-                String replyTitle = "";
-                if (postTitle.startsWith("Re:")) {
-                    // prevent flooding of "Re: "'s
-                    replyTitle = postTitle;
-                } else {
-                    replyTitle = "Re: " + postTitle;
-                }
-
-                // fire up post activity
-                Intent intent = new Intent();
-                intent.setClass(getActivity(), NewPostActivity.class);
-                intent.putExtra(BoardListActivity.BRD_ID, _brd_id);
-                intent.putExtra(NewPostActivity.IS_NEW_THREAD, false);
-                intent.putExtra(ThreadListActivity.THREAD_ID, _tid);
-                intent.putExtra(NewPostActivity.IN_REPLY_TO, post.getID());
-                intent.putExtra(ThreadListActivity.THREAD_TITLE, replyTitle);
-
-                startActivity(intent);
+                _listener.showReplyActivityFor(post);
 
                 return true;
             default:

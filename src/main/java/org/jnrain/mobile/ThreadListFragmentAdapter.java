@@ -14,19 +14,24 @@ class ThreadListFragmentAdapter
 
     public ThreadListFragmentAdapter(FragmentManager fm, Context ctx) {
         super(fm);
-        this._ctx = ctx;
+        _ctx = ctx;
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
         // return "Page" + Integer.toString(position + 1);
         return MessageFormat.format(
-                this._ctx.getString(R.string.page_nr),
+                _ctx.getString(R.string.page_nr),
                 Integer.toString(position + 1));
     }
 
     public void addItem(String brd_id, int page) {
-        _contents.add(new ThreadListFragment(brd_id, page));
+        ThreadListFragment frag = new ThreadListFragment(brd_id, page);
+
+        // retain state
+        frag.setRetainInstance(true);
+
+        _contents.add(frag);
         notifyDataSetChanged();
     }
 }

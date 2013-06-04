@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2013 JNRain
+ * Copyright 2013 JNRain
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may
  * not use this file except in compliance with the License. You may obtain a
@@ -13,13 +13,22 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package org.jnrain.mobile;
+package org.jnrain.mobile.network.listeners;
 
-import org.jnrain.mobile.util.SpiceRequestListener;
-import org.jnrain.weiyu.entity.Post;
+import android.app.Activity;
+import android.content.Context;
+
+import com.octo.android.robospice.request.listener.RequestListener;
 
 
-@SuppressWarnings("rawtypes")
-public interface ReadThreadActivityListener extends SpiceRequestListener {
-    public void showReplyActivityFor(Post post);
+public abstract class ActivityRequestListener<T>
+        implements RequestListener<T> {
+    protected Activity _activity;
+    protected Context ctx;
+
+    public ActivityRequestListener(Activity activity) {
+        super();
+        _activity = activity;
+        ctx = activity.getApplicationContext();
+    }
 }

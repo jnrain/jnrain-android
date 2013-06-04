@@ -17,10 +17,11 @@ package org.jnrain.mobile.network;
 
 import org.jnrain.weiyu.collection.ListSections;
 
-import com.octo.android.robospice.request.springandroid.RestContentRequest;
+import com.octo.android.robospice.request.springandroid.SpringAndroidSpiceRequest;
 
 
-public class SectionListRequest extends RestContentRequest<ListSections> {
+public class SectionListRequest
+        extends SpringAndroidSpiceRequest<ListSections> {
     public SectionListRequest() {
         super(ListSections.class);
     }

@@ -16,6 +16,7 @@
 package org.jnrain.mobile;
 
 import org.jnrain.mobile.util.SpicedRoboFragmentActivity;
+import org.jnrain.weiyu.entity.Post;
 
 import roboguice.inject.InjectView;
 import android.content.Intent;
@@ -23,6 +24,7 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 
+import com.actionbarsherlock.view.MenuItem;
 import com.viewpagerindicator.TitlePageIndicator;
 import com.viewpagerindicator.TitlePageIndicator.IndicatorStyle;
 
@@ -118,7 +120,45 @@ public class ReadThreadActivity extends SpicedRoboFragmentActivity
             });
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
     public void addReplyPage(int page) {
         _adapter.addItem(this._brd_id, this._tid, page);
+    }
+
+    public void showReplyActivityFor(Post post) {
+        Log.d(TAG, "reply to post " + post.toString() + " pressed");
+
+        // reply title
+        String postTitle = post.getTitle();
+        String replyTitle = "";
+        if (postTitle.startsWith("Re:")) {
+            // prevent flooding of "Re: "'s
+            replyTitle = postTitle;
+        } else {
+            replyTitle = "Re: " + postTitle;
+        }
+
+        // fire up post activity
+        Intent intent = new Intent();
+        intent.setClass(this, NewPostActivity.class);
+        intent.putExtra(BoardListActivity.BRD_ID, _brd_id);
+        intent.putExtra(NewPostActivity.IS_NEW_THREAD, false);
+        intent.putExtra(ThreadListActivity.THREAD_ID, _tid);
+        intent.putExtra(NewPostActivity.IN_REPLY_TO, post.getID());
+        intent.putExtra(ThreadListActivity.THREAD_TITLE, replyTitle);
+
+        startActivity(intent);
     }
 }

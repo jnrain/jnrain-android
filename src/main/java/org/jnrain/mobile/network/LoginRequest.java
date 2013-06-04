@@ -22,10 +22,11 @@ import org.springframework.http.MediaType;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
-import com.octo.android.robospice.request.springandroid.RestContentRequest;
+import com.octo.android.robospice.request.springandroid.SpringAndroidSpiceRequest;
 
 
-public class LoginRequest extends RestContentRequest<SimpleReturnCode> {
+public class LoginRequest
+        extends SpringAndroidSpiceRequest<SimpleReturnCode> {
 
     private String _uid;
     private String _password;

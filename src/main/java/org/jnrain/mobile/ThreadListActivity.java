@@ -140,6 +140,10 @@ public class ThreadListActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+
             case R.id.action_new_post:
                 Log.d(TAG, "new post menu item selected");
 
@@ -153,6 +157,7 @@ public class ThreadListActivity
                 startActivity(intent);
 
                 return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
