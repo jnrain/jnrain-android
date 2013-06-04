@@ -43,6 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textAuthor"
+        android:textColor="android:@color/black"
         android:textIsSelectable="true" />
 
     <TextView
@@ -51,14 +52,15 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textContent"
+        android:textColor="android:@color/black"
         android:textIsSelectable="true" />
 
     <ImageButton
         android:id="@+id/btnReply"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
         android:background="@android:color/transparent"
         android:contentDescription="@string/action_reply"
         android:src="@drawable/ic_reply" />
