@@ -24,6 +24,7 @@
         android:layout_alignParentTop="true"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/jnrain_green_dark"
+        android:textIsSelectable="true"
         android:textSize="16sp" />
 
     <TextView
@@ -41,14 +42,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textAuthor" />
+        android:layout_below="@+id/textAuthor"
+        android:textIsSelectable="true" />
 
     <TextView
         android:id="@+id/textSignature"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textContent" />
+        android:layout_below="@+id/textContent"
+        android:textIsSelectable="true" />
 
     <ImageButton
         android:id="@+id/btnReply"
