@@ -24,6 +24,8 @@ public class ConfigManager {
     private static Context mContext;
     private static ConfigManager configManager;
     private static SharedPreferences appPreferences;
+    
+    private static LoginInfoUtil loginInfoUtil;
 
     private static SharedPreferences.Editor appPreferencesEditor;
 
@@ -48,7 +50,10 @@ public class ConfigManager {
         return appPreferences;
     }
     
-    public LoginInfoUtil createLoginInfoUtil(Context context) {
-        return new LoginInfoUtil(context);       
+    public LoginInfoUtil getLoginInfoUtil() {
+        if(loginInfoUtil == null){
+            loginInfoUtil = new LoginInfoUtil(mContext);
+        }
+        return loginInfoUtil;       
     }
 }
