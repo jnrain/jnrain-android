@@ -38,6 +38,17 @@
         android:textSize="12sp" />
 
     <TextView
+        android:id="@+id/textCtime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textAuthor"
+        android:layout_marginLeft="8dp"
+        android:layout_toRightOf="@+id/textAuthor"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/jnrain_green"
+        android:textSize="12sp" />
+
+    <TextView
         android:id="@+id/textContent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
