@@ -24,7 +24,6 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 
-import com.actionbarsherlock.view.MenuItem;
 import com.viewpagerindicator.TitlePageIndicator;
 import com.viewpagerindicator.TitlePageIndicator.IndicatorStyle;
 
@@ -119,7 +118,7 @@ public class ReadThreadActivity extends SpicedRoboFragmentActivity
                 }
             });
     }
-
+    /*
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
@@ -132,7 +131,7 @@ public class ReadThreadActivity extends SpicedRoboFragmentActivity
                 return super.onOptionsItemSelected(item);
         }
     }
-
+     */
     public void addReplyPage(int page) {
         _adapter.addItem(this._brd_id, this._tid, page);
     }
