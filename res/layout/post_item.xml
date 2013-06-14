@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  Copyright 2012 JNRain
+  Copyright 2012-2013 JNRain
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -22,9 +22,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:text="帖子标题"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/jnrain_green_dark"
+        android:textIsSelectable="true"
         android:textSize="16sp" />
 
     <TextView
@@ -33,7 +33,17 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textTitle"
         android:layout_below="@+id/textTitle"
-        android:text="author"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/jnrain_green"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/textCtime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textAuthor"
+        android:layout_marginLeft="8dp"
+        android:layout_toRightOf="@+id/textAuthor"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="@color/jnrain_green"
         android:textSize="12sp" />
@@ -44,7 +54,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textAuthor"
-        android:text="帖子内容" />
+        android:textColor="@color/post_item_content"
+        android:textIsSelectable="true" />
 
     <TextView
         android:id="@+id/textSignature"
@@ -52,6 +63,17 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textContent"
-        android:text="qmd" />
+        android:textColor="@color/post_item_signature"
+        android:textIsSelectable="true" />
+
+    <ImageButton
+        android:id="@+id/btnReply"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/action_reply"
+        android:src="@drawable/ic_reply" />
 
 </RelativeLayout>

@@ -15,6 +15,8 @@
  */
 package org.jnrain.mobile.util;
 
+import java.text.MessageFormat;
+
 import android.content.Context;
 import android.widget.Toast;
 
@@ -45,7 +47,7 @@ public class ToastHelper {
             Object... formatArgs) {
         Toast.makeText(
                 ctx,
-                ctx.getString(resId, formatArgs),
+                MessageFormat.format(ctx.getString(resId), formatArgs),
                 Toast.LENGTH_SHORT).show();
     }
 }

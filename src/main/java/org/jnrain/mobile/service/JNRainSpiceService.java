@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 JNRain
+ * Copyright 2012-2013 JNRain
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may
  * not use this file except in compliance with the License. You may obtain a
@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jnrain.mobile.network.GzipRestTemplate;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpRequestExecution;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
@@ -74,7 +75,7 @@ public class JNRainSpiceService extends SpringAndroidSpiceService {
 
     @Override
     public RestTemplate createRestTemplate() {
-        RestTemplate restTemplate = new RestTemplate();
+        RestTemplate restTemplate = new GzipRestTemplate();
         // find more complete examples in RoboSpice Motivation app
         // to enable Gzip compression and setting request timeouts.
 
