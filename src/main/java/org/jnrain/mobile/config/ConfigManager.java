@@ -18,13 +18,14 @@ package org.jnrain.mobile.config;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+
 public class ConfigManager {
     private final static String APP_CONFIG = "config";
-    
+
     private static Context mContext;
     private static ConfigManager configManager;
     private static SharedPreferences appPreferences;
-    
+
     private static LoginInfoUtil loginInfoUtil;
 
     private static SharedPreferences.Editor appPreferencesEditor;
@@ -33,27 +34,30 @@ public class ConfigManager {
         if (configManager == null) {
             configManager = new ConfigManager();
             mContext = context;
-            appPreferences = mContext.getSharedPreferences(APP_CONFIG, Context.MODE_PRIVATE);
+            appPreferences = mContext.getSharedPreferences(
+                    APP_CONFIG,
+                    Context.MODE_PRIVATE);
             appPreferencesEditor = appPreferences.edit();
 
         }
         return configManager;
     }
-    
-    private ConfigManager(){};
-    
+
+    private ConfigManager() {
+    };
+
     public SharedPreferences.Editor getAppPreferencesEditor() {
         return appPreferencesEditor;
     }
-    
+
     public SharedPreferences getAppPreferences() {
         return appPreferences;
     }
-    
+
     public LoginInfoUtil getLoginInfoUtil() {
-        if(loginInfoUtil == null){
+        if (loginInfoUtil == null) {
             loginInfoUtil = new LoginInfoUtil(mContext);
         }
-        return loginInfoUtil;       
+        return loginInfoUtil;
     }
 }

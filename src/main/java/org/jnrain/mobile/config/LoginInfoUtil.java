@@ -17,16 +17,17 @@ package org.jnrain.mobile.config;
 
 import android.content.Context;
 
-public class LoginInfoUtil extends BaseConfigUtil{
-    protected LoginInfoUtil(Context context) {
-        super(context);
-        // TODO Auto-generated constructor stub
-    }
 
+public class LoginInfoUtil extends BaseConfigUtil {
     public final static String USER_ID = "user_id";
     public final static String USER_PSW = "user_psw";
     public final static String IS_REMEMBER_LOGIN_INFO = "is_remember_login_info";
     public final static String IS_AUTO_LOGIN = "is_auto_login";
+
+    protected LoginInfoUtil(Context context) {
+        super(context);
+    }
+
     public String getUserID() {
         return getString(USER_ID);
     }
@@ -50,7 +51,7 @@ public class LoginInfoUtil extends BaseConfigUtil{
     public void setRemember(boolean value) {
         setBoolean(IS_REMEMBER_LOGIN_INFO, value);
     }
-    
+
     public boolean isAutoLogin() {
         return getBoolean(IS_AUTO_LOGIN);
     }
