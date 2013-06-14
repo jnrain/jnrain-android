@@ -48,6 +48,8 @@
     <string name="login">Login</string>
     <string name="guest_login">Guest login</string>
     <string name="guest_login_land">Guest</string>
+    <string name="login_dlg_title">Logging in</string>
+    <string name="login_dlg_message">Please wait…</string>
 
     <!-- Read thread -->
     <string name="action_reply">Reply to this post</string>

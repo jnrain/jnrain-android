@@ -23,6 +23,7 @@ import org.jnrain.mobile.util.GlobalState;
 import org.jnrain.mobile.util.SpicedRoboActivity;
 import org.jnrain.weiyu.entity.SimpleReturnCode;
 
+import roboguice.inject.InjectResource;
 import roboguice.inject.InjectView;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
@@ -55,6 +56,11 @@ public class LoginActivity extends SpicedRoboActivity<SimpleReturnCode> {
     Button btnLogin;
     @InjectView(R.id.btnGuestLogin)
     Button btnGuestLogin;
+
+    @InjectResource(R.string.login_dlg_title)
+    public String LOGIN_DLG_TITLE;
+    @InjectResource(R.string.login_dlg_message)
+    public String LOGIN_DLG_MESSAGE;
 
     private static final String TAG = "LoginActivity";
     public static final String GUEST_UID = "guest";
@@ -167,7 +173,8 @@ public class LoginActivity extends SpicedRoboActivity<SimpleReturnCode> {
             @Override
             public void handleMessage(Message msg) {
                 loadingDlg = new ProgressDialog(LoginActivity.this);
-                loadingDlg.setTitle("Loading");
+                loadingDlg.setTitle(LOGIN_DLG_TITLE);
+                loadingDlg.setMessage(LOGIN_DLG_MESSAGE);
                 loadingDlg.show();
             }
         };
