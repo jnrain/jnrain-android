@@ -29,14 +29,14 @@
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:layout_gravity="center_vertical|center_horizontal"
-        android:layout_weight="191"
+        android:layout_weight="1"
         android:contentDescription="@string/splash_image_desc"
         android:src="@drawable/jnrain_splash_logo" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="309"
+        android:layout_weight="1"
         android:gravity="bottom"
         android:orientation="vertical"
         android:padding="10dp" >
@@ -83,7 +83,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/checkbox_text_isautologin" />
-
         </LinearLayout>
 
         <LinearLayout
