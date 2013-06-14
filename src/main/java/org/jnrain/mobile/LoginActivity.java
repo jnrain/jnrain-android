@@ -62,13 +62,13 @@ public class LoginActivity extends SpicedRoboActivity<SimpleReturnCode> {
     public LoginActivity loginActivity;
     private ProgressDialog loadingDlg;
     private Handler mHandler;
-    
-	@Override
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
-	    loginActivity = this;      
+        loginActivity = this;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-       
+
         // cookie manager
         synchronized (this) {
             if (!GlobalState.getCookieInited()) {
@@ -76,33 +76,39 @@ public class LoginActivity extends SpicedRoboActivity<SimpleReturnCode> {
                 GlobalState.setCookieInited(true);
             }
         }
-        ConfigManager configManager =  ConfigManager.getConfigManager(getApplicationContext());
+
+        // preference manager
+        ConfigManager configManager = ConfigManager
+            .getConfigManager(getApplicationContext());
+
+        // login info
         final LoginInfoUtil loginInfoUtil = configManager.getLoginInfoUtil();
-        //String uid = loginInfoUtil.getUserID();
-        //String psw = loginInfoUtil.getUserPSW();
-        checkboxIsRemember.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-            
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                // TODO Auto-generated method stub
-                loginInfoUtil.setRemember(isChecked);
-                if(!isChecked){
-                    checkboxIsAutoLogin.setChecked(isChecked);
+
+        checkboxIsRemember
+            .setOnCheckedChangeListener(new OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(
+                        CompoundButton buttonView,
+                        boolean isChecked) {
+                    loginInfoUtil.setRemember(isChecked);
+                    if (!isChecked) {
+                        checkboxIsAutoLogin.setChecked(isChecked);
+                    }
                 }
-            }
-        });
-        
-        checkboxIsAutoLogin.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-            
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                // TODO Auto-generated method stub
-                loginInfoUtil.setAutoLogin(isChecked);
-                if(isChecked){
-                    checkboxIsRemember.setChecked(isChecked);
+            });
+
+        checkboxIsAutoLogin
+            .setOnCheckedChangeListener(new OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(
+                        CompoundButton buttonView,
+                        boolean isChecked) {
+                    loginInfoUtil.setAutoLogin(isChecked);
+                    if (isChecked) {
+                        checkboxIsRemember.setChecked(isChecked);
+                    }
                 }
-            }
-        });
+            });
 
         btnLogin.setOnClickListener(new OnClickListener() {
             @Override
@@ -125,20 +131,20 @@ public class LoginActivity extends SpicedRoboActivity<SimpleReturnCode> {
         });
         setUpLoginConfig();
     }
-	
-	
-	
-	private void setUpLoginConfig() {
-	    // TODO Auto-generated method stub
-        ConfigManager configManager =  ConfigManager.getConfigManager(getApplicationContext());
+
+    private void setUpLoginConfig() {
+        ConfigManager configManager = ConfigManager
+            .getConfigManager(getApplicationContext());
         final LoginInfoUtil loginInfoUtil = configManager.getLoginInfoUtil();
         final String uid = loginInfoUtil.getUserID();
         final String psw = loginInfoUtil.getUserPSW();
-        
+
         checkboxIsRemember.setChecked(loginInfoUtil.isRememberLoginInfo());
         checkboxIsAutoLogin.setChecked(loginInfoUtil.isAutoLogin());
-        if(uid != null && (!uid.toLowerCase().equals("Guest".toLowerCase()))&& psw != null){
-            if(loginInfoUtil.isRememberLoginInfo()){
+        if (uid != null
+                && (!uid.toLowerCase().equals("Guest".toLowerCase()))
+                && psw != null) {
+            if (loginInfoUtil.isRememberLoginInfo()) {
                 editUID.setText(uid);
                 editPassword.setText(psw);
             }
@@ -147,39 +153,33 @@ public class LoginActivity extends SpicedRoboActivity<SimpleReturnCode> {
 
             @Override
             protected Void doInBackground(Void... params) {
-                // TODO Auto-generated method stub
-                if(uid != null && (!uid.toLowerCase().equals("Guest".toLowerCase()))&& psw != null){
-                    if(loginInfoUtil.isAutoLogin()){
+                if (uid != null && (!GUEST_UID.equals(uid.toLowerCase()))
+                        && psw != null) {
+                    if (loginInfoUtil.isAutoLogin()) {
                         doLogin(uid.toLowerCase(), psw);
                     }
                 }
                 return null;
             }
-        }.execute((Void)null);
-        
-        mHandler = new Handler(){
+        }.execute((Void) null);
+
+        mHandler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
-                // TODO Auto-generated method stub
                 loadingDlg = new ProgressDialog(LoginActivity.this);
                 loadingDlg.setTitle("Loading");
                 loadingDlg.show();
             }
         };
-	}
+    }
 
     public void doLogin(final String uid, final String psw) {
         mHandler.sendMessage(new Message());
-        new Thread(){
-            public void run() {
-                spiceManager.execute(
-                        new LoginRequest(uid, psw),
-                        new LoginRequestListener(loginActivity, uid, psw));
-            }
-        }.start();
-
+        spiceManager.execute(
+                new LoginRequest(uid, psw),
+                new LoginRequestListener(loginActivity, uid, psw));
     }
-    
+
     public ProgressDialog getLoadingDialog() {
         return loadingDlg;
     }
