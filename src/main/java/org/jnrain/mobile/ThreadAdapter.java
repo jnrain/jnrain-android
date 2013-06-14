@@ -52,7 +52,7 @@ public class ThreadAdapter extends BaseAdapter {
             Activity activity,
             ListPosts data,
             SpiceRequestListener<InputStream> listener) {
-        _inflater = LayoutInflater.from(activity.getApplicationContext());
+        _inflater = LayoutInflater.from(activity);
         _activity = activity;
         _data = data;
         _listener = listener;
