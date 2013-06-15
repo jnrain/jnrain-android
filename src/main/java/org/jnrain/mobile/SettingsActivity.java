@@ -20,13 +20,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 
+
 public class SettingsActivity extends PreferenceActivity {
     @SuppressWarnings("deprecation")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferences);
     }
-    
+
     static void show(Context context) {
         final Intent intent = new Intent(context, SettingsActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

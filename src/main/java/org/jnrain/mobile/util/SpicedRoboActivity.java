@@ -67,17 +67,19 @@ public class SpicedRoboActivity<T> extends RoboSherlockActivity
                 cacheDuration,
                 requestListener);
     }
-    
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getSupportMenuInflater();
-        OptionsMenuProvider optionsMenuProvider = OptionsMenuProvider.getOptionsMenuProvider();
+        OptionsMenuProvider optionsMenuProvider = OptionsMenuProvider
+            .getOptionsMenuProvider();
         return optionsMenuProvider.createOptionsMenu(menu, inflater);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        OptionsMenuProvider optionsMenuProvider = OptionsMenuProvider.getOptionsMenuProvider();
+        OptionsMenuProvider optionsMenuProvider = OptionsMenuProvider
+            .getOptionsMenuProvider();
         return optionsMenuProvider.optionsItemSelected(item, this);
     }
 }

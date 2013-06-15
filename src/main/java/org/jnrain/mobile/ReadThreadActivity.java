@@ -118,20 +118,7 @@ public class ReadThreadActivity extends SpicedRoboFragmentActivity
                 }
             });
     }
-    /*
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                return true;
 
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-     */
     public void addReplyPage(int page) {
         _adapter.addItem(this._brd_id, this._tid, page);
     }

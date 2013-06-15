@@ -21,35 +21,39 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
+
 public class OptionsMenuProvider {
     private static OptionsMenuProvider optionsMenuProvider;
-    private OptionsMenuProvider(){};
+
+    private OptionsMenuProvider() {
+    };
+
     public static OptionsMenuProvider getOptionsMenuProvider() {
-        if(optionsMenuProvider == null){
+        if (optionsMenuProvider == null) {
             optionsMenuProvider = new OptionsMenuProvider();
         }
         return optionsMenuProvider;
     }
-    
-    public boolean createOptionsMenu(Menu menu, MenuInflater inflater){   
+
+    public boolean createOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.options_items, menu);
         return true;
     }
-      
-    public boolean optionsItemSelected(MenuItem aitem, Activity activity){
-        switch (aitem.getItemId()) {   
+
+    public boolean optionsItemSelected(MenuItem aitem, Activity activity) {
+        switch (aitem.getItemId()) {
             case android.R.id.home:
                 activity.finish();
                 return true;
-                
+
             case R.id.menu_item_settings:
                 SettingsActivity.show(activity.getApplicationContext());
                 return false;
-                
+
             default:
                 return false;
 
-       }
-        
+        }
+
     }
 }

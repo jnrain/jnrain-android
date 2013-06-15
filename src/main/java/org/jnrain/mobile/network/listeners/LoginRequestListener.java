@@ -1,5 +1,5 @@
 /*
-0 * Copyright 2013 JNRain
+ * Copyright 2013 JNRain
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may
  * not use this file except in compliance with the License. You may obtain a
@@ -25,7 +25,6 @@ import org.jnrain.mobile.util.ToastHelper;
 import org.jnrain.weiyu.entity.SimpleReturnCode;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.util.Log;
 
@@ -53,9 +52,9 @@ public class LoginRequestListener
         ToastHelper.makeTextToast(ctx, R.string.msg_network_fail);
     }
 
-	@Override
+    @Override
     public void onRequestSuccess(SimpleReturnCode result) {
-	    m_activity.getLoadingDialog().dismiss();
+        m_activity.getLoadingDialog().dismiss();
         int status = result.getStatus();
 
         switch (status) {
@@ -63,14 +62,16 @@ public class LoginRequestListener
                 // record user name in global state
                 assert _uid.length() > 0;
                 GlobalState.setUserName(_uid);
-      
+
                 // successful
                 ToastHelper.makeTextToast(ctx, R.string.msg_login_success);
 
-                //save login info
-                ConfigManager configManager =  ConfigManager.getConfigManager(_activity.getApplicationContext());
-                LoginInfoUtil loginInfoUtil = configManager.getLoginInfoUtil();
-                if(!_uid.toLowerCase().equals("Guest".toLowerCase())){
+                // save login info
+                ConfigManager configManager = ConfigManager
+                    .getConfigManager(_activity.getApplicationContext());
+                LoginInfoUtil loginInfoUtil = configManager
+                    .getLoginInfoUtil();
+                if (!_uid.toLowerCase().equals("Guest".toLowerCase())) {
                     loginInfoUtil.saveUserID(_uid);
                     loginInfoUtil.saveUserPSW(_psw);
                 }
