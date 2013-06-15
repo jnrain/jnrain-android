@@ -14,9 +14,11 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
+
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
-     
-    <item android:id="@+id/menu_item_settings"
-        android:title="@string/menu_settings" />
-    
+
+    <item
+        android:id="@+id/menu_item_settings"
+        android:title="@string/menu_settings"/>
+
 </menu>

@@ -25,7 +25,7 @@
     <string name="title_activity_board">帖子列表</string>
     <string name="title_activity_read_thread">读帖</string>
     <string name="title_activity_new_post">发表新帖</string>
-    <string name="title_activity_preference">偏好设置</string>    
+    <string name="title_activity_preference">偏好设置</string>
     <string name="app_name_en">JNRain</string>
     <string name="splash_image_desc">欢迎图像</string>
 
@@ -98,11 +98,11 @@
     <string name="msg_post_idx_io">服务器严重错误：无法读取索引</string>
     <string name="msg_post_internal_err">服务器严重错误：未知内部错误</string>
     <string name="msg_post_silent_night">论坛处于宵禁状态</string>
-    
+
     <!-- Preferences -->
     <string name="preference_account_setting">账号设置</string>
     <string name="preference_account_cancellation">账号注销</string>
-	<string name="preference_user_configuration">用户配置</string>
-	<string name="preference_is_loadimage">加载图片</string>
-	 
+    <string name="preference_user_configuration">用户配置</string>
+    <string name="preference_is_loadimage">加载图片</string>
+
 </resources>
