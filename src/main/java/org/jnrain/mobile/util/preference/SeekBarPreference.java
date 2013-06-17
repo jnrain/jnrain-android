@@ -142,7 +142,7 @@ public class SeekBarPreference extends Preference
                 newContainer.removeAllViews();
                 newContainer.addView(
                         mSeekBar,
-                        ViewGroup.LayoutParams.FILL_PARENT,
+                        ViewGroup.LayoutParams.MATCH_PARENT,
                         ViewGroup.LayoutParams.WRAP_CONTENT);
             }
         } catch (Exception ex) {
