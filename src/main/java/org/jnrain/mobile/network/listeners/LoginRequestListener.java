@@ -18,7 +18,7 @@ package org.jnrain.mobile.network.listeners;
 import org.jnrain.mobile.GlobalHotPostsListActivity;
 import org.jnrain.mobile.LoginActivity;
 import org.jnrain.mobile.R;
-import org.jnrain.mobile.config.ConfigManager;
+import org.jnrain.mobile.config.ConfigHub;
 import org.jnrain.mobile.config.LoginInfoUtil;
 import org.jnrain.mobile.util.GlobalState;
 import org.jnrain.mobile.util.ToastHelper;
@@ -67,11 +67,9 @@ public class LoginRequestListener
                 ToastHelper.makeTextToast(ctx, R.string.msg_login_success);
 
                 // save login info
-                ConfigManager configManager = ConfigManager
-                    .getConfigManager(_activity.getApplicationContext());
-                LoginInfoUtil loginInfoUtil = configManager
-                    .getLoginInfoUtil();
-                if (!_uid.toLowerCase().equals("Guest".toLowerCase())) {
+                LoginInfoUtil loginInfoUtil = ConfigHub
+                    .getLoginInfoUtil(m_activity.getApplicationContext());
+                if (!LoginActivity.GUEST_UID.equals(_uid.toLowerCase())) {
                     loginInfoUtil.saveUserID(_uid);
                     loginInfoUtil.saveUserPSW(_psw);
                 }

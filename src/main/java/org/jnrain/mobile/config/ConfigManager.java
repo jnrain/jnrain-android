@@ -15,36 +15,33 @@
  */
 package org.jnrain.mobile.config;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 
 public class ConfigManager {
-    private final static String APP_CONFIG = "config";
+    private SharedPreferences appPreferences;
+    private SharedPreferences.Editor appPreferencesEditor;
 
-    private static Context mContext;
-    private static ConfigManager configManager;
-    private static SharedPreferences appPreferences;
-
-    private static LoginInfoUtil loginInfoUtil;
-
-    private static SharedPreferences.Editor appPreferencesEditor;
-
-    public static ConfigManager getConfigManager(Context context) {
-        if (configManager == null) {
-            configManager = new ConfigManager();
-            mContext = context;
-            appPreferences = mContext.getSharedPreferences(
-                    APP_CONFIG,
-                    Context.MODE_PRIVATE);
-            appPreferencesEditor = appPreferences.edit();
-
-        }
-        return configManager;
+    public ConfigManager(Context context) {
+        initStates(PreferenceManager.getDefaultSharedPreferences(context));
     }
 
-    private ConfigManager() {
-    };
+    public ConfigManager(String name, Context context) {
+        initStates(context.getSharedPreferences(name, Context.MODE_PRIVATE));
+    }
+
+    public ConfigManager(String name, int mode, Context context) {
+        initStates(context.getSharedPreferences(name, mode));
+    }
+
+    @SuppressLint("CommitPrefEdits")
+    protected void initStates(SharedPreferences prefs) {
+        appPreferences = prefs;
+        appPreferencesEditor = appPreferences.edit();
+    }
 
     public SharedPreferences.Editor getAppPreferencesEditor() {
         return appPreferencesEditor;
@@ -52,12 +49,5 @@ public class ConfigManager {
 
     public SharedPreferences getAppPreferences() {
         return appPreferences;
-    }
-
-    public LoginInfoUtil getLoginInfoUtil() {
-        if (loginInfoUtil == null) {
-            loginInfoUtil = new LoginInfoUtil(mContext);
-        }
-        return loginInfoUtil;
     }
 }

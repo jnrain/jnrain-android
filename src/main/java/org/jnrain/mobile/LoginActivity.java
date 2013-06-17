@@ -15,7 +15,7 @@
  */
 package org.jnrain.mobile;
 
-import org.jnrain.mobile.config.ConfigManager;
+import org.jnrain.mobile.config.ConfigHub;
 import org.jnrain.mobile.config.LoginInfoUtil;
 import org.jnrain.mobile.network.LoginRequest;
 import org.jnrain.mobile.network.listeners.LoginRequestListener;
@@ -83,12 +83,9 @@ public class LoginActivity extends SpicedRoboActivity<SimpleReturnCode> {
             }
         }
 
-        // preference manager
-        ConfigManager configManager = ConfigManager
-            .getConfigManager(getApplicationContext());
-
         // login info
-        final LoginInfoUtil loginInfoUtil = configManager.getLoginInfoUtil();
+        final LoginInfoUtil loginInfoUtil = ConfigHub
+            .getLoginInfoUtil(getApplicationContext());
 
         checkboxIsRemember
             .setOnCheckedChangeListener(new OnCheckedChangeListener() {
@@ -139,9 +136,8 @@ public class LoginActivity extends SpicedRoboActivity<SimpleReturnCode> {
     }
 
     private void setUpLoginConfig() {
-        ConfigManager configManager = ConfigManager
-            .getConfigManager(getApplicationContext());
-        final LoginInfoUtil loginInfoUtil = configManager.getLoginInfoUtil();
+        final LoginInfoUtil loginInfoUtil = ConfigHub
+            .getLoginInfoUtil(getApplicationContext());
         final String uid = loginInfoUtil.getUserID();
         final String psw = loginInfoUtil.getUserPSW();
 

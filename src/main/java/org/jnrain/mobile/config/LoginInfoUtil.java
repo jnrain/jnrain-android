@@ -19,13 +19,14 @@ import android.content.Context;
 
 
 public class LoginInfoUtil extends BaseConfigUtil {
-    public final static String USER_ID = "user_id";
-    public final static String USER_PSW = "user_psw";
-    public final static String IS_REMEMBER_LOGIN_INFO = "is_remember_login_info";
-    public final static String IS_AUTO_LOGIN = "is_auto_login";
+    public static final String CONFIG_FILE = "account";
+    public static final String USER_ID = "user_id";
+    public static final String USER_PSW = "user_psw";
+    public static final String IS_REMEMBER_LOGIN_INFO = "is_remember_login_info";
+    public static final String IS_AUTO_LOGIN = "is_auto_login";
 
     protected LoginInfoUtil(Context context) {
-        super(context);
+        super(CONFIG_FILE, context);
     }
 
     public String getUserID() {
