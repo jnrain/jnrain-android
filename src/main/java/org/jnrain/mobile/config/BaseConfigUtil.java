@@ -25,7 +25,15 @@ public class BaseConfigUtil {
     protected ConfigManager configManager;
 
     protected BaseConfigUtil(Context context) {
-        configManager = ConfigManager.getConfigManager(context);
+        initState(ConfigHub.getConfigManager(context));
+    }
+
+    protected BaseConfigUtil(String configName, Context context) {
+        initState(ConfigHub.getConfigManager(configName, context));
+    }
+
+    protected void initState(ConfigManager mgr) {
+        configManager = mgr;
         _preferences = configManager.getAppPreferences();
         _preferencesEditor = configManager.getAppPreferencesEditor();
     }
