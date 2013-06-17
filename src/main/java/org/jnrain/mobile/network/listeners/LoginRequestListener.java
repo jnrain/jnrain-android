@@ -70,8 +70,10 @@ public class LoginRequestListener
                 LoginInfoUtil loginInfoUtil = ConfigHub
                     .getLoginInfoUtil(m_activity.getApplicationContext());
                 if (!LoginActivity.GUEST_UID.equals(_uid.toLowerCase())) {
-                    loginInfoUtil.saveUserID(_uid);
-                    loginInfoUtil.saveUserPSW(_psw);
+                    if (loginInfoUtil.isRememberLoginInfo()) {
+                        loginInfoUtil.saveUserID(_uid);
+                        loginInfoUtil.saveUserPSW(_psw);
+                    }
                 }
 
                 // go to hot posts activity
