@@ -102,5 +102,14 @@
     <!-- Preferences -->
     <string name="prefs_title_account">帐号</string>
     <string name="prefs_title_ui">界面</string>
+    <string name="prefs_ui_exit_behavior">退出应用方式</string>
+
+    <string-array name="prefs_ui_exit_choices">
+        <item name="prefs_ui_exit_direct">直接退出</item>
+        <item name="prefs_ui_exit_doubleclick">双击确认</item>
+        <item name="prefs_ui_exit_dialog">弹出对话框确认</item>
+    </string-array>
+
+    <string name="prefs_ui_exit_doubleclick_timeout">双击确认最长间隔</string>
 
 </resources>
