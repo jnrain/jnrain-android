@@ -17,14 +17,19 @@ package org.jnrain.mobile;
 
 import org.jnrain.mobile.config.ConfigConstants;
 import org.jnrain.mobile.util.PreferenceListFragment;
+import org.jnrain.mobile.util.preference.SeekBarPreference;
 
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
+import android.view.View;
 
 
 public class SettingsInterfaceFragment extends PreferenceListFragment {
+    protected ListPreference exitBehavior;
+    protected SeekBarPreference exitDoubleclickTimeout;
+
     public SettingsInterfaceFragment(int xmlId) {
         super(xmlId);
     }
@@ -36,8 +41,8 @@ public class SettingsInterfaceFragment extends PreferenceListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        final ListPreference exitBehavior = (ListPreference) findPreference(ConfigConstants.EXIT_BEHAVIOR);
-        final Preference exitDoubleclickTimeout = findPreference(ConfigConstants.EXIT_DOUBLECLICK_TIMEOUT);
+        exitBehavior = (ListPreference) findPreference(ConfigConstants.EXIT_BEHAVIOR);
+        exitDoubleclickTimeout = (SeekBarPreference) findPreference(ConfigConstants.EXIT_DOUBLECLICK_TIMEOUT);
 
         exitBehavior
             .setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
@@ -45,11 +50,23 @@ public class SettingsInterfaceFragment extends PreferenceListFragment {
                 public boolean onPreferenceChange(
                         Preference preference,
                         Object newValue) {
-                    exitDoubleclickTimeout
-                        .setEnabled(ConfigConstants.EXIT_DOUBLECLICK
-                            .equals(newValue.toString()));
+                    syncExitBehaviorDep(newValue.toString());
                     return true;
                 }
             });
+
+        // initialize the dependency
+        syncExitBehaviorDep(exitBehavior.getValue());
+    }
+
+    public synchronized void syncExitBehaviorDep(String newValue) {
+        boolean enabled = ConfigConstants.EXIT_DOUBLECLICK.equals(newValue
+            .toString());
+        exitDoubleclickTimeout.setEnabled(enabled);
+
+        // TODO: this doesn't work?
+        exitDoubleclickTimeout.setVisibility(enabled
+                ? View.VISIBLE
+                : View.GONE);
     }
 }

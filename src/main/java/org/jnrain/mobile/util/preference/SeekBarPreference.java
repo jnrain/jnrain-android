@@ -39,6 +39,8 @@ public class SeekBarPreference extends Preference
 
     private TextView mStatusText;
 
+    private int visibility;
+
     public SeekBarPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
         initPreference(context, attrs);
@@ -246,7 +248,24 @@ public class SeekBarPreference extends Preference
             persistInt(temp);
             mCurrentValue = temp;
         }
-
     }
 
+    @Override
+    public void setEnabled(boolean enabled) {
+        super.setEnabled(enabled);
+        mSeekBar.setEnabled(enabled);
+    }
+
+    public int getVisibility() {
+        return visibility;
+    }
+
+    public void setVisibility(int v) {
+        ViewParent parentView = mSeekBar.getParent();
+
+        if (parentView != null) {
+            ((ViewGroup) parentView).setVisibility(v);
+            visibility = v;
+        }
+    }
 }
