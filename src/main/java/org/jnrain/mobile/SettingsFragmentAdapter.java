@@ -35,7 +35,7 @@ public class SettingsFragmentAdapter
         _titles = new ArrayList<String>();
 
         // initialize fragments
-        addItem(R.xml.preferences, R.string.preference_user_configuration);
+        addItem(R.xml.prefs_account, R.string.prefs_title_account);
     }
 
     @Override
