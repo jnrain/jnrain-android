@@ -15,6 +15,7 @@
  */
 package org.jnrain.mobile;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 import org.jnrain.mobile.util.DynPageFragmentAdapter;
@@ -36,7 +37,10 @@ public class SettingsFragmentAdapter
 
         // initialize fragments
         addItem(R.xml.prefs_account, R.string.prefs_title_account);
-        addItem(R.xml.prefs_ui, R.string.prefs_title_ui);
+        addItem(
+                R.xml.prefs_ui,
+                R.string.prefs_title_ui,
+                SettingsInterfaceFragment.class);
     }
 
     @Override
@@ -45,7 +49,39 @@ public class SettingsFragmentAdapter
     }
 
     public void addItem(int xmlId, int titleResId) {
-        PreferenceListFragment frag = new PreferenceListFragment(xmlId);
+        addItem(xmlId, titleResId, PreferenceListFragment.class);
+    }
+
+    public void addItem(
+            int xmlId,
+            int titleResId,
+            Class<? extends PreferenceListFragment> klass) {
+        PreferenceListFragment frag;
+        try {
+            frag = (PreferenceListFragment) klass
+                .getConstructor(int.class)
+                .newInstance(xmlId);
+        } catch (IllegalArgumentException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return;
+        } catch (InstantiationException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return;
+        } catch (IllegalAccessException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return;
+        } catch (InvocationTargetException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return;
+        } catch (NoSuchMethodException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return;
+        }
 
         // retain state
         frag.setRetainInstance(true);
