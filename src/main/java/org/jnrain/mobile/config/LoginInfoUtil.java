@@ -25,8 +25,11 @@ public class LoginInfoUtil extends BaseConfigUtil {
     public static final String IS_REMEMBER_LOGIN_INFO = "is_remember_login_info";
     public static final String IS_AUTO_LOGIN = "is_auto_login";
 
+    public BaseConfigUtil _default_config;
+
     protected LoginInfoUtil(Context context) {
         super(CONFIG_FILE, context);
+        _default_config = new BaseConfigUtil(context);
     }
 
     public String getUserID() {
@@ -46,18 +49,18 @@ public class LoginInfoUtil extends BaseConfigUtil {
     }
 
     public boolean isRememberLoginInfo() {
-        return getBoolean(IS_REMEMBER_LOGIN_INFO);
+        return _default_config.getBoolean(IS_REMEMBER_LOGIN_INFO);
     }
 
     public void setRemember(boolean value) {
-        setBoolean(IS_REMEMBER_LOGIN_INFO, value);
+        _default_config.setBoolean(IS_REMEMBER_LOGIN_INFO, value);
     }
 
     public boolean isAutoLogin() {
-        return getBoolean(IS_AUTO_LOGIN);
+        return _default_config.getBoolean(IS_AUTO_LOGIN);
     }
 
     public void setAutoLogin(boolean value) {
-        setBoolean(IS_AUTO_LOGIN, value);
+        _default_config.setBoolean(IS_AUTO_LOGIN, value);
     }
 }
