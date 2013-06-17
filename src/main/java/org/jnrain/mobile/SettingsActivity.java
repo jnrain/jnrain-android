@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 JNRain
+ * Copyright 2013 JNRain
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may
  * not use this file except in compliance with the License. You may obtain a
@@ -15,17 +15,42 @@
  */
 package org.jnrain.mobile;
 
+import org.jnrain.mobile.util.PreferenceListFragment.OnPreferenceAttachedListener;
+
+import roboguice.inject.InjectView;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.preference.PreferenceActivity;
+import android.preference.Preference;
+import android.preference.Preference.OnPreferenceChangeListener;
+import android.preference.Preference.OnPreferenceClickListener;
+import android.preference.PreferenceScreen;
+import android.support.v4.view.ViewPager;
+
+import com.github.rtyley.android.sherlock.roboguice.activity.RoboSherlockFragmentActivity;
+import com.viewpagerindicator.TitlePageIndicator;
+import com.viewpagerindicator.TitlePageIndicator.IndicatorStyle;
 
 
-public class SettingsActivity extends PreferenceActivity {
-    @SuppressWarnings("deprecation")
+public class SettingsActivity extends RoboSherlockFragmentActivity
+        implements OnPreferenceAttachedListener, OnPreferenceChangeListener,
+        OnPreferenceClickListener {
+    @InjectView(R.id.pager)
+    ViewPager viewPager;
+    @InjectView(R.id.indicator)
+    TitlePageIndicator indicator;
+
+    SettingsFragmentAdapter _adapter;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        addPreferencesFromResource(R.xml.preferences);
+        setContentView(R.layout.dyn_pages);
+        _adapter = new SettingsFragmentAdapter(
+                getSupportFragmentManager(),
+                getApplicationContext());
+        viewPager.setAdapter(_adapter);
+        indicator.setViewPager(viewPager);
+        indicator.setFooterIndicatorStyle(IndicatorStyle.Underline);
     }
 
     static void show(Context context) {
@@ -34,4 +59,20 @@ public class SettingsActivity extends PreferenceActivity {
         context.startActivity(intent);
     }
 
+    @Override
+    public boolean onPreferenceClick(Preference preference) {
+        // TODO Auto-generated method stub
+        return true;
+    }
+
+    @Override
+    public boolean onPreferenceChange(Preference preference, Object newValue) {
+        // TODO Auto-generated method stub
+        return true;
+    }
+
+    @Override
+    public void onPreferenceAttached(PreferenceScreen root, int xmlId) {
+        // TODO Auto-generated method stub
+    }
 }

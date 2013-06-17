@@ -86,14 +86,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="@string/checkbox_text_isautologin" />
+                android:text="@string/is_auto_login" />
 
             <CheckBox
                 android:id="@+id/checkBoxIsRemember"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="@string/checkbox_text_isremember" />
+                android:text="@string/is_remember_psw" />
 
             <Button
                 android:id="@+id/btnGuestLogin"
