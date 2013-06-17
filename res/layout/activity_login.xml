@@ -75,14 +75,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/checkbox_text_isremember" />
+                android:text="@string/is_remember_psw" />
 
             <CheckBox
                 android:id="@+id/checkBoxIsAutoLogin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/checkbox_text_isautologin" />
+                android:text="@string/is_auto_login" />
         </LinearLayout>
 
         <LinearLayout

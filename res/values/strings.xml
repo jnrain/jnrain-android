@@ -44,8 +44,8 @@
     <!-- Login screen -->
     <string name="field_uid">User ID</string>
     <string name="field_psw">Password</string>
-    <string name="checkbox_text_isremember">Remember PSW</string>
-    <string name="checkbox_text_isautologin">Autologon</string>
+    <string name="is_remember_psw">Remember PSW</string>
+    <string name="is_auto_login">Autologon</string>
     <string name="login">Login</string>
     <string name="guest_login">Guest login</string>
     <string name="guest_login_land">Guest</string>
@@ -100,9 +100,7 @@
     <string name="msg_post_silent_night">No posting during midnight</string>
 
     <!-- Preferences -->
-    <string name="preference_account_setting">Account Setting</string>
-    <string name="preference_account_cancellation">Account Cancellation</string>
-    <string name="preference_user_configuration">User Configuration</string>
-    <string name="preference_is_loadimage">LoadImage</string>
+    <string name="prefs_title_account">Account</string>
+    <string name="prefs_title_ui">Interface</string>
 
 </resources>
