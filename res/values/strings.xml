@@ -66,6 +66,9 @@
     <string name="msg_network_fail">Network failure</string>
     <string name="msg_unknown_status">Unknown status: {0}</string>
 
+    <!-- UI -->
+    <string name="msg_exit_doubleclick">Press Back again in {0} sec(s) to exit</string>
+
     <!-- Authentication -->
     <string name="msg_login_success">Login successful</string>
     <string name="msg_login_no_uid">Please enter your user ID</string>
@@ -121,5 +124,11 @@
     <string name="prefs_ui_exit_doubleclick">doubleclick</string>
     <string name="prefs_ui_exit_dialog">dialog</string>
     <string name="prefs_ui_exit_doubleclick_timeout">Doubleclick timeout</string>
+
+    <!-- App exit dialog -->
+    <string name="dlg_exit_confirm_title">Confirm exit</string>
+    <string name="dlg_exit_confirm_msg">Do you want to leave the app now?</string>
+    <string name="dlg_exit_confirm_yes">Yes</string>
+    <string name="dlg_exit_confirm_no">Not now</string>
 
 </resources>

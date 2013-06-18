@@ -21,4 +21,15 @@ public class ConfigConstants {
     public static final String EXIT_DIRECT = "direct";
     public static final String EXIT_DOUBLECLICK = "doubleclick";
     public static final String EXIT_DIALOG = "dialog";
+
+    // Enums.
+    public enum ExitBehavior {
+        DIRECT,
+        DOUBLECLICK,
+        DIALOG
+    }
+
+    // Defaults.
+    public static final ExitBehavior DEFAULT_EXIT_BEHAVIOR = ExitBehavior.DOUBLECLICK;
+    public static final int DEFAULT_EXIT_DOUBLECLICK_TIMEOUT = 3;
 }
