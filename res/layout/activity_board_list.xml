@@ -27,7 +27,6 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         tools:listitem="@layout/board_item" >
-
     </ListView>
 
 </RelativeLayout>

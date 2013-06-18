@@ -18,7 +18,7 @@
 
 即可得到 apk 包。
 
-Eclipse 用户注意：由于 m2e-android 的[已知问题](https://github.com/rgladwell/m2e-android/issues/104)，目前项目不能在 Eclipse 环境中 launch，不过编辑还是可以进行的。**TODO: 在 wiki 中完成环境设置指示**
+Eclipse 用户注意：m2e-android 的[已知问题](https://github.com/rgladwell/m2e-android/issues/104) **已经解决**，所以 launch 的问题已经解决了。请参考 `deps` 目录下的 README 指示完成工作区配置。
 
 
 ## 依赖
@@ -42,6 +42,8 @@ Eclipse 用户注意：由于 m2e-android 的[已知问题](https://github.com/r
     * *TODO: 版面*
 * 帖子列表 API
 * 读帖 API
+* 登录注销
+* 发帖 API
 
 同样因为原型开发的原因，客户端没有接入[落花](https://github.com/xen0n/luohua/)/[微雨](https://github.com/xen0n/weiyu/)项目的API终点，而是接入了江南听雨BBS PHP的实验API终点，以利用已经成熟的数据源。
 
