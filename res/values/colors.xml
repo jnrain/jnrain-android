@@ -18,8 +18,8 @@
 
     <color name="jnrain_green_light">#F8FCF3</color>
     <color name="jnrain_green">#A9D46D</color>
-    
-    <!-- pressed = 10% #A9D46D plus jnrain_green_light  -->
+
+    <!-- pressed = 10% #A9D46D plus jnrain_green_light -->
     <color name="jnrain_green_pressed">#F0F8E5</color>
     <color name="jnrain_green_dark">#669A1F</color>
 

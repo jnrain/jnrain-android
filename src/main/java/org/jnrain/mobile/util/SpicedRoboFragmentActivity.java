@@ -15,8 +15,12 @@
  */
 package org.jnrain.mobile.util;
 
+import org.jnrain.mobile.OptionsMenuProvider;
 import org.jnrain.mobile.service.JNRainSpiceService;
 
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 import com.github.rtyley.android.sherlock.roboguice.activity.RoboSherlockFragmentActivity;
 import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.request.SpiceRequest;
@@ -63,5 +67,20 @@ public class SpicedRoboFragmentActivity<T>
                 requestCacheKey,
                 cacheDuration,
                 requestListener);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getSupportMenuInflater();
+        OptionsMenuProvider optionsMenuProvider = OptionsMenuProvider
+            .getOptionsMenuProvider();
+        return optionsMenuProvider.createOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        OptionsMenuProvider optionsMenuProvider = OptionsMenuProvider
+            .getOptionsMenuProvider();
+        return optionsMenuProvider.optionsItemSelected(item, this);
     }
 }

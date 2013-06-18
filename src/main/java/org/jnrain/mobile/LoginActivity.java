@@ -15,38 +15,63 @@
  */
 package org.jnrain.mobile;
 
+import org.jnrain.mobile.config.ConfigHub;
+import org.jnrain.mobile.config.LoginInfoUtil;
 import org.jnrain.mobile.network.LoginRequest;
 import org.jnrain.mobile.network.listeners.LoginRequestListener;
 import org.jnrain.mobile.util.GlobalState;
 import org.jnrain.mobile.util.SpicedRoboActivity;
 import org.jnrain.weiyu.entity.SimpleReturnCode;
 
+import roboguice.inject.InjectResource;
 import roboguice.inject.InjectView;
+import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.webkit.CookieSyncManager;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 
 
+@SuppressLint("DefaultLocale")
 public class LoginActivity extends SpicedRoboActivity<SimpleReturnCode> {
     @InjectView(R.id.editUID)
     EditText editUID;
     @InjectView(R.id.editPassword)
     EditText editPassword;
+    @InjectView(R.id.checkBoxIsRemember)
+    CheckBox checkboxIsRemember;
+    @InjectView(R.id.checkBoxIsAutoLogin)
+    CheckBox checkboxIsAutoLogin;
     @InjectView(R.id.btnLogin)
     Button btnLogin;
     @InjectView(R.id.btnGuestLogin)
     Button btnGuestLogin;
 
+    @InjectResource(R.string.login_dlg_title)
+    public String LOGIN_DLG_TITLE;
+    @InjectResource(R.string.login_dlg_message)
+    public String LOGIN_DLG_MESSAGE;
+
     private static final String TAG = "LoginActivity";
     public static final String GUEST_UID = "guest";
     public static final String GUEST_PSW = "";
+    public LoginActivity loginActivity;
+    private ProgressDialog loadingDlg;
+    private Handler mHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        loginActivity = this;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
@@ -57,6 +82,36 @@ public class LoginActivity extends SpicedRoboActivity<SimpleReturnCode> {
                 GlobalState.setCookieInited(true);
             }
         }
+
+        // login info
+        final LoginInfoUtil loginInfoUtil = ConfigHub
+            .getLoginInfoUtil(getApplicationContext());
+
+        checkboxIsRemember
+            .setOnCheckedChangeListener(new OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(
+                        CompoundButton buttonView,
+                        boolean isChecked) {
+                    loginInfoUtil.setRemember(isChecked);
+                    if (!isChecked) {
+                        checkboxIsAutoLogin.setChecked(isChecked);
+                    }
+                }
+            });
+
+        checkboxIsAutoLogin
+            .setOnCheckedChangeListener(new OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(
+                        CompoundButton buttonView,
+                        boolean isChecked) {
+                    loginInfoUtil.setAutoLogin(isChecked);
+                    if (isChecked) {
+                        checkboxIsRemember.setChecked(isChecked);
+                    }
+                }
+            });
 
         btnLogin.setOnClickListener(new OnClickListener() {
             @Override
@@ -77,11 +132,58 @@ public class LoginActivity extends SpicedRoboActivity<SimpleReturnCode> {
                 doLogin(GUEST_UID, GUEST_PSW);
             }
         });
+        setUpLoginConfig();
     }
 
-    public void doLogin(String uid, String psw) {
+    private void setUpLoginConfig() {
+        final LoginInfoUtil loginInfoUtil = ConfigHub
+            .getLoginInfoUtil(getApplicationContext());
+        final String uid = loginInfoUtil.getUserID();
+        final String psw = loginInfoUtil.getUserPSW();
+
+        checkboxIsRemember.setChecked(loginInfoUtil.isRememberLoginInfo());
+        checkboxIsAutoLogin.setChecked(loginInfoUtil.isAutoLogin());
+        if (uid != null
+                && (!uid.toLowerCase().equals("Guest".toLowerCase()))
+                && psw != null) {
+            if (loginInfoUtil.isRememberLoginInfo()) {
+                editUID.setText(uid);
+                editPassword.setText(psw);
+            }
+        }
+        new AsyncTask<Void, Void, Void>() {
+
+            @Override
+            protected Void doInBackground(Void... params) {
+                if (uid != null && (!GUEST_UID.equals(uid.toLowerCase()))
+                        && psw != null) {
+                    if (loginInfoUtil.isAutoLogin()) {
+                        doLogin(uid.toLowerCase(), psw);
+                    }
+                }
+                return null;
+            }
+        }.execute((Void) null);
+
+        mHandler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                loadingDlg = new ProgressDialog(LoginActivity.this);
+                loadingDlg.setTitle(LOGIN_DLG_TITLE);
+                loadingDlg.setMessage(LOGIN_DLG_MESSAGE);
+                loadingDlg.show();
+            }
+        };
+    }
+
+    public void doLogin(final String uid, final String psw) {
+        mHandler.sendMessage(new Message());
         spiceManager.execute(
                 new LoginRequest(uid, psw),
-                new LoginRequestListener(this, uid));
+                new LoginRequestListener(loginActivity, uid, psw));
+    }
+
+    public ProgressDialog getLoadingDialog() {
+        return loadingDlg;
     }
 }

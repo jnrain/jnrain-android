@@ -22,8 +22,11 @@ import java.util.List;
 import org.jnrain.mobile.network.GzipRestTemplate;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpRequestExecution;
+import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.ClientHttpResponse;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.http.converter.FormHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
@@ -42,6 +45,10 @@ import com.octo.android.robospice.persistence.string.InFileStringObjectPersister
 
 
 public class JNRainSpiceService extends SpringAndroidSpiceService {
+    /**
+     * Network request timeout in milliseconds.
+     */
+    public static final int REQUEST_TIMEOUT = 5000;
     private ArrayList<ClientHttpRequestInterceptor> _interceptors;
 
     public JNRainSpiceService() {
@@ -91,10 +98,29 @@ public class JNRainSpiceService extends SpringAndroidSpiceService {
         listHttpMessageConverters.add(stringHttpMessageConverter);
         restTemplate.setMessageConverters(listHttpMessageConverters);
 
+        // timeout
+        manageTimeOuts(restTemplate);
+
         // session interceptor
         restTemplate.setInterceptors(_interceptors);
 
         return restTemplate;
+    }
+
+    // SO question
+    // 16707357/setting-connection-timeout-in-robospice-request-android
+    private void manageTimeOuts(RestTemplate restTemplate) {
+        // set timeout for requests
+        ClientHttpRequestFactory factory = restTemplate.getRequestFactory();
+        if (factory instanceof HttpComponentsClientHttpRequestFactory) {
+            HttpComponentsClientHttpRequestFactory advancedFactory = (HttpComponentsClientHttpRequestFactory) factory;
+            advancedFactory.setConnectTimeout(REQUEST_TIMEOUT);
+            advancedFactory.setReadTimeout(REQUEST_TIMEOUT);
+        } else if (factory instanceof SimpleClientHttpRequestFactory) {
+            SimpleClientHttpRequestFactory advancedFactory = (SimpleClientHttpRequestFactory) factory;
+            advancedFactory.setConnectTimeout(REQUEST_TIMEOUT);
+            advancedFactory.setReadTimeout(REQUEST_TIMEOUT);
+        }
     }
 
     /*

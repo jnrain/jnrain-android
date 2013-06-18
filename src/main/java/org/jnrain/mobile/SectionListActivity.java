@@ -15,10 +15,8 @@
  */
 package org.jnrain.mobile;
 
-import org.jnrain.mobile.network.LogoutRequest;
 import org.jnrain.mobile.network.SectionListRequest;
-import org.jnrain.mobile.network.listeners.LogoutRequestListener;
-import org.jnrain.mobile.util.SpicedRoboActivity;
+import org.jnrain.mobile.ui.ux.ExitPointActivity;
 import org.jnrain.weiyu.collection.ListSections;
 import org.jnrain.weiyu.entity.Section;
 
@@ -35,7 +33,7 @@ import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
 
 
-public class SectionListActivity extends SpicedRoboActivity<ListSections> {
+public class SectionListActivity extends ExitPointActivity<ListSections> {
     @InjectView(R.id.listSections)
     ListView listSections;
 
@@ -84,15 +82,6 @@ public class SectionListActivity extends SpicedRoboActivity<ListSections> {
                 CACHE_KEY,
                 DurationInMillis.ONE_WEEK,
                 new SectionListRequestListener());
-    }
-
-    @Override
-    public void onBackPressed() {
-        // this is the last activity on the task stack. logout
-        spiceManager.execute(new LogoutRequest(), new LogoutRequestListener(
-                this));
-
-        super.onBackPressed();
     }
 
     private class SectionListRequestListener

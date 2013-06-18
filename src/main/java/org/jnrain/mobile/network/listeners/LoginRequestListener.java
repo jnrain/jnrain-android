@@ -16,7 +16,10 @@
 package org.jnrain.mobile.network.listeners;
 
 import org.jnrain.mobile.GlobalHotPostsListActivity;
+import org.jnrain.mobile.LoginActivity;
 import org.jnrain.mobile.R;
+import org.jnrain.mobile.config.ConfigHub;
+import org.jnrain.mobile.config.LoginInfoUtil;
 import org.jnrain.mobile.util.GlobalState;
 import org.jnrain.mobile.util.ToastHelper;
 import org.jnrain.weiyu.entity.SimpleReturnCode;
@@ -31,33 +34,47 @@ import com.octo.android.robospice.persistence.exception.SpiceException;
 public class LoginRequestListener
         extends ActivityRequestListener<SimpleReturnCode> {
     private static final String TAG = "LoginRequestListener";
-
+    private LoginActivity m_activity;
     private String _uid;
+    private String _psw;
 
-    public LoginRequestListener(Activity activity, String uid) {
+    public LoginRequestListener(Activity activity, String uid, String psw) {
         super(activity);
-
+        m_activity = (LoginActivity) activity;
         _uid = uid;
+        _psw = psw;
     }
 
     @Override
     public void onRequestFailure(SpiceException spiceException) {
+        m_activity.getLoadingDialog().dismiss();
         Log.d(TAG, "err on req: " + spiceException.toString());
         ToastHelper.makeTextToast(ctx, R.string.msg_network_fail);
     }
 
     @Override
     public void onRequestSuccess(SimpleReturnCode result) {
+        m_activity.getLoadingDialog().dismiss();
         int status = result.getStatus();
 
         switch (status) {
             case 0:
-                // record username in global state
+                // record user name in global state
                 assert _uid.length() > 0;
                 GlobalState.setUserName(_uid);
 
                 // successful
                 ToastHelper.makeTextToast(ctx, R.string.msg_login_success);
+
+                // save login info
+                LoginInfoUtil loginInfoUtil = ConfigHub
+                    .getLoginInfoUtil(m_activity.getApplicationContext());
+                if (!LoginActivity.GUEST_UID.equals(_uid.toLowerCase())) {
+                    if (loginInfoUtil.isRememberLoginInfo()) {
+                        loginInfoUtil.saveUserID(_uid);
+                        loginInfoUtil.saveUserPSW(_psw);
+                    }
+                }
 
                 // go to hot posts activity
                 Intent intent = new Intent();

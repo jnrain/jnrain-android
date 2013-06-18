@@ -133,17 +133,13 @@ public class ThreadListActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getSupportMenuInflater();
         inflater.inflate(R.menu.thread_list, menu);
-        return true;
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                return true;
-
             case R.id.action_new_post:
                 Log.d(TAG, "new post menu item selected");
 

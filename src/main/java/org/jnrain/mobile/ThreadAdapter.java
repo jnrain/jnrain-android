@@ -27,6 +27,7 @@ import org.jnrain.weiyu.pres.formatter.post.PostFormatter;
 import android.app.Activity;
 import android.content.Context;
 import android.text.Html;
+import android.text.format.DateFormat;
 import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,6 +42,7 @@ import android.widget.TextView.BufferType;
 public class ThreadAdapter extends BaseAdapter {
     // private static final String TAG = "ThreadAdapter";
     public static final String RESOURCE_BASE_URL = "http://bbs.jnrain.com/rainstyle/";
+    public static final String CTIME_FORMAT = "yyyy-MM-dd kk:mm:ss";
     private LayoutInflater _inflater;
     private Activity _activity;
     private ListPosts _data;
@@ -50,7 +52,7 @@ public class ThreadAdapter extends BaseAdapter {
             Activity activity,
             ListPosts data,
             SpiceRequestListener<InputStream> listener) {
-        _inflater = LayoutInflater.from(activity.getApplicationContext());
+        _inflater = LayoutInflater.from(activity);
         _activity = activity;
         _data = data;
         _listener = listener;
@@ -91,6 +93,8 @@ public class ThreadAdapter extends BaseAdapter {
             .findViewById(R.id.textTitle);
         TextView textAuthor = (TextView) convertView
             .findViewById(R.id.textAuthor);
+        TextView textCtime = (TextView) convertView
+            .findViewById(R.id.textCtime);
         TextView textContent = (TextView) convertView
             .findViewById(R.id.textContent);
         TextView textSignature = (TextView) convertView
@@ -100,6 +104,7 @@ public class ThreadAdapter extends BaseAdapter {
 
         textTitle.setText(post.getTitle());
         textAuthor.setText(post.getAuthor());
+        textCtime.setText(DateFormat.format(CTIME_FORMAT, post.getCtime()));
 
         // network image enabled content
         Context ctx = _activity.getApplicationContext();
