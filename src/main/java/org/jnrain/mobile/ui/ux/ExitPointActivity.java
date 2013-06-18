@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 JNRain
+ * Copyright 2013 JNRain
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may
  * not use this file except in compliance with the License. You may obtain a
@@ -21,6 +21,7 @@ import org.jnrain.mobile.config.ConfigHub;
 import org.jnrain.mobile.config.UIConfigUtil;
 import org.jnrain.mobile.network.LogoutRequest;
 import org.jnrain.mobile.network.listeners.LogoutRequestListener;
+import org.jnrain.mobile.util.AccountStateListener;
 import org.jnrain.mobile.util.SpicedRoboActivity;
 import org.jnrain.mobile.util.ToastHelper;
 
@@ -30,7 +31,8 @@ import android.content.DialogInterface;
 import android.os.SystemClock;
 
 
-public class ExitPointActivity<T> extends SpicedRoboActivity<T> {
+public class ExitPointActivity<T> extends SpicedRoboActivity<T>
+        implements AccountStateListener {
     @InjectResource(R.string.dlg_exit_confirm_title)
     String _exitDlgTitle;
     @InjectResource(R.string.dlg_exit_confirm_msg)
@@ -105,9 +107,20 @@ public class ExitPointActivity<T> extends SpicedRoboActivity<T> {
 
     protected void doExit() {
         // this SHOULD be the last activity on the task stack. logout
+        // super.onBackPressed() is called via shim in listener
         spiceManager.execute(new LogoutRequest(), new LogoutRequestListener(
                 this));
+    }
 
+    @Override
+    public void onAccountLoggedIn(String uid) {
+        // intentionally left blank, since this is an activity that deals
+        // with logouts
+    }
+
+    @Override
+    public void onAccountLoggedOut() {
+        // Delayed "press" of Back button d-:
         super.onBackPressed();
     }
 }
