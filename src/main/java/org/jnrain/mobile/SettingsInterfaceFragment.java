@@ -23,7 +23,7 @@ import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
-import android.view.View;
+import android.preference.PreferenceScreen;
 
 
 public class SettingsInterfaceFragment extends PreferenceListFragment {
@@ -64,9 +64,11 @@ public class SettingsInterfaceFragment extends PreferenceListFragment {
             .toString());
         exitDoubleclickTimeout.setEnabled(enabled);
 
-        // TODO: this doesn't work?
-        exitDoubleclickTimeout.setVisibility(enabled
-                ? View.VISIBLE
-                : View.GONE);
+        PreferenceScreen scr = getPreferenceScreen();
+        if (enabled) {
+            scr.addPreference(exitDoubleclickTimeout);
+        } else {
+            scr.removePreference(exitDoubleclickTimeout);
+        }
     }
 }

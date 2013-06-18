@@ -39,8 +39,6 @@ public class SeekBarPreference extends Preference
 
     private TextView mStatusText;
 
-    private int visibility;
-
     public SeekBarPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
         initPreference(context, attrs);
@@ -103,7 +101,6 @@ public class SeekBarPreference extends Preference
 
     @Override
     protected View onCreateView(ViewGroup parent) {
-
         RelativeLayout layout = null;
 
         try {
@@ -119,7 +116,6 @@ public class SeekBarPreference extends Preference
         }
 
         return layout;
-
     }
 
     @Override
@@ -158,7 +154,6 @@ public class SeekBarPreference extends Preference
      * @param view
      */
     protected void updateView(View view) {
-
         try {
             RelativeLayout layout = (RelativeLayout) view;
 
@@ -180,7 +175,6 @@ public class SeekBarPreference extends Preference
         } catch (Exception e) {
             Log.e(TAG, "Error updating seek bar preference", e);
         }
-
     }
 
     @Override
@@ -208,7 +202,6 @@ public class SeekBarPreference extends Preference
         mCurrentValue = newValue;
         mStatusText.setText(String.valueOf(newValue));
         persistInt(newValue);
-
     }
 
     @Override
@@ -222,7 +215,6 @@ public class SeekBarPreference extends Preference
 
     @Override
     protected Object onGetDefaultValue(TypedArray ta, int index) {
-
         int defaultValue = ta.getInt(index, DEFAULT_VALUE);
         return defaultValue;
 
@@ -232,7 +224,6 @@ public class SeekBarPreference extends Preference
     protected void onSetInitialValue(
             boolean restoreValue,
             Object defaultValue) {
-
         if (restoreValue) {
             mCurrentValue = getPersistedInt(mCurrentValue);
         } else {
@@ -254,18 +245,5 @@ public class SeekBarPreference extends Preference
     public void setEnabled(boolean enabled) {
         super.setEnabled(enabled);
         mSeekBar.setEnabled(enabled);
-    }
-
-    public int getVisibility() {
-        return visibility;
-    }
-
-    public void setVisibility(int v) {
-        ViewParent parentView = mSeekBar.getParent();
-
-        if (parentView != null) {
-            ((ViewGroup) parentView).setVisibility(v);
-            visibility = v;
-        }
     }
 }
