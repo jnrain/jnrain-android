@@ -2,7 +2,7 @@
 
 ## 原因
 
-为 `project.properties` 文件里面指定 apklib 引用的方法是相对路径，为了防止不同开发者采用路径设置不同而频繁造成变动，而把依赖关系都收集到这里。具体来说，就是两个 apklib 依赖关系：
+项目 `project.properties` 里面指定 apklib 引用的方法是相对路径。为了防止不同开发者采用路径设置不同而频繁造成变动，而把依赖关系都收集到这里。具体来说，就是两个 apklib 依赖关系：
 
 * ActionBarSherlock
 * ViewPagerIndicator
@@ -14,15 +14,19 @@
 
 1. 检出版本库到本地之后，请在此目录下检出依赖关系的版本库：
 
-    git clone https://github.com/JakeWharton/ActionBarSherlock.git
-    git clone https://github.com/JakeWharton/Android-ViewPagerIndicator.git
+```bash
+git clone https://github.com/JakeWharton/ActionBarSherlock.git
+git clone https://github.com/JakeWharton/Android-ViewPagerIndicator.git
+```
 
 2. 然后根据版本库根目录下的 `pom.xml` 指定的依赖关系版本，切到合适的 tag：
 
-    cd ActionBarSherlock
-    git checkout 4.3.1  # 以后可能会变，以 pom.xml 中指定的版本为准
-    cd ../Android-ViewPagerIndicator
-    git checkout 2.4.1  # 同上
+```bash
+cd ActionBarSherlock
+git checkout 4.3.1  # 以后可能会变，以 pom.xml 中指定的版本为准
+cd ../Android-ViewPagerIndicator
+git checkout 2.4.1  # 同上
+```
 
 3. 如果你的 Android SDK 里没有 Android 4.0 (API level 14) 的话，下载一个装上，ABS 的构建需要。
 

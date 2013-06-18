@@ -18,7 +18,7 @@
 
 即可得到 apk 包。
 
-Eclipse 用户注意：m2e-android 的[已知问题](https://github.com/rgladwell/m2e-android/issues/104)**已经解决**，所以 launch 的问题已经解决了。请参考 `deps` 目录下的 README 指示完成工作区配置。
+Eclipse 用户注意：m2e-android 的[已知问题](https://github.com/rgladwell/m2e-android/issues/104) **已经解决**，所以 launch 的问题已经解决了。请参考 `deps` 目录下的 README 指示完成工作区配置。
 
 
 ## 依赖
