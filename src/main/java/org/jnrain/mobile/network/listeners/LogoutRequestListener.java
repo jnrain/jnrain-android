@@ -16,6 +16,7 @@
 package org.jnrain.mobile.network.listeners;
 
 import org.jnrain.mobile.R;
+import org.jnrain.mobile.util.AccountStateListener;
 import org.jnrain.mobile.util.GlobalState;
 import org.jnrain.mobile.util.ToastHelper;
 import org.jnrain.weiyu.entity.SimpleReturnCode;
@@ -30,14 +31,27 @@ public class LogoutRequestListener
         extends ActivityRequestListener<SimpleReturnCode> {
     private static final String TAG = "LogoutRequestListener";
 
+    private AccountStateListener _accountListener;
+
     public LogoutRequestListener(Activity activity) {
         super(activity);
+
+        try {
+            _accountListener = (AccountStateListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement AccountStateListener");
+        }
     }
 
     @Override
     public void onRequestFailure(SpiceException spiceException) {
         Log.d(TAG, "err on req: " + spiceException.toString());
         ToastHelper.makeTextToast(ctx, R.string.msg_network_fail);
+
+        // Should not block user exit...
+        // TODO: Finer granularity of callback
+        _accountListener.onAccountLoggedOut();
     }
 
     @Override
@@ -66,5 +80,10 @@ public class LogoutRequestListener
                         status);
                 break;
         }
+
+        // callback into activity
+        // TODO: also, finer granularity callbacks in case statements would
+        // be nice
+        _accountListener.onAccountLoggedOut();
     }
 }

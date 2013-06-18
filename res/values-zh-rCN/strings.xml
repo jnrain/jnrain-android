@@ -66,6 +66,9 @@
     <string name="msg_network_fail">网络请求出错</string>
     <string name="msg_unknown_status">未知返回状态： {0}</string>
 
+    <!-- UI -->
+    <string name="msg_exit_doubleclick">{0} 秒内再按返回键退出</string>
+
     <!-- Authentication -->
     <string name="msg_login_success">登陆成功</string>
     <string name="msg_login_no_uid">请输入您的用户名</string>
@@ -102,5 +105,20 @@
     <!-- Preferences -->
     <string name="prefs_title_account">帐号</string>
     <string name="prefs_title_ui">界面</string>
+    <string name="prefs_ui_exit_behavior">退出应用方式</string>
+
+    <string-array name="prefs_ui_exit_choices">
+        <item name="prefs_ui_exit_direct">直接退出</item>
+        <item name="prefs_ui_exit_doubleclick">双击确认</item>
+        <item name="prefs_ui_exit_dialog">弹出对话框确认</item>
+    </string-array>
+
+    <string name="prefs_ui_exit_doubleclick_timeout">双击确认最长间隔</string>
+
+    <!-- App exit dialog -->
+    <string name="dlg_exit_confirm_title">确认退出</string>
+    <string name="dlg_exit_confirm_msg">真的要退出客户端吗？</string>
+    <string name="dlg_exit_confirm_yes">嗯</string>
+    <string name="dlg_exit_confirm_no">不不不</string>
 
 </resources>

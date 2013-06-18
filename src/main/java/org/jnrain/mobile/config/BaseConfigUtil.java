@@ -39,19 +39,35 @@ public class BaseConfigUtil {
     }
 
     protected String getString(String key) {
-        return _preferences.getString(key, null);
+        return getString(key, null);
+    }
+
+    protected String getString(String key, String defValue) {
+        return _preferences.getString(key, defValue);
     }
 
     protected boolean getBoolean(String key) {
-        return _preferences.getBoolean(key, false);
+        return getBoolean(key, false);
+    }
+
+    protected boolean getBoolean(String key, boolean defValue) {
+        return _preferences.getBoolean(key, defValue);
     }
 
     protected int getInt(String key) {
-        return _preferences.getInt(key, (Integer) null);
+        return getInt(key, (Integer) null);
+    }
+
+    protected int getInt(String key, int defValue) {
+        return _preferences.getInt(key, defValue);
     }
 
     protected long getLong(String key) {
-        return _preferences.getLong(key, (Long) null);
+        return getLong(key, (Long) null);
+    }
+
+    protected long getLong(String key, long defValue) {
+        return _preferences.getLong(key, defValue);
     }
 
     protected void setString(String key, String value) {

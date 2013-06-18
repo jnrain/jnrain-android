@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  Copyright 2012 JNRain
+  Copyright 2012-2013 JNRain
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -66,6 +66,9 @@
     <string name="msg_network_fail">Network failure</string>
     <string name="msg_unknown_status">Unknown status: {0}</string>
 
+    <!-- UI -->
+    <string name="msg_exit_doubleclick">Press Back again in {0} sec(s) to exit</string>
+
     <!-- Authentication -->
     <string name="msg_login_success">Login successful</string>
     <string name="msg_login_no_uid">Please enter your user ID</string>
@@ -102,5 +105,30 @@
     <!-- Preferences -->
     <string name="prefs_title_account">Account</string>
     <string name="prefs_title_ui">Interface</string>
+    <string name="prefs_ui_exit_behavior">App exit style</string>
+
+    <string-array name="prefs_ui_exit_choices">
+        <item name="prefs_ui_exit_direct">Immediately exit</item>
+        <item name="prefs_ui_exit_doubleclick">Doubleclick confirmation</item>
+        <item name="prefs_ui_exit_dialog">Confirmation dialog</item>
+    </string-array>
+    <string-array name="prefs_ui_exit_values">
+
+        <!-- Constants, do not translate -->
+        <item name="prefs_ui_exit_direct">direct</item>
+        <item name="prefs_ui_exit_doubleclick">doubleclick</item>
+        <item name="prefs_ui_exit_dialog">dialog</item>
+    </string-array>
+    <!-- Duplicates of constants for preferences XML to use as default -->
+    <string name="prefs_ui_exit_direct">direct</string>
+    <string name="prefs_ui_exit_doubleclick">doubleclick</string>
+    <string name="prefs_ui_exit_dialog">dialog</string>
+    <string name="prefs_ui_exit_doubleclick_timeout">Doubleclick timeout</string>
+
+    <!-- App exit dialog -->
+    <string name="dlg_exit_confirm_title">Confirm exit</string>
+    <string name="dlg_exit_confirm_msg">Do you want to leave the app now?</string>
+    <string name="dlg_exit_confirm_yes">Yes</string>
+    <string name="dlg_exit_confirm_no">Not now</string>
 
 </resources>
