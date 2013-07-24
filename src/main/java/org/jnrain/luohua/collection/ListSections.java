@@ -13,41 +13,28 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package org.jnrain.weiyu.collection;
+package org.jnrain.luohua.collection;
 
 import java.util.List;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-import org.jnrain.weiyu.entity.Post;
+import org.jnrain.luohua.entity.Section;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ListHotPosts {
-    public static final String GLOBAL = "global";
-    public static final String SEC = "sec";
-    public static final String BOARD = "board";
+public class ListSections {
+    private List<Section> _sections;
 
-    private String _type;
-    private List<Post> _posts;
-
-    public String getType() {
-        return this._type;
+    public List<Section> getSections() {
+        return this._sections;
     }
 
-    public void setType(String type) {
-        this._type = type;
-    }
-
-    public List<Post> getPosts() {
-        return this._posts;
-    }
-
-    public void setPosts(List<Post> boards) {
-        this._posts = boards;
+    public void setSections(List<Section> sections) {
+        this._sections = sections;
     }
 
     public String toString() {
-        return ("<ListHotPosts: type '" + this._type + "' len="
-                + this._posts.size() + ", " + this._posts.toString() + ">");
+        return ("<ListSections: len=" + this._sections.size() + ", "
+                + this._sections.toString() + ">");
     }
 }

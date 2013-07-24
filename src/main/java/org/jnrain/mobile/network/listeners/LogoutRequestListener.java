@@ -15,11 +15,11 @@
  */
 package org.jnrain.mobile.network.listeners;
 
+import org.jnrain.luohua.entity.SimpleReturnCode;
 import org.jnrain.mobile.R;
 import org.jnrain.mobile.util.AccountStateListener;
 import org.jnrain.mobile.util.GlobalState;
 import org.jnrain.mobile.util.ToastHelper;
-import org.jnrain.weiyu.entity.SimpleReturnCode;
 
 import android.app.Activity;
 import android.util.Log;

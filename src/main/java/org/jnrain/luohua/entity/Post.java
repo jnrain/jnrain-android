@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package org.jnrain.weiyu.entity;
+package org.jnrain.luohua.entity;
 
 import java.util.Date;
 

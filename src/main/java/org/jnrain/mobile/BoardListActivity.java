@@ -15,13 +15,13 @@
  */
 package org.jnrain.mobile;
 
+import org.jnrain.luohua.collection.ListBoards;
+import org.jnrain.luohua.collection.ListPosts;
+import org.jnrain.luohua.entity.Board;
 import org.jnrain.mobile.network.BoardListRequest;
 import org.jnrain.mobile.util.CacheKeyManager;
 import org.jnrain.mobile.util.GlobalState;
 import org.jnrain.mobile.util.SpicedRoboActivity;
-import org.jnrain.weiyu.collection.ListBoards;
-import org.jnrain.weiyu.collection.ListPosts;
-import org.jnrain.weiyu.entity.Board;
 
 import roboguice.inject.InjectView;
 import android.content.Intent;

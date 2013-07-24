@@ -13,37 +13,45 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package org.jnrain.weiyu.collection;
+package org.jnrain.luohua.entity;
 
 import java.util.List;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-import org.jnrain.weiyu.entity.Board;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ListBoards {
-    private String _sec_id;
-    private List<Board> _boards;
+public class Section {
+    private String _ord;
+    private String _name;
+    private List<String> _topics;
 
-    public String getSecID() {
-        return this._sec_id;
+    public String getOrd() {
+        return this._ord;
     }
 
-    public void setSecID(String sec_id) {
-        this._sec_id = sec_id;
+    public void setOrd(String ord) {
+        this._ord = ord;
     }
 
-    public List<Board> getBoards() {
-        return this._boards;
+    public String getName() {
+        return this._name;
     }
 
-    public void setBoards(List<Board> boards) {
-        this._boards = boards;
+    public void setName(String name) {
+        this._name = name;
+    }
+
+    public List<String> getTopics() {
+        return this._topics;
+    }
+
+    public void setTopics(List<String> topics) {
+        this._topics = topics;
     }
 
     public String toString() {
-        return ("<ListBoards: sec " + this._sec_id + ", len="
-                + this._boards.size() + ", " + this._boards.toString() + ">");
+        return ("<Section: " + this._ord + ". " + this._name + " topics: "
+                + this._topics.toString() + ">");
     }
 }

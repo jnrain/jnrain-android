@@ -13,45 +13,28 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package org.jnrain.weiyu.entity;
+package org.jnrain.luohua.collection;
 
 import java.util.List;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.jnrain.luohua.entity.Post;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Section {
-    private String _ord;
-    private String _name;
-    private List<String> _topics;
+public class ListPosts {
+    private List<Post> _posts;
 
-    public String getOrd() {
-        return this._ord;
+    public List<Post> getPosts() {
+        return this._posts;
     }
 
-    public void setOrd(String ord) {
-        this._ord = ord;
-    }
-
-    public String getName() {
-        return this._name;
-    }
-
-    public void setName(String name) {
-        this._name = name;
-    }
-
-    public List<String> getTopics() {
-        return this._topics;
-    }
-
-    public void setTopics(List<String> topics) {
-        this._topics = topics;
+    public void setPosts(List<Post> boards) {
+        this._posts = boards;
     }
 
     public String toString() {
-        return ("<Section: " + this._ord + ". " + this._name + " topics: "
-                + this._topics.toString() + ">");
+        return ("<ListHotPosts: len=" + this._posts.size() + ", "
+                + this._posts.toString() + ">");
     }
 }

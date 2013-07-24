@@ -15,12 +15,12 @@
  */
 package org.jnrain.mobile;
 
+import org.jnrain.luohua.collection.ListHotPosts;
+import org.jnrain.luohua.collection.ListPosts;
+import org.jnrain.luohua.entity.Post;
 import org.jnrain.mobile.network.HotPostsListRequest;
 import org.jnrain.mobile.ui.ux.ExitPointActivity;
 import org.jnrain.mobile.util.CacheKeyManager;
-import org.jnrain.weiyu.collection.ListHotPosts;
-import org.jnrain.weiyu.collection.ListPosts;
-import org.jnrain.weiyu.entity.Post;
 
 import roboguice.inject.InjectResource;
 import roboguice.inject.InjectView;

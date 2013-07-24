@@ -15,10 +15,10 @@
  */
 package org.jnrain.mobile;
 
+import org.jnrain.luohua.collection.ListSections;
+import org.jnrain.luohua.entity.Section;
 import org.jnrain.mobile.network.SectionListRequest;
 import org.jnrain.mobile.ui.ux.ExitPointActivity;
-import org.jnrain.weiyu.collection.ListSections;
-import org.jnrain.weiyu.entity.Section;
 
 import roboguice.inject.InjectView;
 import android.content.Intent;
