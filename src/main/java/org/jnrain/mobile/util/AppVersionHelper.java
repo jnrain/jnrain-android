@@ -19,9 +19,12 @@ import android.app.Activity;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.content.res.Resources;
 
 
 public class AppVersionHelper {
+    public static final String CHANNEL_NAME_RES_PREFIX = "update_chan_name_";
+
     public static void ensureVersionInited(Activity activity) {
         // init global version info if not done yet
         if (!GlobalState.isVersionInited()) {
@@ -41,5 +44,20 @@ public class AppVersionHelper {
                 e.printStackTrace();
             }
         }
+    }
+
+    public static String getLocalizedNameForUpdateChannel(
+            Activity activity,
+            String name) {
+        // SO question
+        // 6999866/access-a-resource-name-programmatically
+        String resourceName = CHANNEL_NAME_RES_PREFIX + name;
+        Resources res = activity.getResources();
+        int id = res.getIdentifier(
+                resourceName,
+                "string",
+                activity.getPackageName());
+
+        return res.getString(id);
     }
 }

@@ -66,12 +66,16 @@
             android:label="@string/title_activity_new_post"
             android:theme="@style/Theme.JNRain.DefaultLight" >
         </activity>
-                <activity
+        <activity
             android:name="org.jnrain.mobile.SettingsActivity"
             android:label="@string/title_activity_preference"
             android:theme="@style/Theme.JNRain.DefaultLight" >
         </activity>
-       
+        <activity
+            android:name="org.jnrain.mobile.AboutActivity"
+            android:label="@string/title_activity_about"
+            android:theme="@style/Theme.JNRain.DefaultLight" >
+        </activity>
     </application>
 
 </manifest>

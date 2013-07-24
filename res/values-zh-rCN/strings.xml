@@ -26,11 +26,13 @@
     <string name="title_activity_read_thread">读帖</string>
     <string name="title_activity_new_post">发表新帖</string>
     <string name="title_activity_preference">偏好设置</string>
+    <string name="title_activity_about">关于江南听雨 for Android</string>
     <string name="app_name_en">JNRain</string>
     <string name="splash_image_desc">欢迎图像</string>
 
     <!-- loading messages -->
     <string name="loading_global_hot_posts">全站热帖加载中…</string>
+    <string name="please_wait">请稍候…</string>
 
     <!-- failure messages -->
     <string name="fail_load_global_hot_posts">加载全站热帖失败。</string>
@@ -50,7 +52,6 @@
     <string name="guest_login">匿名登陆</string>
     <string name="guest_login_land">匿名</string>
     <string name="login_dlg_title">正在登陆</string>
-    <string name="login_dlg_message">请稍候…</string>
 
     <!-- Read thread -->
     <string name="action_reply">回复此帖</string>
@@ -120,5 +121,18 @@
     <string name="dlg_exit_confirm_msg">真的要退出客户端吗？</string>
     <string name="dlg_exit_confirm_yes">嗯</string>
     <string name="dlg_exit_confirm_no">不不不</string>
+
+    <!-- About screen -->
+    <string name="about_app">关于</string>
+    <string name="app_full_name_with_ver">江南听雨 Android 客户端 v{0}</string>
+    <string name="check_updates">检查更新</string>
+
+    <!-- Updater -->
+    <string name="check_updates_dlg_title">正在检查更新</string>
+    <string name="msg_version_is_latest">v{0} 已经是最新版本</string>
+    <string name="msg_new_version_available">检测到更新, 可以升级到 v{0} 版</string>
+    <string name="current_update_channel"><![CDATA[当前位于 <b>{1}</b> ({0}) 更新频道。]]></string>
+    <string name="update_chan_name_stable">稳定版</string>
+    <string name="update_chan_name_next">抢鲜版</string>
 
 </resources>
