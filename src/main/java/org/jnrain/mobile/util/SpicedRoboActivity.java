@@ -18,10 +18,6 @@ package org.jnrain.mobile.util;
 import org.jnrain.mobile.OptionsMenuProvider;
 import org.jnrain.mobile.service.JNRainSpiceService;
 
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.PackageManager.NameNotFoundException;
-
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
@@ -39,22 +35,7 @@ public class SpicedRoboActivity<T> extends RoboSherlockActivity
     @Override
     protected void onStart() {
         // init global version info
-        // TODO: put this network-unrelated thing into some common class
-        if (!GlobalState.isVersionInited()) {
-            PackageManager mgr = getPackageManager();
-
-            try {
-                PackageInfo pkg = mgr.getPackageInfo(getPackageName(), 0);
-
-                GlobalState.setVersionInfo(pkg.versionCode, pkg.versionName);
-            } catch (NameNotFoundException e) {
-                // Wwwwhat? You say my package is NOT FOUND when it's
-                // currently RUNNING?
-                // Put something really bizarre here...
-                GlobalState.setVersionInfo(0, "VERSION-INIT-FAILED");
-                e.printStackTrace();
-            }
-        }
+        AppVersionHelper.ensureVersionInited(this);
 
         synchronized (this) {
             super.onStart();
