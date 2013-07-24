@@ -15,8 +15,8 @@
  */
 package org.jnrain.mobile.network;
 
-import org.jnrain.weiyu.entity.Post;
-import org.jnrain.weiyu.entity.SimpleReturnCode;
+import org.jnrain.luohua.entity.Post;
+import org.jnrain.luohua.entity.SimpleReturnCode;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;

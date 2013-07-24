@@ -13,17 +13,30 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package org.jnrain.weiyu.collection;
+package org.jnrain.luohua.collection;
 
 import java.util.List;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-import org.jnrain.weiyu.entity.Post;
+import org.jnrain.luohua.entity.Post;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ListPosts {
+public class ListHotPosts {
+    public static final String GLOBAL = "global";
+    public static final String SEC = "sec";
+    public static final String BOARD = "board";
+
+    private String _type;
     private List<Post> _posts;
+
+    public String getType() {
+        return this._type;
+    }
+
+    public void setType(String type) {
+        this._type = type;
+    }
 
     public List<Post> getPosts() {
         return this._posts;
@@ -34,7 +47,7 @@ public class ListPosts {
     }
 
     public String toString() {
-        return ("<ListHotPosts: len=" + this._posts.size() + ", "
-                + this._posts.toString() + ">");
+        return ("<ListHotPosts: type '" + this._type + "' len="
+                + this._posts.size() + ", " + this._posts.toString() + ">");
     }
 }

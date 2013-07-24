@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 JNRain
+ * Copyright 2012 JNRain
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may
  * not use this file except in compliance with the License. You may obtain a
@@ -13,24 +13,37 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package org.jnrain.weiyu.entity;
+package org.jnrain.luohua.collection;
+
+import java.util.List;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.jnrain.luohua.entity.Board;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class SimpleReturnCode {
-    private int _status;
+public class ListBoards {
+    private String _sec_id;
+    private List<Board> _boards;
 
-    public int getStatus() {
-        return _status;
+    public String getSecID() {
+        return this._sec_id;
     }
 
-    public void setStatus(int status) {
-        _status = status;
+    public void setSecID(String sec_id) {
+        this._sec_id = sec_id;
+    }
+
+    public List<Board> getBoards() {
+        return this._boards;
+    }
+
+    public void setBoards(List<Board> boards) {
+        this._boards = boards;
     }
 
     public String toString() {
-        return ("<Return code: [" + _status + "]>");
+        return ("<ListBoards: sec " + this._sec_id + ", len="
+                + this._boards.size() + ", " + this._boards.toString() + ">");
     }
 }

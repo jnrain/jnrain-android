@@ -15,7 +15,7 @@
  */
 package org.jnrain.mobile.network;
 
-import org.jnrain.weiyu.collection.ListSections;
+import org.jnrain.luohua.collection.ListSections;
 
 import com.octo.android.robospice.request.springandroid.SpringAndroidSpiceRequest;
 

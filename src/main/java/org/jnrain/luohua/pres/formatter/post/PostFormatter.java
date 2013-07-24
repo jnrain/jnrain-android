@@ -13,9 +13,9 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package org.jnrain.weiyu.pres.formatter.post;
+package org.jnrain.luohua.pres.formatter.post;
 
-import org.jnrain.weiyu.entity.Post;
+import org.jnrain.luohua.entity.Post;
 
 
 public interface PostFormatter {
