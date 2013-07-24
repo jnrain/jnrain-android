@@ -17,6 +17,9 @@ package org.jnrain.mobile.util;
 
 public class GlobalState {
     protected static boolean _cookieInited = false;
+    protected static boolean _versionInited = false;
+    protected static int _versionCode = -1;
+    protected static String _versionName = "VERSION_NOT_INITED";
     protected static String _userName = "";
 
     public static synchronized boolean getCookieInited() {
@@ -33,5 +36,25 @@ public class GlobalState {
 
     public static synchronized void setUserName(String userName) {
         _userName = userName;
+    }
+
+    public static synchronized boolean isVersionInited() {
+        return _versionInited;
+    }
+
+    public static synchronized int getVersionCode() {
+        return _versionCode;
+    }
+
+    public static synchronized String getVersionName() {
+        return _versionName;
+    }
+
+    public static synchronized void setVersionInfo(
+            int versionCode,
+            String versionName) {
+        _versionCode = versionCode;
+        _versionName = versionName;
+        _versionInited = true;
     }
 }
