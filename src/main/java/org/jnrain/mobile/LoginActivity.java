@@ -59,8 +59,8 @@ public class LoginActivity extends SpicedRoboActivity<SimpleReturnCode> {
 
     @InjectResource(R.string.login_dlg_title)
     public String LOGIN_DLG_TITLE;
-    @InjectResource(R.string.login_dlg_message)
-    public String LOGIN_DLG_MESSAGE;
+    @InjectResource(R.string.please_wait)
+    public String PLEASE_WAIT;
 
     private static final String TAG = "LoginActivity";
     public static final String GUEST_UID = "guest";
@@ -170,7 +170,7 @@ public class LoginActivity extends SpicedRoboActivity<SimpleReturnCode> {
             public void handleMessage(Message msg) {
                 loadingDlg = new ProgressDialog(LoginActivity.this);
                 loadingDlg.setTitle(LOGIN_DLG_TITLE);
-                loadingDlg.setMessage(LOGIN_DLG_MESSAGE);
+                loadingDlg.setMessage(PLEASE_WAIT);
                 loadingDlg.show();
             }
         };

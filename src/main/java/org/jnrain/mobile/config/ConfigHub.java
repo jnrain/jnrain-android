@@ -27,6 +27,7 @@ public class ConfigHub {
     // TODO: refactor this to make the "utils" mechanism more generic
     private LoginInfoUtil loginInfoUtil;
     private UIConfigUtil uiUtil;
+    private UpdaterConfigUtil updaterUtil;
 
     private ConfigHub() {
         managers = new HashMap<String, ConfigManager>();
@@ -56,6 +57,11 @@ public class ConfigHub {
     public static UIConfigUtil getUIUtil(Context context) {
         ensureHub();
         return hub.ensureUIUtil(context);
+    }
+
+    public static UpdaterConfigUtil getUpdaterUtil(Context context) {
+        ensureHub();
+        return hub.ensureUpdaterUtil(context);
     }
 
     private ConfigManager ensureConfigManager(String name, Context context) {
@@ -91,5 +97,13 @@ public class ConfigHub {
         }
 
         return uiUtil;
+    }
+
+    private UpdaterConfigUtil ensureUpdaterUtil(Context context) {
+        if (updaterUtil == null) {
+            updaterUtil = new UpdaterConfigUtil(context);
+        }
+
+        return updaterUtil;
     }
 }

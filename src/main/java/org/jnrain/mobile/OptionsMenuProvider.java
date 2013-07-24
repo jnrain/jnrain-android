@@ -50,6 +50,10 @@ public class OptionsMenuProvider {
                 SettingsActivity.show(activity.getApplicationContext());
                 return false;
 
+            case R.id.menu_item_about:
+                AboutActivity.show(activity.getApplicationContext());
+                return false;
+
             default:
                 return false;
 

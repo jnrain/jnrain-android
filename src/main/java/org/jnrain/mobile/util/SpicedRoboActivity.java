@@ -34,6 +34,9 @@ public class SpicedRoboActivity<T> extends RoboSherlockActivity
 
     @Override
     protected void onStart() {
+        // init global version info
+        AppVersionHelper.ensureVersionInited(this);
+
         synchronized (this) {
             super.onStart();
             spiceManager.start(this);

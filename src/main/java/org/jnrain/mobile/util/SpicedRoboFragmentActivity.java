@@ -35,6 +35,9 @@ public class SpicedRoboFragmentActivity<T>
 
     @Override
     protected void onStart() {
+        // init global version info
+        AppVersionHelper.ensureVersionInited(this);
+
         synchronized (this) {
             super.onStart();
             spiceManager.start(this);
