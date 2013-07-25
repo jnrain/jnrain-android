@@ -58,8 +58,6 @@ public class LoginActivity extends SpicedRoboActivity<SimpleReturnCode> {
     Button btnGuestLogin;
 
     private static final String TAG = "LoginActivity";
-    public static final String GUEST_UID = "guest";
-    public static final String GUEST_PSW = "";
     public LoginActivity loginActivity;
     private ProgressDialog loadingDlg;
     private Handler mHandler;
@@ -124,7 +122,7 @@ public class LoginActivity extends SpicedRoboActivity<SimpleReturnCode> {
             public void onClick(View v) {
                 Log.i(TAG, "Guest login button clicked");
 
-                doLogin(GUEST_UID, GUEST_PSW);
+                doLogin(LoginInfoUtil.GUEST_UID, LoginInfoUtil.GUEST_PSW);
             }
         });
         setUpLoginConfig();
@@ -139,7 +137,7 @@ public class LoginActivity extends SpicedRoboActivity<SimpleReturnCode> {
         checkboxIsRemember.setChecked(loginInfoUtil.isRememberLoginInfo());
         checkboxIsAutoLogin.setChecked(loginInfoUtil.isAutoLogin());
         if (uid != null
-                && (!uid.toLowerCase().equals("Guest".toLowerCase()))
+                && (!LoginInfoUtil.GUEST_UID.equals(uid.toLowerCase()))
                 && psw != null) {
             if (loginInfoUtil.isRememberLoginInfo()) {
                 editUID.setText(uid);
@@ -150,8 +148,9 @@ public class LoginActivity extends SpicedRoboActivity<SimpleReturnCode> {
 
             @Override
             protected Void doInBackground(Void... params) {
-                if (uid != null && (!GUEST_UID.equals(uid.toLowerCase()))
-                        && psw != null) {
+                if (uid != null
+                        && (!LoginInfoUtil.GUEST_UID.equals(uid
+                            .toLowerCase())) && psw != null) {
                     if (loginInfoUtil.isAutoLogin()) {
                         doLogin(uid.toLowerCase(), psw);
                     }
