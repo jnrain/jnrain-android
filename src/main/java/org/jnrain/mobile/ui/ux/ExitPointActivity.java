@@ -23,7 +23,6 @@ import org.jnrain.mobile.network.LogoutRequest;
 import org.jnrain.mobile.network.listeners.LogoutRequestListener;
 import org.jnrain.mobile.util.AccountStateListener;
 import org.jnrain.mobile.util.SpicedRoboActivity;
-import org.jnrain.mobile.util.ToastHelper;
 
 import roboguice.inject.InjectResource;
 import android.app.AlertDialog;

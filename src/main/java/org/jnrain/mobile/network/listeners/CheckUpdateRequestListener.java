@@ -17,9 +17,9 @@ package org.jnrain.mobile.network.listeners;
 
 import org.jnrain.mobile.AboutActivity;
 import org.jnrain.mobile.R;
+import org.jnrain.mobile.ui.ux.ToastHelper;
 import org.jnrain.mobile.updater.UpdateInfo;
 import org.jnrain.mobile.util.GlobalState;
-import org.jnrain.mobile.util.ToastHelper;
 
 import android.app.Activity;
 import android.util.Log;
