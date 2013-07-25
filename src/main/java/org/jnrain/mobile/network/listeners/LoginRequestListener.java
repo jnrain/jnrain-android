@@ -69,7 +69,7 @@ public class LoginRequestListener
                 // save login info
                 LoginInfoUtil loginInfoUtil = ConfigHub
                     .getLoginInfoUtil(m_activity.getApplicationContext());
-                if (!LoginActivity.GUEST_UID.equals(_uid.toLowerCase())) {
+                if (!LoginInfoUtil.GUEST_UID.equals(_uid.toLowerCase())) {
                     if (loginInfoUtil.isRememberLoginInfo()) {
                         loginInfoUtil.saveUserID(_uid);
                         loginInfoUtil.saveUserPSW(_psw);
