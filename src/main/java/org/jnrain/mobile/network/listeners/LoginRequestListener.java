@@ -21,8 +21,8 @@ import org.jnrain.mobile.LoginActivity;
 import org.jnrain.mobile.R;
 import org.jnrain.mobile.config.ConfigHub;
 import org.jnrain.mobile.config.LoginInfoUtil;
+import org.jnrain.mobile.ui.ux.ToastHelper;
 import org.jnrain.mobile.util.GlobalState;
-import org.jnrain.mobile.util.ToastHelper;
 
 import android.app.Activity;
 import android.content.Intent;

@@ -21,6 +21,7 @@ import org.jnrain.mobile.config.ConfigHub;
 import org.jnrain.mobile.config.UpdaterConfigUtil;
 import org.jnrain.mobile.network.CheckUpdateRequest;
 import org.jnrain.mobile.network.listeners.CheckUpdateRequestListener;
+import org.jnrain.mobile.ui.ux.DialogHelper;
 import org.jnrain.mobile.updater.UpdateInfo;
 import org.jnrain.mobile.util.AppVersionHelper;
 import org.jnrain.mobile.util.GlobalState;
@@ -53,10 +54,6 @@ public class AboutActivity extends SpicedRoboActivity<UpdateInfo> {
     public String APP_FULL_NAME_WITH_VER;
     @InjectResource(R.string.current_update_channel)
     public String CURRENT_UPDATE_CHANNEL;
-    @InjectResource(R.string.check_updates_dlg_title)
-    public String CHECK_UPDATES_DLG_TITLE;
-    @InjectResource(R.string.please_wait)
-    public String PLEASE_WAIT;
 
     // private static final String TAG = "AboutActivity";
 
@@ -80,10 +77,12 @@ public class AboutActivity extends SpicedRoboActivity<UpdateInfo> {
         mHandler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
-                loadingDlg = new ProgressDialog(AboutActivity.this);
-                loadingDlg.setTitle(CHECK_UPDATES_DLG_TITLE);
-                loadingDlg.setMessage(PLEASE_WAIT);
-                loadingDlg.show();
+                loadingDlg = DialogHelper.showProgressDialog(
+                        AboutActivity.this,
+                        R.string.check_updates_dlg_title,
+                        R.string.please_wait,
+                        false,
+                        false);
             }
         };
 

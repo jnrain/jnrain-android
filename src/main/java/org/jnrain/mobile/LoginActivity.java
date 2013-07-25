@@ -20,10 +20,10 @@ import org.jnrain.mobile.config.ConfigHub;
 import org.jnrain.mobile.config.LoginInfoUtil;
 import org.jnrain.mobile.network.LoginRequest;
 import org.jnrain.mobile.network.listeners.LoginRequestListener;
+import org.jnrain.mobile.ui.ux.DialogHelper;
 import org.jnrain.mobile.util.GlobalState;
 import org.jnrain.mobile.util.SpicedRoboActivity;
 
-import roboguice.inject.InjectResource;
 import roboguice.inject.InjectView;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
@@ -56,11 +56,6 @@ public class LoginActivity extends SpicedRoboActivity<SimpleReturnCode> {
     Button btnLogin;
     @InjectView(R.id.btnGuestLogin)
     Button btnGuestLogin;
-
-    @InjectResource(R.string.login_dlg_title)
-    public String LOGIN_DLG_TITLE;
-    @InjectResource(R.string.please_wait)
-    public String PLEASE_WAIT;
 
     private static final String TAG = "LoginActivity";
     public static final String GUEST_UID = "guest";
@@ -168,10 +163,12 @@ public class LoginActivity extends SpicedRoboActivity<SimpleReturnCode> {
         mHandler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
-                loadingDlg = new ProgressDialog(LoginActivity.this);
-                loadingDlg.setTitle(LOGIN_DLG_TITLE);
-                loadingDlg.setMessage(PLEASE_WAIT);
-                loadingDlg.show();
+                loadingDlg = DialogHelper.showProgressDialog(
+                        LoginActivity.this,
+                        R.string.login_dlg_title,
+                        R.string.please_wait,
+                        false,
+                        false);
             }
         };
     }
