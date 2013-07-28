@@ -50,8 +50,6 @@ public class AboutActivity extends SpicedRoboActivity<UpdateInfo> {
     @InjectView(R.id.btnCheckUpdate)
     Button btnCheckUpdate;
 
-    @InjectResource(R.string.app_full_name_with_ver)
-    public String APP_FULL_NAME_WITH_VER;
     @InjectResource(R.string.current_update_channel)
     public String CURRENT_UPDATE_CHANNEL;
 
@@ -86,9 +84,7 @@ public class AboutActivity extends SpicedRoboActivity<UpdateInfo> {
             }
         };
 
-        textVersion.setText(MessageFormat.format(
-                APP_FULL_NAME_WITH_VER,
-                GlobalState.getVersionName()));
+        textVersion.setText(GlobalState.getVersionName());
 
         String currentChannel = updaterUtil.getCurrentUpdateChannel();
         textUpdateChannel.setText(Html.fromHtml(MessageFormat.format(

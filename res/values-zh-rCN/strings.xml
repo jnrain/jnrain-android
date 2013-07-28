@@ -124,7 +124,7 @@
 
     <!-- About screen -->
     <string name="about_app">关于</string>
-    <string name="app_full_name_with_ver">江南听雨 Android 客户端 v{0}</string>
+    <string name="app_full_name">江南听雨 for Android</string>
     <string name="check_updates">检查更新</string>
 
     <!-- Updater -->

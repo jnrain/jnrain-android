@@ -134,7 +134,7 @@
 
     <!-- About screen -->
     <string name="about_app">About</string>
-    <string name="app_full_name_with_ver">JNRain for Android v{0}</string>
+    <string name="app_full_name">JNRain for Android</string>
     <string name="check_updates">Check updates</string>
 
     <!-- Updater -->
