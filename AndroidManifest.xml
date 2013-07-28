@@ -10,6 +10,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <application
         android:allowBackup="false"
@@ -74,6 +75,11 @@
         <activity
             android:name="org.jnrain.mobile.AboutActivity"
             android:label="@string/title_activity_about"
+            android:theme="@style/Theme.JNRain.DefaultLight" >
+        </activity>
+        <activity
+            android:name="org.jnrain.mobile.AudioDebugActivity"
+            android:label="@string/hello_world"
             android:theme="@style/Theme.JNRain.DefaultLight" >
         </activity>
     </application>
