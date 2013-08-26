@@ -15,11 +15,14 @@
  */
 package org.jnrain.mobile;
 
+import org.jnrain.didadi.test.DDDTest;
+
 import android.app.Activity;
 import android.graphics.Color;
 import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.TextView;
 
@@ -67,7 +70,7 @@ public class AudioDebugActivity extends Activity {
             mSamplesRead = audioRecord.read(buffer, 0, buffersizebytes);
             audioRecord.stop();
         } catch (Throwable t) {
-            // Log.e("AudioRecord", "Recording Failed");
+            Log.e("AudioDebug", "Recording Failed");
         }
     }
 
@@ -75,7 +78,8 @@ public class AudioDebugActivity extends Activity {
         TextView tv = new TextView(this);
         setContentView(tv);
         tv.setTextColor(Color.BLACK);
-        tv.setText("buffersizebytes " + buffersizebytes + "\n");
+        tv.setText(DDDTest.init() + "\n");
+        tv.append("buffersizebytes " + buffersizebytes + "\n");
         for (int i = 0; i < 256; i++) {
             tv.append(" " + buffer[i]);
         }
@@ -91,7 +95,9 @@ public class AudioDebugActivity extends Activity {
     @Override
     public void onPause() {
         super.onPause();
-        audioRecord.stop();
+        if (audioRecord.getRecordingState() == AudioRecord.RECORDSTATE_RECORDING) {
+            audioRecord.stop();
+        }
     }
 
     @Override
@@ -102,7 +108,7 @@ public class AudioDebugActivity extends Activity {
 
     @Override
     public boolean onTouchEvent(MotionEvent motionevent) {
-        if (motionevent.getAction() == MotionEvent.ACTION_DOWN) {
+        if (motionevent.getAction() == MotionEvent.ACTION_UP) {
             trigger(); // acquire buffer full of samples
         }
         return true;
