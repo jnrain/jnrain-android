@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package org.jnrain.mobile.network;
+package org.jnrain.mobile.network.requests;
 
 import org.jnrain.luohua.collection.ListSections;
 

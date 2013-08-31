@@ -19,8 +19,8 @@ import org.jnrain.mobile.R;
 import org.jnrain.mobile.config.ConfigConstants.ExitBehavior;
 import org.jnrain.mobile.config.ConfigHub;
 import org.jnrain.mobile.config.UIConfigUtil;
-import org.jnrain.mobile.network.LogoutRequest;
 import org.jnrain.mobile.network.listeners.LogoutRequestListener;
+import org.jnrain.mobile.network.requests.LogoutRequest;
 import org.jnrain.mobile.util.AccountStateListener;
 import org.jnrain.mobile.util.SpicedRoboActivity;
 

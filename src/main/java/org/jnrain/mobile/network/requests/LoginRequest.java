@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package org.jnrain.mobile.network;
+package org.jnrain.mobile.network.requests;
 
 import org.jnrain.luohua.entity.SimpleReturnCode;
 import org.springframework.http.HttpEntity;
@@ -25,16 +25,25 @@ import org.springframework.util.MultiValueMap;
 import com.octo.android.robospice.request.springandroid.SpringAndroidSpiceRequest;
 
 
-public class LogoutRequest
+public class LoginRequest
         extends SpringAndroidSpiceRequest<SimpleReturnCode> {
-    public LogoutRequest() {
+
+    private String _uid;
+    private String _password;
+
+    public LoginRequest(String uid, String password) {
         super(SimpleReturnCode.class);
+
+        // TODO: validation
+        _uid = uid;
+        _password = password;
     }
 
     @Override
     public SimpleReturnCode loadDataFromNetwork() throws Exception {
         MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
-        // request body intentionally empty
+        params.set("uid", _uid);
+        params.set("psw", _password);
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
@@ -43,8 +52,8 @@ public class LogoutRequest
                 headers);
 
         return getRestTemplate().postForObject(
-                /* "http://rhymin.jnrain.com/api/logout/", */
-                "http://bbs.jnrain.com/rainstyle/apilogout.php",
+                /* "http://rhymin.jnrain.com/api/login/", */
+                "http://bbs.jnrain.com/rainstyle/apilogin.php",
                 req,
                 SimpleReturnCode.class);
     }

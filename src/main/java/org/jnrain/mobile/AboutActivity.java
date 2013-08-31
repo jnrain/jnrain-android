@@ -19,8 +19,8 @@ import java.text.MessageFormat;
 
 import org.jnrain.mobile.config.ConfigHub;
 import org.jnrain.mobile.config.UpdaterConfigUtil;
-import org.jnrain.mobile.network.CheckUpdateRequest;
 import org.jnrain.mobile.network.listeners.CheckUpdateRequestListener;
+import org.jnrain.mobile.network.requests.CheckUpdateRequest;
 import org.jnrain.mobile.ui.ux.DialogHelper;
 import org.jnrain.mobile.updater.UpdateInfo;
 import org.jnrain.mobile.util.AppVersionHelper;

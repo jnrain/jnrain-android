@@ -18,7 +18,7 @@ package org.jnrain.mobile;
 import java.text.MessageFormat;
 
 import org.jnrain.luohua.entity.SimpleReturnCode;
-import org.jnrain.mobile.network.NewPostRequest;
+import org.jnrain.mobile.network.requests.NewPostRequest;
 import org.jnrain.mobile.util.SpicedRoboActivity;
 
 import roboguice.inject.InjectResource;
