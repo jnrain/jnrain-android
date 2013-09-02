@@ -15,9 +15,9 @@
  */
 package org.jnrain.mobile;
 
+import org.jnrain.luohua.collection.ListPosts;
+import org.jnrain.luohua.entity.Post;
 import org.jnrain.mobile.util.SpiceRequestListener;
-import org.jnrain.weiyu.collection.ListPosts;
-import org.jnrain.weiyu.entity.Post;
 
 
 public interface ThreadListActivityListener

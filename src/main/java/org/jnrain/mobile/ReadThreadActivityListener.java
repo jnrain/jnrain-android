@@ -15,8 +15,8 @@
  */
 package org.jnrain.mobile;
 
+import org.jnrain.luohua.entity.Post;
 import org.jnrain.mobile.util.SpiceRequestListener;
-import org.jnrain.weiyu.entity.Post;
 
 
 @SuppressWarnings("rawtypes")

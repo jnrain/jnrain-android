@@ -15,8 +15,8 @@
  */
 package org.jnrain.mobile;
 
-import org.jnrain.weiyu.collection.ListPosts;
-import org.jnrain.weiyu.entity.Post;
+import org.jnrain.luohua.collection.ListPosts;
+import org.jnrain.luohua.entity.Post;
 
 import android.content.Context;
 import android.view.LayoutInflater;

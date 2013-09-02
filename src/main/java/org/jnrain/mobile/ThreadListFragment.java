@@ -15,11 +15,11 @@
  */
 package org.jnrain.mobile;
 
-import org.jnrain.mobile.network.ThreadListRequest;
+import org.jnrain.luohua.collection.ListPosts;
+import org.jnrain.luohua.entity.Post;
+import org.jnrain.mobile.network.requests.ThreadListRequest;
 import org.jnrain.mobile.util.CacheKeyManager;
 import org.jnrain.mobile.util.GlobalState;
-import org.jnrain.weiyu.collection.ListPosts;
-import org.jnrain.weiyu.entity.Post;
 
 import roboguice.inject.InjectView;
 import android.app.Activity;

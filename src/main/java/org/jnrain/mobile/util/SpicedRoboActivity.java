@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 JNRain
+ * Copyright 2012-2013 JNRain
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may
  * not use this file except in compliance with the License. You may obtain a
@@ -15,12 +15,8 @@
  */
 package org.jnrain.mobile.util;
 
-import org.jnrain.mobile.OptionsMenuProvider;
 import org.jnrain.mobile.service.JNRainSpiceService;
 
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
 import com.github.rtyley.android.sherlock.roboguice.activity.RoboSherlockActivity;
 import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.request.SpiceRequest;
@@ -66,20 +62,5 @@ public class SpicedRoboActivity<T> extends RoboSherlockActivity
                 requestCacheKey,
                 cacheDuration,
                 requestListener);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getSupportMenuInflater();
-        OptionsMenuProvider optionsMenuProvider = OptionsMenuProvider
-            .getOptionsMenuProvider();
-        return optionsMenuProvider.createOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        OptionsMenuProvider optionsMenuProvider = OptionsMenuProvider
-            .getOptionsMenuProvider();
-        return optionsMenuProvider.optionsItemSelected(item, this);
     }
 }

@@ -15,8 +15,8 @@
  */
 package org.jnrain.mobile;
 
-import org.jnrain.weiyu.collection.ListBoards;
-import org.jnrain.weiyu.entity.Board;
+import org.jnrain.luohua.collection.ListBoards;
+import org.jnrain.luohua.entity.Board;
 
 import android.content.Context;
 import android.view.LayoutInflater;

@@ -15,14 +15,14 @@
  */
 package org.jnrain.mobile.network.listeners;
 
+import org.jnrain.luohua.entity.SimpleReturnCode;
 import org.jnrain.mobile.GlobalHotPostsListActivity;
 import org.jnrain.mobile.LoginActivity;
 import org.jnrain.mobile.R;
 import org.jnrain.mobile.config.ConfigHub;
 import org.jnrain.mobile.config.LoginInfoUtil;
+import org.jnrain.mobile.ui.ux.ToastHelper;
 import org.jnrain.mobile.util.GlobalState;
-import org.jnrain.mobile.util.ToastHelper;
-import org.jnrain.weiyu.entity.SimpleReturnCode;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -69,7 +69,7 @@ public class LoginRequestListener
                 // save login info
                 LoginInfoUtil loginInfoUtil = ConfigHub
                     .getLoginInfoUtil(m_activity.getApplicationContext());
-                if (!LoginActivity.GUEST_UID.equals(_uid.toLowerCase())) {
+                if (!LoginInfoUtil.GUEST_UID.equals(_uid.toLowerCase())) {
                     if (loginInfoUtil.isRememberLoginInfo()) {
                         loginInfoUtil.saveUserID(_uid);
                         loginInfoUtil.saveUserPSW(_psw);

@@ -38,9 +38,9 @@ public class SettingsFragmentAdapter
         // initialize fragments
         addItem(R.xml.prefs_account, R.string.prefs_title_account);
         addItem(
-                R.xml.prefs_ui,
-                R.string.prefs_title_ui,
-                SettingsInterfaceFragment.class);
+                R.xml.prefs_general,
+                R.string.prefs_title_general,
+                SettingsGeneralFragment.class);
     }
 
     @Override

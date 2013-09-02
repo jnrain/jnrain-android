@@ -19,11 +19,10 @@ import org.jnrain.mobile.R;
 import org.jnrain.mobile.config.ConfigConstants.ExitBehavior;
 import org.jnrain.mobile.config.ConfigHub;
 import org.jnrain.mobile.config.UIConfigUtil;
-import org.jnrain.mobile.network.LogoutRequest;
 import org.jnrain.mobile.network.listeners.LogoutRequestListener;
+import org.jnrain.mobile.network.requests.LogoutRequest;
 import org.jnrain.mobile.util.AccountStateListener;
-import org.jnrain.mobile.util.SpicedRoboActivity;
-import org.jnrain.mobile.util.ToastHelper;
+import org.jnrain.mobile.util.JNRainActivity;
 
 import roboguice.inject.InjectResource;
 import android.app.AlertDialog;
@@ -31,7 +30,7 @@ import android.content.DialogInterface;
 import android.os.SystemClock;
 
 
-public class ExitPointActivity<T> extends SpicedRoboActivity<T>
+public class ExitPointActivity<T> extends JNRainActivity<T>
         implements AccountStateListener {
     @InjectResource(R.string.dlg_exit_confirm_title)
     String _exitDlgTitle;

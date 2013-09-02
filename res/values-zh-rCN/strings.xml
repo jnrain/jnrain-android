@@ -26,11 +26,13 @@
     <string name="title_activity_read_thread">读帖</string>
     <string name="title_activity_new_post">发表新帖</string>
     <string name="title_activity_preference">偏好设置</string>
+    <string name="title_activity_about">关于江南听雨 for Android</string>
     <string name="app_name_en">JNRain</string>
     <string name="splash_image_desc">欢迎图像</string>
 
     <!-- loading messages -->
     <string name="loading_global_hot_posts">全站热帖加载中…</string>
+    <string name="please_wait">请稍候…</string>
 
     <!-- failure messages -->
     <string name="fail_load_global_hot_posts">加载全站热帖失败。</string>
@@ -50,7 +52,6 @@
     <string name="guest_login">匿名登陆</string>
     <string name="guest_login_land">匿名</string>
     <string name="login_dlg_title">正在登陆</string>
-    <string name="login_dlg_message">请稍候…</string>
 
     <!-- Read thread -->
     <string name="action_reply">回复此帖</string>
@@ -104,7 +105,7 @@
 
     <!-- Preferences -->
     <string name="prefs_title_account">帐号</string>
-    <string name="prefs_title_ui">界面</string>
+    <string name="prefs_title_general">常规</string>
     <string name="prefs_ui_exit_behavior">退出应用方式</string>
 
     <string-array name="prefs_ui_exit_choices">
@@ -115,10 +116,50 @@
 
     <string name="prefs_ui_exit_doubleclick_timeout">双击确认最长间隔</string>
 
+    <!-- Updater preferences -->
+    <string name="prefs_updater_enable_auto">允许自动检查更新</string>
+    <string name="prefs_updater_channel">更新频道</string>
+    <string name="prefs_updater_channel_select">选择更新频道</string>
+    <string name="prefs_updater_check_freq">检查更新频率</string>
+
     <!-- App exit dialog -->
     <string name="dlg_exit_confirm_title">确认退出</string>
     <string name="dlg_exit_confirm_msg">真的要退出客户端吗？</string>
     <string name="dlg_exit_confirm_yes">嗯</string>
     <string name="dlg_exit_confirm_no">不不不</string>
+
+    <!-- About screen -->
+    <string name="about_app">关于</string>
+    <string name="app_full_name">江南听雨 for Android</string>
+    <string name="check_updates">检查更新</string>
+
+    <!-- Updater -->
+    <string name="check_updates_dlg_title">正在检查更新</string>
+    <string name="msg_version_is_latest">v{0} 已经是最新版本</string>
+    <string name="current_update_channel"><![CDATA[当前位于 <b>{1}</b> ({0}) 更新频道。]]></string>
+    <string name="update_chan_name_stable">稳定版</string>
+    <string name="update_chan_name_next">抢鲜版</string>
+    <string name="latest_version_is"><![CDATA[最新版本: <b>{0}</b>]]></string>
+    <string name="latest_version_is_w_codename"><![CDATA[最新版本: <b>{0}</b> [{1}]]]></string>
+    <string name="latest_version_unknown">待检查</string>
+    <string name="last_checked_time">上次检查: {0}</string>
+    <string name="last_checked_never">从未检查过</string>
+    <string name="download_update">下载更新</string>
+
+    <!-- New version available dialog -->
+    <string name="new_version_available">有更新版本 v{0} 可用</string>
+    <string name="new_version_ok_btn">下载试试</string>
+    <string name="new_version_cancel_btn">先不升级</string>
+    <string name="new_version_number"><![CDATA[<b>{0}</b>]]></string>
+    <string name="new_version_number_w_codename"><![CDATA[{0} [<b>{1}</b>]]]></string>
+    <string name="new_version_message">
+<![CDATA[
+        <p>版本号: {0}</p>
+        <p>版本说明:<br />
+        {1}
+        </p>
+        ]]>
+    </string>
+    <string name="new_version_desc_empty">暂无说明</string>
 
 </resources>

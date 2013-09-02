@@ -26,11 +26,13 @@
     <string name="title_activity_read_thread">Read thread</string>
     <string name="title_activity_new_post">New post</string>
     <string name="title_activity_preference">Preference</string>
+    <string name="title_activity_about">About JNRain for Android</string>
     <string name="app_name_en">JNRain</string>
     <string name="splash_image_desc">Splash image</string>
 
     <!-- loading messages -->
     <string name="loading_global_hot_posts">Loading global hot posts…</string>
+    <string name="please_wait">Please wait…</string>
 
     <!-- failure messages -->
     <string name="fail_load_global_hot_posts">Failed loading global hot posts.</string>
@@ -50,7 +52,6 @@
     <string name="guest_login">Guest login</string>
     <string name="guest_login_land">Guest</string>
     <string name="login_dlg_title">Logging in</string>
-    <string name="login_dlg_message">Please wait…</string>
 
     <!-- Read thread -->
     <string name="action_reply">Reply to this post</string>
@@ -104,7 +105,7 @@
 
     <!-- Preferences -->
     <string name="prefs_title_account">Account</string>
-    <string name="prefs_title_ui">Interface</string>
+    <string name="prefs_title_general">General</string>
     <string name="prefs_ui_exit_behavior">App exit style</string>
 
     <string-array name="prefs_ui_exit_choices">
@@ -125,10 +126,51 @@
     <string name="prefs_ui_exit_dialog">dialog</string>
     <string name="prefs_ui_exit_doubleclick_timeout">Doubleclick timeout</string>
 
+    <!-- Updater preferences -->
+    <string name="prefs_updater_enable_auto">Auto check for updates</string>
+    <string name="prefs_updater_channel">Update channel</string>
+    <string name="prefs_updater_channel_select">Select an update channel</string>
+    <string name="prefs_updater_check_freq">Update check frequency</string>
+
     <!-- App exit dialog -->
     <string name="dlg_exit_confirm_title">Confirm exit</string>
     <string name="dlg_exit_confirm_msg">Do you want to leave the app now?</string>
     <string name="dlg_exit_confirm_yes">Yes</string>
     <string name="dlg_exit_confirm_no">Not now</string>
+
+    <!-- About screen -->
+    <string name="about_app">About</string>
+    <string name="app_full_name">JNRain for Android</string>
+    <string name="check_updates">Check updates</string>
+
+    <!-- Updater -->
+    <string name="check_updates_dlg_title">Checking for updates</string>
+    <string name="msg_version_is_latest">v{0} is the latest version</string>
+    <string name="new_version_available">New version {0} now available</string>
+    <string name="current_update_channel"><![CDATA[Currently on the <b>{1}</b> ({0}) update channel.]]></string>
+    <string name="update_chan_name_stable">Stable</string>
+    <string name="update_chan_name_next">Preview</string>
+    <string name="latest_version_is"><![CDATA[Latest: <b>{0}</b>]]></string>
+    <string name="latest_version_is_w_codename"><![CDATA[Latest: <b>{0}</b> [{1}]]]></string>
+    <string name="latest_version_unknown">To be checked</string>
+    <string name="last_checked_time"><![CDATA[Last checked: <b>{0}</b>]]></string>
+    <string name="last_checked_never">Never before</string>
+    <string name="download_update">Download update</string>
+
+    <!-- New version available dialog -->
+    <string name="new_version_available">Version {0} available</string>
+    <string name="new_version_ok_btn">Try it out</string>
+    <string name="new_version_cancel_btn">Not now</string>
+    <string name="new_version_number"><![CDATA[<b>{0}</b>]]></string>
+    <string name="new_version_number_w_codename"><![CDATA[{0} [<b>{1}</b>]]]></string>
+    <string name="new_version_message">
+<![CDATA[
+        <p>Version: {0}</p>
+        <p>Changes:<br />
+        {1}
+        </p>
+        ]]>
+    </string>
+    <string name="new_version_desc_empty">No changelog</string>
 
 </resources>

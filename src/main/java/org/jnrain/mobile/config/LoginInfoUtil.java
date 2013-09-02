@@ -24,6 +24,8 @@ public class LoginInfoUtil extends BaseConfigUtil {
     public static final String USER_PSW = "user_psw";
     public static final String IS_REMEMBER_LOGIN_INFO = "is_remember_login_info";
     public static final String IS_AUTO_LOGIN = "is_auto_login";
+    public static final String GUEST_UID = "guest";
+    public static final String GUEST_PSW = "";
 
     public BaseConfigUtil _default_config;
 

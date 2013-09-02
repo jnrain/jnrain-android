@@ -15,15 +15,15 @@
  */
 package org.jnrain.mobile;
 
+import org.jnrain.luohua.entity.SimpleReturnCode;
 import org.jnrain.mobile.config.ConfigHub;
 import org.jnrain.mobile.config.LoginInfoUtil;
-import org.jnrain.mobile.network.LoginRequest;
 import org.jnrain.mobile.network.listeners.LoginRequestListener;
+import org.jnrain.mobile.network.requests.LoginRequest;
+import org.jnrain.mobile.ui.ux.DialogHelper;
 import org.jnrain.mobile.util.GlobalState;
-import org.jnrain.mobile.util.SpicedRoboActivity;
-import org.jnrain.weiyu.entity.SimpleReturnCode;
+import org.jnrain.mobile.util.JNRainActivity;
 
-import roboguice.inject.InjectResource;
 import roboguice.inject.InjectView;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
@@ -43,7 +43,7 @@ import android.widget.EditText;
 
 
 @SuppressLint("DefaultLocale")
-public class LoginActivity extends SpicedRoboActivity<SimpleReturnCode> {
+public class LoginActivity extends JNRainActivity<SimpleReturnCode> {
     @InjectView(R.id.editUID)
     EditText editUID;
     @InjectView(R.id.editPassword)
@@ -57,14 +57,7 @@ public class LoginActivity extends SpicedRoboActivity<SimpleReturnCode> {
     @InjectView(R.id.btnGuestLogin)
     Button btnGuestLogin;
 
-    @InjectResource(R.string.login_dlg_title)
-    public String LOGIN_DLG_TITLE;
-    @InjectResource(R.string.login_dlg_message)
-    public String LOGIN_DLG_MESSAGE;
-
     private static final String TAG = "LoginActivity";
-    public static final String GUEST_UID = "guest";
-    public static final String GUEST_PSW = "";
     public LoginActivity loginActivity;
     private ProgressDialog loadingDlg;
     private Handler mHandler;
@@ -129,7 +122,7 @@ public class LoginActivity extends SpicedRoboActivity<SimpleReturnCode> {
             public void onClick(View v) {
                 Log.i(TAG, "Guest login button clicked");
 
-                doLogin(GUEST_UID, GUEST_PSW);
+                doLogin(LoginInfoUtil.GUEST_UID, LoginInfoUtil.GUEST_PSW);
             }
         });
         setUpLoginConfig();
@@ -144,7 +137,7 @@ public class LoginActivity extends SpicedRoboActivity<SimpleReturnCode> {
         checkboxIsRemember.setChecked(loginInfoUtil.isRememberLoginInfo());
         checkboxIsAutoLogin.setChecked(loginInfoUtil.isAutoLogin());
         if (uid != null
-                && (!uid.toLowerCase().equals("Guest".toLowerCase()))
+                && (!LoginInfoUtil.GUEST_UID.equals(uid.toLowerCase()))
                 && psw != null) {
             if (loginInfoUtil.isRememberLoginInfo()) {
                 editUID.setText(uid);
@@ -155,8 +148,9 @@ public class LoginActivity extends SpicedRoboActivity<SimpleReturnCode> {
 
             @Override
             protected Void doInBackground(Void... params) {
-                if (uid != null && (!GUEST_UID.equals(uid.toLowerCase()))
-                        && psw != null) {
+                if (uid != null
+                        && (!LoginInfoUtil.GUEST_UID.equals(uid
+                            .toLowerCase())) && psw != null) {
                     if (loginInfoUtil.isAutoLogin()) {
                         doLogin(uid.toLowerCase(), psw);
                     }
@@ -168,10 +162,12 @@ public class LoginActivity extends SpicedRoboActivity<SimpleReturnCode> {
         mHandler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
-                loadingDlg = new ProgressDialog(LoginActivity.this);
-                loadingDlg.setTitle(LOGIN_DLG_TITLE);
-                loadingDlg.setMessage(LOGIN_DLG_MESSAGE);
-                loadingDlg.show();
+                loadingDlg = DialogHelper.showProgressDialog(
+                        LoginActivity.this,
+                        R.string.login_dlg_title,
+                        R.string.please_wait,
+                        false,
+                        false);
             }
         };
     }
