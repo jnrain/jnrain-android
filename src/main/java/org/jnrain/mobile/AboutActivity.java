@@ -117,13 +117,15 @@ public class AboutActivity extends JNRainActivity<UpdateInfo> {
         });
 
         // download update button
-        // UpdateInfo updInfo = GlobalState.getUpdateInfo();
-        /*
-         * if (updInfo == null) { updateDownloadButtonVisibility(false); }
-         * else {
-         * updateDownloadButtonVisibility(!updInfo.isCurrentVersionLatest());
-         * }
-         */
+        UpdateInfo updInfo = GlobalState.getUpdateInfo();
+
+        if (updInfo == null) {
+            updateDownloadButtonVisibility(false);
+        } else {
+            updateDownloadButtonVisibility(!updInfo
+                .isCurrentVersionLatest(getApplicationContext()));
+        }
+
         btnDownloadUpdate.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {

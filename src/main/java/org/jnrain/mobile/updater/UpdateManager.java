@@ -23,6 +23,7 @@ import org.jnrain.mobile.config.UpdaterConfigUtil;
 import org.jnrain.mobile.network.listeners.NotifyingCheckUpdateRequestListener;
 import org.jnrain.mobile.network.requests.CheckUpdateRequest;
 import org.jnrain.mobile.util.JNRainActivity;
+import org.jnrain.mobile.util.JNRainFragmentActivity;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -167,6 +168,24 @@ public class UpdateManager {
             "unchecked"
     })
     public static void issueAutoCheckRequest(JNRainActivity activity) {
+        activity.makeSpiceRequest(
+                new CheckUpdateRequest(),
+                new NotifyingCheckUpdateRequestListener(activity));
+    }
+
+    /**
+     * Issue network request for auto checking updates.
+     * 
+     * 发送自动检查更新的网络请求.
+     * 
+     * @param activity
+     *            caller activity for invoking RoboSpice machinery as
+     */
+    @SuppressWarnings({
+            "rawtypes",
+            "unchecked"
+    })
+    public static void issueAutoCheckRequest(JNRainFragmentActivity activity) {
         activity.makeSpiceRequest(
                 new CheckUpdateRequest(),
                 new NotifyingCheckUpdateRequestListener(activity));
