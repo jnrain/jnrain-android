@@ -105,7 +105,7 @@
 
     <!-- Preferences -->
     <string name="prefs_title_account">帐号</string>
-    <string name="prefs_title_ui">界面</string>
+    <string name="prefs_title_general">常规</string>
     <string name="prefs_ui_exit_behavior">退出应用方式</string>
 
     <string-array name="prefs_ui_exit_choices">

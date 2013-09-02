@@ -105,7 +105,7 @@
 
     <!-- Preferences -->
     <string name="prefs_title_account">Account</string>
-    <string name="prefs_title_ui">Interface</string>
+    <string name="prefs_title_general">General</string>
     <string name="prefs_ui_exit_behavior">App exit style</string>
 
     <string-array name="prefs_ui_exit_choices">
