@@ -16,10 +16,9 @@
 package org.jnrain.mobile.updater;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 
+import org.codehaus.jackson.JsonEncoding;
 import org.codehaus.jackson.JsonGenerator;
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.JsonParser;
@@ -33,7 +32,9 @@ public class UpdateInfoFile {
     public static final String UPDATE_INFO_CACHE_FILENAME = "updates.json";
 
     public static UpdateInfo fromFile(Context ctx) {
-        return fromFile(ctx.getFileStreamPath(UPDATE_INFO_CACHE_FILENAME));
+        return fromFile(new File(
+                ctx.getCacheDir(),
+                UPDATE_INFO_CACHE_FILENAME));
     }
 
     public static UpdateInfo fromFile(File file) {
@@ -74,38 +75,23 @@ public class UpdateInfoFile {
     }
 
     public static void toFile(Context ctx, UpdateInfo updInfo) {
-        toFile(ctx, UPDATE_INFO_CACHE_FILENAME, updInfo);
+        toFile(
+                ctx,
+                new File(ctx.getCacheDir(), UPDATE_INFO_CACHE_FILENAME),
+                updInfo);
     }
 
-    public static void toFile(
-            Context ctx,
-            String filename,
-            UpdateInfo updInfo) {
-        FileOutputStream stream;
+    public static void toFile(Context ctx, File file, UpdateInfo updInfo) {
         MappingJsonFactory factory;
         JsonGenerator generator;
-
-        try {
-            stream = ctx.openFileOutput(filename, Context.MODE_PRIVATE);
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-            return;
-        }
 
         factory = new MappingJsonFactory();
 
         try {
-            generator = factory.createJsonGenerator(stream);
+            generator = factory.createJsonGenerator(file, JsonEncoding.UTF8);
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-            try {
-                stream.close();
-            } catch (IOException e1) {
-                // TODO Auto-generated catch block
-                e1.printStackTrace();
-            }
             return;
         }
 
@@ -119,7 +105,7 @@ public class UpdateInfoFile {
             e.printStackTrace();
         } finally {
             try {
-                stream.close();
+                generator.close();
             } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
