@@ -19,7 +19,7 @@ import java.text.MessageFormat;
 
 import org.jnrain.luohua.entity.SimpleReturnCode;
 import org.jnrain.mobile.network.requests.NewPostRequest;
-import org.jnrain.mobile.util.SpicedRoboActivity;
+import org.jnrain.mobile.util.JNRainActivity;
 
 import roboguice.inject.InjectResource;
 import roboguice.inject.InjectView;
@@ -36,7 +36,7 @@ import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
 
 
-public class NewPostActivity extends SpicedRoboActivity<SimpleReturnCode> {
+public class NewPostActivity extends JNRainActivity<SimpleReturnCode> {
     @InjectView(R.id.editTitle)
     EditText editTitle;
     @InjectView(R.id.editContent)

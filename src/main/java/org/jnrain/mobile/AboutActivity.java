@@ -25,7 +25,7 @@ import org.jnrain.mobile.ui.ux.DialogHelper;
 import org.jnrain.mobile.updater.UpdateInfo;
 import org.jnrain.mobile.util.AppVersionHelper;
 import org.jnrain.mobile.util.GlobalState;
-import org.jnrain.mobile.util.SpicedRoboActivity;
+import org.jnrain.mobile.util.JNRainActivity;
 
 import roboguice.inject.InjectResource;
 import roboguice.inject.InjectView;
@@ -42,7 +42,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 
-public class AboutActivity extends SpicedRoboActivity<UpdateInfo> {
+public class AboutActivity extends JNRainActivity<UpdateInfo> {
     @InjectView(R.id.textVersion)
     TextView textVersion;
     @InjectView(R.id.textUpdateChannel)

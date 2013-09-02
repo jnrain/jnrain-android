@@ -22,7 +22,7 @@ import org.jnrain.mobile.network.listeners.LoginRequestListener;
 import org.jnrain.mobile.network.requests.LoginRequest;
 import org.jnrain.mobile.ui.ux.DialogHelper;
 import org.jnrain.mobile.util.GlobalState;
-import org.jnrain.mobile.util.SpicedRoboActivity;
+import org.jnrain.mobile.util.JNRainActivity;
 
 import roboguice.inject.InjectView;
 import android.annotation.SuppressLint;
@@ -43,7 +43,7 @@ import android.widget.EditText;
 
 
 @SuppressLint("DefaultLocale")
-public class LoginActivity extends SpicedRoboActivity<SimpleReturnCode> {
+public class LoginActivity extends JNRainActivity<SimpleReturnCode> {
     @InjectView(R.id.editUID)
     EditText editUID;
     @InjectView(R.id.editPassword)
