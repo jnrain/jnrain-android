@@ -26,11 +26,11 @@ import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceScreen;
 
 
-public class SettingsInterfaceFragment extends PreferenceListFragment {
+public class SettingsGeneralFragment extends PreferenceListFragment {
     protected ListPreference exitBehavior;
     protected SeekBarPreference exitDoubleclickTimeout;
 
-    public SettingsInterfaceFragment(int xmlId) {
+    public SettingsGeneralFragment(int xmlId) {
         super(xmlId);
     }
 

@@ -40,7 +40,7 @@ public class SettingsFragmentAdapter
         addItem(
                 R.xml.prefs_ui,
                 R.string.prefs_title_ui,
-                SettingsInterfaceFragment.class);
+                SettingsGeneralFragment.class);
     }
 
     @Override
