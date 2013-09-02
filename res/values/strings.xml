@@ -126,6 +126,11 @@
     <string name="prefs_ui_exit_dialog">dialog</string>
     <string name="prefs_ui_exit_doubleclick_timeout">Doubleclick timeout</string>
 
+    <!-- Updater preferences -->
+    <string name="prefs_updater_channel">Update channel</string>
+    <string name="prefs_updater_channel_select">Select an update channel</string>
+    <string name="prefs_updater_check_freq">Update check frequency</string>
+
     <!-- App exit dialog -->
     <string name="dlg_exit_confirm_title">Confirm exit</string>
     <string name="dlg_exit_confirm_msg">Do you want to leave the app now?</string>

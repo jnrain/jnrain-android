@@ -116,6 +116,11 @@
 
     <string name="prefs_ui_exit_doubleclick_timeout">双击确认最长间隔</string>
 
+    <!-- Updater preferences -->
+    <string name="prefs_updater_channel">更新频道</string>
+    <string name="prefs_updater_channel_select">选择更新频道</string>
+    <string name="prefs_updater_check_freq">检查更新频率</string>
+
     <!-- App exit dialog -->
     <string name="dlg_exit_confirm_title">确认退出</string>
     <string name="dlg_exit_confirm_msg">真的要退出客户端吗？</string>
