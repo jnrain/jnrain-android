@@ -17,7 +17,7 @@ package org.jnrain.mobile;
 
 import org.jnrain.luohua.collection.ListPosts;
 import org.jnrain.luohua.entity.Post;
-import org.jnrain.mobile.util.SpicedRoboFragmentActivity;
+import org.jnrain.mobile.util.JNRainFragmentActivity;
 
 import roboguice.inject.InjectView;
 import android.content.Intent;
@@ -32,8 +32,7 @@ import com.viewpagerindicator.TitlePageIndicator;
 import com.viewpagerindicator.TitlePageIndicator.IndicatorStyle;
 
 
-public class ThreadListActivity
-        extends SpicedRoboFragmentActivity<ListPosts>
+public class ThreadListActivity extends JNRainFragmentActivity<ListPosts>
         implements ThreadListActivityListener {
 
     @InjectView(R.id.pager)

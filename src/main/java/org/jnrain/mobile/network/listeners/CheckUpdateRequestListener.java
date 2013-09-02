@@ -15,49 +15,61 @@
  */
 package org.jnrain.mobile.network.listeners;
 
-import org.jnrain.mobile.AboutActivity;
 import org.jnrain.mobile.R;
+import org.jnrain.mobile.config.ConfigHub;
+import org.jnrain.mobile.config.UpdaterConfigUtil;
 import org.jnrain.mobile.ui.ux.ToastHelper;
+import org.jnrain.mobile.updater.UpdateChannel;
 import org.jnrain.mobile.updater.UpdateInfo;
+import org.jnrain.mobile.updater.UpdateInfoFile;
 import org.jnrain.mobile.util.GlobalState;
 
 import android.app.Activity;
+import android.content.Context;
 import android.util.Log;
 
 import com.octo.android.robospice.persistence.exception.SpiceException;
 
 
-public class CheckUpdateRequestListener
+public abstract class CheckUpdateRequestListener
         extends ActivityRequestListener<UpdateInfo> {
     private static final String TAG = "ChkUpdReqListener";
-    private AboutActivity m_activity;
+    protected Activity m_activity;
 
     public CheckUpdateRequestListener(Activity activity) {
         super(activity);
-        m_activity = (AboutActivity) activity;
+        m_activity = activity;
     }
 
     @Override
     public void onRequestFailure(SpiceException spiceException) {
-        m_activity.getLoadingDialog().dismiss();
         Log.d(TAG, "err on req: " + spiceException.toString());
         ToastHelper.makeTextToast(ctx, R.string.msg_network_fail);
     }
 
     @Override
     public void onRequestSuccess(UpdateInfo result) {
-        m_activity.getLoadingDialog().dismiss();
+        Context ctx = m_activity.getApplicationContext();
 
-        if (result.isCurrentVersionLatest()) {
-            ToastHelper.makeTextToast(
-                    ctx,
-                    R.string.msg_version_is_latest,
-                    GlobalState.getVersionName());
+        // update global update info
+        GlobalState.setUpdateInfo(result);
+
+        // record update info in cache
+        UpdateInfoFile.toFile(ctx, result);
+
+        // record last check time
+        UpdaterConfigUtil updUtil = ConfigHub.getUpdaterUtil(ctx);
+        updUtil.setLastCheckTime();
+
+        UpdateChannel chan = result.getCurrentChannel(m_activity);
+        if (chan.isCurrentVersionLatest()) {
+            onVersionLatest();
         } else {
-            ToastHelper.makeTextToast(
-                    ctx,
-                    R.string.msg_new_version_available,
-                    result.getLatestVersion().getName());
+            onNewVersionAvailable(chan);
         }
     }
+
+    public abstract void onVersionLatest();
+
+    public abstract void onNewVersionAvailable(UpdateChannel channel);
 }

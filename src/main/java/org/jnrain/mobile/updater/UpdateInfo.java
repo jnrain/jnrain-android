@@ -15,16 +15,16 @@
  */
 package org.jnrain.mobile.updater;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
-import org.jnrain.mobile.util.GlobalState;
+import org.jnrain.mobile.config.ConfigHub;
+import org.jnrain.mobile.config.UpdaterConfigUtil;
+
+import android.content.Context;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -33,9 +33,6 @@ public class UpdateInfo {
     private int version;
     private HashMap<String, UpdateChannel> channels;
     private HashMap<Integer, VersionInfo> versions;
-
-    @JsonIgnore
-    private int _latestVersion;
 
     public int getVersion() {
         return version;
@@ -49,8 +46,33 @@ public class UpdateInfo {
         return channels;
     }
 
+    protected void possiblyAssociateChannels() {
+        if (channels == null || versions == null) {
+            return;
+        }
+
+        Iterator<String> iter = this.channels.keySet().iterator();
+        while (iter.hasNext()) {
+            String name = iter.next();
+            UpdateChannel chan = this.channels.get(name);
+
+            chan.associateVersions(versions);
+        }
+    }
+
     public void setChannels(HashMap<String, UpdateChannel> channels) {
         this.channels = channels;
+
+        // inject channel names
+        Iterator<String> iter = this.channels.keySet().iterator();
+        while (iter.hasNext()) {
+            String name = iter.next();
+            UpdateChannel chan = this.channels.get(name);
+
+            chan.setName(name);
+        }
+
+        possiblyAssociateChannels();
     }
 
     public HashMap<Integer, VersionInfo> getVersions() {
@@ -67,7 +89,7 @@ public class UpdateInfo {
             this.versions.get(ver).setCode(ver);
         }
 
-        refreshLatestVersion();
+        possiblyAssociateChannels();
     }
 
     public String toString() {
@@ -76,43 +98,21 @@ public class UpdateInfo {
                 + ">";
     }
 
-    protected void refreshLatestVersion() {
-        Iterator<Integer> iter = versions.keySet().iterator();
-        int maxver = -1;
+    @JsonIgnore
+    public UpdateChannel getCurrentChannel(Context ctx) {
+        UpdaterConfigUtil updUtil = ConfigHub.getUpdaterUtil(ctx);
+        String channelName = updUtil.getCurrentUpdateChannel();
 
-        while (iter.hasNext()) {
-            int ver = iter.next();
-
-            if (ver > maxver) {
-                maxver = ver;
-            }
-        }
-
-        _latestVersion = maxver;
+        return channels.get(channelName);
     }
 
-    public final VersionInfo getLatestVersion() {
-        return versions.get(_latestVersion);
+    @JsonIgnore
+    public final VersionInfo getLatestVersion(Context ctx) {
+        return getCurrentChannel(ctx).getLatestVersion();
     }
 
-    public final boolean isCurrentVersionLatest() {
-        return GlobalState.getVersionCode() >= _latestVersion;
-    }
-
-    public final List<VersionInfo> getVersionsSinceUpdate() {
-        ArrayList<VersionInfo> result = new ArrayList<VersionInfo>();
-        int currVersion = GlobalState.getVersionCode();
-        Iterator<Integer> iter = versions.keySet().iterator();
-
-        while (iter.hasNext()) {
-            int ver = iter.next();
-            if (ver > currVersion) {
-                result.add(versions.get(ver));
-            }
-        }
-
-        // sort according to version codes in ascending order
-        Collections.sort(result, new VersionInfoComparator());
-        return result;
+    @JsonIgnore
+    public final boolean isCurrentVersionLatest(Context ctx) {
+        return getCurrentChannel(ctx).isCurrentVersionLatest();
     }
 }

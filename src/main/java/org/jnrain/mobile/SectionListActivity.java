@@ -17,7 +17,7 @@ package org.jnrain.mobile;
 
 import org.jnrain.luohua.collection.ListSections;
 import org.jnrain.luohua.entity.Section;
-import org.jnrain.mobile.network.SectionListRequest;
+import org.jnrain.mobile.network.requests.SectionListRequest;
 import org.jnrain.mobile.ui.ux.ExitPointActivity;
 
 import roboguice.inject.InjectView;

@@ -16,7 +16,7 @@
 package org.jnrain.mobile;
 
 import org.jnrain.luohua.entity.Post;
-import org.jnrain.mobile.util.SpicedRoboFragmentActivity;
+import org.jnrain.mobile.util.JNRainFragmentActivity;
 
 import roboguice.inject.InjectView;
 import android.content.Intent;
@@ -29,7 +29,7 @@ import com.viewpagerindicator.TitlePageIndicator.IndicatorStyle;
 
 
 @SuppressWarnings("rawtypes")
-public class ReadThreadActivity extends SpicedRoboFragmentActivity
+public class ReadThreadActivity extends JNRainFragmentActivity
         implements ReadThreadActivityListener {
     @InjectView(R.id.pager)
     ViewPager viewPager;

@@ -17,7 +17,7 @@ package org.jnrain.mobile;
 
 import org.jnrain.luohua.collection.ListPosts;
 import org.jnrain.luohua.entity.Post;
-import org.jnrain.mobile.network.ThreadListRequest;
+import org.jnrain.mobile.network.requests.ThreadListRequest;
 import org.jnrain.mobile.util.CacheKeyManager;
 import org.jnrain.mobile.util.GlobalState;
 

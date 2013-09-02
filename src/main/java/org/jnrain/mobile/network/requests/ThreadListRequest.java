@@ -13,40 +13,37 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package org.jnrain.mobile.network;
+package org.jnrain.mobile.network.requests;
 
 import org.jnrain.luohua.collection.ListPosts;
 
 import com.octo.android.robospice.request.springandroid.SpringAndroidSpiceRequest;
 
 
-public class ThreadRequest extends SpringAndroidSpiceRequest<ListPosts> {
+public class ThreadListRequest extends SpringAndroidSpiceRequest<ListPosts> {
     private String _brd;
-    private long _tid;
     private int _page;
 
-    public ThreadRequest(String board, long tid) {
+    public ThreadListRequest(String board) {
         super(ListPosts.class);
 
         this._brd = board;
-        this._tid = tid;
         this._page = 1;
     }
 
-    public ThreadRequest(String board, long tid, int page) {
+    public ThreadListRequest(String board, int page) {
         super(ListPosts.class);
 
         this._brd = board;
-        this._tid = tid;
         this._page = page;
     }
 
     @Override
     public ListPosts loadDataFromNetwork() throws Exception {
         return getRestTemplate().getForObject(
-                "http://bbs.jnrain.com/rainstyle/thread_json.php?boardName="
-                        + this._brd + "&ID=" + Long.toString(this._tid)
-                        + "&page=" + Integer.toString(this._page),
+        // "http://rhymin.jnrain.com/api/hot/board/" + this._brd,
+                "http://bbs.jnrain.com/rainstyle/board_json.php?name="
+                        + this._brd + "&page=" + this._page,
                 ListPosts.class);
     }
 }

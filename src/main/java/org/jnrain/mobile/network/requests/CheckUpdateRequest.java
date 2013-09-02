@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 JNRain
+ * Copyright 2013 JNRain
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may
  * not use this file except in compliance with the License. You may obtain a
@@ -13,28 +13,24 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package org.jnrain.mobile.network;
+package org.jnrain.mobile.network.requests;
 
-import org.jnrain.luohua.collection.ListBoards;
+import org.jnrain.mobile.updater.UpdateInfo;
 
 import com.octo.android.robospice.request.springandroid.SpringAndroidSpiceRequest;
 
 
-public class BoardListRequest extends SpringAndroidSpiceRequest<ListBoards> {
-    private String _sec_id;
+public class CheckUpdateRequest
+        extends SpringAndroidSpiceRequest<UpdateInfo> {
 
-    public BoardListRequest(String sec_id) {
-        super(ListBoards.class);
-        // TODO: validation
-        this._sec_id = sec_id;
+    public CheckUpdateRequest() {
+        super(UpdateInfo.class);
     }
 
     @Override
-    public ListBoards loadDataFromNetwork() throws Exception {
+    public UpdateInfo loadDataFromNetwork() throws Exception {
         return getRestTemplate().getForObject(
-                /* "http://rhymin.jnrain.com/api/sec/" + this._sec_id + "/", */
-                "http://bbs.jnrain.com/rainstyle/boards_json.php?sec="
-                        + this._sec_id,
-                ListBoards.class);
+                "http://dl.jnrain.com/updates/android.json",
+                UpdateInfo.class);
     }
 }

@@ -22,10 +22,13 @@ import android.content.Context;
 
 public class UpdaterConfigUtil extends BaseConfigUtil {
     public static final String CONFIG_FILE = "updater";
+    public static final String ENABLE_AUTO_CHECK = "enable_auto_update";
     public static final String CURRENT_UPDATE_CHANNEL = "curr_upd_channel";
     public static final String DEFAULT_UPDATE_CHANNEL = "stable";
-    public static final String LAST_SEEN_LATEST = "last_seen_latest";
     public static final String LAST_CHECK_TIME = "last_check_time";
+    public static final String CHECK_FREQ = "update_check_freq";
+
+    public static final int DEFAULT_CHECK_FREQ = 7;
 
     public BaseConfigUtil _default_config;
 
@@ -44,16 +47,17 @@ public class UpdaterConfigUtil extends BaseConfigUtil {
         _default_config.setString(CURRENT_UPDATE_CHANNEL, value);
     }
 
-    public int getLastSeenLatest() {
-        return getInt(LAST_SEEN_LATEST, -1);
+    public boolean isAutoCheckEnabled() {
+        // sorry about that
+        return _default_config.getBoolean(ENABLE_AUTO_CHECK, true);
     }
 
-    public void setLastSeenLatest(int value) {
-        setInt(LAST_SEEN_LATEST, value);
+    public void setAutoCheck(boolean enabled) {
+        _default_config.setBoolean(ENABLE_AUTO_CHECK, enabled);
     }
 
     public Date getLastCheckTime() {
-        return new Date(getLong(LAST_CHECK_TIME));
+        return new Date(getLong(LAST_CHECK_TIME, 0));
     }
 
     public void setLastCheckTime(long value) {
@@ -62,5 +66,13 @@ public class UpdaterConfigUtil extends BaseConfigUtil {
 
     public void setLastCheckTime() {
         setLastCheckTime(System.currentTimeMillis());
+    }
+
+    public int getCheckFreq() {
+        return _default_config.getInt(CHECK_FREQ, DEFAULT_CHECK_FREQ);
+    }
+
+    public void setCheckFreq(int value) {
+        _default_config.setInt(CHECK_FREQ, value);
     }
 }

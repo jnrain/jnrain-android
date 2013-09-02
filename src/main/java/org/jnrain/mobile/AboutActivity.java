@@ -15,19 +15,21 @@
  */
 package org.jnrain.mobile;
 
-import java.text.MessageFormat;
+import java.util.Date;
 
 import org.jnrain.mobile.config.ConfigHub;
 import org.jnrain.mobile.config.UpdaterConfigUtil;
-import org.jnrain.mobile.network.CheckUpdateRequest;
-import org.jnrain.mobile.network.listeners.CheckUpdateRequestListener;
+import org.jnrain.mobile.network.listeners.AboutActivityCheckUpdateRequestListener;
+import org.jnrain.mobile.network.requests.CheckUpdateRequest;
 import org.jnrain.mobile.ui.ux.DialogHelper;
+import org.jnrain.mobile.ui.ux.FormatHelper;
 import org.jnrain.mobile.updater.UpdateInfo;
+import org.jnrain.mobile.updater.UpdateManager;
+import org.jnrain.mobile.updater.VersionInfo;
 import org.jnrain.mobile.util.AppVersionHelper;
 import org.jnrain.mobile.util.GlobalState;
-import org.jnrain.mobile.util.SpicedRoboActivity;
+import org.jnrain.mobile.util.JNRainActivity;
 
-import roboguice.inject.InjectResource;
 import roboguice.inject.InjectView;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -35,25 +37,26 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.text.Html;
+import android.text.format.DateFormat;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
 
-public class AboutActivity extends SpicedRoboActivity<UpdateInfo> {
+public class AboutActivity extends JNRainActivity<UpdateInfo> {
     @InjectView(R.id.textVersion)
     TextView textVersion;
     @InjectView(R.id.textUpdateChannel)
     TextView textUpdateChannel;
+    @InjectView(R.id.textLatestVersion)
+    TextView textLatestVersion;
+    @InjectView(R.id.textLastChecked)
+    TextView textLastChecked;
     @InjectView(R.id.btnCheckUpdate)
     Button btnCheckUpdate;
-
-    @InjectResource(R.string.app_full_name_with_ver)
-    public String APP_FULL_NAME_WITH_VER;
-    @InjectResource(R.string.current_update_channel)
-    public String CURRENT_UPDATE_CHANNEL;
+    @InjectView(R.id.btnDownloadUpdate)
+    Button btnDownloadUpdate;
 
     // private static final String TAG = "AboutActivity";
 
@@ -86,22 +89,50 @@ public class AboutActivity extends SpicedRoboActivity<UpdateInfo> {
             }
         };
 
-        textVersion.setText(MessageFormat.format(
-                APP_FULL_NAME_WITH_VER,
-                GlobalState.getVersionName()));
+        textVersion.setText(GlobalState.getVersionName());
 
+        // update channel
         String currentChannel = updaterUtil.getCurrentUpdateChannel();
-        textUpdateChannel.setText(Html.fromHtml(MessageFormat.format(
-                CURRENT_UPDATE_CHANNEL,
+        FormatHelper.setHtmlText(
+                this,
+                textUpdateChannel,
+                R.string.current_update_channel,
                 currentChannel,
                 AppVersionHelper.getLocalizedNameForUpdateChannel(
                         this,
-                        currentChannel))));
+                        currentChannel));
 
+        // last checked date
+        updateLastCheckedTimeDisplay();
+
+        // latest version
+        updateLatestVersionDisplay();
+
+        // check update button
         btnCheckUpdate.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 doCheckUpdates();
+            }
+        });
+
+        // download update button
+        UpdateInfo updInfo = GlobalState.getUpdateInfo();
+
+        if (updInfo == null) {
+            updateDownloadButtonVisibility(false);
+        } else {
+            updateDownloadButtonVisibility(!updInfo
+                .isCurrentVersionLatest(getApplicationContext()));
+        }
+
+        btnDownloadUpdate.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UpdateManager.openApkInBrowser(
+                        AboutActivity.this,
+                        GlobalState.getUpdateInfo().getLatestVersion(
+                                getApplicationContext()));
             }
         });
     }
@@ -110,10 +141,75 @@ public class AboutActivity extends SpicedRoboActivity<UpdateInfo> {
         mHandler.sendMessage(new Message());
         spiceManager.execute(
                 new CheckUpdateRequest(),
-                new CheckUpdateRequestListener(this));
+                new AboutActivityCheckUpdateRequestListener(this));
     }
 
     public ProgressDialog getLoadingDialog() {
         return loadingDlg;
+    }
+
+    public void updateLatestVersionDisplay(VersionInfo version) {
+        String codename = version.getCodeName();
+
+        if (codename.length() > 0) {
+            // version has codename
+            FormatHelper.setHtmlText(
+                    this,
+                    textLatestVersion,
+                    R.string.latest_version_is_w_codename,
+                    version.getName(),
+                    codename);
+        } else {
+            // without codename
+            FormatHelper.setHtmlText(
+                    this,
+                    textLatestVersion,
+                    R.string.latest_version_is,
+                    version.getName());
+        }
+    }
+
+    public void updateLatestVersionDisplay() {
+        // called at init
+        UpdateInfo updInfo = GlobalState.getUpdateInfo();
+
+        if (updInfo == null) {
+            // never checked
+            FormatHelper.setHtmlText(
+                    this,
+                    textLatestVersion,
+                    R.string.latest_version_is,
+                    getString(R.string.latest_version_unknown));
+        } else {
+            // use cached result from last check
+            updateLatestVersionDisplay(updInfo
+                .getLatestVersion(getApplicationContext()));
+        }
+    }
+
+    public void updateLastCheckedTimeDisplay(Date lastCheckedTime) {
+        String lastCheckedString;
+        if (lastCheckedTime.getTime() == 0) {
+            // never checked before
+            lastCheckedString = getString(R.string.last_checked_never);
+        } else {
+            // TODO: natural representation like "3 days ago"
+            lastCheckedString = DateFormat.format(
+                    "yyyy-MM-dd kk:mm",
+                    lastCheckedTime).toString();
+        }
+        FormatHelper.setHtmlText(
+                this,
+                textLastChecked,
+                R.string.last_checked_time,
+                lastCheckedString);
+    }
+
+    public void updateLastCheckedTimeDisplay() {
+        updateLastCheckedTimeDisplay(updaterUtil.getLastCheckTime());
+    }
+
+    public void updateDownloadButtonVisibility(boolean show) {
+        btnDownloadUpdate.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 }
