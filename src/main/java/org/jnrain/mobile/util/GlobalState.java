@@ -15,11 +15,16 @@
  */
 package org.jnrain.mobile.util;
 
+import org.jnrain.mobile.updater.UpdateInfo;
+
+
 public class GlobalState {
     protected static boolean _cookieInited = false;
     protected static boolean _versionInited = false;
     protected static int _versionCode = -1;
     protected static String _versionName = "VERSION_NOT_INITED";
+    protected static UpdateInfo _updInfo = null;
+
     protected static String _userName = "";
 
     public static synchronized boolean getCookieInited() {
@@ -50,11 +55,17 @@ public class GlobalState {
         return _versionName;
     }
 
+    public static synchronized UpdateInfo getUpdateInfo() {
+        return _updInfo;
+    }
+
     public static synchronized void setVersionInfo(
             int versionCode,
-            String versionName) {
+            String versionName,
+            UpdateInfo updInfo) {
         _versionCode = versionCode;
         _versionName = versionName;
+        _updInfo = updInfo;
         _versionInited = true;
     }
 }

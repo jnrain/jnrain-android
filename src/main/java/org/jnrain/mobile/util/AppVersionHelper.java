@@ -15,6 +15,9 @@
  */
 package org.jnrain.mobile.util;
 
+import org.jnrain.mobile.updater.UpdateInfo;
+import org.jnrain.mobile.updater.UpdateInfoFile;
+
 import android.app.Activity;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -30,17 +33,23 @@ public class AppVersionHelper {
         if (!GlobalState.isVersionInited()) {
             PackageManager mgr = activity.getPackageManager();
 
+            // fetch update info
+            UpdateInfo updInfo = UpdateInfoFile.fromFile(activity);
+
             try {
                 PackageInfo pkg = mgr.getPackageInfo(
                         activity.getPackageName(),
                         0);
 
-                GlobalState.setVersionInfo(pkg.versionCode, pkg.versionName);
+                GlobalState.setVersionInfo(
+                        pkg.versionCode,
+                        pkg.versionName,
+                        updInfo);
             } catch (NameNotFoundException e) {
                 // Wwwwhat? You say my package is NOT FOUND when it's
                 // currently RUNNING?
                 // Put something really bizarre here...
-                GlobalState.setVersionInfo(0, "VERSION-INIT-FAILED");
+                GlobalState.setVersionInfo(0, "VERSION-INIT-FAILED", null);
                 e.printStackTrace();
             }
         }

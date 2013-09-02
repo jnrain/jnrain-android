@@ -29,6 +29,8 @@ import org.jnrain.mobile.util.GlobalState;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UpdateInfo {
+    private static final String TAG = "UpdateInfo";
+
     @JsonProperty("_V")
     private int version;
     private HashMap<String, UpdateChannel> channels;
@@ -91,14 +93,17 @@ public class UpdateInfo {
         _latestVersion = maxver;
     }
 
+    @JsonIgnore
     public final VersionInfo getLatestVersion() {
         return versions.get(_latestVersion);
     }
 
+    @JsonIgnore
     public final boolean isCurrentVersionLatest() {
         return GlobalState.getVersionCode() >= _latestVersion;
     }
 
+    @JsonIgnore
     public final List<VersionInfo> getVersionsSinceUpdate() {
         ArrayList<VersionInfo> result = new ArrayList<VersionInfo>();
         int currVersion = GlobalState.getVersionCode();

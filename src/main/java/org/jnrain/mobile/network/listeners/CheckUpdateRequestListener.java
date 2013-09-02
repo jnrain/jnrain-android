@@ -17,11 +17,15 @@ package org.jnrain.mobile.network.listeners;
 
 import org.jnrain.mobile.AboutActivity;
 import org.jnrain.mobile.R;
+import org.jnrain.mobile.config.ConfigHub;
+import org.jnrain.mobile.config.UpdaterConfigUtil;
 import org.jnrain.mobile.ui.ux.ToastHelper;
 import org.jnrain.mobile.updater.UpdateInfo;
+import org.jnrain.mobile.updater.UpdateInfoFile;
 import org.jnrain.mobile.util.GlobalState;
 
 import android.app.Activity;
+import android.content.Context;
 import android.util.Log;
 
 import com.octo.android.robospice.persistence.exception.SpiceException;
@@ -59,5 +63,14 @@ public class CheckUpdateRequestListener
                     R.string.msg_new_version_available,
                     result.getLatestVersion().getName());
         }
+
+        Context ctx = m_activity.getApplicationContext();
+
+        // record update info in cache
+        UpdateInfoFile.toFile(ctx, result);
+
+        // record last check time
+        UpdaterConfigUtil updUtil = ConfigHub.getUpdaterUtil(ctx);
+        updUtil.setLastCheckTime();
     }
 }
