@@ -117,6 +117,7 @@
     <string name="prefs_ui_exit_doubleclick_timeout">双击确认最长间隔</string>
 
     <!-- Updater preferences -->
+    <string name="prefs_updater_enable_auto">允许自动检查更新</string>
     <string name="prefs_updater_channel">更新频道</string>
     <string name="prefs_updater_channel_select">选择更新频道</string>
     <string name="prefs_updater_check_freq">检查更新频率</string>
@@ -135,7 +136,6 @@
     <!-- Updater -->
     <string name="check_updates_dlg_title">正在检查更新</string>
     <string name="msg_version_is_latest">v{0} 已经是最新版本</string>
-    <string name="msg_new_version_available">检测到更新, 可以升级到 v{0} 版</string>
     <string name="current_update_channel"><![CDATA[当前位于 <b>{1}</b> ({0}) 更新频道。]]></string>
     <string name="update_chan_name_stable">稳定版</string>
     <string name="update_chan_name_next">抢鲜版</string>
@@ -145,5 +145,21 @@
     <string name="last_checked_time">上次检查: {0}</string>
     <string name="last_checked_never">从未检查过</string>
     <string name="download_update">下载更新</string>
+
+    <!-- New version available dialog -->
+    <string name="new_version_available">有更新版本 v{0} 可用</string>
+    <string name="new_version_ok_btn">下载试试</string>
+    <string name="new_version_cancel_btn">先不升级</string>
+    <string name="new_version_number"><![CDATA[<b>{0}</b>]]></string>
+    <string name="new_version_number_w_codename"><![CDATA[{0} [<b>{1}</b>]]]></string>
+    <string name="new_version_message">
+<![CDATA[
+        <p>版本号: {0}</p>
+        <p>版本说明:<br />
+        {1}
+        </p>
+        ]]>
+    </string>
+    <string name="new_version_desc_empty">暂无说明</string>
 
 </resources>

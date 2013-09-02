@@ -19,6 +19,7 @@ import org.jnrain.mobile.R;
 import org.jnrain.mobile.config.ConfigHub;
 import org.jnrain.mobile.config.UpdaterConfigUtil;
 import org.jnrain.mobile.ui.ux.ToastHelper;
+import org.jnrain.mobile.updater.UpdateChannel;
 import org.jnrain.mobile.updater.UpdateInfo;
 import org.jnrain.mobile.updater.UpdateInfoFile;
 import org.jnrain.mobile.util.GlobalState;
@@ -30,10 +31,10 @@ import android.util.Log;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 
 
-public class CheckUpdateRequestListener
+public abstract class CheckUpdateRequestListener
         extends ActivityRequestListener<UpdateInfo> {
     private static final String TAG = "ChkUpdReqListener";
-    private Activity m_activity;
+    protected Activity m_activity;
 
     public CheckUpdateRequestListener(Activity activity) {
         super(activity);
@@ -59,5 +60,16 @@ public class CheckUpdateRequestListener
         // record last check time
         UpdaterConfigUtil updUtil = ConfigHub.getUpdaterUtil(ctx);
         updUtil.setLastCheckTime();
+
+        UpdateChannel chan = result.getCurrentChannel(m_activity);
+        if (chan.isCurrentVersionLatest()) {
+            onVersionLatest();
+        } else {
+            onNewVersionAvailable(chan);
+        }
     }
+
+    public abstract void onVersionLatest();
+
+    public abstract void onNewVersionAvailable(UpdateChannel channel);
 }

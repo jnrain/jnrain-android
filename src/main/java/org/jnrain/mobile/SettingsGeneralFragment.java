@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 import org.jnrain.mobile.config.ConfigConstants;
+import org.jnrain.mobile.config.ConfigHub;
 import org.jnrain.mobile.config.UpdaterConfigUtil;
 import org.jnrain.mobile.updater.UpdateChannel;
 import org.jnrain.mobile.updater.UpdateInfo;
@@ -30,6 +31,7 @@ import org.jnrain.mobile.util.preference.SummarizedListPreference;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
@@ -39,6 +41,8 @@ import android.preference.PreferenceScreen;
 public class SettingsGeneralFragment extends PreferenceListFragment {
     protected ListPreference exitBehavior;
     protected SeekBarPreference exitDoubleclickTimeout;
+    protected CheckBoxPreference enableAutoUpdate;
+    protected SeekBarPreference updateCheckFreq;
 
     public SettingsGeneralFragment(int xmlId) {
         super(xmlId);
@@ -56,6 +60,8 @@ public class SettingsGeneralFragment extends PreferenceListFragment {
 
         exitBehavior = (ListPreference) findPreference(ConfigConstants.EXIT_BEHAVIOR);
         exitDoubleclickTimeout = (SeekBarPreference) findPreference(ConfigConstants.EXIT_DOUBLECLICK_TIMEOUT);
+        enableAutoUpdate = (CheckBoxPreference) findPreference(UpdaterConfigUtil.ENABLE_AUTO_CHECK);
+        updateCheckFreq = (SeekBarPreference) findPreference(UpdaterConfigUtil.CHECK_FREQ);
 
         exitBehavior
             .setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
@@ -68,8 +74,22 @@ public class SettingsGeneralFragment extends PreferenceListFragment {
                 }
             });
 
+        enableAutoUpdate
+            .setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(
+                        Preference preference,
+                        Object newValue) {
+                    syncEnableAutoUpdateDep((Boolean) newValue);
+                    return true;
+                }
+            });
+
         // initialize the dependency
         syncExitBehaviorDep(exitBehavior.getValue());
+        syncEnableAutoUpdateDep(ConfigHub
+            .getUpdaterUtil(getActivity())
+            .isAutoCheckEnabled());
     }
 
     public synchronized void syncExitBehaviorDep(String newValue) {
@@ -82,6 +102,15 @@ public class SettingsGeneralFragment extends PreferenceListFragment {
             scr.addPreference(exitDoubleclickTimeout);
         } else {
             scr.removePreference(exitDoubleclickTimeout);
+        }
+    }
+
+    public synchronized void syncEnableAutoUpdateDep(boolean newValue) {
+        PreferenceScreen scr = getPreferenceScreen();
+        if (newValue) {
+            scr.addPreference(updateCheckFreq);
+        } else {
+            scr.removePreference(updateCheckFreq);
         }
     }
 
@@ -132,7 +161,7 @@ public class SettingsGeneralFragment extends PreferenceListFragment {
         pref.setDialogTitle(R.string.prefs_updater_channel_select);
         pref.setKey(UpdaterConfigUtil.CURRENT_UPDATE_CHANNEL);
         pref.setSummary("%s");
-        pref.setOrder(4);
+        pref.setOrder(3);
 
         pref.setEntries(names);
         pref.setEntryValues(values);

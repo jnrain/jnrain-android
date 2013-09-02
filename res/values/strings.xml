@@ -127,6 +127,7 @@
     <string name="prefs_ui_exit_doubleclick_timeout">Doubleclick timeout</string>
 
     <!-- Updater preferences -->
+    <string name="prefs_updater_enable_auto">Auto check for updates</string>
     <string name="prefs_updater_channel">Update channel</string>
     <string name="prefs_updater_channel_select">Select an update channel</string>
     <string name="prefs_updater_check_freq">Update check frequency</string>
@@ -145,7 +146,7 @@
     <!-- Updater -->
     <string name="check_updates_dlg_title">Checking for updates</string>
     <string name="msg_version_is_latest">v{0} is the latest version</string>
-    <string name="msg_new_version_available">New version v{0} available</string>
+    <string name="new_version_available">New version {0} now available</string>
     <string name="current_update_channel"><![CDATA[Currently on the <b>{1}</b> ({0}) update channel.]]></string>
     <string name="update_chan_name_stable">Stable</string>
     <string name="update_chan_name_next">Preview</string>
@@ -155,5 +156,21 @@
     <string name="last_checked_time"><![CDATA[Last checked: <b>{0}</b>]]></string>
     <string name="last_checked_never">Never before</string>
     <string name="download_update">Download update</string>
+
+    <!-- New version available dialog -->
+    <string name="new_version_available">Version {0} available</string>
+    <string name="new_version_ok_btn">Try it out</string>
+    <string name="new_version_cancel_btn">Not now</string>
+    <string name="new_version_number"><![CDATA[<b>{0}</b>]]></string>
+    <string name="new_version_number_w_codename"><![CDATA[{0} [<b>{1}</b>]]]></string>
+    <string name="new_version_message">
+<![CDATA[
+        <p>Version: {0}</p>
+        <p>Changes:<br />
+        {1}
+        </p>
+        ]]>
+    </string>
+    <string name="new_version_desc_empty">No changelog</string>
 
 </resources>

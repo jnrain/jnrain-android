@@ -37,8 +37,16 @@
         jnrain:min="1"
         jnrain:unitsLeft=""
         jnrain:unitsRight="s" />
+
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="enable_auto_update"
+        android:order="4"
+        android:title="@string/prefs_updater_enable_auto" />
+
     <org.jnrain.mobile.util.preference.SeekBarPreference
         android:defaultValue="3"
+        android:dependency="enable_auto_update"
         android:key="update_check_freq"
         android:max="14"
         android:order="5"

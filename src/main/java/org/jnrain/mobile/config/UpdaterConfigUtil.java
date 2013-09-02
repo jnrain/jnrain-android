@@ -22,6 +22,7 @@ import android.content.Context;
 
 public class UpdaterConfigUtil extends BaseConfigUtil {
     public static final String CONFIG_FILE = "updater";
+    public static final String ENABLE_AUTO_CHECK = "enable_auto_update";
     public static final String CURRENT_UPDATE_CHANNEL = "curr_upd_channel";
     public static final String DEFAULT_UPDATE_CHANNEL = "stable";
     public static final String LAST_CHECK_TIME = "last_check_time";
@@ -44,6 +45,15 @@ public class UpdaterConfigUtil extends BaseConfigUtil {
 
     public void setCurrentUpdateChannel(String value) {
         _default_config.setString(CURRENT_UPDATE_CHANNEL, value);
+    }
+
+    public boolean isAutoCheckEnabled() {
+        // sorry about that
+        return _default_config.getBoolean(ENABLE_AUTO_CHECK, true);
+    }
+
+    public void setAutoCheck(boolean enabled) {
+        _default_config.setBoolean(ENABLE_AUTO_CHECK, enabled);
     }
 
     public Date getLastCheckTime() {

@@ -17,9 +17,20 @@ package org.jnrain.mobile.updater;
 
 import java.text.MessageFormat;
 
+import org.jnrain.mobile.R;
+import org.jnrain.mobile.config.ConfigHub;
+import org.jnrain.mobile.config.UpdaterConfigUtil;
+import org.jnrain.mobile.network.listeners.NotifyingCheckUpdateRequestListener;
+import org.jnrain.mobile.network.requests.CheckUpdateRequest;
+import org.jnrain.mobile.util.JNRainActivity;
+
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.net.Uri;
+import android.text.Html;
 
 
 public class UpdateManager {
@@ -116,5 +127,112 @@ public class UpdateManager {
                 Intent.ACTION_VIEW,
                 Uri.parse(getApkURLForVersion(version)));
         ctx.startActivity(intent);
+    }
+
+    /**
+     * Called to see if auto check of updates should be performed at the
+     * moment.
+     * 
+     * 检查此时此刻是否应该自动检查更新.
+     * 
+     * @param ctx
+     *            Android context to execute in
+     * @return true, if current time minus last check time is greater than
+     *         specified interval
+     */
+    public static boolean shouldAutoCheck(Context ctx) {
+        UpdaterConfigUtil updUtil = ConfigHub.getUpdaterUtil(ctx);
+
+        if (!updUtil.isAutoCheckEnabled()) {
+            return false;
+        }
+
+        long now = System.currentTimeMillis();
+        long lastCheck = updUtil.getLastCheckTime().getTime();
+        long interval = updUtil.getCheckFreq() * 86400000;
+
+        return now - lastCheck >= interval;
+    }
+
+    /**
+     * Issue network request for auto checking updates.
+     * 
+     * 发送自动检查更新的网络请求.
+     * 
+     * @param activity
+     *            caller activity for invoking RoboSpice machinery as
+     */
+    @SuppressWarnings({
+            "rawtypes",
+            "unchecked"
+    })
+    public static void issueAutoCheckRequest(JNRainActivity activity) {
+        activity.makeSpiceRequest(
+                new CheckUpdateRequest(),
+                new NotifyingCheckUpdateRequestListener(activity));
+    }
+
+    /**
+     * Show a dialog notifying the user of an available update.
+     * 
+     * 显示提醒用户更新可用的对话框.
+     * 
+     * @param ctx
+     *            Android context to execute in
+     * @param version
+     *            VersionInfo of the version presented to user
+     */
+    public static void showUpdateNotifyDialog(
+            final Context ctx,
+            final VersionInfo version) {
+        String dialogTitle = MessageFormat.format(
+                ctx.getString(R.string.new_version_available),
+                version.getName());
+        String versionName;
+        String desc;
+        CharSequence dialogMsg;
+
+        // version name, different if version has a codename
+        if (version.getCodeName().length() > 0) {
+            // has codename
+            versionName = MessageFormat.format(
+                    ctx.getString(R.string.new_version_number_w_codename),
+                    version.getName(),
+                    version.getCodeName());
+        } else {
+            // without codename
+            versionName = MessageFormat.format(
+                    ctx.getString(R.string.new_version_number),
+                    version.getName());
+        }
+
+        // description
+        desc = version.getDesc();
+        if (desc.length() == 0) {
+            desc = ctx.getString(R.string.new_version_desc_empty);
+        }
+
+        // dialog message body
+        dialogMsg = Html.fromHtml(MessageFormat.format(
+                ctx.getString(R.string.new_version_message),
+                versionName,
+                desc));
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
+
+        builder.setIcon(android.R.drawable.ic_dialog_alert);
+        builder.setTitle(dialogTitle);
+        builder.setMessage(dialogMsg);
+        builder.setPositiveButton(
+                R.string.new_version_ok_btn,
+                new OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        UpdateManager.openApkInBrowser(ctx, version);
+                    }
+                });
+        builder.setNegativeButton(R.string.new_version_cancel_btn, null);
+
+        builder.show();
     }
 }

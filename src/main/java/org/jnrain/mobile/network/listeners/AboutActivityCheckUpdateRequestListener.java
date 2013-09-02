@@ -28,7 +28,7 @@ import com.octo.android.robospice.persistence.exception.SpiceException;
 
 
 public class AboutActivityCheckUpdateRequestListener
-        extends CheckUpdateRequestListener {
+        extends NotifyingCheckUpdateRequestListener {
     private AboutActivity m_activity;
 
     public AboutActivityCheckUpdateRequestListener(Activity activity) {
@@ -48,23 +48,26 @@ public class AboutActivityCheckUpdateRequestListener
 
         super.onRequestSuccess(result);
 
-        UpdateChannel chan = result.getCurrentChannel(m_activity);
-
-        if (chan.isCurrentVersionLatest()) {
-            ToastHelper.makeTextToast(
-                    ctx,
-                    R.string.msg_version_is_latest,
-                    GlobalState.getVersionName());
-            m_activity.updateDownloadButtonVisibility(false);
-        } else {
-            ToastHelper.makeTextToast(
-                    ctx,
-                    R.string.msg_new_version_available,
-                    chan.getLatestVersion().getName());
-            m_activity.updateDownloadButtonVisibility(true);
-        }
-
         m_activity.updateLastCheckedTimeDisplay();
-        m_activity.updateLatestVersionDisplay(chan.getLatestVersion());
+        m_activity.updateLatestVersionDisplay(GlobalState
+            .getUpdateInfo()
+            .getCurrentChannel(m_activity)
+            .getLatestVersion());
+    }
+
+    @Override
+    public void onVersionLatest() {
+        m_activity.updateDownloadButtonVisibility(false);
+        ToastHelper.makeTextToast(
+                ctx,
+                R.string.msg_version_is_latest,
+                GlobalState.getVersionName());
+        super.onVersionLatest();
+    }
+
+    @Override
+    public void onNewVersionAvailable(UpdateChannel channel) {
+        m_activity.updateDownloadButtonVisibility(true);
+        super.onNewVersionAvailable(channel);
     }
 }
