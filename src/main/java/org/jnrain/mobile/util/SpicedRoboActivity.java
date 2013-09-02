@@ -16,6 +16,7 @@
 package org.jnrain.mobile.util;
 
 import org.jnrain.mobile.OptionsMenuProvider;
+import org.jnrain.mobile.network.util.ConnectivityState;
 import org.jnrain.mobile.service.JNRainSpiceService;
 
 import com.actionbarsherlock.view.Menu;
@@ -31,6 +32,7 @@ public class SpicedRoboActivity<T> extends RoboSherlockActivity
         implements SpiceRequestListener<T> {
     protected SpiceManager spiceManager = new SpiceManager(
             JNRainSpiceService.class);
+    protected ConnectivityState netState;
 
     @Override
     protected void onStart() {
@@ -41,6 +43,9 @@ public class SpicedRoboActivity<T> extends RoboSherlockActivity
             super.onStart();
             spiceManager.start(this);
         }
+
+        // connectivity state object
+        netState = new ConnectivityState(this);
     }
 
     @Override
