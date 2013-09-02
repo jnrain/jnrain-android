@@ -29,8 +29,6 @@ import org.jnrain.mobile.util.GlobalState;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UpdateInfo {
-    private static final String TAG = "UpdateInfo";
-
     @JsonProperty("_V")
     private int version;
     private HashMap<String, UpdateChannel> channels;
