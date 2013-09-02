@@ -132,6 +132,7 @@ public class SettingsGeneralFragment extends PreferenceListFragment {
         pref.setDialogTitle(R.string.prefs_updater_channel_select);
         pref.setKey(UpdaterConfigUtil.CURRENT_UPDATE_CHANNEL);
         pref.setSummary("%s");
+        pref.setOrder(4);
 
         pref.setEntries(names);
         pref.setEntryValues(values);
