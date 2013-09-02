@@ -47,7 +47,7 @@ public class UpdaterConfigUtil extends BaseConfigUtil {
     }
 
     public Date getLastCheckTime() {
-        return new Date(getLong(LAST_CHECK_TIME));
+        return new Date(getLong(LAST_CHECK_TIME, 0));
     }
 
     public void setLastCheckTime(long value) {

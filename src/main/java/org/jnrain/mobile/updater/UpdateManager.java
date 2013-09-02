@@ -51,6 +51,30 @@ public class UpdateManager {
     }
 
     /**
+     * Returns the canonical filename of this app's official download.
+     * 返回本应用官方下载使用的标准文件名.
+     * 
+     * @param version
+     *            VersionInfo object specifying requested version
+     * @return a String of canonical apk filename containing version
+     */
+    public static String getApkNameForVersion(VersionInfo version) {
+        return getApkNameForVersion(version.getName());
+    }
+
+    /**
+     * Format a URL that points to a specific version of this app.
+     * 格式化一个指向本应用某特定版本的 URL.
+     * 
+     * @param version
+     *            VersionInfo object specifying requested version
+     * @return URL for the .apk file
+     */
+    public static String getApkURLForVersion(String version) {
+        return UPDATE_URL_BASE + getApkNameForVersion(version);
+    }
+
+    /**
      * Format a URL that points to a specific version of this app.
      * 格式化一个指向本应用某特定版本的 URL.
      * 
@@ -58,7 +82,7 @@ public class UpdateManager {
      *            app version requested
      * @return URL for the .apk file
      */
-    public static String getApkURLForVersion(String version) {
+    public static String getApkURLForVersion(VersionInfo version) {
         return UPDATE_URL_BASE + getApkNameForVersion(version);
     }
 
@@ -72,6 +96,22 @@ public class UpdateManager {
      *            app version requested
      */
     public static void openApkInBrowser(Context ctx, String version) {
+        Intent intent = new Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse(getApkURLForVersion(version)));
+        ctx.startActivity(intent);
+    }
+
+    /**
+     * Open in the browser the .apk file for the specified app version.
+     * 在浏览器中打开指定版本的本应用 .apk 文件.
+     * 
+     * @param ctx
+     *            Android context to execute in
+     * @param version
+     *            VersionInfo object specifying requested version
+     */
+    public static void openApkInBrowser(Context ctx, VersionInfo version) {
         Intent intent = new Intent(
                 Intent.ACTION_VIEW,
                 Uri.parse(getApkURLForVersion(version)));

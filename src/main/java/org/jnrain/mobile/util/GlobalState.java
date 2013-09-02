@@ -68,4 +68,8 @@ public class GlobalState {
         _updInfo = updInfo;
         _versionInited = true;
     }
+
+    public static synchronized void setUpdateInfo(UpdateInfo updInfo) {
+        _updInfo = updInfo;
+    }
 }

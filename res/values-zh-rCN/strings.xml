@@ -134,5 +134,11 @@
     <string name="current_update_channel"><![CDATA[当前位于 <b>{1}</b> ({0}) 更新频道。]]></string>
     <string name="update_chan_name_stable">稳定版</string>
     <string name="update_chan_name_next">抢鲜版</string>
+    <string name="latest_version_is"><![CDATA[最新版本: <b>{0}</b>]]></string>
+    <string name="latest_version_is_w_codename"><![CDATA[最新版本: <b>{0}</b> [{1}]]]></string>
+    <string name="latest_version_unknown">待检查</string>
+    <string name="last_checked_time">上次检查: {0}</string>
+    <string name="last_checked_never">从未检查过</string>
+    <string name="download_update">下载更新</string>
 
 </resources>

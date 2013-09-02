@@ -15,7 +15,6 @@
  */
 package org.jnrain.mobile.network.listeners;
 
-import org.jnrain.mobile.AboutActivity;
 import org.jnrain.mobile.R;
 import org.jnrain.mobile.config.ConfigHub;
 import org.jnrain.mobile.config.UpdaterConfigUtil;
@@ -34,37 +33,25 @@ import com.octo.android.robospice.persistence.exception.SpiceException;
 public class CheckUpdateRequestListener
         extends ActivityRequestListener<UpdateInfo> {
     private static final String TAG = "ChkUpdReqListener";
-    private AboutActivity m_activity;
+    private Activity m_activity;
 
     public CheckUpdateRequestListener(Activity activity) {
         super(activity);
-        m_activity = (AboutActivity) activity;
+        m_activity = activity;
     }
 
     @Override
     public void onRequestFailure(SpiceException spiceException) {
-        m_activity.getLoadingDialog().dismiss();
         Log.d(TAG, "err on req: " + spiceException.toString());
         ToastHelper.makeTextToast(ctx, R.string.msg_network_fail);
     }
 
     @Override
     public void onRequestSuccess(UpdateInfo result) {
-        m_activity.getLoadingDialog().dismiss();
-
-        if (result.isCurrentVersionLatest()) {
-            ToastHelper.makeTextToast(
-                    ctx,
-                    R.string.msg_version_is_latest,
-                    GlobalState.getVersionName());
-        } else {
-            ToastHelper.makeTextToast(
-                    ctx,
-                    R.string.msg_new_version_available,
-                    result.getLatestVersion().getName());
-        }
-
         Context ctx = m_activity.getApplicationContext();
+
+        // update global update info
+        GlobalState.setUpdateInfo(result);
 
         // record update info in cache
         UpdateInfoFile.toFile(ctx, result);
