@@ -29,12 +29,10 @@ import android.content.Context;
 
 
 public class UpdateInfoFile {
-    public static final String UPDATE_INFO_CACHE_FILENAME = "updates.json";
-
     public static UpdateInfo fromFile(Context ctx) {
         return fromFile(new File(
                 ctx.getCacheDir(),
-                UPDATE_INFO_CACHE_FILENAME));
+                UpdateManager.UPDATE_INFO_CACHE_FILENAME));
     }
 
     public static UpdateInfo fromFile(File file) {
@@ -75,10 +73,9 @@ public class UpdateInfoFile {
     }
 
     public static void toFile(Context ctx, UpdateInfo updInfo) {
-        toFile(
-                ctx,
-                new File(ctx.getCacheDir(), UPDATE_INFO_CACHE_FILENAME),
-                updInfo);
+        toFile(ctx, new File(
+                ctx.getCacheDir(),
+                UpdateManager.UPDATE_INFO_CACHE_FILENAME), updInfo);
     }
 
     public static void toFile(Context ctx, File file, UpdateInfo updInfo) {
