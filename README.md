@@ -22,7 +22,9 @@
     $ git clone https://github.com/xen0n/SlidingMenu.git
     $ cd SlidingMenu/library
     $ mvn clean install
-    $ cd ../../..
+    $ cd ..
+    $ mvn install -N  # 安装 SlidingMenu 的 parent POM 但不要检查子项目 (MapActivity 集成可能会编译失败)
+    $ cd ../..
 
 * 执行构建
 
