@@ -17,7 +17,7 @@ before_install:
   # custom SlidingMenu
   - cd deps
   - git clone https://github.com/xen0n/SlidingMenu.git
-  - cd SlidingMenu
+  - cd SlidingMenu/library
   - mvn clean install
   - cd ../../..
 
