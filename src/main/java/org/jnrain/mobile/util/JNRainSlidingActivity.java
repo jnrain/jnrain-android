@@ -17,15 +17,17 @@ package org.jnrain.mobile.util;
 
 import org.jnrain.mobile.OptionsMenuProvider;
 
+import android.os.Bundle;
+
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
 
-public class JNRainActivity<T> extends SpicedRoboActivity<T> {
+public class JNRainSlidingActivity<T> extends SpicedRoboSlidingActivity<T> {
     JNRainActivityHelper _helper;
 
-    public JNRainActivity() {
+    public JNRainSlidingActivity() {
         super();
 
         _helper = new JNRainActivityHelper(this);
@@ -36,6 +38,13 @@ public class JNRainActivity<T> extends SpicedRoboActivity<T> {
         _helper.doPreOnStart();
         super.onStart();
         _helper.doPostOnStart();
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        JNRainActivityHelper.setUpSlidingMenu(getSlidingMenu());
     }
 
     @Override

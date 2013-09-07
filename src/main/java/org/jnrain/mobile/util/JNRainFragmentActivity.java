@@ -16,8 +16,6 @@
 package org.jnrain.mobile.util;
 
 import org.jnrain.mobile.OptionsMenuProvider;
-import org.jnrain.mobile.network.util.ConnectivityState;
-import org.jnrain.mobile.updater.UpdateManager;
 
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
@@ -25,20 +23,19 @@ import com.actionbarsherlock.view.MenuItem;
 
 
 public class JNRainFragmentActivity<T> extends SpicedRoboFragmentActivity<T> {
-    protected ConnectivityState netState;
+    JNRainActivityHelper _helper;
+
+    public JNRainFragmentActivity() {
+        super();
+
+        _helper = new JNRainActivityHelper(this);
+    }
 
     @Override
     protected void onStart() {
-        // init global version info
-        AppVersionHelper.ensureVersionInited(this);
-
+        _helper.doPreOnStart();
         super.onStart();
-
-        // connectivity state object
-        netState = new ConnectivityState(this);
-
-        // auto update things
-        doAutoCheckUpdate();
+        _helper.doPostOnStart();
     }
 
     @Override
@@ -54,23 +51,5 @@ public class JNRainFragmentActivity<T> extends SpicedRoboFragmentActivity<T> {
         OptionsMenuProvider optionsMenuProvider = OptionsMenuProvider
             .getOptionsMenuProvider();
         return optionsMenuProvider.optionsItemSelected(item, this);
-    }
-
-    public void doAutoCheckUpdate() {
-        boolean updateReqIssued = false;
-
-        if (GlobalState.getUpdateInfo() == null) {
-            // init the update info cache
-            UpdateManager.issueAutoCheckRequest(this);
-            updateReqIssued = true;
-        }
-
-        if (UpdateManager.shouldAutoCheck(getApplicationContext())) {
-            // should perform auto check of updates
-            // but don't repeat the request twice
-            if (!updateReqIssued) {
-                UpdateManager.issueAutoCheckRequest(this);
-            }
-        }
     }
 }

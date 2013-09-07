@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 JNRain
+ * Copyright 2012-2013 JNRain
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may
  * not use this file except in compliance with the License. You may obtain a
@@ -21,7 +21,7 @@ import org.jnrain.luohua.entity.Board;
 import org.jnrain.mobile.network.requests.BoardListRequest;
 import org.jnrain.mobile.util.CacheKeyManager;
 import org.jnrain.mobile.util.GlobalState;
-import org.jnrain.mobile.util.JNRainActivity;
+import org.jnrain.mobile.util.JNRainSlidingActivity;
 
 import roboguice.inject.InjectView;
 import android.content.Intent;
@@ -36,7 +36,7 @@ import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
 
 
-public class BoardListActivity extends JNRainActivity<ListPosts> {
+public class BoardListActivity extends JNRainSlidingActivity<ListPosts> {
     @InjectView(R.id.listBoards)
     ListView listBoards;
 
@@ -52,6 +52,7 @@ public class BoardListActivity extends JNRainActivity<ListPosts> {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_board_list);
+        setBehindContentView(R.layout.hello);
 
         Intent intent = getIntent();
         _sec_ord = intent.getStringExtra(SectionListActivity.SEC_ORD);

@@ -19,13 +19,14 @@ import org.jnrain.mobile.service.JNRainSpiceService;
 
 import android.app.Activity;
 
-import com.github.rtyley.android.sherlock.roboguice.activity.RoboSherlockActivity;
+import com.jeremyfeinstein.slidingmenu.lib.app.RoboSherlockSlidingActivity;
 import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.request.SpiceRequest;
 import com.octo.android.robospice.request.listener.RequestListener;
 
 
-public class SpicedRoboActivity<T> extends RoboSherlockActivity
+public class SpicedRoboSlidingActivity<T>
+        extends RoboSherlockSlidingActivity
         implements SpiceRequestListener<T> {
     protected SpiceManager spiceManager = new SpiceManager(
             JNRainSpiceService.class);
