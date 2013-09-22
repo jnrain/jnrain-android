@@ -19,13 +19,13 @@ import org.jnrain.mobile.updater.UpdateChannel;
 import org.jnrain.mobile.updater.UpdateManager;
 import org.jnrain.mobile.updater.VersionInfo;
 
-import android.app.Activity;
+import android.content.Context;
 
 
 public class NotifyingCheckUpdateRequestListener
         extends CheckUpdateRequestListener {
-    public NotifyingCheckUpdateRequestListener(Activity activity) {
-        super(activity);
+    public NotifyingCheckUpdateRequestListener(Context ctx) {
+        super(ctx);
     }
 
     @Override
@@ -38,6 +38,6 @@ public class NotifyingCheckUpdateRequestListener
         // pop up a dialog showing new version info
         VersionInfo latestVersion = channel.getLatestVersion();
 
-        UpdateManager.showUpdateNotifyDialog(m_activity, latestVersion);
+        UpdateManager.showUpdateNotifyDialog(ctx, latestVersion);
     }
 }

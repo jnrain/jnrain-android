@@ -17,7 +17,7 @@ package org.jnrain.mobile.accounts.kbs;
 
 import org.jnrain.luohua.entity.SimpleReturnCode;
 import org.jnrain.mobile.R;
-import org.jnrain.mobile.network.listeners.ActivityRequestListener;
+import org.jnrain.mobile.network.listeners.ContextRequestListener;
 import org.jnrain.mobile.ui.ux.ToastHelper;
 
 import android.app.Activity;
@@ -27,7 +27,7 @@ import com.octo.android.robospice.persistence.exception.SpiceException;
 
 
 public class KBSLoginRequestListener
-        extends ActivityRequestListener<SimpleReturnCode> {
+        extends ContextRequestListener<SimpleReturnCode> {
     private static final String TAG = "LoginRequestListener";
     private KBSLoginActivity m_activity;
     private String _uid;

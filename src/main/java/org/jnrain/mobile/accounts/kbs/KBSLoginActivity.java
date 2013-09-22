@@ -39,7 +39,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.webkit.CookieSyncManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -84,14 +83,6 @@ public class KBSLoginActivity
         loginActivity = this;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-        // cookie manager
-        synchronized (this) {
-            if (!GlobalState.getCookieInited()) {
-                CookieSyncManager.createInstance(getApplicationContext());
-                GlobalState.setCookieInited(true);
-            }
-        }
 
         // account manager
         accountManager = AccountManager.get(this);

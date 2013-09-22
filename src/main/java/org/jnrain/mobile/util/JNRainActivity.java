@@ -29,8 +29,7 @@ public class JNRainActivity<T> extends SpicedRoboActivity<T> {
 
     @Override
     protected void onStart() {
-        // init global version info
-        AppVersionHelper.ensureVersionInited(this);
+        GlobalState.possiblyInitState(getApplicationContext());
 
         super.onStart();
 
@@ -38,7 +37,7 @@ public class JNRainActivity<T> extends SpicedRoboActivity<T> {
         netState = new ConnectivityState(this);
 
         // auto update things
-        doAutoCheckUpdate();
+        UpdateManager.doAutoCheckUpdate(getApplicationContext());
     }
 
     @Override
@@ -54,23 +53,5 @@ public class JNRainActivity<T> extends SpicedRoboActivity<T> {
         OptionsMenuProvider optionsMenuProvider = OptionsMenuProvider
             .getOptionsMenuProvider();
         return optionsMenuProvider.optionsItemSelected(item, this);
-    }
-
-    public void doAutoCheckUpdate() {
-        boolean updateReqIssued = false;
-
-        if (GlobalState.getUpdateInfo() == null) {
-            // init the update info cache
-            UpdateManager.issueAutoCheckRequest(this);
-            updateReqIssued = true;
-        }
-
-        if (UpdateManager.shouldAutoCheck(getApplicationContext())) {
-            // should perform auto check of updates
-            // but don't repeat the request twice
-            if (!updateReqIssued) {
-                UpdateManager.issueAutoCheckRequest(this);
-            }
-        }
     }
 }

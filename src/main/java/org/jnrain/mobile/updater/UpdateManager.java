@@ -22,9 +22,8 @@ import org.jnrain.mobile.config.ConfigHub;
 import org.jnrain.mobile.config.UpdaterConfigUtil;
 import org.jnrain.mobile.network.listeners.NotifyingCheckUpdateRequestListener;
 import org.jnrain.mobile.network.requests.CheckUpdateRequest;
-import org.jnrain.mobile.util.JNRainAccountAuthenticatorActivity;
-import org.jnrain.mobile.util.JNRainActivity;
-import org.jnrain.mobile.util.JNRainFragmentActivity;
+import org.jnrain.mobile.util.GlobalState;
+import org.jnrain.mobile.util.SpiceRequestListener;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -161,54 +160,37 @@ public class UpdateManager {
      * 
      * 发送自动检查更新的网络请求.
      * 
-     * @param activity
-     *            caller activity for invoking RoboSpice machinery as
+     * @param listener
+     *            spiced caller context for invoking RoboSpice machinery as
      */
     @SuppressWarnings({
             "rawtypes",
             "unchecked"
     })
-    public static void issueAutoCheckRequest(JNRainActivity activity) {
-        activity.makeSpiceRequest(
+    public static void issueAutoCheckRequest(SpiceRequestListener listener) {
+        listener.makeSpiceRequest(
                 new CheckUpdateRequest(),
-                new NotifyingCheckUpdateRequestListener(activity));
+                new NotifyingCheckUpdateRequestListener((Context) listener));
     }
 
-    /**
-     * Issue network request for auto checking updates.
-     * 
-     * 发送自动检查更新的网络请求.
-     * 
-     * @param activity
-     *            caller activity for invoking RoboSpice machinery as
-     */
-    @SuppressWarnings({
-            "rawtypes",
-            "unchecked"
-    })
-    public static void issueAutoCheckRequest(JNRainFragmentActivity activity) {
-        activity.makeSpiceRequest(
-                new CheckUpdateRequest(),
-                new NotifyingCheckUpdateRequestListener(activity));
-    }
+    @SuppressWarnings("rawtypes")
+    public static void doAutoCheckUpdate(Context ctx) {
+        boolean updateReqIssued = false;
 
-    /**
-     * Issue network request for auto checking updates.
-     * 
-     * 发送自动检查更新的网络请求.
-     * 
-     * @param activity
-     *            caller activity for invoking RoboSpice machinery as
-     */
-    @SuppressWarnings({
-            "rawtypes",
-            "unchecked"
-    })
-    public static void issueAutoCheckRequest(
-            JNRainAccountAuthenticatorActivity activity) {
-        activity.makeSpiceRequest(
-                new CheckUpdateRequest(),
-                new NotifyingCheckUpdateRequestListener(activity));
+        if (GlobalState.getUpdateInfo() == null) {
+            // init the update info cache
+            UpdateManager.issueAutoCheckRequest((SpiceRequestListener) ctx);
+            updateReqIssued = true;
+        }
+
+        if (UpdateManager.shouldAutoCheck(ctx)) {
+            // should perform auto check of updates
+            // but don't repeat the request twice
+            if (!updateReqIssued) {
+                UpdateManager
+                    .issueAutoCheckRequest((SpiceRequestListener) ctx);
+            }
+        }
     }
 
     /**

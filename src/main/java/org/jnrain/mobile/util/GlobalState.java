@@ -17,6 +17,9 @@ package org.jnrain.mobile.util;
 
 import org.jnrain.mobile.updater.UpdateInfo;
 
+import android.content.Context;
+import android.webkit.CookieSyncManager;
+
 
 public class GlobalState {
     protected static boolean _cookieInited = false;
@@ -26,6 +29,17 @@ public class GlobalState {
     protected static UpdateInfo _updInfo = null;
 
     protected static String _userName = "";
+
+    public static synchronized void possiblyInitState(Context ctx) {
+        // init global version info
+        AppVersionHelper.ensureVersionInited(ctx);
+
+        // cookie manager
+        if (!GlobalState.getCookieInited()) {
+            CookieSyncManager.createInstance(ctx);
+            GlobalState.setCookieInited(true);
+        }
+    }
 
     public static synchronized boolean getCookieInited() {
         return _cookieInited;
