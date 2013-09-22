@@ -13,14 +13,13 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package org.jnrain.mobile;
+package org.jnrain.mobile.accounts.kbs;
 
 import org.jnrain.luohua.entity.SimpleReturnCode;
+import org.jnrain.mobile.R;
 import org.jnrain.mobile.accounts.AccountConstants;
 import org.jnrain.mobile.config.ConfigHub;
 import org.jnrain.mobile.config.LoginInfoUtil;
-import org.jnrain.mobile.network.listeners.LoginRequestListener;
-import org.jnrain.mobile.network.requests.LoginRequest;
 import org.jnrain.mobile.ui.ux.DialogHelper;
 import org.jnrain.mobile.ui.ux.ToastHelper;
 import org.jnrain.mobile.util.GlobalState;
@@ -49,7 +48,7 @@ import android.widget.EditText;
 
 
 @SuppressLint("DefaultLocale")
-public class LoginActivity
+public class KBSLoginActivity
         extends JNRainAccountAuthenticatorActivity<SimpleReturnCode> {
     public static final String PARAM_AUTHTOKEN_TYPE = "org.jnrain.mobile.authtoken";
     public static final String PARAM_USERNAME = "org.jnrain.mobile.username";
@@ -69,7 +68,7 @@ public class LoginActivity
     Button btnGuestLogin;
 
     private static final String TAG = "LoginActivity";
-    public LoginActivity loginActivity;
+    public KBSLoginActivity loginActivity;
     private ProgressDialog loadingDlg;
     private Handler mHandler;
 
@@ -199,7 +198,7 @@ public class LoginActivity
             @Override
             public void handleMessage(Message msg) {
                 loadingDlg = DialogHelper.showProgressDialog(
-                        LoginActivity.this,
+                        KBSLoginActivity.this,
                         R.string.login_dlg_title,
                         R.string.please_wait,
                         false,
@@ -211,8 +210,8 @@ public class LoginActivity
     public void doLogin(final String uid, final String psw) {
         mHandler.sendMessage(new Message());
         spiceManager.execute(
-                new LoginRequest(uid, psw),
-                new LoginRequestListener(loginActivity, uid, psw));
+                new KBSLoginRequest(uid, psw),
+                new KBSLoginRequestListener(loginActivity, uid, psw));
     }
 
     public ProgressDialog getLoadingDialog() {

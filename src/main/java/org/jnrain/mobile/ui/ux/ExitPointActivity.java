@@ -16,11 +16,11 @@
 package org.jnrain.mobile.ui.ux;
 
 import org.jnrain.mobile.R;
+import org.jnrain.mobile.accounts.kbs.KBSLogoutRequest;
+import org.jnrain.mobile.accounts.kbs.KBSLogoutRequestListener;
 import org.jnrain.mobile.config.ConfigConstants.ExitBehavior;
 import org.jnrain.mobile.config.ConfigHub;
 import org.jnrain.mobile.config.UIConfigUtil;
-import org.jnrain.mobile.network.listeners.LogoutRequestListener;
-import org.jnrain.mobile.network.requests.LogoutRequest;
 import org.jnrain.mobile.util.AccountStateListener;
 import org.jnrain.mobile.util.JNRainActivity;
 
@@ -107,7 +107,7 @@ public class ExitPointActivity<T> extends JNRainActivity<T>
     protected void doExit() {
         // this SHOULD be the last activity on the task stack. logout
         // super.onBackPressed() is called via shim in listener
-        spiceManager.execute(new LogoutRequest(), new LogoutRequestListener(
+        spiceManager.execute(new KBSLogoutRequest(), new KBSLogoutRequestListener(
                 this));
     }
 

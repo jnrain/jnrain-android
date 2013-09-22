@@ -18,7 +18,7 @@
         android:label="@string/app_name"
         android:theme="@style/Theme.JNRain.DefaultLight.NoActionBar" >
         <activity
-            android:name="org.jnrain.mobile.LoginActivity"
+            android:name="org.jnrain.mobile.accounts.kbs.KBSLoginActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.JNRain.LoginScreen" >
         </activity>
@@ -78,7 +78,7 @@
             android:theme="@style/Theme.JNRain.DefaultLight" >
         </activity>
 
-        <service android:name="org.jnrain.mobile.accounts.JNRainKBSAccountAuthenticatorService" >
+        <service android:name="org.jnrain.mobile.accounts.kbs.JNRainKBSAccountAuthenticatorService" >
             <intent-filter>
                 <action android:name="android.accounts.AccountAuthenticator" />
             </intent-filter>

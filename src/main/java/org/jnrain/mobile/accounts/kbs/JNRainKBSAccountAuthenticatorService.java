@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package org.jnrain.mobile.accounts;
+package org.jnrain.mobile.accounts.kbs;
 
 import android.accounts.AccountManager;
 import android.app.Service;

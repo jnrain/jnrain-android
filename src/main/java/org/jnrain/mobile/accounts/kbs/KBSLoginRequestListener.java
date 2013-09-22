@@ -13,11 +13,11 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package org.jnrain.mobile.network.listeners;
+package org.jnrain.mobile.accounts.kbs;
 
 import org.jnrain.luohua.entity.SimpleReturnCode;
-import org.jnrain.mobile.LoginActivity;
 import org.jnrain.mobile.R;
+import org.jnrain.mobile.network.listeners.ActivityRequestListener;
 import org.jnrain.mobile.ui.ux.ToastHelper;
 
 import android.app.Activity;
@@ -26,16 +26,16 @@ import android.util.Log;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 
 
-public class LoginRequestListener
+public class KBSLoginRequestListener
         extends ActivityRequestListener<SimpleReturnCode> {
     private static final String TAG = "LoginRequestListener";
-    private LoginActivity m_activity;
+    private KBSLoginActivity m_activity;
     private String _uid;
     private String _psw;
 
-    public LoginRequestListener(Activity activity, String uid, String psw) {
+    public KBSLoginRequestListener(Activity activity, String uid, String psw) {
         super(activity);
-        m_activity = (LoginActivity) activity;
+        m_activity = (KBSLoginActivity) activity;
         _uid = uid;
         _psw = psw;
     }

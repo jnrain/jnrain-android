@@ -13,9 +13,10 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package org.jnrain.mobile.accounts;
+package org.jnrain.mobile.accounts.kbs;
 
-import org.jnrain.mobile.LoginActivity;
+
+import org.jnrain.mobile.accounts.AccountConstants;
 
 import android.accounts.AbstractAccountAuthenticator;
 import android.accounts.Account;
@@ -58,8 +59,8 @@ public class JNRainKBSAccountAuthenticator
                                 ? "null"
                                 : requiredFeatures.toString()) + "]");
 
-        final Intent intent = new Intent(ctx, LoginActivity.class);
-        intent.putExtra(LoginActivity.PARAM_AUTHTOKEN_TYPE, authTokenType);
+        final Intent intent = new Intent(ctx, KBSLoginActivity.class);
+        intent.putExtra(KBSLoginActivity.PARAM_AUTHTOKEN_TYPE, authTokenType);
         intent.putExtra(
                 AccountManager.KEY_ACCOUNT_AUTHENTICATOR_RESPONSE,
                 response);
@@ -131,14 +132,14 @@ public class JNRainKBSAccountAuthenticator
         Log.d(TAG, "updateCredentials [account='" + account.name
                 + "', authTokenType='" + authTokenType + "']");
 
-        final Intent intent = new Intent(ctx, LoginActivity.class);
-        intent.putExtra(LoginActivity.PARAM_AUTHTOKEN_TYPE, authTokenType);
+        final Intent intent = new Intent(ctx, KBSLoginActivity.class);
+        intent.putExtra(KBSLoginActivity.PARAM_AUTHTOKEN_TYPE, authTokenType);
         intent.putExtra(
                 AccountManager.KEY_ACCOUNT_AUTHENTICATOR_RESPONSE,
                 response);
 
         if (!TextUtils.isEmpty(account.name))
-            intent.putExtra(LoginActivity.PARAM_USERNAME, account.name);
+            intent.putExtra(KBSLoginActivity.PARAM_USERNAME, account.name);
 
         final Bundle bundle = new Bundle();
         bundle.putParcelable(AccountManager.KEY_INTENT, intent);
