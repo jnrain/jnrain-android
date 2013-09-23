@@ -23,7 +23,6 @@ import org.jnrain.mobile.R.string;
 import org.jnrain.mobile.config.ConfigConstants;
 import org.jnrain.mobile.config.ConfigHub;
 import org.jnrain.mobile.config.UpdaterConfigUtil;
-import org.jnrain.mobile.ui.PreferenceListFragment;
 import org.jnrain.mobile.updater.UpdateChannel;
 import org.jnrain.mobile.updater.UpdateInfo;
 import org.jnrain.mobile.util.AppVersionHelper;

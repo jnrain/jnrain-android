@@ -18,7 +18,7 @@ package org.jnrain.mobile.ui.preferences;
 import org.jnrain.mobile.R;
 import org.jnrain.mobile.R.id;
 import org.jnrain.mobile.R.layout;
-import org.jnrain.mobile.ui.PreferenceListFragment.OnPreferenceAttachedListener;
+import org.jnrain.mobile.ui.preferences.PreferenceListFragment.OnPreferenceAttachedListener;
 
 import roboguice.inject.InjectView;
 import android.content.Context;

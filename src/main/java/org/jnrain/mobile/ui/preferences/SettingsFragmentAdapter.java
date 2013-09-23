@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import org.jnrain.mobile.R;
 import org.jnrain.mobile.R.string;
 import org.jnrain.mobile.R.xml;
-import org.jnrain.mobile.ui.PreferenceListFragment;
 import org.jnrain.mobile.util.DynPageFragmentAdapter;
 
 import android.content.Context;
