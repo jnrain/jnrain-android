@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package org.jnrain.mobile;
+package org.jnrain.mobile.ui.kbs;
 
 import java.io.InputStream;
 
@@ -21,6 +21,9 @@ import org.jnrain.luohua.collection.ListPosts;
 import org.jnrain.luohua.entity.Post;
 import org.jnrain.luohua.pres.formatter.post.JNRainPostFormatter;
 import org.jnrain.luohua.pres.formatter.post.PostFormatter;
+import org.jnrain.mobile.R;
+import org.jnrain.mobile.R.id;
+import org.jnrain.mobile.R.layout;
 import org.jnrain.mobile.ui.JNRainURLImageGetter;
 import org.jnrain.mobile.util.SpiceRequestListener;
 

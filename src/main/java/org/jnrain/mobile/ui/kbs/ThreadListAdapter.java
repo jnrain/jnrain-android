@@ -13,25 +13,29 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package org.jnrain.mobile;
+package org.jnrain.mobile.ui.kbs;
 
-import org.jnrain.luohua.collection.ListHotPosts;
+import org.jnrain.luohua.collection.ListPosts;
 import org.jnrain.luohua.entity.Post;
+import org.jnrain.mobile.R;
+import org.jnrain.mobile.R.id;
+import org.jnrain.mobile.R.layout;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 
-public class HotPostsListAdapter extends BaseAdapter {
-    // private static final String TAG = "HotPostsListAdapter";
+public class ThreadListAdapter extends ArrayAdapter<Post> {
+    // private static final String TAG = "PostsListAdapter";
     private LayoutInflater _inflater;
-    private ListHotPosts _data;
+    private ListPosts _data;
 
-    public HotPostsListAdapter(Context context, ListHotPosts data) {
+    public ThreadListAdapter(Context context, ListPosts data) {
+        super(context, R.layout.thread_item, data.getPosts());
         this._inflater = LayoutInflater.from(context);
         this._data = data;
     }
@@ -64,18 +68,19 @@ public class HotPostsListAdapter extends BaseAdapter {
         Post post = getItem(position);
 
         if (convertView == null) {
-            convertView = this._inflater.inflate(
-                    R.layout.hot_post_item,
-                    null);
+            convertView = this._inflater.inflate(R.layout.thread_item, null);
         }
 
-        TextView textPostTitle = (TextView) convertView
-            .findViewById(R.id.textHotPostTitle);
-        TextView textPostAuthor = (TextView) convertView
-            .findViewById(R.id.textHotPostAuthor);
+        TextView textTitle = (TextView) convertView
+            .findViewById(R.id.textTitle);
+        TextView textAuthor = (TextView) convertView
+            .findViewById(R.id.textAuthor);
+        TextView textReplies = (TextView) convertView
+            .findViewById(R.id.textReplies);
 
-        textPostTitle.setText(post.getTitle());
-        textPostAuthor.setText(post.getAuthor());
+        textTitle.setText(post.getTitle());
+        textAuthor.setText(post.getAuthor());
+        textReplies.setText(Integer.toString(post.getReplies()));
 
         return convertView;
     }

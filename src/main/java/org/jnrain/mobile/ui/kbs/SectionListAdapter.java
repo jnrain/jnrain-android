@@ -13,10 +13,13 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package org.jnrain.mobile;
+package org.jnrain.mobile.ui.kbs;
 
-import org.jnrain.luohua.collection.ListBoards;
-import org.jnrain.luohua.entity.Board;
+import org.jnrain.luohua.collection.ListSections;
+import org.jnrain.luohua.entity.Section;
+import org.jnrain.mobile.R;
+import org.jnrain.mobile.R.id;
+import org.jnrain.mobile.R.layout;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -26,24 +29,23 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 
-public class BoardListAdapter extends BaseAdapter {
-    // private static final String TAG = "BoardListAdapter";
+public class SectionListAdapter extends BaseAdapter {
     private LayoutInflater _inflater;
-    private ListBoards _data;
+    private ListSections _data;
 
-    public BoardListAdapter(Context context, ListBoards data) {
+    public SectionListAdapter(Context context, ListSections data) {
         this._inflater = LayoutInflater.from(context);
         this._data = data;
     }
 
     @Override
     public int getCount() {
-        return this._data.getBoards().size();
+        return this._data.getSections().size();
     }
 
     @Override
-    public Board getItem(int position) throws IndexOutOfBoundsException {
-        return this._data.getBoards().get(position);
+    public Section getItem(int position) throws IndexOutOfBoundsException {
+        return this._data.getSections().get(position);
     }
 
     @Override
@@ -61,19 +63,20 @@ public class BoardListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Board brd = getItem(position);
+        Section sec = getItem(position);
 
         if (convertView == null) {
-            convertView = this._inflater.inflate(R.layout.board_item, null);
+            convertView = this._inflater
+                .inflate(R.layout.section_item, null);
         }
 
-        TextView textBrdID = (TextView) convertView
-            .findViewById(R.id.textBoardID);
-        TextView textBrdName = (TextView) convertView
-            .findViewById(R.id.textBoardName);
+        TextView textSecName = (TextView) convertView
+            .findViewById(R.id.textName);
+        TextView textSecOrd = (TextView) convertView
+            .findViewById(R.id.textOrd);
 
-        textBrdID.setText(brd.getID());
-        textBrdName.setText(brd.getName());
+        textSecOrd.setText(sec.getOrd());
+        textSecName.setText(sec.getName());
 
         return convertView;
     }

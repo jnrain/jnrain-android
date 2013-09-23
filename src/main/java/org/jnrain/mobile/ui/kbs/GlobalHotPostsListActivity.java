@@ -13,11 +13,15 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package org.jnrain.mobile;
+package org.jnrain.mobile.ui.kbs;
 
 import org.jnrain.luohua.collection.ListHotPosts;
 import org.jnrain.luohua.collection.ListPosts;
 import org.jnrain.luohua.entity.Post;
+import org.jnrain.mobile.R;
+import org.jnrain.mobile.R.id;
+import org.jnrain.mobile.R.layout;
+import org.jnrain.mobile.R.string;
 import org.jnrain.mobile.network.requests.HotPostsListRequest;
 import org.jnrain.mobile.ui.ux.ExitPointActivity;
 import org.jnrain.mobile.util.CacheKeyManager;

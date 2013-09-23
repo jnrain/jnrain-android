@@ -23,7 +23,7 @@
             android:theme="@style/Theme.JNRain.LoginScreen" >
         </activity>
         <activity
-            android:name="org.jnrain.mobile.SectionListActivity"
+            android:name="org.jnrain.mobile.ui.kbs.SectionListActivity"
             android:label="@string/title_activity_section_list" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -39,15 +39,15 @@
         </service>
 
         <activity
-            android:name="org.jnrain.mobile.BoardListActivity"
+            androidorg.jnrain.mobile.ui.kbs.BoardListActivityctivity"
             android:label="@string/title_activity_board_list" >
         </activity>
         <activity
-            android:name="org.jnrain.mobile.GlobalHotPostsListActivity"
+            org.jnrain.mobile.ui.kbs.GlobalHotPostsListActivitytsListActivity"
             android:label="@string/title_activity_global_hot_posts_list" >
         </activity>
         <activity
-            android:name="org.jnrain.mobile.ThreadListActivity"
+            androidorg.jnrain.mobile.ui.kbs.ThreadListActivityctivity"
             android:label="@string/title_activity_board"
             android:theme="@style/Theme.JNRain.DefaultLight" >
             <meta-data
@@ -55,7 +55,7 @@
                 android:value="org.jnrain.mobile.BoardListActivity" />
         </activity>
         <activity
-            android:name="org.jnrain.mobile.ReadThreadActivity"
+            android:name="org.jnrain.mobile.ui.kbs.ReadThreadActivity"
             android:label="@string/title_activity_read_thread"
             android:theme="@style/Theme.JNRain.DefaultLight" >
             <meta-data
@@ -63,7 +63,7 @@
                 android:value="org.jnrain.mobile.ThreadListActivity" />
         </activity>
         <activity
-            android:name="org.jnrain.mobile.NewPostActivity"
+     org.jnrain.mobile.ui.kbs.NewPostActivityobile.NewPostActivity"
             android:label="@string/title_activity_new_post"
             android:theme="@style/Theme.JNRain.DefaultLight" >
         </activity>

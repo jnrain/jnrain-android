@@ -1,7 +1,9 @@
-package org.jnrain.mobile;
+package org.jnrain.mobile.ui.kbs;
 
 import java.text.MessageFormat;
 
+import org.jnrain.mobile.R;
+import org.jnrain.mobile.R.string;
 import org.jnrain.mobile.util.DynPageFragmentAdapter;
 
 import android.content.Context;

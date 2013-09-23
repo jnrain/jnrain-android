@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2013 JNRain
+ * Copyright 2012 JNRain
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may
  * not use this file except in compliance with the License. You may obtain a
@@ -13,13 +13,14 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package org.jnrain.mobile;
+package org.jnrain.mobile.ui.kbs;
 
+import org.jnrain.luohua.collection.ListPosts;
 import org.jnrain.luohua.entity.Post;
 import org.jnrain.mobile.util.SpiceRequestListener;
 
 
-@SuppressWarnings("rawtypes")
-public interface ReadThreadActivityListener extends SpiceRequestListener {
-    public void showReplyActivityFor(Post post);
+public interface ThreadListActivityListener
+        extends SpiceRequestListener<ListPosts> {
+    public void sendReadThreadIntent(Post post);
 }
