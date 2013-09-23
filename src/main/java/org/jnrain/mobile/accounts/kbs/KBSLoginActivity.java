@@ -15,7 +15,7 @@
  */
 package org.jnrain.mobile.accounts.kbs;
 
-import org.jnrain.luohua.entity.SimpleReturnCode;
+import org.jnrain.kbs.entity.SimpleReturnCode;
 import org.jnrain.mobile.R;
 import org.jnrain.mobile.accounts.AccountConstants;
 import org.jnrain.mobile.config.ConfigHub;

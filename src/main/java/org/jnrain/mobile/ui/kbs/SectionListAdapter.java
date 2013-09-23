@@ -15,8 +15,8 @@
  */
 package org.jnrain.mobile.ui.kbs;
 
-import org.jnrain.luohua.collection.ListSections;
-import org.jnrain.luohua.entity.Section;
+import org.jnrain.kbs.collection.ListSections;
+import org.jnrain.kbs.entity.Section;
 import org.jnrain.mobile.R;
 import org.jnrain.mobile.R.id;
 import org.jnrain.mobile.R.layout;

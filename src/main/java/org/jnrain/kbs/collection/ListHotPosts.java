@@ -13,12 +13,12 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package org.jnrain.luohua.collection;
+package org.jnrain.kbs.collection;
 
 import java.util.List;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-import org.jnrain.luohua.entity.Post;
+import org.jnrain.kbs.entity.Post;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)

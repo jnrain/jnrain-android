@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 JNRain
+ * Copyright 2013 JNRain
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may
  * not use this file except in compliance with the License. You may obtain a
@@ -13,28 +13,24 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package org.jnrain.luohua.collection;
-
-import java.util.List;
+package org.jnrain.kbs.entity;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-import org.jnrain.luohua.entity.Section;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ListSections {
-    private List<Section> _sections;
+public class SimpleReturnCode {
+    private int _status;
 
-    public List<Section> getSections() {
-        return this._sections;
+    public int getStatus() {
+        return _status;
     }
 
-    public void setSections(List<Section> sections) {
-        this._sections = sections;
+    public void setStatus(int status) {
+        _status = status;
     }
 
     public String toString() {
-        return ("<ListSections: len=" + this._sections.size() + ", "
-                + this._sections.toString() + ">");
+        return ("<Return code: [" + _status + "]>");
     }
 }

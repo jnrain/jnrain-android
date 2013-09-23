@@ -13,37 +13,28 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package org.jnrain.luohua.collection;
+package org.jnrain.kbs.collection;
 
 import java.util.List;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-import org.jnrain.luohua.entity.Board;
+import org.jnrain.kbs.entity.Post;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ListBoards {
-    private String _sec_id;
-    private List<Board> _boards;
+public class ListPosts {
+    private List<Post> _posts;
 
-    public String getSecID() {
-        return this._sec_id;
+    public List<Post> getPosts() {
+        return this._posts;
     }
 
-    public void setSecID(String sec_id) {
-        this._sec_id = sec_id;
-    }
-
-    public List<Board> getBoards() {
-        return this._boards;
-    }
-
-    public void setBoards(List<Board> boards) {
-        this._boards = boards;
+    public void setPosts(List<Post> boards) {
+        this._posts = boards;
     }
 
     public String toString() {
-        return ("<ListBoards: sec " + this._sec_id + ", len="
-                + this._boards.size() + ", " + this._boards.toString() + ">");
+        return ("<ListHotPosts: len=" + this._posts.size() + ", "
+                + this._posts.toString() + ">");
     }
 }

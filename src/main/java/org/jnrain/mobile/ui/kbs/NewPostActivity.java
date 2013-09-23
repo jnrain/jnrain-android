@@ -17,7 +17,7 @@ package org.jnrain.mobile.ui.kbs;
 
 import java.text.MessageFormat;
 
-import org.jnrain.luohua.entity.SimpleReturnCode;
+import org.jnrain.kbs.entity.SimpleReturnCode;
 import org.jnrain.mobile.R;
 import org.jnrain.mobile.R.id;
 import org.jnrain.mobile.R.layout;

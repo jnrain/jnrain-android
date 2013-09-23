@@ -15,8 +15,8 @@
  */
 package org.jnrain.mobile.ui.kbs;
 
-import org.jnrain.luohua.collection.ListPosts;
-import org.jnrain.luohua.entity.Post;
+import org.jnrain.kbs.collection.ListPosts;
+import org.jnrain.kbs.entity.Post;
 import org.jnrain.mobile.util.SpiceRequestListener;
 
 

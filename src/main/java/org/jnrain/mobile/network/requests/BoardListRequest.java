@@ -15,7 +15,7 @@
  */
 package org.jnrain.mobile.network.requests;
 
-import org.jnrain.luohua.collection.ListBoards;
+import org.jnrain.kbs.collection.ListBoards;
 
 import com.octo.android.robospice.request.springandroid.SpringAndroidSpiceRequest;
 

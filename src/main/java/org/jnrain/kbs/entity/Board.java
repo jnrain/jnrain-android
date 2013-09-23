@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package org.jnrain.luohua.entity;
+package org.jnrain.kbs.entity;
 
 import java.util.List;
 
@@ -21,17 +21,19 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Section {
-    private String _ord;
+public class Board {
+    private String _id;
     private String _name;
+    private List<String> _bm;
     private List<String> _topics;
+    private int _threads;
 
-    public String getOrd() {
-        return this._ord;
+    public String getID() {
+        return this._id;
     }
 
-    public void setOrd(String ord) {
-        this._ord = ord;
+    public void setID(String id) {
+        this._id = id;
     }
 
     public String getName() {
@@ -42,6 +44,14 @@ public class Section {
         this._name = name;
     }
 
+    public List<String> getBM() {
+        return this._bm;
+    }
+
+    public void setBM(List<String> bm) {
+        this._bm = bm;
+    }
+
     public List<String> getTopics() {
         return this._topics;
     }
@@ -50,8 +60,17 @@ public class Section {
         this._topics = topics;
     }
 
+    public int getThreads() {
+        return _threads;
+    }
+
+    public void setThreads(int threads) {
+        this._threads = threads;
+    }
+
     public String toString() {
-        return ("<Section: " + this._ord + ". " + this._name + " topics: "
+        return ("<Board: " + this._id + " (" + this._name + "), BM: "
+                + this._bm.toString() + ", topics: "
                 + this._topics.toString() + ">");
     }
 }

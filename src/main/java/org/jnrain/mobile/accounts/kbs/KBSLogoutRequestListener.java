@@ -15,7 +15,7 @@
  */
 package org.jnrain.mobile.accounts.kbs;
 
-import org.jnrain.luohua.entity.SimpleReturnCode;
+import org.jnrain.kbs.entity.SimpleReturnCode;
 import org.jnrain.mobile.R;
 import org.jnrain.mobile.network.listeners.ContextRequestListener;
 import org.jnrain.mobile.ui.ux.ToastHelper;

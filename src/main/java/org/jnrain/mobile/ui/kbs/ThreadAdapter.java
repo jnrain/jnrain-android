@@ -17,10 +17,10 @@ package org.jnrain.mobile.ui.kbs;
 
 import java.io.InputStream;
 
-import org.jnrain.luohua.collection.ListPosts;
-import org.jnrain.luohua.entity.Post;
-import org.jnrain.luohua.pres.formatter.post.JNRainPostFormatter;
-import org.jnrain.luohua.pres.formatter.post.PostFormatter;
+import org.jnrain.kbs.collection.ListPosts;
+import org.jnrain.kbs.entity.Post;
+import org.jnrain.kbs.pres.formatter.post.JNRainPostFormatter;
+import org.jnrain.kbs.pres.formatter.post.PostFormatter;
 import org.jnrain.mobile.R;
 import org.jnrain.mobile.R.id;
 import org.jnrain.mobile.R.layout;
