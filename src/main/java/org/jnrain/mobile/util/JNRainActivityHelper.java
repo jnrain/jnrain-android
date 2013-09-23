@@ -49,7 +49,7 @@ public class JNRainActivityHelper {
         netState = new ConnectivityState(ctx);
 
         // auto update things
-        UpdateManager.doAutoCheckUpdate(ctx);
+        UpdateManager.doAutoCheckUpdate(_activity);
     }
 
     public static void setUpSlidingMenu(SlidingMenu menu) {
