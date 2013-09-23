@@ -13,11 +13,13 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package org.jnrain.mobile.util;
+package org.jnrain.mobile.ui;
 
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+
+import org.jnrain.mobile.util.SpiceRequestListener;
 
 import android.app.Activity;
 import android.content.Context;

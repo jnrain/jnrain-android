@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package org.jnrain.mobile.util;
+package org.jnrain.mobile.ui;
 
 import java.io.File;
 import java.io.InputStream;
@@ -21,6 +21,7 @@ import java.io.InputStream;
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.jnrain.mobile.R;
+import org.jnrain.mobile.util.SpiceRequestListener;
 
 import android.app.Activity;
 import android.content.Context;

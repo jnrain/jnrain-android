@@ -19,7 +19,7 @@ import java.text.MessageFormat;
 
 import org.jnrain.luohua.entity.SimpleReturnCode;
 import org.jnrain.mobile.network.requests.NewPostRequest;
-import org.jnrain.mobile.util.JNRainActivity;
+import org.jnrain.mobile.ui.base.JNRainActivity;
 
 import roboguice.inject.InjectResource;
 import roboguice.inject.InjectView;

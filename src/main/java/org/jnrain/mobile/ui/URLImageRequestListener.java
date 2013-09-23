@@ -13,9 +13,10 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package org.jnrain.mobile.util;
+package org.jnrain.mobile.ui;
 
 import java.io.InputStream;
+
 
 import android.app.Activity;
 import android.graphics.drawable.Drawable;

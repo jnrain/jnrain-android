@@ -13,20 +13,21 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package org.jnrain.mobile.util;
+package org.jnrain.mobile.ui.base;
 
-import org.jnrain.mobile.OptionsMenuProvider;
+import org.jnrain.mobile.ui.JNRainActivityHelper;
+import org.jnrain.mobile.ui.OptionsMenuProvider;
+import org.jnrain.mobile.util.SpicedRoboFragmentActivity;
 
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
 
-public class JNRainAccountAuthenticatorActivity<T>
-        extends SpicedRoboAccountAuthenticatorActivity<T> {
+public class JNRainFragmentActivity<T> extends SpicedRoboFragmentActivity<T> {
     JNRainActivityHelper _helper;
 
-    public JNRainAccountAuthenticatorActivity() {
+    public JNRainFragmentActivity() {
         super();
 
         _helper = new JNRainActivityHelper(this);

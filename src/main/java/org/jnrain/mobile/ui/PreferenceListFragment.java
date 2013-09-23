@@ -1,4 +1,4 @@
-package org.jnrain.mobile.util;
+package org.jnrain.mobile.ui;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;

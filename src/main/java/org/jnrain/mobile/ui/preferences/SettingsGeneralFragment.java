@@ -13,19 +13,21 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package org.jnrain.mobile;
+package org.jnrain.mobile.ui.preferences;
 
 import java.util.HashMap;
 import java.util.Iterator;
 
+import org.jnrain.mobile.R;
+import org.jnrain.mobile.R.string;
 import org.jnrain.mobile.config.ConfigConstants;
 import org.jnrain.mobile.config.ConfigHub;
 import org.jnrain.mobile.config.UpdaterConfigUtil;
+import org.jnrain.mobile.ui.PreferenceListFragment;
 import org.jnrain.mobile.updater.UpdateChannel;
 import org.jnrain.mobile.updater.UpdateInfo;
 import org.jnrain.mobile.util.AppVersionHelper;
 import org.jnrain.mobile.util.GlobalState;
-import org.jnrain.mobile.util.PreferenceListFragment;
 import org.jnrain.mobile.util.preference.SeekBarPreference;
 import org.jnrain.mobile.util.preference.SummarizedListPreference;
 

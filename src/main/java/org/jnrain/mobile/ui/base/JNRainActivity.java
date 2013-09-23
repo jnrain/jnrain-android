@@ -13,21 +13,21 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package org.jnrain.mobile.util;
+package org.jnrain.mobile.ui.base;
 
-import org.jnrain.mobile.OptionsMenuProvider;
-
-import android.os.Bundle;
+import org.jnrain.mobile.ui.JNRainActivityHelper;
+import org.jnrain.mobile.ui.OptionsMenuProvider;
+import org.jnrain.mobile.util.SpicedRoboActivity;
 
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
 
-public class JNRainSlidingActivity<T> extends SpicedRoboSlidingActivity<T> {
+public class JNRainActivity<T> extends SpicedRoboActivity<T> {
     JNRainActivityHelper _helper;
 
-    public JNRainSlidingActivity() {
+    public JNRainActivity() {
         super();
 
         _helper = new JNRainActivityHelper(this);
@@ -38,13 +38,6 @@ public class JNRainSlidingActivity<T> extends SpicedRoboSlidingActivity<T> {
         _helper.doPreOnStart();
         super.onStart();
         _helper.doPostOnStart();
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        JNRainActivityHelper.setUpSlidingMenu(getSlidingMenu());
     }
 
     @Override

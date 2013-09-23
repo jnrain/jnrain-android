@@ -19,9 +19,9 @@ import org.jnrain.luohua.collection.ListBoards;
 import org.jnrain.luohua.collection.ListPosts;
 import org.jnrain.luohua.entity.Board;
 import org.jnrain.mobile.network.requests.BoardListRequest;
+import org.jnrain.mobile.ui.base.JNRainSlidingActivity;
 import org.jnrain.mobile.util.CacheKeyManager;
 import org.jnrain.mobile.util.GlobalState;
-import org.jnrain.mobile.util.JNRainSlidingActivity;
 
 import roboguice.inject.InjectView;
 import android.content.Intent;

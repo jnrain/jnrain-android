@@ -13,14 +13,19 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package org.jnrain.mobile;
+package org.jnrain.mobile.ui;
 
 import java.util.Date;
 
+import org.jnrain.mobile.R;
+import org.jnrain.mobile.R.id;
+import org.jnrain.mobile.R.layout;
+import org.jnrain.mobile.R.string;
 import org.jnrain.mobile.config.ConfigHub;
 import org.jnrain.mobile.config.UpdaterConfigUtil;
 import org.jnrain.mobile.network.listeners.AboutActivityCheckUpdateRequestListener;
 import org.jnrain.mobile.network.requests.CheckUpdateRequest;
+import org.jnrain.mobile.ui.base.JNRainActivity;
 import org.jnrain.mobile.ui.ux.DialogHelper;
 import org.jnrain.mobile.ui.ux.FormatHelper;
 import org.jnrain.mobile.updater.UpdateInfo;
@@ -28,7 +33,6 @@ import org.jnrain.mobile.updater.UpdateManager;
 import org.jnrain.mobile.updater.VersionInfo;
 import org.jnrain.mobile.util.AppVersionHelper;
 import org.jnrain.mobile.util.GlobalState;
-import org.jnrain.mobile.util.JNRainActivity;
 
 import roboguice.inject.InjectView;
 import android.app.ProgressDialog;

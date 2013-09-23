@@ -21,8 +21,8 @@ import org.jnrain.mobile.accounts.kbs.KBSLogoutRequestListener;
 import org.jnrain.mobile.config.ConfigConstants.ExitBehavior;
 import org.jnrain.mobile.config.ConfigHub;
 import org.jnrain.mobile.config.UIConfigUtil;
+import org.jnrain.mobile.ui.base.JNRainActivity;
 import org.jnrain.mobile.util.AccountStateListener;
-import org.jnrain.mobile.util.JNRainActivity;
 
 import roboguice.inject.InjectResource;
 import android.app.AlertDialog;

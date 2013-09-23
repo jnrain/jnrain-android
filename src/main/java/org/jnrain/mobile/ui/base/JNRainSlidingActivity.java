@@ -13,9 +13,11 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package org.jnrain.mobile.util;
+package org.jnrain.mobile.ui.base;
 
-import org.jnrain.mobile.OptionsMenuProvider;
+import org.jnrain.mobile.ui.JNRainActivityHelper;
+import org.jnrain.mobile.ui.OptionsMenuProvider;
+import org.jnrain.mobile.util.SpicedRoboSlidingActivity;
 
 import android.os.Bundle;
 
@@ -24,11 +26,10 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
 
-public class JNRainSlidingFragmentActivity<T>
-        extends SpicedRoboSlidingFragmentActivity<T> {
+public class JNRainSlidingActivity<T> extends SpicedRoboSlidingActivity<T> {
     JNRainActivityHelper _helper;
 
-    public JNRainSlidingFragmentActivity() {
+    public JNRainSlidingActivity() {
         super();
 
         _helper = new JNRainActivityHelper(this);

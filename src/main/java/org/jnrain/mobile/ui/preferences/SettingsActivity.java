@@ -13,9 +13,12 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package org.jnrain.mobile;
+package org.jnrain.mobile.ui.preferences;
 
-import org.jnrain.mobile.util.PreferenceListFragment.OnPreferenceAttachedListener;
+import org.jnrain.mobile.R;
+import org.jnrain.mobile.R.id;
+import org.jnrain.mobile.R.layout;
+import org.jnrain.mobile.ui.PreferenceListFragment.OnPreferenceAttachedListener;
 
 import roboguice.inject.InjectView;
 import android.content.Context;

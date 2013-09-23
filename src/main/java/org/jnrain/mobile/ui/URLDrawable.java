@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package org.jnrain.mobile.util;
+package org.jnrain.mobile.ui;
 
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;

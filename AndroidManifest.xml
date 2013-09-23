@@ -68,12 +68,12 @@
             android:theme="@style/Theme.JNRain.DefaultLight" >
         </activity>
         <activity
-            android:name="org.jnrain.mobile.SettingsActivity"
+            android:name="org.jnrain.mobile.ui.preferences.SettingsActivity"
             android:label="@string/title_activity_preference"
             android:theme="@style/Theme.JNRain.DefaultLight" >
         </activity>
         <activity
-            android:name="org.jnrain.mobile.AboutActivity"
+            android:name="org.jnrain.mobile.ui.AboutActivity"
             android:label="@string/title_activity_about"
             android:theme="@style/Theme.JNRain.DefaultLight" >
         </activity>

@@ -13,13 +13,16 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package org.jnrain.mobile;
+package org.jnrain.mobile.ui.preferences;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
+import org.jnrain.mobile.R;
+import org.jnrain.mobile.R.string;
+import org.jnrain.mobile.R.xml;
+import org.jnrain.mobile.ui.PreferenceListFragment;
 import org.jnrain.mobile.util.DynPageFragmentAdapter;
-import org.jnrain.mobile.util.PreferenceListFragment;
 
 import android.content.Context;
 import android.support.v4.app.FragmentManager;

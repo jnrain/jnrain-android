@@ -13,11 +13,14 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package org.jnrain.mobile.util;
+package org.jnrain.mobile.ui;
 
 import org.jnrain.mobile.R;
 import org.jnrain.mobile.network.util.ConnectivityState;
 import org.jnrain.mobile.updater.UpdateManager;
+import org.jnrain.mobile.util.AppVersionHelper;
+import org.jnrain.mobile.util.GlobalState;
+import org.jnrain.mobile.util.SpiceRequestListener;
 
 import android.content.Context;
 

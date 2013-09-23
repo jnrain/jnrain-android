@@ -16,7 +16,7 @@
 package org.jnrain.mobile;
 
 import org.jnrain.luohua.entity.Post;
-import org.jnrain.mobile.util.JNRainFragmentActivity;
+import org.jnrain.mobile.ui.base.JNRainFragmentActivity;
 
 import roboguice.inject.InjectView;
 import android.content.Intent;

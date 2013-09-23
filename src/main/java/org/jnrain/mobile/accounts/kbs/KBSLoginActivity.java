@@ -20,10 +20,10 @@ import org.jnrain.mobile.R;
 import org.jnrain.mobile.accounts.AccountConstants;
 import org.jnrain.mobile.config.ConfigHub;
 import org.jnrain.mobile.config.LoginInfoUtil;
+import org.jnrain.mobile.ui.base.JNRainAccountAuthenticatorActivity;
 import org.jnrain.mobile.ui.ux.DialogHelper;
 import org.jnrain.mobile.ui.ux.ToastHelper;
 import org.jnrain.mobile.util.GlobalState;
-import org.jnrain.mobile.util.JNRainAccountAuthenticatorActivity;
 
 import roboguice.inject.InjectView;
 import android.accounts.Account;
