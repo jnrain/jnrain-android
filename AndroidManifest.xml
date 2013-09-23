@@ -39,15 +39,15 @@
         </service>
 
         <activity
-            androidorg.jnrain.mobile.ui.kbs.BoardListActivityctivity"
+            android:name="org.jnrain.mobile.ui.kbs.BoardListActivity"
             android:label="@string/title_activity_board_list" >
         </activity>
         <activity
-            org.jnrain.mobile.ui.kbs.GlobalHotPostsListActivitytsListActivity"
+            android:name="org.jnrain.mobile.ui.kbs.GlobalHotPostsListActivity"
             android:label="@string/title_activity_global_hot_posts_list" >
         </activity>
         <activity
-            androidorg.jnrain.mobile.ui.kbs.ThreadListActivityctivity"
+            android:name="org.jnrain.mobile.ui.kbs.ThreadListActivity"
             android:label="@string/title_activity_board"
             android:theme="@style/Theme.JNRain.DefaultLight" >
             <meta-data
@@ -63,7 +63,7 @@
                 android:value="org.jnrain.mobile.ThreadListActivity" />
         </activity>
         <activity
-     org.jnrain.mobile.ui.kbs.NewPostActivityobile.NewPostActivity"
+            android:name="org.jnrain.mobile.ui.kbs.NewPostActivity"
             android:label="@string/title_activity_new_post"
             android:theme="@style/Theme.JNRain.DefaultLight" >
         </activity>
