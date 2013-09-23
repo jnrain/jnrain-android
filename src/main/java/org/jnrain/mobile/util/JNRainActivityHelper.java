@@ -19,6 +19,8 @@ import org.jnrain.mobile.R;
 import org.jnrain.mobile.network.util.ConnectivityState;
 import org.jnrain.mobile.updater.UpdateManager;
 
+import android.content.Context;
+
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
 
@@ -32,36 +34,22 @@ public class JNRainActivityHelper {
     }
 
     public void doPreOnStart() {
+        Context ctx = _activity.getThisActivity().getApplicationContext();
+
+        GlobalState.possiblyInitState(ctx);
+
         // init global version info
-        AppVersionHelper.ensureVersionInited(_activity.getThisActivity());
+        AppVersionHelper.ensureVersionInited(ctx);
     }
 
     public void doPostOnStart() {
+        Context ctx = _activity.getThisActivity().getApplicationContext();
+
         // connectivity state object
-        netState = new ConnectivityState(_activity.getThisActivity());
+        netState = new ConnectivityState(ctx);
 
         // auto update things
-        doAutoCheckUpdate();
-    }
-
-    public void doAutoCheckUpdate() {
-        boolean updateReqIssued = false;
-
-        if (GlobalState.getUpdateInfo() == null) {
-            // init the update info cache
-            UpdateManager.issueAutoCheckRequest(_activity);
-            updateReqIssued = true;
-        }
-
-        if (UpdateManager.shouldAutoCheck(_activity
-            .getThisActivity()
-            .getApplicationContext())) {
-            // should perform auto check of updates
-            // but don't repeat the request twice
-            if (!updateReqIssued) {
-                UpdateManager.issueAutoCheckRequest(_activity);
-            }
-        }
+        UpdateManager.doAutoCheckUpdate(ctx);
     }
 
     public static void setUpSlidingMenu(SlidingMenu menu) {

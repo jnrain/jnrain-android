@@ -16,8 +16,6 @@
 package org.jnrain.mobile.util;
 
 import org.jnrain.mobile.OptionsMenuProvider;
-import org.jnrain.mobile.network.util.ConnectivityState;
-import org.jnrain.mobile.updater.UpdateManager;
 
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
@@ -26,19 +24,19 @@ import com.actionbarsherlock.view.MenuItem;
 
 public class JNRainAccountAuthenticatorActivity<T>
         extends SpicedRoboAccountAuthenticatorActivity<T> {
-    protected ConnectivityState netState;
+    JNRainActivityHelper _helper;
+
+    public JNRainAccountAuthenticatorActivity() {
+        super();
+
+        _helper = new JNRainActivityHelper(this);
+    }
 
     @Override
     protected void onStart() {
-        GlobalState.possiblyInitState(getApplicationContext());
-
+        _helper.doPreOnStart();
         super.onStart();
-
-        // connectivity state object
-        netState = new ConnectivityState(this);
-
-        // auto update things
-        UpdateManager.doAutoCheckUpdate(getApplicationContext());
+        _helper.doPostOnStart();
     }
 
     @Override

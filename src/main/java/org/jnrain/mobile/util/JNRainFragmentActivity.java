@@ -33,16 +33,8 @@ public class JNRainFragmentActivity<T> extends SpicedRoboFragmentActivity<T> {
 
     @Override
     protected void onStart() {
-        GlobalState.possiblyInitState(getApplicationContext());
         _helper.doPreOnStart();
-
         super.onStart();
-
-        // connectivity state object
-        netState = new ConnectivityState(this);
-
-        // auto update things
-        UpdateManager.doAutoCheckUpdate(getApplicationContext());
         _helper.doPostOnStart();
     }
 
