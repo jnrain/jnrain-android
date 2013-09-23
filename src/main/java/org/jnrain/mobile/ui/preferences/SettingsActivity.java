@@ -16,8 +16,6 @@
 package org.jnrain.mobile.ui.preferences;
 
 import org.jnrain.mobile.R;
-import org.jnrain.mobile.R.id;
-import org.jnrain.mobile.R.layout;
 import org.jnrain.mobile.ui.preferences.PreferenceListFragment.OnPreferenceAttachedListener;
 
 import roboguice.inject.InjectView;
@@ -56,7 +54,7 @@ public class SettingsActivity extends RoboSherlockFragmentActivity
         indicator.setFooterIndicatorStyle(IndicatorStyle.Underline);
     }
 
-    static void show(Context context) {
+    public static void show(Context context) {
         final Intent intent = new Intent(context, SettingsActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
