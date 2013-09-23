@@ -18,9 +18,6 @@ package org.jnrain.mobile.ui;
 import java.util.Date;
 
 import org.jnrain.mobile.R;
-import org.jnrain.mobile.R.id;
-import org.jnrain.mobile.R.layout;
-import org.jnrain.mobile.R.string;
 import org.jnrain.mobile.config.ConfigHub;
 import org.jnrain.mobile.config.UpdaterConfigUtil;
 import org.jnrain.mobile.network.listeners.AboutActivityCheckUpdateRequestListener;

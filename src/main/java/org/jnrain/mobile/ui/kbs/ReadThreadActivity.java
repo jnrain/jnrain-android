@@ -17,8 +17,6 @@ package org.jnrain.mobile.ui.kbs;
 
 import org.jnrain.kbs.entity.Post;
 import org.jnrain.mobile.R;
-import org.jnrain.mobile.R.id;
-import org.jnrain.mobile.R.layout;
 import org.jnrain.mobile.ui.base.JNRainFragmentActivity;
 
 import roboguice.inject.InjectView;

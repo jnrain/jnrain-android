@@ -19,10 +19,6 @@ import java.text.MessageFormat;
 
 import org.jnrain.kbs.entity.SimpleReturnCode;
 import org.jnrain.mobile.R;
-import org.jnrain.mobile.R.id;
-import org.jnrain.mobile.R.layout;
-import org.jnrain.mobile.R.menu;
-import org.jnrain.mobile.R.string;
 import org.jnrain.mobile.network.requests.NewPostRequest;
 import org.jnrain.mobile.ui.base.JNRainActivity;
 

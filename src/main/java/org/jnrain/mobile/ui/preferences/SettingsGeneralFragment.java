@@ -19,7 +19,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 import org.jnrain.mobile.R;
-import org.jnrain.mobile.R.string;
 import org.jnrain.mobile.config.ConfigConstants;
 import org.jnrain.mobile.config.ConfigHub;
 import org.jnrain.mobile.config.UpdaterConfigUtil;

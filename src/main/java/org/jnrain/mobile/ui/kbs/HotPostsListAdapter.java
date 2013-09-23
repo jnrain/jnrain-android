@@ -18,8 +18,6 @@ package org.jnrain.mobile.ui.kbs;
 import org.jnrain.kbs.collection.ListHotPosts;
 import org.jnrain.kbs.entity.Post;
 import org.jnrain.mobile.R;
-import org.jnrain.mobile.R.id;
-import org.jnrain.mobile.R.layout;
 
 import android.content.Context;
 import android.view.LayoutInflater;

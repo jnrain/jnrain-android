@@ -19,8 +19,6 @@ import org.jnrain.kbs.collection.ListBoards;
 import org.jnrain.kbs.collection.ListPosts;
 import org.jnrain.kbs.entity.Board;
 import org.jnrain.mobile.R;
-import org.jnrain.mobile.R.id;
-import org.jnrain.mobile.R.layout;
 import org.jnrain.mobile.network.requests.BoardListRequest;
 import org.jnrain.mobile.ui.base.JNRainSlidingActivity;
 import org.jnrain.mobile.util.CacheKeyManager;

@@ -16,8 +16,6 @@
 package org.jnrain.mobile.ui;
 
 import org.jnrain.mobile.R;
-import org.jnrain.mobile.R.id;
-import org.jnrain.mobile.R.menu;
 import org.jnrain.mobile.ui.preferences.SettingsActivity;
 
 import android.app.Activity;

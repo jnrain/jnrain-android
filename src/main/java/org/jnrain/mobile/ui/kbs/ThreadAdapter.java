@@ -22,8 +22,6 @@ import org.jnrain.kbs.entity.Post;
 import org.jnrain.kbs.pres.formatter.post.JNRainPostFormatter;
 import org.jnrain.kbs.pres.formatter.post.PostFormatter;
 import org.jnrain.mobile.R;
-import org.jnrain.mobile.R.id;
-import org.jnrain.mobile.R.layout;
 import org.jnrain.mobile.ui.JNRainURLImageGetter;
 import org.jnrain.mobile.util.SpiceRequestListener;
 
