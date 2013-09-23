@@ -173,4 +173,7 @@
     </string>
     <string name="new_version_desc_empty">No changelog</string>
 
+    <!-- Accounts -->
+    <string name="account_type_kbs">JNRain (old site)</string>
+
 </resources>

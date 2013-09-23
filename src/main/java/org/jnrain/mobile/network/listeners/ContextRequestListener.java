@@ -15,20 +15,17 @@
  */
 package org.jnrain.mobile.network.listeners;
 
-import android.app.Activity;
 import android.content.Context;
 
 import com.octo.android.robospice.request.listener.RequestListener;
 
 
-public abstract class ActivityRequestListener<T>
+public abstract class ContextRequestListener<T>
         implements RequestListener<T> {
-    protected Activity _activity;
     protected Context ctx;
 
-    public ActivityRequestListener(Activity activity) {
+    public ContextRequestListener(Context ctx) {
         super();
-        _activity = activity;
-        ctx = activity.getApplicationContext();
+        this.ctx = ctx;
     }
 }

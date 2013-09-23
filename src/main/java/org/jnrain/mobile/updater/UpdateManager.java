@@ -22,6 +22,7 @@ import org.jnrain.mobile.config.ConfigHub;
 import org.jnrain.mobile.config.UpdaterConfigUtil;
 import org.jnrain.mobile.network.listeners.NotifyingCheckUpdateRequestListener;
 import org.jnrain.mobile.network.requests.CheckUpdateRequest;
+import org.jnrain.mobile.util.GlobalState;
 import org.jnrain.mobile.util.SpiceRequestListener;
 
 import android.app.AlertDialog;
@@ -159,18 +160,37 @@ public class UpdateManager {
      * 
      * 发送自动检查更新的网络请求.
      * 
-     * @param activity
-     *            caller activity for invoking RoboSpice machinery as
+     * @param listener
+     *            spiced caller context for invoking RoboSpice machinery as
      */
     @SuppressWarnings({
             "rawtypes",
             "unchecked"
     })
-    public static void issueAutoCheckRequest(SpiceRequestListener activity) {
-        activity.makeSpiceRequest(
+    public static void issueAutoCheckRequest(SpiceRequestListener listener) {
+        listener.makeSpiceRequest(
                 new CheckUpdateRequest(),
-                new NotifyingCheckUpdateRequestListener(activity
-                    .getThisActivity()));
+                new NotifyingCheckUpdateRequestListener((Context) listener));
+    }
+
+    @SuppressWarnings("rawtypes")
+    public static void doAutoCheckUpdate(Context ctx) {
+        boolean updateReqIssued = false;
+
+        if (GlobalState.getUpdateInfo() == null) {
+            // init the update info cache
+            UpdateManager.issueAutoCheckRequest((SpiceRequestListener) ctx);
+            updateReqIssued = true;
+        }
+
+        if (UpdateManager.shouldAutoCheck(ctx)) {
+            // should perform auto check of updates
+            // but don't repeat the request twice
+            if (!updateReqIssued) {
+                UpdateManager
+                    .issueAutoCheckRequest((SpiceRequestListener) ctx);
+            }
+        }
     }
 
     /**

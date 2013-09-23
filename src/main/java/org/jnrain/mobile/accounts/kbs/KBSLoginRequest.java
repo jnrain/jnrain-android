@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package org.jnrain.mobile.network.requests;
+package org.jnrain.mobile.accounts.kbs;
 
 import org.jnrain.luohua.entity.SimpleReturnCode;
 import org.springframework.http.HttpEntity;
@@ -25,13 +25,13 @@ import org.springframework.util.MultiValueMap;
 import com.octo.android.robospice.request.springandroid.SpringAndroidSpiceRequest;
 
 
-public class LoginRequest
+public class KBSLoginRequest
         extends SpringAndroidSpiceRequest<SimpleReturnCode> {
 
     private String _uid;
     private String _password;
 
-    public LoginRequest(String uid, String password) {
+    public KBSLoginRequest(String uid, String password) {
         super(SimpleReturnCode.class);
 
         // TODO: validation

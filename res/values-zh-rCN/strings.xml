@@ -162,4 +162,7 @@
     </string>
     <string name="new_version_desc_empty">暂无说明</string>
 
+    <!-- Accounts -->
+    <string name="account_type_kbs">江南听雨 (旧站)</string>
+
 </resources>

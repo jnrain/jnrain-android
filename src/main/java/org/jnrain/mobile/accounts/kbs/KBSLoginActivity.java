@@ -13,28 +13,32 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package org.jnrain.mobile;
+package org.jnrain.mobile.accounts.kbs;
 
 import org.jnrain.luohua.entity.SimpleReturnCode;
+import org.jnrain.mobile.R;
+import org.jnrain.mobile.accounts.AccountConstants;
 import org.jnrain.mobile.config.ConfigHub;
 import org.jnrain.mobile.config.LoginInfoUtil;
-import org.jnrain.mobile.network.listeners.LoginRequestListener;
-import org.jnrain.mobile.network.requests.LoginRequest;
 import org.jnrain.mobile.ui.ux.DialogHelper;
+import org.jnrain.mobile.ui.ux.ToastHelper;
 import org.jnrain.mobile.util.GlobalState;
-import org.jnrain.mobile.util.JNRainActivity;
+import org.jnrain.mobile.util.JNRainAccountAuthenticatorActivity;
 
 import roboguice.inject.InjectView;
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.webkit.CookieSyncManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -43,7 +47,12 @@ import android.widget.EditText;
 
 
 @SuppressLint("DefaultLocale")
-public class LoginActivity extends JNRainActivity<SimpleReturnCode> {
+public class KBSLoginActivity
+        extends JNRainAccountAuthenticatorActivity<SimpleReturnCode> {
+    public static final String PARAM_AUTHTOKEN_TYPE = "org.jnrain.mobile.authtoken";
+    public static final String PARAM_USERNAME = "org.jnrain.mobile.username";
+    public static final String PARAM_CONFIRM_CREDENTIALS = "org.jnrain.mobile.confirm_creds";
+
     @InjectView(R.id.editUID)
     EditText editUID;
     @InjectView(R.id.editPassword)
@@ -58,9 +67,16 @@ public class LoginActivity extends JNRainActivity<SimpleReturnCode> {
     Button btnGuestLogin;
 
     private static final String TAG = "LoginActivity";
-    public LoginActivity loginActivity;
+    public KBSLoginActivity loginActivity;
     private ProgressDialog loadingDlg;
     private Handler mHandler;
+
+    // Authentication framework things
+    private AccountManager accountManager;
+    private String authTokenType;
+    private String userName;
+    private boolean requestNewAccount;
+    private boolean confirmCredentials;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,12 +84,22 @@ public class LoginActivity extends JNRainActivity<SimpleReturnCode> {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // cookie manager
-        synchronized (this) {
-            if (!GlobalState.getCookieInited()) {
-                CookieSyncManager.createInstance(getApplicationContext());
-                GlobalState.setCookieInited(true);
-            }
+        // account manager
+        accountManager = AccountManager.get(this);
+
+        Intent intent = getIntent();
+        userName = intent.getStringExtra(PARAM_USERNAME);
+        authTokenType = intent.getStringExtra(PARAM_AUTHTOKEN_TYPE);
+        requestNewAccount = userName == null;
+        confirmCredentials = intent.getBooleanExtra(
+                PARAM_CONFIRM_CREDENTIALS,
+                false);
+
+        if (!TextUtils.isEmpty(userName)) {
+            // set username to fixed
+            editUID.setText(userName);
+            editUID.setEnabled(false);
+            editUID.setFocusable(false);
         }
 
         // login info
@@ -163,7 +189,7 @@ public class LoginActivity extends JNRainActivity<SimpleReturnCode> {
             @Override
             public void handleMessage(Message msg) {
                 loadingDlg = DialogHelper.showProgressDialog(
-                        LoginActivity.this,
+                        KBSLoginActivity.this,
                         R.string.login_dlg_title,
                         R.string.please_wait,
                         false,
@@ -175,11 +201,87 @@ public class LoginActivity extends JNRainActivity<SimpleReturnCode> {
     public void doLogin(final String uid, final String psw) {
         mHandler.sendMessage(new Message());
         spiceManager.execute(
-                new LoginRequest(uid, psw),
-                new LoginRequestListener(loginActivity, uid, psw));
+                new KBSLoginRequest(uid, psw),
+                new KBSLoginRequestListener(loginActivity, uid, psw));
     }
 
     public ProgressDialog getLoadingDialog() {
         return loadingDlg;
+    }
+
+    /* Authentication things */
+    protected void finishConfirmCredentials(
+            String uid,
+            String psw,
+            boolean result) {
+        final Account account = new Account(
+                uid,
+                AccountConstants.ACCOUNT_TYPE_KBS);
+
+        accountManager.setPassword(account, psw);
+
+        final Intent intent = new Intent();
+        intent.putExtra(AccountManager.KEY_BOOLEAN_RESULT, result);
+
+        setAccountAuthenticatorResult(intent.getExtras());
+        setResult(RESULT_OK, intent);
+        finish();
+    }
+
+    protected void finishLogin(final String uid, final String psw) {
+        final Intent intent = new Intent();
+
+        intent.putExtra(AccountManager.KEY_ACCOUNT_NAME, uid);
+        intent.putExtra(
+                AccountManager.KEY_ACCOUNT_TYPE,
+                AccountConstants.ACCOUNT_TYPE_KBS);
+
+        if (AccountConstants.ACCOUNT_TYPE_KBS.equals(authTokenType))
+            intent.putExtra(AccountManager.KEY_AUTHTOKEN, psw);
+
+        setAccountAuthenticatorResult(intent.getExtras());
+        setResult(RESULT_OK, intent);
+        finish();
+    }
+
+    public void onAuthenticationSuccess(String uid, String psw) {
+        // record user name in global state
+        assert uid.length() > 0;
+        GlobalState.setUserName(uid);
+
+        // successful
+        ToastHelper.makeTextToast(this, R.string.msg_login_success);
+
+        // save login info
+        LoginInfoUtil loginInfoUtil = ConfigHub
+            .getLoginInfoUtil(getApplicationContext());
+        if (!LoginInfoUtil.GUEST_UID.equals(uid.toLowerCase())) {
+            if (loginInfoUtil.isRememberLoginInfo()) {
+                loginInfoUtil.saveUserID(uid);
+                loginInfoUtil.saveUserPSW(psw);
+            }
+        }
+
+        if (confirmCredentials) {
+            finishConfirmCredentials(uid, psw, true);
+            return;
+        }
+
+        Account account = new Account(uid, AccountConstants.ACCOUNT_TYPE_KBS);
+        if (requestNewAccount) {
+            accountManager.addAccountExplicitly(account, psw, null);
+        } else {
+            accountManager.setPassword(account, psw);
+        }
+
+        finishLogin(uid, psw);
+
+        /*
+         * // go to hot posts activity Intent intent = new Intent();
+         * intent.setClass(this, GlobalHotPostsListActivity.class);
+         * startActivity(intent);
+         * 
+         * // finish off self finish();
+         */
     }
 }

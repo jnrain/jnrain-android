@@ -13,34 +13,29 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package org.jnrain.mobile.network.listeners;
+package org.jnrain.mobile.accounts.kbs;
 
 import org.jnrain.luohua.entity.SimpleReturnCode;
-import org.jnrain.mobile.GlobalHotPostsListActivity;
-import org.jnrain.mobile.LoginActivity;
 import org.jnrain.mobile.R;
-import org.jnrain.mobile.config.ConfigHub;
-import org.jnrain.mobile.config.LoginInfoUtil;
+import org.jnrain.mobile.network.listeners.ContextRequestListener;
 import org.jnrain.mobile.ui.ux.ToastHelper;
-import org.jnrain.mobile.util.GlobalState;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.util.Log;
 
 import com.octo.android.robospice.persistence.exception.SpiceException;
 
 
-public class LoginRequestListener
-        extends ActivityRequestListener<SimpleReturnCode> {
+public class KBSLoginRequestListener
+        extends ContextRequestListener<SimpleReturnCode> {
     private static final String TAG = "LoginRequestListener";
-    private LoginActivity m_activity;
+    private KBSLoginActivity m_activity;
     private String _uid;
     private String _psw;
 
-    public LoginRequestListener(Activity activity, String uid, String psw) {
+    public KBSLoginRequestListener(Activity activity, String uid, String psw) {
         super(activity);
-        m_activity = (LoginActivity) activity;
+        m_activity = (KBSLoginActivity) activity;
         _uid = uid;
         _psw = psw;
     }
@@ -59,31 +54,8 @@ public class LoginRequestListener
 
         switch (status) {
             case 0:
-                // record user name in global state
-                assert _uid.length() > 0;
-                GlobalState.setUserName(_uid);
-
-                // successful
-                ToastHelper.makeTextToast(ctx, R.string.msg_login_success);
-
-                // save login info
-                LoginInfoUtil loginInfoUtil = ConfigHub
-                    .getLoginInfoUtil(m_activity.getApplicationContext());
-                if (!LoginInfoUtil.GUEST_UID.equals(_uid.toLowerCase())) {
-                    if (loginInfoUtil.isRememberLoginInfo()) {
-                        loginInfoUtil.saveUserID(_uid);
-                        loginInfoUtil.saveUserPSW(_psw);
-                    }
-                }
-
-                // go to hot posts activity
-                Intent intent = new Intent();
-                intent.setClass(_activity, GlobalHotPostsListActivity.class);
-                _activity.startActivity(intent);
-
-                // finish off self
-                _activity.finish();
-
+                // callback into activity for code simplicity
+                m_activity.onAuthenticationSuccess(_uid, _psw);
                 break;
             case 1:
                 ToastHelper.makeTextToast(ctx, R.string.msg_login_fail);
