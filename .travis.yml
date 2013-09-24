@@ -14,7 +14,7 @@ before_install:
   - export PATH=${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:${PATH}
   # Install required Android components.
   # List of component identifiers are from result of "adb list sdk --extended --all"
-  - android update sdk --filter platform-tools,build-tools-18.1.0,android-14,android-16,extra-android-m2repository --no-ui --force
+  - android update sdk --filter platform-tools,build-tools-18.1.0,build-tools-17.0.0,android-14,android-16,extra-android-m2repository --no-ui --force
   # Official Android Support Library Maven repo
   - mkdir -p ~/.m2/repository/com/android && ln -s ${ANDROID_HOME}/extras/android/m2repository/com/android/support/support-v4 ~/.m2/repository/com/android/support-v4
   # Dependencies
