@@ -18,12 +18,14 @@ package org.jnrain.mobile.ui.base;
 import org.jnrain.mobile.util.SpiceRequestListener;
 
 import android.app.Activity;
+import android.support.v4.app.Fragment;
 
 import com.github.rtyley.android.sherlock.roboguice.fragment.RoboSherlockFragment;
 
 
 public class JNRainFragment<T> extends RoboSherlockFragment {
     protected SpiceRequestListener<T> _listener;
+    private ContentFragmentHost fragHost;
 
     @SuppressWarnings("unchecked")
     @Override
@@ -35,5 +37,16 @@ public class JNRainFragment<T> extends RoboSherlockFragment {
             throw new ClassCastException(activity.toString()
                     + " must implement SpiceRequestListener");
         }
+
+        // Also try to acquire the switchable fragments feature
+        try {
+            fragHost = (ContentFragmentHost) activity;
+        } catch (ClassCastException e) {
+            fragHost = null;
+        }
+    }
+
+    public void switchMainContentTo(Fragment fragment, boolean addToBackStack) {
+        fragHost.switchContentTo(fragment, addToBackStack);
     }
 }

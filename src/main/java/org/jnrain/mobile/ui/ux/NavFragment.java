@@ -17,22 +17,66 @@ package org.jnrain.mobile.ui.ux;
 
 import org.jnrain.mobile.R;
 import org.jnrain.mobile.ui.base.JNRainFragment;
+import org.jnrain.mobile.ui.kbs.GlobalHotPostsListFragment;
+import org.jnrain.mobile.ui.kbs.SectionListFragment;
+import org.jnrain.mobile.ui.preferences.SettingsActivity;
 
+import roboguice.inject.InjectView;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 
 @SuppressWarnings("rawtypes")
 public class NavFragment extends JNRainFragment {
+    @InjectView(R.id.btnHotPosts)
+    Button btnHotPosts;
+    @InjectView(R.id.btnSections)
+    Button btnSections;
+    @InjectView(R.id.btnPrefs)
+    Button btnPrefs;
+
     @Override
     public View onCreateView(
             LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.hello, container, false);
+        View view = inflater
+            .inflate(R.layout.nav_fragment, container, false);
 
         return view;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        btnHotPosts.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavFragment.this.switchMainContentTo(
+                        new GlobalHotPostsListFragment(),
+                        false);
+            }
+        });
+
+        btnSections.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavFragment.this.switchMainContentTo(
+                        new SectionListFragment(),
+                        false);
+            }
+        });
+
+        btnPrefs.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SettingsActivity.show(getActivity().getApplicationContext());
+            }
+        });
     }
 }

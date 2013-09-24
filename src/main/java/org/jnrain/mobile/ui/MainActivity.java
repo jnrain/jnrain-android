@@ -16,6 +16,7 @@
 package org.jnrain.mobile.ui;
 
 import org.jnrain.mobile.R;
+import org.jnrain.mobile.ui.base.ContentFragmentHost;
 import org.jnrain.mobile.ui.kbs.GlobalHotPostsListFragment;
 import org.jnrain.mobile.ui.ux.ExitPointActivity;
 import org.jnrain.mobile.ui.ux.NavFragment;
@@ -23,10 +24,12 @@ import org.jnrain.mobile.ui.ux.NavFragment;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 
 
 @SuppressWarnings("rawtypes")
-public class MainActivity extends ExitPointActivity {
+public class MainActivity extends ExitPointActivity
+        implements ContentFragmentHost {
     // private static final String TAG = "MainActivity";
     private static final String CONTENT_FRAGMENT_STORE = "_content";
 
@@ -81,13 +84,20 @@ public class MainActivity extends ExitPointActivity {
      * 
      * @param fragment
      */
-    public synchronized void switchContent(Fragment fragment) {
+    public synchronized void switchContentTo(
+            Fragment fragment,
+            boolean addToBackStack) {
         _content = fragment;
 
-        getSupportFragmentManager()
+        FragmentTransaction xact = getSupportFragmentManager()
             .beginTransaction()
-            .replace(R.id.content_frame, fragment)
-            .commit();
+            .replace(R.id.content_frame, fragment);
+
+        if (addToBackStack) {
+            xact = xact.addToBackStack(null);
+        }
+
+        xact.commit();
 
         getSlidingMenu().showContent();
     }

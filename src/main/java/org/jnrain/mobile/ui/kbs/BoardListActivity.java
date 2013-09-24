@@ -56,7 +56,7 @@ public class BoardListActivity extends JNRainSlidingActivity<ListPosts> {
         setBehindContentView(R.layout.hello);
 
         Intent intent = getIntent();
-        _sec_ord = intent.getStringExtra(SectionListActivity.SEC_ORD);
+        _sec_ord = intent.getStringExtra(SectionListFragment.SEC_ORD);
         spiceManager.execute(
                 new BoardListRequest(this._sec_ord),
                 CacheKeyManager.keyForBoardList(

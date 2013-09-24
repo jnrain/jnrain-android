@@ -31,10 +31,6 @@
             android:label="@string/app_name"
             android:theme="@style/Theme.JNRain.LoginScreen" >
         </activity>
-        <activity
-            android:name="org.jnrain.mobile.ui.kbs.SectionListActivity"
-            android:label="@string/title_activity_section_list" >
-        </activity>
 
         <service
             android:name="org.jnrain.mobile.service.JNRainSpiceService"
