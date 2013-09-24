@@ -21,7 +21,7 @@ import org.jnrain.mobile.accounts.kbs.KBSLogoutRequestListener;
 import org.jnrain.mobile.config.ConfigConstants.ExitBehavior;
 import org.jnrain.mobile.config.ConfigHub;
 import org.jnrain.mobile.config.UIConfigUtil;
-import org.jnrain.mobile.ui.base.JNRainActivity;
+import org.jnrain.mobile.ui.base.JNRainSlidingFragmentActivity;
 import org.jnrain.mobile.util.AccountStateListener;
 
 import roboguice.inject.InjectResource;
@@ -30,7 +30,7 @@ import android.content.DialogInterface;
 import android.os.SystemClock;
 
 
-public class ExitPointActivity<T> extends JNRainActivity<T>
+public class ExitPointActivity<T> extends JNRainSlidingFragmentActivity<T>
         implements AccountStateListener {
     @InjectResource(R.string.dlg_exit_confirm_title)
     String _exitDlgTitle;
@@ -107,8 +107,9 @@ public class ExitPointActivity<T> extends JNRainActivity<T>
     protected void doExit() {
         // this SHOULD be the last activity on the task stack. logout
         // super.onBackPressed() is called via shim in listener
-        spiceManager.execute(new KBSLogoutRequest(), new KBSLogoutRequestListener(
-                this));
+        spiceManager.execute(
+                new KBSLogoutRequest(),
+                new KBSLogoutRequestListener(this));
     }
 
     @Override

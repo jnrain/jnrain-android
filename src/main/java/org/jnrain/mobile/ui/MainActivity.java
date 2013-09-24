@@ -16,8 +16,8 @@
 package org.jnrain.mobile.ui;
 
 import org.jnrain.mobile.R;
-import org.jnrain.mobile.ui.base.JNRainSlidingFragmentActivity;
 import org.jnrain.mobile.ui.kbs.GlobalHotPostsListFragment;
+import org.jnrain.mobile.ui.ux.ExitPointActivity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -25,7 +25,7 @@ import android.support.v4.app.FragmentManager;
 
 
 @SuppressWarnings("rawtypes")
-public class MainActivity extends JNRainSlidingFragmentActivity {
+public class MainActivity extends ExitPointActivity {
     // private static final String TAG = "MainActivity";
     private static final String CONTENT_FRAGMENT_STORE = "_content";
 
