@@ -7,14 +7,15 @@ jdk: openjdk7
 before_install:
   # Install base Android SDK
   - sudo apt-get update -qq
-  - if [ `uname -m` = x86_64 ]; then printf "\n\n\n\n\n" | sudo apt-get install --force-yes libgd2-xpm ia32-libs ia32-libs-multiarch; fi
+  - if [ `uname -m` = x86_64 ]; then printf "\n\n\n\n\n" | sudo apt-get install -q --force-yes libgd2-xpm ia32-libs ia32-libs-multiarch; fi
   - wget http://dl.google.com/android/android-sdk_r22.2.1-linux.tgz
   - tar -zxf android-sdk_r22.2.1-linux.tgz
   - export ANDROID_HOME=`pwd`/android-sdk-linux
   - export PATH=${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:${PATH}
   # Install required Android components.
   # List of component identifiers are from result of "adb list sdk --extended --all"
-  - android update sdk --filter platform-tools,build-tools-18.1.0,build-tools-17.0.0,android-14,android-16,extra-android-m2repository --no-ui --force
+  - echo y | android update sdk --filter platform-tools --no-ui --force
+  - echo y | android update sdk --filter build-tools-18.1.0,build-tools-17.0.0,android-14,android-16,extra-android-m2repository --all --no-ui --force
   # Official Android Support Library Maven repo
   - mkdir -p ~/.m2/repository/com/android && ln -s ${ANDROID_HOME}/extras/android/m2repository/com/android/support/support-v4 ~/.m2/repository/com/android/support-v4
   # Dependencies
