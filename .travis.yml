@@ -13,14 +13,30 @@ before_install:
   - export ANDROID_HOME=`pwd`/android-sdk-linux
   - export PATH=${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:${PATH}
   # Install required Android components.
-  - android update sdk --filter platform-tools,android-16 --no-ui --force
-  # custom SlidingMenu
+  # List of component identifiers are from result of "adb list sdk --extended --all"
+  - android update sdk --filter platform-tools,android-16,extra-android-m2repository --no-ui --force
+  # Official Android Support Library Maven repo
+  - mkdir -p ~/.m2/repository/com/android && ln -s ${ANDROID_HOME}/extras/android/m2repository/com/android/support/support-v4 ~/.m2/repository/com/android/support-v4
+  # Dependencies
   - cd deps
+  - git clone https://github.com/xen0n/ActionBarSherlock.git
+  - git clone https://github.com/xen0n/Android-ViewPagerIndicator.git
   - git clone https://github.com/xen0n/SlidingMenu.git
-  - cd SlidingMenu/library
+  # custom ABS
+  - cd ActionBarSherlock
+  - git checkout 4.4.0-xen0n
+  - cd actionbarsherlock
   - mvn clean install
   - cd ..
-  # Parent POM is also needed in Maven repository
+  - mvn install -N
+  # custom VPI
+  - cd ../Android-ViewPagerIndicator
+  - git checkout 2.4.1-xen0n
+  - mvn clean install
+  # custom SlidingMenu
+  - cd ../SlidingMenu/library
+  - mvn clean install
+  - cd ..
   - mvn install -N
   - cd ../..
 

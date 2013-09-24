@@ -16,18 +16,8 @@
 
 *   安装 [Android SDK](http://developer.android.com/sdk/index.html)，并设置好 `$ANDROID_HOME` 环境变量（到你的 Android SDK 目录）
 *   安装并设置好 [Maven](http://maven.apache.org/download.html) 的 3.0 版本。3.1 版暂时有插件不兼容而无法构建的问题。
-*   设置好定制的 SlidingMenu 包 (只需要每次 SlidingMenu 更新的时候执行一次)
-
-    ```sh
-    cd deps/
-    git clone https://github.com/xen0n/SlidingMenu.git
-    cd SlidingMenu/library
-    mvn clean install
-    cd ..
-    mvn install -N  # 安装 SlidingMenu 的 parent POM 但不要检查子项目 (MapActivity 集成可能会编译失败)
-    cd ../..
-    ```
-
+*   安装好 [Gradle](http://www.gradle.org), 编译定制的依赖关系需要。
+*   **重要** 去 `deps/` 目录照着 README 准备依赖关系。
 *   执行构建
 
     ```sh
