@@ -16,20 +16,19 @@
 package org.jnrain.mobile.ui.kbs;
 
 import org.jnrain.kbs.collection.ListHotPosts;
-import org.jnrain.kbs.collection.ListPosts;
 import org.jnrain.kbs.entity.Post;
 import org.jnrain.mobile.R;
 import org.jnrain.mobile.network.requests.HotPostsListRequest;
-import org.jnrain.mobile.ui.ux.ExitPointActivity;
+import org.jnrain.mobile.ui.base.JNRainFragment;
 import org.jnrain.mobile.util.CacheKeyManager;
 
 import roboguice.inject.InjectResource;
 import roboguice.inject.InjectView;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -40,7 +39,7 @@ import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
 
 
-public class GlobalHotPostsListActivity extends ExitPointActivity<ListPosts> {
+public class GlobalHotPostsListFragment extends JNRainFragment<ListHotPosts> {
     @InjectView(R.id.textGlobalHotPostsStatus)
     TextView textStatus;
     @InjectView(R.id.listGlobalHotPosts)
@@ -56,28 +55,22 @@ public class GlobalHotPostsListActivity extends ExitPointActivity<ListPosts> {
     private ListHotPosts _posts;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_global_hot_posts_list);
+    public View onCreateView(
+            LayoutInflater inflater,
+            ViewGroup container,
+            Bundle savedInstanceState) {
+        View view = inflater.inflate(
+                R.layout.activity_global_hot_posts_list,
+                container,
+                false);
 
-        btnReturn.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Log.i(TAG, "return button clicked");
-                finish();
-
-                Intent intent = new Intent(
-                        GlobalHotPostsListActivity.this,
-                        SectionListActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        spiceManager.execute(
+        _listener.makeSpiceRequest(
                 new HotPostsListRequest(ListHotPosts.GLOBAL),
                 CacheKeyManager.keyForHotPosts(ListHotPosts.GLOBAL),
                 DurationInMillis.ONE_MINUTE,
                 new GlobalHotPostsListRequestListener());
+
+        return view;
     }
 
     public synchronized void updateData() {
@@ -86,7 +79,7 @@ public class GlobalHotPostsListActivity extends ExitPointActivity<ListPosts> {
 
         // populate list
         HotPostsListAdapter adapter = new HotPostsListAdapter(
-                getApplicationContext(),
+                _listener.getThisActivity(),
                 _posts);
         listHotPosts.setAdapter(adapter);
 
@@ -106,23 +99,23 @@ public class GlobalHotPostsListActivity extends ExitPointActivity<ListPosts> {
                     Log.i(TAG, "clicked: " + position + ", post.title="
                             + post.getTitle());
 
-                    Intent intent = new Intent(
-                            GlobalHotPostsListActivity.this,
-                            ReadThreadActivity.class);
-                    intent.putExtra(
-                            BoardListActivity.BRD_ID,
-                            post.getBoard());
-                    intent.putExtra(
-                            ThreadListActivity.THREAD_ID,
-                            post.getID());
-                    intent.putExtra(
-                            ThreadListActivity.THREAD_TITLE,
-                            post.getTitle());
-                    intent.putExtra(
-                            BoardListActivity.NUM_POSTS,
-                            post.getReplies());
+                    // Intent intent = new Intent(
+                    // GlobalHotPostsListFragment.this,
+                    // ReadThreadActivity.class);
+                    // intent.putExtra(
+                    // BoardListActivity.BRD_ID,
+                    // post.getBoard());
+                    // intent.putExtra(
+                    // ThreadListActivity.THREAD_ID,
+                    // post.getID());
+                    // intent.putExtra(
+                    // ThreadListActivity.THREAD_TITLE,
+                    // post.getTitle());
+                    // intent.putExtra(
+                    // BoardListActivity.NUM_POSTS,
+                    // post.getReplies());
 
-                    startActivity(intent);
+                    // startActivity(intent);
                 }
             });
 
