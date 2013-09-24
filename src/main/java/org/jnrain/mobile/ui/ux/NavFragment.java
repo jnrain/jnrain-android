@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package org.jnrain.mobile.ui;
+package org.jnrain.mobile.ui.ux;
 
 import org.jnrain.mobile.R;
 import org.jnrain.mobile.ui.base.JNRainFragment;

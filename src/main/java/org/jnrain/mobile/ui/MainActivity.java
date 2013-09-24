@@ -18,6 +18,7 @@ package org.jnrain.mobile.ui;
 import org.jnrain.mobile.R;
 import org.jnrain.mobile.ui.kbs.GlobalHotPostsListFragment;
 import org.jnrain.mobile.ui.ux.ExitPointActivity;
+import org.jnrain.mobile.ui.ux.NavFragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
