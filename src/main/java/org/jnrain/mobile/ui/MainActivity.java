@@ -38,7 +38,7 @@ public class MainActivity extends ExitPointActivity {
         FragmentManager fm = getSupportFragmentManager();
 
         setContentView(R.layout.content_frame);
-        setBehindContentView(R.layout.hello);
+        setBehindContentView(R.layout.menu_frame);
 
         // retrieve or construct the Above view
         if (savedInstanceState != null) {
@@ -51,8 +51,16 @@ public class MainActivity extends ExitPointActivity {
             _content = new GlobalHotPostsListFragment();
         }
 
-        // insert the Above view
-        fm.beginTransaction().replace(R.id.content_frame, _content).commit();
+        // set up the Behind view
+        Fragment _behindFrag = new NavFragment();
+
+        // insert the views
+        fm
+            .beginTransaction()
+            .replace(R.id.content_frame, _content)
+            .replace(R.id.menu_frame, _behindFrag)
+            .commit();
+
     }
 
     @Override
