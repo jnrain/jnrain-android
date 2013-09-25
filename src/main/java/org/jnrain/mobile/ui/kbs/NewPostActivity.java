@@ -103,7 +103,7 @@ public class NewPostActivity extends JNRainActivity<SimpleReturnCode> {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
-        _brd_id = intent.getStringExtra(BoardListActivity.BRD_ID);
+        _brd_id = intent.getStringExtra(BoardListFragment.BRD_ID);
         _is_new_thread = intent.getBooleanExtra(IS_NEW_THREAD, false);
         if (!_is_new_thread) {
             _tid = intent.getLongExtra(ThreadListActivity.THREAD_ID, 0);

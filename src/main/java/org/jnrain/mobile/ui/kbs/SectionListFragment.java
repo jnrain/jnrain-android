@@ -23,6 +23,7 @@ import org.jnrain.mobile.ui.base.JNRainFragment;
 
 import roboguice.inject.InjectView;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -70,6 +71,9 @@ public class SectionListFragment extends JNRainFragment<ListSections> {
                     // BoardListActivity.class);
                     // intent.putExtra(SEC_ORD, sec.getOrd());
                     // startActivity(intent);
+                    Fragment frag = new BoardListFragment(sec.getOrd());
+                    SectionListFragment.this
+                        .switchMainContentTo(frag, false);
                 }
             });
     }

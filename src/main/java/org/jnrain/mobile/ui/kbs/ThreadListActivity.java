@@ -73,9 +73,9 @@ public class ThreadListActivity extends JNRainFragmentActivity<ListPosts>
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
-        this._brd_id = intent.getStringExtra(BoardListActivity.BRD_ID);
+        this._brd_id = intent.getStringExtra(BoardListFragment.BRD_ID);
         this._totalthreads = intent.getIntExtra(
-                BoardListActivity.NUM_POSTS,
+                BoardListFragment.NUM_POSTS,
                 1);
         this._page = 1;
         this._totalpages = (int) Math.ceil((double) _totalthreads
@@ -147,7 +147,7 @@ public class ThreadListActivity extends JNRainFragmentActivity<ListPosts>
                 intent.setClass(
                         ThreadListActivity.this,
                         NewPostActivity.class);
-                intent.putExtra(BoardListActivity.BRD_ID, _brd_id);
+                intent.putExtra(BoardListFragment.BRD_ID, _brd_id);
                 intent.putExtra(NewPostActivity.IS_NEW_THREAD, true);
 
                 startActivity(intent);
@@ -186,10 +186,10 @@ public class ThreadListActivity extends JNRainFragmentActivity<ListPosts>
         Intent intent = new Intent(
                 ThreadListActivity.this,
                 ReadThreadActivity.class);
-        intent.putExtra(BoardListActivity.BRD_ID, post.getBoard());
+        intent.putExtra(BoardListFragment.BRD_ID, post.getBoard());
         intent.putExtra(THREAD_ID, post.getID());
         intent.putExtra(THREAD_TITLE, post.getTitle());
-        intent.putExtra(BoardListActivity.NUM_POSTS, post.getReplies() + 1);
+        intent.putExtra(BoardListFragment.NUM_POSTS, post.getReplies() + 1);
 
         startActivity(intent);
     }

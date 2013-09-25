@@ -39,10 +39,6 @@
         </service>
 
         <activity
-            android:name="org.jnrain.mobile.ui.kbs.BoardListActivity"
-            android:label="@string/title_activity_board_list" >
-        </activity>
-        <activity
             android:name="org.jnrain.mobile.ui.kbs.ThreadListActivity"
             android:label="@string/title_activity_board"
             android:theme="@style/Theme.JNRain.DefaultLight" >

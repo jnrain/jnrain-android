@@ -65,11 +65,11 @@ public class ReadThreadActivity extends JNRainFragmentActivity
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
-        this._brd_id = intent.getStringExtra(BoardListActivity.BRD_ID);
+        this._brd_id = intent.getStringExtra(BoardListFragment.BRD_ID);
         this._tid = intent.getLongExtra(ThreadListActivity.THREAD_ID, -1);
         this._title = intent.getStringExtra(ThreadListActivity.THREAD_TITLE);
         this._totalposts = intent
-            .getIntExtra(BoardListActivity.NUM_POSTS, 1);
+            .getIntExtra(BoardListFragment.NUM_POSTS, 1);
 
         // update title of action bar
         getSupportActionBar().setTitle(this._title);
@@ -140,7 +140,7 @@ public class ReadThreadActivity extends JNRainFragmentActivity
         // fire up post activity
         Intent intent = new Intent();
         intent.setClass(this, NewPostActivity.class);
-        intent.putExtra(BoardListActivity.BRD_ID, _brd_id);
+        intent.putExtra(BoardListFragment.BRD_ID, _brd_id);
         intent.putExtra(NewPostActivity.IS_NEW_THREAD, false);
         intent.putExtra(ThreadListActivity.THREAD_ID, _tid);
         intent.putExtra(NewPostActivity.IN_REPLY_TO, post.getID());
