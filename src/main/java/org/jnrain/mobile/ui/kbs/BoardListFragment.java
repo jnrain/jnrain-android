@@ -25,6 +25,7 @@ import org.jnrain.mobile.util.GlobalState;
 
 import roboguice.inject.InjectView;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -135,8 +136,11 @@ public class BoardListFragment extends JNRainFragment<ListBoards> {
                     // ThreadListActivity.class);
                     // intent.putExtra(BRD_ID, brd.getID());
                     // intent.putExtra(NUM_POSTS, brd.getThreads());
-
                     // startActivity(intent);
+
+                    Fragment frag = new ThreadListFragment(brd.getID(), brd
+                        .getThreads());
+                    switchMainContentTo(frag, false);
                 }
             });
     }

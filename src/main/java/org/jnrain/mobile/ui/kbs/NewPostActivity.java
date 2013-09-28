@@ -106,9 +106,9 @@ public class NewPostActivity extends JNRainActivity<SimpleReturnCode> {
         _brd_id = intent.getStringExtra(BoardListFragment.BRD_ID);
         _is_new_thread = intent.getBooleanExtra(IS_NEW_THREAD, false);
         if (!_is_new_thread) {
-            _tid = intent.getLongExtra(ThreadListActivity.THREAD_ID, 0);
+            _tid = intent.getLongExtra(ThreadListFragment.THREAD_ID, 0);
             _reid = intent.getLongExtra(IN_REPLY_TO, 0);
-            _title = intent.getStringExtra(ThreadListActivity.THREAD_TITLE);
+            _title = intent.getStringExtra(ThreadListFragment.THREAD_TITLE);
         }
 
         // set title

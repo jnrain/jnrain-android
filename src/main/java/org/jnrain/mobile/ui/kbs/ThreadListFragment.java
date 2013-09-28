@@ -18,77 +18,97 @@ package org.jnrain.mobile.ui.kbs;
 import org.jnrain.kbs.collection.ListPosts;
 import org.jnrain.kbs.entity.Post;
 import org.jnrain.mobile.R;
-import org.jnrain.mobile.network.requests.ThreadListRequest;
-import org.jnrain.mobile.util.CacheKeyManager;
-import org.jnrain.mobile.util.GlobalState;
+import org.jnrain.mobile.ui.base.JNRainFragment;
 
 import roboguice.inject.InjectView;
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
 
-import com.github.rtyley.android.sherlock.roboguice.fragment.RoboSherlockFragment;
-import com.octo.android.robospice.persistence.DurationInMillis;
-import com.octo.android.robospice.persistence.exception.SpiceException;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
+import com.octo.android.robospice.request.SpiceRequest;
 import com.octo.android.robospice.request.listener.RequestListener;
+import com.viewpagerindicator.TitlePageIndicator;
+import com.viewpagerindicator.TitlePageIndicator.IndicatorStyle;
 
 
-public class ThreadListFragment extends RoboSherlockFragment {
-    @InjectView(R.id.listPosts)
-    ListView listPosts;
+public class ThreadListFragment extends JNRainFragment<ListPosts>
+        implements ThreadListFragmentListener {
 
-    private ThreadListActivityListener _listener;
+    @InjectView(R.id.pager)
+    ViewPager viewPager;
+    @InjectView(R.id.indicator)
+    TitlePageIndicator indicator;
+
+    ThreadListPageFragmentAdapter _adapter;
+
+    public static final String THREAD_ID = "org.jnrain.mobile.THREAD_ID";
+    public static final String THREAD_TITLE = "org.jnrain.mobile.THREAD_TITLE";
+    public static final String PAGE = "org.jnrain.mobile.PAGE";
+    public static final int THREADS_PER_PAGE = 30;
+
+    private static final String BRD_ID_STORE = "_brdId";
+    private static final String TOTAL_THREADS_STORE = "_totalthreads";
+
     private String _brd_id;
-    private ListPosts _posts;
     private int _page;
+    private int _totalthreads;
+    private int _totalpages;
 
-    private ThreadListAdapter _adapter;
+    private static final String TAG = "ThreadListActivity";
 
-    private static final String TAG = "ThreadListFragment";
+    public ThreadListFragment(String brdId, int totalThreads) {
+        super();
+        initState(brdId, totalThreads);
+    }
 
-    public ThreadListFragment(String brd_id, int page) {
-        _brd_id = brd_id;
-        _page = page;
-        _posts = null;
+    public ThreadListFragment() {
+        super();
+    }
+
+    protected void initState(String brdId, int totalThreads) {
+        _brd_id = brdId;
+        _totalthreads = totalThreads;
+
+        _page = 1;
+        _totalpages = (int) Math.ceil((double) _totalthreads
+                / THREADS_PER_PAGE);
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            _listener = (ThreadListActivityListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement ThreadListActivityListener");
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        setHasOptionsMenu(true);
+
+        if (savedInstanceState != null) {
+            // restore original ctor parameters
+            initState(
+                    savedInstanceState.getString(BRD_ID_STORE),
+                    savedInstanceState.getInt(TOTAL_THREADS_STORE));
         }
     }
 
-    // @Override
-    // public void onCreate(Bundle savedInstanceState) {
-    // super.onCreate(savedInstanceState);
-    // this._brd_id = getArguments().getString(BoardListActivity.BRD_ID);
-    // this._page = getArguments().getInt(ThreadListActivity.PAGE, 1);
-    // }
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putString(BRD_ID_STORE, _brd_id);
+        outState.putInt(TOTAL_THREADS_STORE, _totalthreads);
+    }
 
     @Override
     public View onCreateView(
             LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {
-        View view = inflater.inflate(
-                R.layout.thread_list_fragment,
-                container,
-                false);
-
-        // fetch a page of thread list
-        if (_posts == null) {
-            makeRequest(_page);
-        }
+        View view = inflater.inflate(R.layout.dyn_pages, container, false);
 
         return view;
     }
@@ -97,59 +117,153 @@ public class ThreadListFragment extends RoboSherlockFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        if (_posts != null) {
-            updateData();
+        // tabHost.setup();
+        _adapter = new ThreadListPageFragmentAdapter(
+                getChildFragmentManager(),
+                getThisActivity());
+        viewPager.setAdapter(_adapter);
+        indicator.setViewPager(viewPager);
+        indicator.setFooterIndicatorStyle(IndicatorStyle.Triangle);
+
+        // tabsAdapter = new TabsAdapter(this, tabHost, viewPager);
+
+        // Show the Up button in the action bar.
+        // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        // update title of action bar
+        // getSupportActionBar().setTitle(this._brd_id);
+
+        // add the initial fragments
+        addPage(1);
+        if (_totalpages > 1) {
+            this._page = 2;
+            addPage(2);
         }
-    }
 
-    public void makeRequest(int page) {
-        _listener.makeSpiceRequest(
-                new ThreadListRequest(_brd_id, page),
-                CacheKeyManager.keyForPagedThreadList(
-                        _brd_id,
-                        page,
-                        GlobalState.getUserName()),
-                DurationInMillis.ONE_MINUTE,
-                new ThreadListRequestListener());
-    }
+        // if (savedInstanceState != null) {
+        // tabHost.setCurrentTabByTag(savedInstanceState.getString("currTab"));
+        // }
 
-    public synchronized void updateData() {
-        _adapter = new ThreadListAdapter(this
-            .getActivity()
-            .getApplicationContext(), _posts);
-        listPosts.setAdapter(_adapter);
-
-        listPosts
-            .setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        indicator
+            .setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                 @Override
-                public void onItemClick(
-                        AdapterView<?> parent,
-                        View view,
+                public void onPageScrollStateChanged(int state) {
+                    // intentionally left blank
+                    // Log.d(TAG, "PageScrollStateChanged: " +
+                    // Integer.toString(state));
+                }
+
+                @Override
+                public void onPageScrolled(
                         int position,
-                        long id) {
-                    Post post = _posts.getPosts().get(position);
+                        float positionOffset,
+                        int positionOffsetPixels) {
+                    // intentionally left blank
+                }
 
-                    Log.i(TAG, "clicked: " + position + ", id=" + id
-                            + ", post=" + post.toString());
-
-                    _listener.sendReadThreadIntent(post);
+                @Override
+                public void onPageSelected(int position) {
+                    Log.d(TAG, "PageSelected: " + Integer.toString(position)
+                            + ", _page = " + Integer.toString(_page));
+                    if (position == _page - 1) {
+                        // last tab, add another page if there are still
+                        // enough
+                        // threads to display
+                        if (_page < _totalpages) {
+                            _page++;
+                            addPage(_page);
+                        }
+                    }
                 }
             });
     }
 
-    private class ThreadListRequestListener
-            implements RequestListener<ListPosts> {
-        @Override
-        public void onRequestFailure(SpiceException arg0) {
-            Log.d(TAG, "err on req: " + arg0.toString());
-        }
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.thread_list, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
 
-        @Override
-        public void onRequestSuccess(ListPosts posts) {
-            Log.v(TAG, "got posts list: " + posts.toString());
-            _posts = posts;
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.action_new_post:
+                Log.d(TAG, "new post menu item selected");
+                /*
+                 * Intent intent = new Intent(); intent.setClass(
+                 * ThreadListFragment.this, NewPostActivity.class);
+                 * intent.putExtra(BoardListFragment.BRD_ID, _brd_id);
+                 * intent.putExtra(NewPostActivity.IS_NEW_THREAD, true);
+                 * 
+                 * startActivity(intent);
+                 */
+                return true;
 
-            updateData();
+            default:
+                return super.onOptionsItemSelected(item);
         }
+    }
+
+    // @Override
+    // protected void onSaveInstanceState(Bundle outState) {
+    // super.onSaveInstanceState(outState);
+    // outState.putString("currTab", tabHost.getCurrentTabTag());
+    // }
+
+    public void addPage(int page) {
+        // Bundle args = new Bundle();
+
+        // args.putString(BoardListActivity.BRD_ID, this._brd_id);
+        // args.putInt(PAGE, _page);
+
+        // tabsAdapter.addTab(tabHost.newTabSpec("page_" +
+        // Integer.toString(page))
+        // .setIndicator("Page " + Integer.toString(page)),
+        // ThreadListFragment.class, args);
+        _adapter.addItem(this._brd_id, page);
+
+        // getSupportActionBar().setDisplayShowTitleEnabled(false);
+        // getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+    }
+
+    @Override
+    public void sendReadThreadIntent(Post post) {
+        /*
+         * Intent intent = new Intent( ThreadListFragment.this,
+         * ReadThreadActivity.class);
+         * intent.putExtra(BoardListFragment.BRD_ID, post.getBoard());
+         * intent.putExtra(THREAD_ID, post.getID());
+         * intent.putExtra(THREAD_TITLE, post.getTitle());
+         * intent.putExtra(BoardListFragment.NUM_POSTS, post.getReplies() +
+         * 1);
+         * 
+         * startActivity(intent);
+         */
+    }
+
+    @Override
+    public Activity getThisActivity() {
+        return getActivity();
+    }
+
+    @Override
+    public void makeSpiceRequest(
+            SpiceRequest<ListPosts> request,
+            RequestListener<ListPosts> requestListener) {
+        _listener.makeSpiceRequest(request, requestListener);
+    }
+
+    @Override
+    public void makeSpiceRequest(
+            SpiceRequest<ListPosts> request,
+            String requestCacheKey,
+            long cacheDuration,
+            RequestListener<ListPosts> requestListener) {
+        _listener.makeSpiceRequest(
+                request,
+                requestCacheKey,
+                cacheDuration,
+                requestListener);
     }
 }

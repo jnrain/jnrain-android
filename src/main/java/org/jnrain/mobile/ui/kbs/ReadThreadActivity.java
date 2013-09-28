@@ -66,8 +66,8 @@ public class ReadThreadActivity extends JNRainFragmentActivity
 
         Intent intent = getIntent();
         this._brd_id = intent.getStringExtra(BoardListFragment.BRD_ID);
-        this._tid = intent.getLongExtra(ThreadListActivity.THREAD_ID, -1);
-        this._title = intent.getStringExtra(ThreadListActivity.THREAD_TITLE);
+        this._tid = intent.getLongExtra(ThreadListFragment.THREAD_ID, -1);
+        this._title = intent.getStringExtra(ThreadListFragment.THREAD_TITLE);
         this._totalposts = intent
             .getIntExtra(BoardListFragment.NUM_POSTS, 1);
 
@@ -142,9 +142,9 @@ public class ReadThreadActivity extends JNRainFragmentActivity
         intent.setClass(this, NewPostActivity.class);
         intent.putExtra(BoardListFragment.BRD_ID, _brd_id);
         intent.putExtra(NewPostActivity.IS_NEW_THREAD, false);
-        intent.putExtra(ThreadListActivity.THREAD_ID, _tid);
+        intent.putExtra(ThreadListFragment.THREAD_ID, _tid);
         intent.putExtra(NewPostActivity.IN_REPLY_TO, post.getID());
-        intent.putExtra(ThreadListActivity.THREAD_TITLE, replyTitle);
+        intent.putExtra(ThreadListFragment.THREAD_TITLE, replyTitle);
 
         startActivity(intent);
     }

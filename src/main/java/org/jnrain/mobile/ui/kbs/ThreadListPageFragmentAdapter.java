@@ -9,11 +9,11 @@ import android.content.Context;
 import android.support.v4.app.FragmentManager;
 
 
-class ThreadListFragmentAdapter
-        extends DynPageFragmentAdapter<ThreadListFragment> {
+class ThreadListPageFragmentAdapter
+        extends DynPageFragmentAdapter<ThreadListPageFragment> {
     protected Context _ctx;
 
-    public ThreadListFragmentAdapter(FragmentManager fm, Context ctx) {
+    public ThreadListPageFragmentAdapter(FragmentManager fm, Context ctx) {
         super(fm);
         _ctx = ctx;
     }
@@ -27,7 +27,7 @@ class ThreadListFragmentAdapter
     }
 
     public void addItem(String brd_id, int page) {
-        ThreadListFragment frag = new ThreadListFragment(brd_id, page);
+        ThreadListPageFragment frag = new ThreadListPageFragment(brd_id, page);
 
         // retain state
         frag.setRetainInstance(true);

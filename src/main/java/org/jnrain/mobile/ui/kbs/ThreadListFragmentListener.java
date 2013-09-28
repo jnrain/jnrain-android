@@ -20,7 +20,7 @@ import org.jnrain.kbs.entity.Post;
 import org.jnrain.mobile.util.SpiceRequestListener;
 
 
-public interface ThreadListActivityListener
+public interface ThreadListFragmentListener
         extends SpiceRequestListener<ListPosts> {
     public void sendReadThreadIntent(Post post);
 }
