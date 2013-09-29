@@ -31,7 +31,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -45,8 +44,6 @@ public class GlobalHotPostsListFragment extends JNRainFragment<ListHotPosts> {
     TextView textStatus;
     @InjectView(R.id.listGlobalHotPosts)
     ListView listHotPosts;
-    @InjectView(R.id.btnReturn)
-    ImageButton btnReturn;
 
     @InjectResource(R.string.fail_load_global_hot_posts)
     public String LOAD_FAIL_MSG;
@@ -85,10 +82,8 @@ public class GlobalHotPostsListFragment extends JNRainFragment<ListHotPosts> {
         listHotPosts.setAdapter(adapter);
 
         // attach click event
-
         listHotPosts
             .setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
                 @Override
                 public void onItemClick(
                         AdapterView<?> parent,
