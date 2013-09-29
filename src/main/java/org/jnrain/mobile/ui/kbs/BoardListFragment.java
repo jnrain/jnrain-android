@@ -140,7 +140,7 @@ public class BoardListFragment extends JNRainFragment<ListBoards> {
 
                     Fragment frag = new ThreadListFragment(brd.getID(), brd
                         .getThreads());
-                    switchMainContentTo(frag, false);
+                    switchMainContentTo(frag, true);
                 }
             });
     }

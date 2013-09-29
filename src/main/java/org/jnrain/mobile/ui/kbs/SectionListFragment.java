@@ -72,8 +72,7 @@ public class SectionListFragment extends JNRainFragment<ListSections> {
                     // intent.putExtra(SEC_ORD, sec.getOrd());
                     // startActivity(intent);
                     Fragment frag = new BoardListFragment(sec.getOrd());
-                    SectionListFragment.this
-                        .switchMainContentTo(frag, false);
+                    SectionListFragment.this.switchMainContentTo(frag, true);
                 }
             });
     }

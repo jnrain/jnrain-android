@@ -28,10 +28,14 @@ import roboguice.inject.InjectResource;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.SystemClock;
+import android.support.v4.app.FragmentManager;
+import android.util.Log;
 
 
 public class ExitPointActivity<T> extends JNRainSlidingFragmentActivity<T>
         implements AccountStateListener {
+    private static final String TAG = "ExitPoint";
+
     @InjectResource(R.string.dlg_exit_confirm_title)
     String _exitDlgTitle;
     @InjectResource(R.string.dlg_exit_confirm_msg)
@@ -45,6 +49,20 @@ public class ExitPointActivity<T> extends JNRainSlidingFragmentActivity<T>
 
     @Override
     public void onBackPressed() {
+        FragmentManager fm = getSupportFragmentManager();
+        int fragCount = fm.getBackStackEntryCount();
+
+        Log.d(
+                TAG,
+                "[onBackPressed] getBackStackEntryCount() = "
+                        + Integer.toString(fragCount));
+
+        if (fragCount > 0) {
+            // navigate to previous fragment
+            fm.popBackStack();
+            return;
+        }
+
         // invoke user-selected exit behavior
         UIConfigUtil uiUtil = ConfigHub.getUIUtil(getApplicationContext());
         ExitBehavior exitBehavior = uiUtil.getExitBehavior();
