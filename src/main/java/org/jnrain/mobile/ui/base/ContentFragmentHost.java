@@ -20,4 +20,6 @@ import android.support.v4.app.Fragment;
 
 public interface ContentFragmentHost {
     public void switchContentTo(Fragment fragment, boolean addToBackStack);
+
+    public void clearBackStack();
 }

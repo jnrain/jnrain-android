@@ -25,13 +25,17 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
+
+import com.jeremyfeinstein.slidingmenu.lib.app.SlidingActivityHelper.SlidingActivityBackAction;
 
 
 @SuppressWarnings("rawtypes")
 public class MainActivity extends ExitPointActivity
         implements ContentFragmentHost {
-    // private static final String TAG = "MainActivity";
+    private static final String TAG = "MainActivity";
     private static final String CONTENT_FRAGMENT_STORE = "_content";
+    private static final String BACK_ACTION_STORE = "_backAction";
 
     private Fragment _content;
 
@@ -64,7 +68,23 @@ public class MainActivity extends ExitPointActivity
             .replace(R.id.content_frame, _content)
             .replace(R.id.menu_frame, _behindFrag)
             .commit();
+    }
 
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+
+        // set default Back behavior here
+        // because the action is initialized in onPostCreate of
+        // Sliding*Activity, this cannot be done in onCreate or the
+        // library default won't be overridden.
+        //
+        // we needn't do restore here, as the library already takes
+        // care of this.
+
+        if (savedInstanceState == null) {
+            setBackAction(SlidingActivityBackAction.BACK_TO_MENU);
+        }
     }
 
     @Override
@@ -75,6 +95,8 @@ public class MainActivity extends ExitPointActivity
                 outState,
                 CONTENT_FRAGMENT_STORE,
                 _content);
+
+        outState.putSerializable(BACK_ACTION_STORE, getBackAction());
     }
 
     /**
@@ -95,6 +117,13 @@ public class MainActivity extends ExitPointActivity
 
         if (addToBackStack) {
             xact = xact.addToBackStack(null);
+
+            // SlidingMenu back behavior should be updated,
+            // or we'll be stuck in an endless loop activating content
+            // (from ExitPointActivity) and menu (from SlidingMenuHelper).
+            setBackAction(SlidingActivityBackAction.BACK_TO_CONTENT);
+        } else {
+            setBackAction(SlidingActivityBackAction.BACK_TO_MENU);
         }
 
         xact.commit();
@@ -102,4 +131,37 @@ public class MainActivity extends ExitPointActivity
         getSlidingMenu().showContent();
     }
 
+    @Override
+    public void clearBackStack() {
+        FragmentManager fm = getSupportFragmentManager();
+
+        fm.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+    }
+
+    @Override
+    public void onBackPressed() {
+        FragmentManager fm = getSupportFragmentManager();
+        int fragCount = fm.getBackStackEntryCount();
+
+        Log.d(
+                TAG,
+                "[onBackPressed] getBackStackEntryCount() = "
+                        + Integer.toString(fragCount));
+
+        if (fragCount > 0) {
+            // navigate to previous fragment
+            fm.popBackStack();
+
+            // update SlidingMenu Back behavior
+            if (fragCount == 1) {
+                // we've just popped the last entry, restore to
+                // BACK_TO_MENU
+                setBackAction(SlidingActivityBackAction.BACK_TO_MENU);
+            }
+
+            return;
+        }
+
+        super.onBackPressed();
+    }
 }

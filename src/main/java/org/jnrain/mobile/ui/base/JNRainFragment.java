@@ -49,4 +49,8 @@ public class JNRainFragment<T> extends RoboSherlockFragment {
     public void switchMainContentTo(Fragment fragment, boolean addToBackStack) {
         fragHost.switchContentTo(fragment, addToBackStack);
     }
+
+    public void clearBackStack() {
+        fragHost.clearBackStack();
+    }
 }

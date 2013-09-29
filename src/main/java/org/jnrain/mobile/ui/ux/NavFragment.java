@@ -57,6 +57,7 @@ public class NavFragment extends JNRainFragment {
         btnHotPosts.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                NavFragment.this.clearBackStack();
                 NavFragment.this.switchMainContentTo(
                         new GlobalHotPostsListFragment(),
                         false);
@@ -66,6 +67,7 @@ public class NavFragment extends JNRainFragment {
         btnSections.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                NavFragment.this.clearBackStack();
                 NavFragment.this.switchMainContentTo(
                         new SectionListFragment(),
                         false);
