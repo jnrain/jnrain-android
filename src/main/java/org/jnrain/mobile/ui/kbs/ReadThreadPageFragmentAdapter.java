@@ -26,7 +26,10 @@ class ReadThreadPageFragmentAdapter
     }
 
     public void addItem(String brd_id, long tid, int page) {
-        ReadThreadPageFragment frag = new ReadThreadPageFragment(brd_id, tid, page);
+        ReadThreadPageFragment frag = new ReadThreadPageFragment(
+                brd_id,
+                tid,
+                page);
 
         // retain state in case of configuration change (e.g. rotation)
         frag.setRetainInstance(true);

@@ -46,6 +46,11 @@ public class ReadThreadPageFragment extends RoboSherlockFragment {
     @InjectView(R.id.listPosts)
     ListView listPosts;
 
+    private static final String BOARD_ID_STORE = "_brdId";
+    private static final String THREAD_ID_STORE = "_threadId";
+    private static final String PAGE_STORE = "_page";
+    private static final String POSTS_STORE = "_posts";
+
     private String _brd_id;
     private long _tid;
     private int _page;
@@ -56,10 +61,24 @@ public class ReadThreadPageFragment extends RoboSherlockFragment {
     private static final String TAG = "ReadThreadFragment";
 
     public ReadThreadPageFragment(String brd_id, long tid, int page) {
-        _brd_id = brd_id;
+        super();
+
+        initState(brd_id, tid, page, null);
+    }
+
+    public ReadThreadPageFragment() {
+        super();
+    }
+
+    protected void initState(
+            String brdId,
+            long tid,
+            int page,
+            ListPosts posts) {
+        _brd_id = brdId;
         _tid = tid;
         _page = page;
-        _posts = null;
+        _posts = posts;
     }
 
     @Override
@@ -67,9 +86,27 @@ public class ReadThreadPageFragment extends RoboSherlockFragment {
         super.onCreate(savedInstanceState);
 
         _listener = (ReadThreadFragmentListener) getParentFragment();
+
+        if (savedInstanceState != null) {
+            initState(
+                    savedInstanceState.getString(BOARD_ID_STORE),
+                    savedInstanceState.getLong(THREAD_ID_STORE),
+                    savedInstanceState.getInt(PAGE_STORE),
+                    (ListPosts) savedInstanceState
+                        .getSerializable(POSTS_STORE));
+        }
     }
 
-    @SuppressWarnings("unchecked")
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putString(BOARD_ID_STORE, _brd_id);
+        outState.putLong(THREAD_ID_STORE, _tid);
+        outState.putInt(PAGE_STORE, _page);
+        outState.putSerializable(POSTS_STORE, _posts);
+    }
+
     @Override
     public View onCreateView(
             LayoutInflater inflater,
@@ -80,8 +117,18 @@ public class ReadThreadPageFragment extends RoboSherlockFragment {
                 container,
                 false);
 
-        // fetch posts
-        if (_posts == null) {
+        return view;
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        if (_posts != null) {
+            updateData();
+        } else {
+            // fetch posts
             _listener.makeSpiceRequest(
                     new ThreadRequest(_brd_id, _tid, _page),
                     CacheKeyManager.keyForPagedPostList(
@@ -91,17 +138,6 @@ public class ReadThreadPageFragment extends RoboSherlockFragment {
                             GlobalState.getUserName()),
                     DurationInMillis.ONE_MINUTE,
                     new ThreadRequestListener());
-        }
-
-        return view;
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-        if (_posts != null) {
-            updateData();
         }
     }
 
@@ -133,9 +169,13 @@ public class ReadThreadPageFragment extends RoboSherlockFragment {
     }
 
     public synchronized void updateData() {
+        if (getActivity() == null) {
+            return;
+        }
+
         @SuppressWarnings("unchecked")
         ThreadAdapter adapter = new ThreadAdapter(
-                this.getActivity(),
+                getActivity(),
                 _posts,
                 _listener);
         listPosts.setAdapter(adapter);
