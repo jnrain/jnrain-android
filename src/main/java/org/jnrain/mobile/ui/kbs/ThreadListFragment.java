@@ -49,14 +49,6 @@ public class ThreadListFragment extends JNRainFragment<ListPosts>
 
     ThreadListPageFragmentAdapter _adapter;
 
-    public static final String THREAD_ID = "org.jnrain.mobile.THREAD_ID";
-    public static final String THREAD_TITLE = "org.jnrain.mobile.THREAD_TITLE";
-    public static final String PAGE = "org.jnrain.mobile.PAGE";
-    public static final int THREADS_PER_PAGE = 30;
-
-    private static final String BRD_ID_STORE = "_brdId";
-    private static final String TOTAL_THREADS_STORE = "_totalthreads";
-
     private String _brd_id;
     private int _page;
     private int _totalthreads;
@@ -79,7 +71,7 @@ public class ThreadListFragment extends JNRainFragment<ListPosts>
 
         _page = 1;
         _totalpages = (int) Math.ceil((double) _totalthreads
-                / THREADS_PER_PAGE);
+                / KBSUIConstants.THREADS_PER_PAGE);
     }
 
     @Override
@@ -91,8 +83,9 @@ public class ThreadListFragment extends JNRainFragment<ListPosts>
         if (savedInstanceState != null) {
             // restore original ctor parameters
             initState(
-                    savedInstanceState.getString(BRD_ID_STORE),
-                    savedInstanceState.getInt(TOTAL_THREADS_STORE));
+                    savedInstanceState.getString(KBSUIConstants.BOARD_ID_STORE),
+                    savedInstanceState
+                        .getInt(KBSUIConstants.THREADS_COUNT_STORE));
         }
     }
 
@@ -100,8 +93,8 @@ public class ThreadListFragment extends JNRainFragment<ListPosts>
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putString(BRD_ID_STORE, _brd_id);
-        outState.putInt(TOTAL_THREADS_STORE, _totalthreads);
+        outState.putString(KBSUIConstants.BOARD_ID_STORE, _brd_id);
+        outState.putInt(KBSUIConstants.THREADS_COUNT_STORE, _totalthreads);
     }
 
     @Override

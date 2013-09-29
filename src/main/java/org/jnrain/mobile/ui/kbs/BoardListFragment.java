@@ -42,12 +42,6 @@ public class BoardListFragment extends JNRainFragment<ListBoards> {
     @InjectView(R.id.listBoards)
     ListView listBoards;
 
-    public static final String BRD_ID = "org.jnrain.mobile.BRD_ID";
-    public static final String NUM_POSTS = "org.jnrain.mobile.NUM_POSTS";
-
-    private static final String SEC_ORD_STORE = "_secOrd";
-    private static final String LIST_BOARDS_STORE = "_boards";
-
     private static final String TAG = "BoardListFragment";
 
     private String _sec_ord;
@@ -79,9 +73,10 @@ public class BoardListFragment extends JNRainFragment<ListBoards> {
                 false);
 
         if (savedInstanceState != null) {
-            _sec_ord = savedInstanceState.getString(SEC_ORD_STORE);
+            _sec_ord = savedInstanceState
+                .getString(KBSUIConstants.SECTION_ORD_STORE);
             _boards = (ListBoards) savedInstanceState
-                .getSerializable(LIST_BOARDS_STORE);
+                .getSerializable(KBSUIConstants.BOARDS_LIST_STORE);
         } else {
             _listener.makeSpiceRequest(
                     new BoardListRequest(_sec_ord),
@@ -108,8 +103,8 @@ public class BoardListFragment extends JNRainFragment<ListBoards> {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putString(SEC_ORD_STORE, _sec_ord);
-        outState.putSerializable(LIST_BOARDS_STORE, _boards);
+        outState.putString(KBSUIConstants.SECTION_ORD_STORE, _sec_ord);
+        outState.putSerializable(KBSUIConstants.BOARDS_LIST_STORE, _boards);
     }
 
     public synchronized void updateData() {

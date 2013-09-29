@@ -44,12 +44,6 @@ public class ReadThreadFragment extends JNRainFragment
 
     ReadThreadPageFragmentAdapter _adapter;
 
-    // TODO: extract into some constants class
-    private static final String BRD_ID_STORE = "_brdId";
-    private static final String POST_TITLE_STORE = "_title";
-    private static final String THREAD_ID_STORE = "_tid";
-    private static final String POST_COUNT_STORE = "_totalPosts";
-
     private String _brd_id;
     private String _title;
     private long _tid;
@@ -58,7 +52,6 @@ public class ReadThreadFragment extends JNRainFragment
     private int _page;
     private int _totalpages;
 
-    public static final int POSTS_PER_PAGE = 10;
     private static final String TAG = "ReadThreadActivity";
 
     public ReadThreadFragment(
@@ -85,7 +78,8 @@ public class ReadThreadFragment extends JNRainFragment
         _title = title;
         _totalposts = totalPosts;
 
-        _totalpages = (int) Math.ceil((double) _totalposts / POSTS_PER_PAGE);
+        _totalpages = (int) Math.ceil((double) _totalposts
+                / KBSUIConstants.POSTS_PER_PAGE);
     }
 
     @Override
@@ -94,10 +88,13 @@ public class ReadThreadFragment extends JNRainFragment
 
         if (savedInstanceState != null) {
             initState(
-                    savedInstanceState.getString(BRD_ID_STORE),
-                    savedInstanceState.getLong(THREAD_ID_STORE),
-                    savedInstanceState.getString(POST_TITLE_STORE),
-                    savedInstanceState.getInt(POST_COUNT_STORE));
+                    savedInstanceState.getString(KBSUIConstants.BOARD_ID_STORE),
+                    savedInstanceState
+                        .getLong(KBSUIConstants.THREAD_ID_STORE),
+                    savedInstanceState
+                        .getString(KBSUIConstants.POST_TITLE_STORE),
+                    savedInstanceState
+                        .getInt(KBSUIConstants.POST_COUNT_STORE));
         }
     }
 
@@ -105,10 +102,10 @@ public class ReadThreadFragment extends JNRainFragment
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putString(BRD_ID_STORE, _brd_id);
-        outState.putLong(THREAD_ID_STORE, _tid);
-        outState.putString(POST_TITLE_STORE, _title);
-        outState.putInt(POST_COUNT_STORE, _totalposts);
+        outState.putString(KBSUIConstants.BOARD_ID_STORE, _brd_id);
+        outState.putLong(KBSUIConstants.THREAD_ID_STORE, _tid);
+        outState.putString(KBSUIConstants.POST_TITLE_STORE, _title);
+        outState.putInt(KBSUIConstants.POST_COUNT_STORE, _totalposts);
     }
 
     @Override

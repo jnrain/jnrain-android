@@ -46,11 +46,6 @@ public class ReadThreadPageFragment extends RoboSherlockFragment {
     @InjectView(R.id.listPosts)
     ListView listPosts;
 
-    private static final String BOARD_ID_STORE = "_brdId";
-    private static final String THREAD_ID_STORE = "_threadId";
-    private static final String PAGE_STORE = "_page";
-    private static final String POSTS_STORE = "_posts";
-
     private String _brd_id;
     private long _tid;
     private int _page;
@@ -89,11 +84,12 @@ public class ReadThreadPageFragment extends RoboSherlockFragment {
 
         if (savedInstanceState != null) {
             initState(
-                    savedInstanceState.getString(BOARD_ID_STORE),
-                    savedInstanceState.getLong(THREAD_ID_STORE),
-                    savedInstanceState.getInt(PAGE_STORE),
+                    savedInstanceState.getString(KBSUIConstants.BOARD_ID_STORE),
+                    savedInstanceState
+                        .getLong(KBSUIConstants.THREAD_ID_STORE),
+                    savedInstanceState.getInt(KBSUIConstants.PAGE_STORE),
                     (ListPosts) savedInstanceState
-                        .getSerializable(POSTS_STORE));
+                        .getSerializable(KBSUIConstants.POSTS_LIST_STORE));
         }
     }
 
@@ -101,10 +97,10 @@ public class ReadThreadPageFragment extends RoboSherlockFragment {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putString(BOARD_ID_STORE, _brd_id);
-        outState.putLong(THREAD_ID_STORE, _tid);
-        outState.putInt(PAGE_STORE, _page);
-        outState.putSerializable(POSTS_STORE, _posts);
+        outState.putString(KBSUIConstants.BOARD_ID_STORE, _brd_id);
+        outState.putLong(KBSUIConstants.THREAD_ID_STORE, _tid);
+        outState.putInt(KBSUIConstants.PAGE_STORE, _page);
+        outState.putSerializable(KBSUIConstants.POSTS_LIST_STORE, _posts);
     }
 
     @Override

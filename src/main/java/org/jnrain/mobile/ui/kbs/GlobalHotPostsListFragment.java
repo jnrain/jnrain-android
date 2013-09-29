@@ -50,8 +50,6 @@ public class GlobalHotPostsListFragment extends JNRainFragment<ListHotPosts> {
 
     private static final String TAG = "GlobalHotPostsListActivity";
 
-    private static final String GLOBAL_HOT_POSTS_STORE = "_hotPostsGlobal";
-
     private ListHotPosts _posts;
 
     @Override
@@ -66,7 +64,7 @@ public class GlobalHotPostsListFragment extends JNRainFragment<ListHotPosts> {
 
         if (savedInstanceState != null) {
             _posts = (ListHotPosts) savedInstanceState
-                .getSerializable(GLOBAL_HOT_POSTS_STORE);
+                .getSerializable(KBSUIConstants.GLOBAL_HOT_POSTS_STORE);
         }
 
         return view;
@@ -91,7 +89,9 @@ public class GlobalHotPostsListFragment extends JNRainFragment<ListHotPosts> {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putSerializable(GLOBAL_HOT_POSTS_STORE, _posts);
+        outState.putSerializable(
+                KBSUIConstants.GLOBAL_HOT_POSTS_STORE,
+                _posts);
     }
 
     public synchronized void updateData() {
