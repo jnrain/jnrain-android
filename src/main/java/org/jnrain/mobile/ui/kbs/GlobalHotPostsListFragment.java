@@ -50,6 +50,8 @@ public class GlobalHotPostsListFragment extends JNRainFragment<ListHotPosts> {
 
     private static final String TAG = "GlobalHotPostsListActivity";
 
+    private static final String GLOBAL_HOT_POSTS_STORE = "_hotPostsGlobal";
+
     private ListHotPosts _posts;
 
     @Override
@@ -62,16 +64,41 @@ public class GlobalHotPostsListFragment extends JNRainFragment<ListHotPosts> {
                 container,
                 false);
 
-        _listener.makeSpiceRequest(
-                new HotPostsListRequest(ListHotPosts.GLOBAL),
-                CacheKeyManager.keyForHotPosts(ListHotPosts.GLOBAL),
-                DurationInMillis.ONE_MINUTE,
-                new GlobalHotPostsListRequestListener());
+        if (savedInstanceState != null) {
+            _posts = (ListHotPosts) savedInstanceState
+                .getSerializable(GLOBAL_HOT_POSTS_STORE);
+        }
 
         return view;
     }
 
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        if (_posts != null) {
+            updateData();
+        } else {
+            _listener.makeSpiceRequest(
+                    new HotPostsListRequest(ListHotPosts.GLOBAL),
+                    CacheKeyManager.keyForHotPosts(ListHotPosts.GLOBAL),
+                    DurationInMillis.ONE_MINUTE,
+                    new GlobalHotPostsListRequestListener());
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putSerializable(GLOBAL_HOT_POSTS_STORE, _posts);
+    }
+
     public synchronized void updateData() {
+        if (_listener.getThisActivity() == null) {
+            return;
+        }
+
         // empty the status display
         textStatus.setText("");
 

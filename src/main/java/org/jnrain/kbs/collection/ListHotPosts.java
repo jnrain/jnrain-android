@@ -15,6 +15,7 @@
  */
 package org.jnrain.kbs.collection;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
@@ -22,7 +23,9 @@ import org.jnrain.kbs.entity.Post;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ListHotPosts {
+public class ListHotPosts implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     public static final String GLOBAL = "global";
     public static final String SEC = "sec";
     public static final String BOARD = "board";
