@@ -35,7 +35,7 @@ import com.jeremyfeinstein.slidingmenu.lib.app.SlidingActivityHelper.SlidingActi
 
 public class ExitPointActivity<T> extends JNRainSlidingFragmentActivity<T>
         implements AccountStateListener {
-    private static final String TAG = "ExitPoint";
+    // private static final String TAG = "ExitPoint";
 
     @InjectResource(R.string.dlg_exit_confirm_title)
     String _exitDlgTitle;
