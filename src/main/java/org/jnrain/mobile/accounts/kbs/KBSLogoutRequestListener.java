@@ -63,9 +63,6 @@ public class KBSLogoutRequestListener
             case 0:
                 String uid = GlobalState.getUserName();
 
-                // erase user name
-                GlobalState.setUserName("");
-
                 // successful
                 ToastHelper.makeTextToast(
                         ctx,

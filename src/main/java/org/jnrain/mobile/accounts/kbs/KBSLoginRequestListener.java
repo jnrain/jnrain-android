@@ -18,6 +18,7 @@ package org.jnrain.mobile.accounts.kbs;
 import org.jnrain.kbs.entity.SimpleReturnCode;
 import org.jnrain.mobile.R;
 import org.jnrain.mobile.network.listeners.ContextRequestListener;
+import org.jnrain.mobile.ui.base.LoginPoint;
 import org.jnrain.mobile.ui.ux.ToastHelper;
 
 import android.app.Activity;
@@ -29,33 +30,33 @@ import com.octo.android.robospice.persistence.exception.SpiceException;
 public class KBSLoginRequestListener
         extends ContextRequestListener<SimpleReturnCode> {
     private static final String TAG = "LoginRequestListener";
-    private KBSLoginActivity m_activity;
+    private LoginPoint _ui;
     private String _uid;
     private String _psw;
 
     public KBSLoginRequestListener(Activity activity, String uid, String psw) {
         super(activity);
-        m_activity = (KBSLoginActivity) activity;
+        _ui = (LoginPoint) activity;
         _uid = uid;
         _psw = psw;
     }
 
     @Override
     public void onRequestFailure(SpiceException spiceException) {
-        m_activity.getLoadingDialog().dismiss();
+        _ui.getLoadingDialog().dismiss();
         Log.d(TAG, "err on req: " + spiceException.toString());
         ToastHelper.makeTextToast(ctx, R.string.msg_network_fail);
     }
 
     @Override
     public void onRequestSuccess(SimpleReturnCode result) {
-        m_activity.getLoadingDialog().dismiss();
+        _ui.getLoadingDialog().dismiss();
         int status = result.getStatus();
 
         switch (status) {
             case 0:
                 // callback into activity for code simplicity
-                m_activity.onAuthenticationSuccess(_uid, _psw);
+                _ui.onAuthenticationSuccess(_uid, _psw);
                 break;
             case 1:
                 ToastHelper.makeTextToast(ctx, R.string.msg_login_fail);
