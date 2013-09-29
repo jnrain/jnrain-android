@@ -17,7 +17,6 @@ package org.jnrain.mobile.ui;
 
 import java.io.InputStream;
 
-
 import android.app.Activity;
 import android.graphics.drawable.Drawable;
 import android.util.Log;

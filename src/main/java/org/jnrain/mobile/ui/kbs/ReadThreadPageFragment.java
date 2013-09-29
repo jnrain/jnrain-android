@@ -172,6 +172,7 @@ public class ReadThreadPageFragment extends RoboSherlockFragment {
         @SuppressWarnings("unchecked")
         ThreadAdapter adapter = new ThreadAdapter(
                 getActivity(),
+                _listener,
                 _posts,
                 _listener);
         listPosts.setAdapter(adapter);

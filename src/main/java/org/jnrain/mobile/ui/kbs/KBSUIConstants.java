@@ -32,10 +32,12 @@ public final class KBSUIConstants {
     public static final String POST_TITLE_STORE = "_title";
     public static final String POST_COUNT_STORE = "_totalPosts";
     public static final String POSTS_LIST_STORE = "_posts";
+    public static final String POST_REPLY_ID_STORE = "_inReplyTo";
     public static final String GLOBAL_HOT_POSTS_STORE = "_hotPostsGlobal";
 
     // Other constants
     public static final String PAGE_STORE = "_page";
+    public static final String IS_NEW_THREAD_STORE = "_isNewThread";
 
     public static final int THREADS_PER_PAGE = 30;
     public static final int POSTS_PER_PAGE = 10;

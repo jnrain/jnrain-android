@@ -19,6 +19,7 @@ import org.jnrain.mobile.util.SpiceRequestListener;
 
 import android.app.Activity;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 
 import com.github.rtyley.android.sherlock.roboguice.fragment.RoboSherlockFragment;
 
@@ -44,6 +45,11 @@ public class JNRainFragment<T> extends RoboSherlockFragment {
         } catch (ClassCastException e) {
             fragHost = null;
         }
+    }
+
+    public void finishFragment() {
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+        fm.popBackStack();
     }
 
     public void switchMainContentTo(Fragment fragment, boolean addToBackStack) {

@@ -22,6 +22,7 @@ import org.jnrain.mobile.ui.base.JNRainFragment;
 import roboguice.inject.InjectView;
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -196,18 +197,13 @@ public class ReadThreadFragment extends JNRainFragment
             replyTitle = "Re: " + postTitle;
         }
 
-        // fire up post activity
-        /*
-         * Intent intent = new Intent(); intent.setClass(this,
-         * NewPostActivity.class); intent.putExtra(BoardListFragment.BRD_ID,
-         * _brd_id); intent.putExtra(NewPostActivity.IS_NEW_THREAD, false);
-         * intent.putExtra(ThreadListFragment.THREAD_ID, _tid);
-         * intent.putExtra(NewPostActivity.IN_REPLY_TO, post.getID());
-         * intent.putExtra(ThreadListFragment.THREAD_TITLE, replyTitle);
-         * 
-         * 
-         * startActivity(intent);
-         */
+        // fire up post fragment
+        Fragment frag = new NewPostFragment(
+                _brd_id,
+                _tid,
+                post.getID(),
+                replyTitle);
+        switchMainContentTo(frag, true);
     }
 
     @Override

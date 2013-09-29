@@ -184,14 +184,10 @@ public class ThreadListFragment extends JNRainFragment<ListPosts>
         switch (item.getItemId()) {
             case R.id.action_new_post:
                 Log.d(TAG, "new post menu item selected");
-                /*
-                 * Intent intent = new Intent(); intent.setClass(
-                 * ThreadListFragment.this, NewPostActivity.class);
-                 * intent.putExtra(BoardListFragment.BRD_ID, _brd_id);
-                 * intent.putExtra(NewPostActivity.IS_NEW_THREAD, true);
-                 * 
-                 * startActivity(intent);
-                 */
+
+                Fragment frag = new NewPostFragment(_brd_id);
+                switchMainContentTo(frag, true);
+
                 return true;
 
             default:

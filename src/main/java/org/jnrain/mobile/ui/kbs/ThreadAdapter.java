@@ -46,15 +46,18 @@ public class ThreadAdapter extends BaseAdapter {
     public static final String CTIME_FORMAT = "yyyy-MM-dd kk:mm:ss";
     private LayoutInflater _inflater;
     private Activity _activity;
+    private ReadThreadFragmentListener _readThreadListener;
     private ListPosts _data;
     private SpiceRequestListener<InputStream> _listener;
 
     public ThreadAdapter(
             Activity activity,
+            ReadThreadFragmentListener readThreadListener,
             ListPosts data,
             SpiceRequestListener<InputStream> listener) {
         _inflater = LayoutInflater.from(activity);
         _activity = activity;
+        _readThreadListener = readThreadListener;
         _data = data;
         _listener = listener;
     }
@@ -139,8 +142,7 @@ public class ThreadAdapter extends BaseAdapter {
         btnReply.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                ReadThreadFragmentListener listener = (ReadThreadFragmentListener) _activity;
-                listener.showReplyUIFor(post);
+                _readThreadListener.showReplyUIFor(post);
             }
         });
 

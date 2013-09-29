@@ -40,11 +40,6 @@
         </service>
 
         <activity
-            android:name="org.jnrain.mobile.ui.kbs.NewPostActivity"
-            android:label="@string/title_activity_new_post"
-            android:theme="@style/Theme.JNRain.DefaultLight" >
-        </activity>
-        <activity
             android:name="org.jnrain.mobile.ui.preferences.SettingsActivity"
             android:label="@string/title_activity_preference"
             android:theme="@style/Theme.JNRain.DefaultLight" >

@@ -20,13 +20,15 @@ import java.text.MessageFormat;
 import org.jnrain.kbs.entity.SimpleReturnCode;
 import org.jnrain.mobile.R;
 import org.jnrain.mobile.network.requests.NewPostRequest;
-import org.jnrain.mobile.ui.base.JNRainActivity;
+import org.jnrain.mobile.ui.base.JNRainFragment;
 
 import roboguice.inject.InjectResource;
 import roboguice.inject.InjectView;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -37,7 +39,7 @@ import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
 
 
-public class NewPostActivity extends JNRainActivity<SimpleReturnCode> {
+public class NewPostFragment extends JNRainFragment<SimpleReturnCode> {
     @InjectView(R.id.editTitle)
     EditText editTitle;
     @InjectView(R.id.editContent)
@@ -84,9 +86,7 @@ public class NewPostActivity extends JNRainActivity<SimpleReturnCode> {
     @InjectResource(R.string.msg_post_silent_night)
     public String MSG_POST_SILENT_NIGHT;
 
-    private static final String TAG = "NewPostActivity";
-    public static final String IS_NEW_THREAD = "org.jnrain.mobile.IS_NEW_THREAD";
-    public static final String IN_REPLY_TO = "org.jnrain.mobile.IN_REPLY_TO";
+    private static final String TAG = "NewPostFragment";
 
     private String _brd_id;
     private boolean _is_new_thread;
@@ -94,23 +94,97 @@ public class NewPostActivity extends JNRainActivity<SimpleReturnCode> {
     private long _reid;
     private String _title = null;
 
+    public NewPostFragment(String brdId) {
+        super();
+
+        initState(brdId);
+    }
+
+    public NewPostFragment(String brdId, long tid, long reid, String title) {
+        super();
+
+        initState(brdId, tid, reid, title);
+    }
+
+    public NewPostFragment() {
+        super();
+    }
+
+    protected void initState(String brdId) {
+        _brd_id = brdId;
+        _is_new_thread = true;
+    }
+
+    protected void initState(String brdId, long tid, long reid, String title) {
+        _brd_id = brdId;
+        _is_new_thread = false;
+        _tid = tid;
+        _reid = reid;
+        _title = title;
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_post);
+
+        setHasOptionsMenu(true);
+
+        if (savedInstanceState != null) {
+            boolean isNewThread = savedInstanceState.getBoolean(
+                    KBSUIConstants.IS_NEW_THREAD_STORE,
+                    false);
+
+            if (isNewThread) {
+                initState(savedInstanceState
+                    .getString(KBSUIConstants.BOARD_ID_STORE));
+            } else {
+                initState(
+                        savedInstanceState.getString(KBSUIConstants.BOARD_ID_STORE),
+                        savedInstanceState
+                            .getLong(KBSUIConstants.THREAD_ID_STORE),
+                        savedInstanceState
+                            .getLong(KBSUIConstants.POST_REPLY_ID_STORE),
+                        savedInstanceState
+                            .getString(KBSUIConstants.POST_TITLE_STORE));
+            }
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putBoolean(
+                KBSUIConstants.IS_NEW_THREAD_STORE,
+                _is_new_thread);
+        outState.putString(KBSUIConstants.BOARD_ID_STORE, _brd_id);
+
+        if (_is_new_thread) {
+            outState.putLong(KBSUIConstants.THREAD_ID_STORE, _tid);
+            outState.putLong(KBSUIConstants.POST_REPLY_ID_STORE, _reid);
+            outState.putString(KBSUIConstants.POST_TITLE_STORE, _title);
+        }
+    }
+
+    @Override
+    public View onCreateView(
+            LayoutInflater inflater,
+            ViewGroup container,
+            Bundle savedInstanceState) {
+        View view = inflater.inflate(
+                R.layout.activity_new_post,
+                container,
+                false);
+
+        return view;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
         // Show the Up button in the action bar.
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        // dummy code, going to be deleted anyway
-        Intent intent = getIntent();
-        _brd_id = intent.getStringExtra(KBSUIConstants.BOARD_ID_STORE);
-        _is_new_thread = intent.getBooleanExtra(IS_NEW_THREAD, false);
-        if (!_is_new_thread) {
-            _tid = intent.getLongExtra(KBSUIConstants.THREAD_ID_STORE, 0);
-            _reid = intent.getLongExtra(IN_REPLY_TO, 0);
-            _title = intent.getStringExtra(KBSUIConstants.POST_TITLE_STORE);
-        }
+        // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // set title
         if (_title != null) {
@@ -119,10 +193,9 @@ public class NewPostActivity extends JNRainActivity<SimpleReturnCode> {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getSupportMenuInflater();
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.new_post, menu);
-        return true;
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
@@ -131,7 +204,8 @@ public class NewPostActivity extends JNRainActivity<SimpleReturnCode> {
         switch (item.getItemId()) {
             case android.R.id.home:
                 // TODO: confirmation
-                finish();
+                finishFragment();
+
                 return true;
 
             case R.id.action_do_post:
@@ -142,7 +216,7 @@ public class NewPostActivity extends JNRainActivity<SimpleReturnCode> {
 
                 // TODO: proper signature selection
                 if (_is_new_thread) {
-                    makeSpiceRequest(
+                    _listener.makeSpiceRequest(
                             new NewPostRequest(
                                     _brd_id,
                                     title,
@@ -150,7 +224,7 @@ public class NewPostActivity extends JNRainActivity<SimpleReturnCode> {
                                     NewPostRequest.SIGN_RANDOM),
                             new NewPostRequestListener());
                 } else {
-                    makeSpiceRequest(
+                    _listener.makeSpiceRequest(
                             new NewPostRequest(
                                     _brd_id,
                                     _tid,
@@ -182,7 +256,7 @@ public class NewPostActivity extends JNRainActivity<SimpleReturnCode> {
             Log.d(TAG, "err on req: " + spiceException.toString());
 
             // restore editable status
-            NewPostActivity.this.setEditableStatus(true);
+            NewPostFragment.this.setEditableStatus(true);
         }
 
         @Override
@@ -193,25 +267,25 @@ public class NewPostActivity extends JNRainActivity<SimpleReturnCode> {
                 case 0:
                     // toast according to action type
                     Toast.makeText(
-                            getApplicationContext(),
+                            getActivity(),
                             _is_new_thread
                                     ? MSG_POST_SUCCESS
                                     : MSG_POST_SUCCESS_REPLY,
                             Toast.LENGTH_SHORT).show();
                     // finish off self
-                    finish();
+                    finishFragment();
 
                     break;
                 case 1:
                     Toast.makeText(
-                            getApplicationContext(),
+                            getActivity(),
                             MSG_POST_NO_GUEST_POST,
                             Toast.LENGTH_SHORT).show();
 
                     break;
                 case 2:
                     Toast.makeText(
-                            getApplicationContext(),
+                            getActivity(),
                             MSG_POST_NO_BRD_GIVEN,
                             Toast.LENGTH_SHORT).show();
 
@@ -219,21 +293,21 @@ public class NewPostActivity extends JNRainActivity<SimpleReturnCode> {
                 case 3:
                 case 12:
                     Toast.makeText(
-                            getApplicationContext(),
+                            getActivity(),
                             MSG_POST_NO_SUCH_BRD,
                             Toast.LENGTH_SHORT).show();
 
                     break;
                 case 4:
                     Toast.makeText(
-                            getApplicationContext(),
+                            getActivity(),
                             MSG_POST_EPERM,
                             Toast.LENGTH_SHORT).show();
 
                     break;
                 case 5:
                     Toast.makeText(
-                            getApplicationContext(),
+                            getActivity(),
                             MSG_POST_EROFS,
                             Toast.LENGTH_SHORT).show();
 
@@ -241,7 +315,7 @@ public class NewPostActivity extends JNRainActivity<SimpleReturnCode> {
                 case 6:
                 case 15:
                     Toast.makeText(
-                            getApplicationContext(),
+                            getActivity(),
                             MSG_POST_DENIED,
                             Toast.LENGTH_SHORT).show();
 
@@ -249,19 +323,19 @@ public class NewPostActivity extends JNRainActivity<SimpleReturnCode> {
                 case 7:
                 case 14:
                     Toast.makeText(
-                            getApplicationContext(),
+                            getActivity(),
                             MSG_POST_NO_TITLE,
                             Toast.LENGTH_SHORT).show();
 
                     break;
                 case 8:
                     Toast.makeText(
-                            getApplicationContext(),
+                            getActivity(),
                             MSG_POST_NO_CONTENT,
                             Toast.LENGTH_SHORT).show();
                 case 9:
                     Toast.makeText(
-                            getApplicationContext(),
+                            getActivity(),
                             MSG_POST_EBADF,
                             Toast.LENGTH_SHORT).show();
 
@@ -269,56 +343,56 @@ public class NewPostActivity extends JNRainActivity<SimpleReturnCode> {
                 case 10:
                 case 19:
                     Toast.makeText(
-                            getApplicationContext(),
+                            getActivity(),
                             MSG_POST_LOCKED,
                             Toast.LENGTH_SHORT).show();
 
                     break;
                 case 11:
                     Toast.makeText(
-                            getApplicationContext(),
+                            getActivity(),
                             MSG_POST_RIVER_CRAB,
                             Toast.LENGTH_SHORT).show();
 
                     break;
                 case 13:
                     Toast.makeText(
-                            getApplicationContext(),
+                            getActivity(),
                             MSG_POST_DIRECTORY,
                             Toast.LENGTH_SHORT).show();
 
                     break;
                 case 16:
                     Toast.makeText(
-                            getApplicationContext(),
+                            getActivity(),
                             MSG_POST_BANNED,
                             Toast.LENGTH_SHORT).show();
 
                     break;
                 case 17:
                     Toast.makeText(
-                            getApplicationContext(),
+                            getActivity(),
                             MSG_POST_EAGAIN,
                             Toast.LENGTH_SHORT).show();
 
                     break;
                 case 18:
                     Toast.makeText(
-                            getApplicationContext(),
+                            getActivity(),
                             MSG_POST_IDX_IO,
                             Toast.LENGTH_SHORT).show();
 
                     break;
                 case 20:
                     Toast.makeText(
-                            getApplicationContext(),
+                            getActivity(),
                             MSG_POST_INTERNAL_ERR,
                             Toast.LENGTH_SHORT).show();
 
                     break;
                 case 21:
                     Toast.makeText(
-                            getApplicationContext(),
+                            getActivity(),
                             MSG_POST_SILENT_NIGHT,
                             Toast.LENGTH_SHORT).show();
 
@@ -326,7 +400,7 @@ public class NewPostActivity extends JNRainActivity<SimpleReturnCode> {
                 default:
                     Toast
                         .makeText(
-                                getApplicationContext(),
+                                getActivity(),
                                 MessageFormat.format(
                                         MSG_UNKNOWN_STATUS,
                                         status),
@@ -336,7 +410,7 @@ public class NewPostActivity extends JNRainActivity<SimpleReturnCode> {
             }
 
             // restore editable status
-            NewPostActivity.this.setEditableStatus(true);
+            NewPostFragment.this.setEditableStatus(true);
         }
     }
 }
