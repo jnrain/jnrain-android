@@ -15,14 +15,12 @@
  */
 package org.jnrain.mobile.ui.kbs;
 
-import java.text.MessageFormat;
-
 import org.jnrain.kbs.entity.SimpleReturnCode;
 import org.jnrain.mobile.R;
 import org.jnrain.mobile.network.requests.NewPostRequest;
 import org.jnrain.mobile.ui.base.JNRainFragment;
+import org.jnrain.mobile.ui.ux.ToastHelper;
 
-import roboguice.inject.InjectResource;
 import roboguice.inject.InjectView;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,7 +28,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
@@ -44,47 +41,6 @@ public class NewPostFragment extends JNRainFragment<SimpleReturnCode> {
     EditText editTitle;
     @InjectView(R.id.editContent)
     EditText editContent;
-
-    @InjectResource(R.string.msg_unknown_status)
-    public String MSG_UNKNOWN_STATUS;
-    @InjectResource(R.string.msg_post_success)
-    public String MSG_POST_SUCCESS;
-    @InjectResource(R.string.msg_post_success_reply)
-    public String MSG_POST_SUCCESS_REPLY;
-    @InjectResource(R.string.msg_post_no_guest_post)
-    public String MSG_POST_NO_GUEST_POST;
-    @InjectResource(R.string.msg_post_no_brd_given)
-    public String MSG_POST_NO_BRD_GIVEN;
-    @InjectResource(R.string.msg_post_no_such_brd)
-    public String MSG_POST_NO_SUCH_BRD;
-    @InjectResource(R.string.msg_post_eperm)
-    public String MSG_POST_EPERM;
-    @InjectResource(R.string.msg_post_erofs)
-    public String MSG_POST_EROFS;
-    @InjectResource(R.string.msg_post_denied)
-    public String MSG_POST_DENIED;
-    @InjectResource(R.string.msg_post_no_title)
-    public String MSG_POST_NO_TITLE;
-    @InjectResource(R.string.msg_post_no_content)
-    public String MSG_POST_NO_CONTENT;
-    @InjectResource(R.string.msg_post_ebadf)
-    public String MSG_POST_EBADF;
-    @InjectResource(R.string.msg_post_locked)
-    public String MSG_POST_LOCKED;
-    @InjectResource(R.string.msg_post_river_crab)
-    public String MSG_POST_RIVER_CRAB;
-    @InjectResource(R.string.msg_post_directory)
-    public String MSG_POST_DIRECTORY;
-    @InjectResource(R.string.msg_post_banned)
-    public String MSG_POST_BANNED;
-    @InjectResource(R.string.msg_post_eagain)
-    public String MSG_POST_EAGAIN;
-    @InjectResource(R.string.msg_post_idx_io)
-    public String MSG_POST_IDX_IO;
-    @InjectResource(R.string.msg_post_internal_err)
-    public String MSG_POST_INTERNAL_ERR;
-    @InjectResource(R.string.msg_post_silent_night)
-    public String MSG_POST_SILENT_NIGHT;
 
     private static final String TAG = "NewPostFragment";
 
@@ -266,145 +222,123 @@ public class NewPostFragment extends JNRainFragment<SimpleReturnCode> {
             switch (status) {
                 case 0:
                     // toast according to action type
-                    Toast.makeText(
-                            getActivity(),
-                            _is_new_thread
-                                    ? MSG_POST_SUCCESS
-                                    : MSG_POST_SUCCESS_REPLY,
-                            Toast.LENGTH_SHORT).show();
+                    ToastHelper.makeTextToast(getActivity(), _is_new_thread
+                            ? R.string.msg_post_success
+                            : R.string.msg_post_success_reply);
+
                     // finish off self
                     finishFragment();
 
                     break;
                 case 1:
-                    Toast.makeText(
+                    ToastHelper.makeTextToast(
                             getActivity(),
-                            MSG_POST_NO_GUEST_POST,
-                            Toast.LENGTH_SHORT).show();
+                            R.string.msg_post_no_guest_post);
 
                     break;
                 case 2:
-                    Toast.makeText(
+                    ToastHelper.makeTextToast(
                             getActivity(),
-                            MSG_POST_NO_BRD_GIVEN,
-                            Toast.LENGTH_SHORT).show();
+                            R.string.msg_post_no_brd_given);
 
                     break;
                 case 3:
                 case 12:
-                    Toast.makeText(
+                    ToastHelper.makeTextToast(
                             getActivity(),
-                            MSG_POST_NO_SUCH_BRD,
-                            Toast.LENGTH_SHORT).show();
+                            R.string.msg_post_no_such_brd);
 
                     break;
                 case 4:
-                    Toast.makeText(
+                    ToastHelper.makeTextToast(
                             getActivity(),
-                            MSG_POST_EPERM,
-                            Toast.LENGTH_SHORT).show();
+                            R.string.msg_post_eperm);
 
                     break;
                 case 5:
-                    Toast.makeText(
+                    ToastHelper.makeTextToast(
                             getActivity(),
-                            MSG_POST_EROFS,
-                            Toast.LENGTH_SHORT).show();
+                            R.string.msg_post_erofs);
 
                     break;
                 case 6:
                 case 15:
-                    Toast.makeText(
+                    ToastHelper.makeTextToast(
                             getActivity(),
-                            MSG_POST_DENIED,
-                            Toast.LENGTH_SHORT).show();
+                            R.string.msg_post_denied);
 
                     break;
                 case 7:
                 case 14:
-                    Toast.makeText(
+                    ToastHelper.makeTextToast(
                             getActivity(),
-                            MSG_POST_NO_TITLE,
-                            Toast.LENGTH_SHORT).show();
+                            R.string.msg_post_no_title);
 
                     break;
                 case 8:
-                    Toast.makeText(
+                    ToastHelper.makeTextToast(
                             getActivity(),
-                            MSG_POST_NO_CONTENT,
-                            Toast.LENGTH_SHORT).show();
+                            R.string.msg_post_no_content);
                 case 9:
-                    Toast.makeText(
+                    ToastHelper.makeTextToast(
                             getActivity(),
-                            MSG_POST_EBADF,
-                            Toast.LENGTH_SHORT).show();
+                            R.string.msg_post_ebadf);
 
                     break;
                 case 10:
                 case 19:
-                    Toast.makeText(
+                    ToastHelper.makeTextToast(
                             getActivity(),
-                            MSG_POST_LOCKED,
-                            Toast.LENGTH_SHORT).show();
+                            R.string.msg_post_locked);
 
                     break;
                 case 11:
-                    Toast.makeText(
+                    ToastHelper.makeTextToast(
                             getActivity(),
-                            MSG_POST_RIVER_CRAB,
-                            Toast.LENGTH_SHORT).show();
+                            R.string.msg_post_river_crab);
 
                     break;
                 case 13:
-                    Toast.makeText(
+                    ToastHelper.makeTextToast(
                             getActivity(),
-                            MSG_POST_DIRECTORY,
-                            Toast.LENGTH_SHORT).show();
+                            R.string.msg_post_directory);
 
                     break;
                 case 16:
-                    Toast.makeText(
+                    ToastHelper.makeTextToast(
                             getActivity(),
-                            MSG_POST_BANNED,
-                            Toast.LENGTH_SHORT).show();
+                            R.string.msg_post_banned);
 
                     break;
                 case 17:
-                    Toast.makeText(
+                    ToastHelper.makeTextToast(
                             getActivity(),
-                            MSG_POST_EAGAIN,
-                            Toast.LENGTH_SHORT).show();
+                            R.string.msg_post_eagain);
 
                     break;
                 case 18:
-                    Toast.makeText(
+                    ToastHelper.makeTextToast(
                             getActivity(),
-                            MSG_POST_IDX_IO,
-                            Toast.LENGTH_SHORT).show();
+                            R.string.msg_post_idx_io);
 
                     break;
                 case 20:
-                    Toast.makeText(
+                    ToastHelper.makeTextToast(
                             getActivity(),
-                            MSG_POST_INTERNAL_ERR,
-                            Toast.LENGTH_SHORT).show();
+                            R.string.msg_post_internal_err);
 
                     break;
                 case 21:
-                    Toast.makeText(
+                    ToastHelper.makeTextToast(
                             getActivity(),
-                            MSG_POST_SILENT_NIGHT,
-                            Toast.LENGTH_SHORT).show();
+                            R.string.msg_post_silent_night);
 
                     break;
                 default:
-                    Toast
-                        .makeText(
-                                getActivity(),
-                                MessageFormat.format(
-                                        MSG_UNKNOWN_STATUS,
-                                        status),
-                                Toast.LENGTH_SHORT).show();
+                    ToastHelper.makeTextToast(
+                            getActivity(),
+                            R.string.msg_unknown_status,
+                            status);
 
                     break;
             }
