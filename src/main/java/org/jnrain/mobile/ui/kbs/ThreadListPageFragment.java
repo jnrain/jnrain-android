@@ -38,8 +38,13 @@ import com.octo.android.robospice.request.listener.RequestListener;
 
 
 public class ThreadListPageFragment extends RoboSherlockFragment {
+    private static final String TAG = "ThreadListFragment";
+
     @InjectView(R.id.listPosts)
     ListView listPosts;
+
+    private static final String BOARD_ID_STORE = "_brdId";
+    private static final String POSTS_STORE = "_posts";
 
     private ThreadListFragmentListener _threadListListener;
     private String _brd_id;
@@ -47,8 +52,6 @@ public class ThreadListPageFragment extends RoboSherlockFragment {
     private int _page;
 
     private ThreadListAdapter _adapter;
-
-    private static final String TAG = "ThreadListFragment";
 
     public ThreadListPageFragment(String brd_id, int page) {
         super();
@@ -79,9 +82,10 @@ public class ThreadListPageFragment extends RoboSherlockFragment {
                 container,
                 false);
 
-        // fetch a page of thread list
-        if (_posts == null) {
-            makeRequest(_page);
+        if (savedInstanceState != null) {
+            _brd_id = savedInstanceState.getString(BOARD_ID_STORE);
+            _posts = (ListPosts) savedInstanceState
+                .getSerializable(POSTS_STORE);
         }
 
         return view;
@@ -93,7 +97,18 @@ public class ThreadListPageFragment extends RoboSherlockFragment {
 
         if (_posts != null) {
             updateData();
+        } else {
+            // fetch a page of thread list
+            makeRequest(_page);
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putString(BOARD_ID_STORE, _brd_id);
+        outState.putSerializable(POSTS_STORE, _posts);
     }
 
     public void makeRequest(int page) {
@@ -108,6 +123,10 @@ public class ThreadListPageFragment extends RoboSherlockFragment {
     }
 
     public synchronized void updateData() {
+        if (getActivity() == null) {
+            return;
+        }
+
         _adapter = new ThreadListAdapter(this
             .getActivity()
             .getApplicationContext(), _posts);

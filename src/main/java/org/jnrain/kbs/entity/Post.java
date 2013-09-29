@@ -15,13 +15,16 @@
  */
 package org.jnrain.kbs.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Post {
+public class Post implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private long _id;
     private String _title;
     private String _author;
