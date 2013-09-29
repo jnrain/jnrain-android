@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 JNRain
+ * Copyright 2012-2013 JNRain
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may
  * not use this file except in compliance with the License. You may obtain a
@@ -18,17 +18,22 @@ package org.jnrain.mobile.ui.kbs;
 import org.jnrain.kbs.collection.ListPosts;
 import org.jnrain.kbs.entity.Post;
 import org.jnrain.mobile.R;
-import org.jnrain.mobile.network.requests.ThreadListRequest;
+import org.jnrain.mobile.network.requests.ThreadRequest;
 import org.jnrain.mobile.util.CacheKeyManager;
 import org.jnrain.mobile.util.GlobalState;
 
 import roboguice.inject.InjectView;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 
 import com.github.rtyley.android.sherlock.roboguice.fragment.RoboSherlockFragment;
@@ -37,55 +42,55 @@ import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
 
 
-public class ThreadListPageFragment extends RoboSherlockFragment {
-    private static final String TAG = "ThreadListFragment";
-
+public class ReadThreadPageFragment extends RoboSherlockFragment {
     @InjectView(R.id.listPosts)
     ListView listPosts;
 
-    private static final String BOARD_ID_STORE = "_brdId";
-    private static final String POSTS_STORE = "_posts";
-
-    private ThreadListFragmentListener _threadListListener;
     private String _brd_id;
-    private ListPosts _posts;
+    private long _tid;
     private int _page;
+    private ListPosts _posts;
 
-    private ThreadListAdapter _adapter;
+    protected ReadThreadFragmentListener _listener;
 
-    public ThreadListPageFragment(String brd_id, int page) {
-        super();
+    private static final String TAG = "ReadThreadFragment";
 
+    public ReadThreadPageFragment(String brd_id, long tid, int page) {
         _brd_id = brd_id;
+        _tid = tid;
         _page = page;
-
         _posts = null;
-    }
-
-    public ThreadListPageFragment() {
-        super();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        _threadListListener = (ThreadListFragmentListener) getParentFragment();
+
+        _listener = (ReadThreadFragmentListener) getParentFragment();
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public View onCreateView(
             LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {
         View view = inflater.inflate(
-                R.layout.thread_list_fragment,
+                R.layout.read_thread_fragment,
                 container,
                 false);
 
-        if (savedInstanceState != null) {
-            _brd_id = savedInstanceState.getString(BOARD_ID_STORE);
-            _posts = (ListPosts) savedInstanceState
-                .getSerializable(POSTS_STORE);
+        // fetch posts
+        if (_posts == null) {
+            _listener.makeSpiceRequest(
+                    new ThreadRequest(_brd_id, _tid, _page),
+                    CacheKeyManager.keyForPagedPostList(
+                            _brd_id,
+                            _tid,
+                            _page,
+                            GlobalState.getUserName()),
+                    DurationInMillis.ONE_MINUTE,
+                    new ThreadRequestListener());
         }
 
         return view;
@@ -97,40 +102,43 @@ public class ThreadListPageFragment extends RoboSherlockFragment {
 
         if (_posts != null) {
             updateData();
-        } else {
-            // fetch a page of thread list
-            makeRequest(_page);
         }
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-
-        outState.putString(BOARD_ID_STORE, _brd_id);
-        outState.putSerializable(POSTS_STORE, _posts);
+    public void onCreateContextMenu(
+            ContextMenu menu,
+            View v,
+            ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = this.getActivity().getMenuInflater();
+        inflater.inflate(R.menu.read_thread_context, menu);
     }
 
-    public void makeRequest(int page) {
-        _threadListListener.makeSpiceRequest(
-                new ThreadListRequest(_brd_id, page),
-                CacheKeyManager.keyForPagedThreadList(
-                        _brd_id,
-                        page,
-                        GlobalState.getUserName()),
-                DurationInMillis.ONE_MINUTE,
-                new ThreadListRequestListener());
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
+            .getMenuInfo();
+        switch (item.getItemId()) {
+            case R.id.action_reply:
+                Post post = ((ThreadAdapter) listPosts.getAdapter())
+                    .getItem(info.position);
+
+                _listener.showReplyUIFor(post);
+
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
     }
 
     public synchronized void updateData() {
-        if (getActivity() == null) {
-            return;
-        }
-
-        _adapter = new ThreadListAdapter(this
-            .getActivity()
-            .getApplicationContext(), _posts);
-        listPosts.setAdapter(_adapter);
+        @SuppressWarnings("unchecked")
+        ThreadAdapter adapter = new ThreadAdapter(
+                this.getActivity(),
+                _posts,
+                _listener);
+        listPosts.setAdapter(adapter);
 
         listPosts
             .setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -144,13 +152,14 @@ public class ThreadListPageFragment extends RoboSherlockFragment {
 
                     Log.i(TAG, "clicked: " + position + ", id=" + id
                             + ", post=" + post.toString());
-
-                    _threadListListener.showReadThreadUI(post);
                 }
             });
+
+        // context menu
+        registerForContextMenu(listPosts);
     }
 
-    private class ThreadListRequestListener
+    private class ThreadRequestListener
             implements RequestListener<ListPosts> {
         @Override
         public void onRequestFailure(SpiceException arg0) {

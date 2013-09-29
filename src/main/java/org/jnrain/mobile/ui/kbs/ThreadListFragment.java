@@ -23,6 +23,7 @@ import org.jnrain.mobile.ui.base.JNRainFragment;
 import roboguice.inject.InjectView;
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -228,18 +229,13 @@ public class ThreadListFragment extends JNRainFragment<ListPosts>
     }
 
     @Override
-    public void sendReadThreadIntent(Post post) {
-        /*
-         * Intent intent = new Intent( ThreadListFragment.this,
-         * ReadThreadActivity.class);
-         * intent.putExtra(BoardListFragment.BRD_ID, post.getBoard());
-         * intent.putExtra(THREAD_ID, post.getID());
-         * intent.putExtra(THREAD_TITLE, post.getTitle());
-         * intent.putExtra(BoardListFragment.NUM_POSTS, post.getReplies() +
-         * 1);
-         * 
-         * startActivity(intent);
-         */
+    public void showReadThreadUI(Post post) {
+        Fragment frag = new ReadThreadFragment(
+                post.getBoard(),
+                post.getID(),
+                post.getTitle(),
+                post.getReplies() + 1);
+        this.switchMainContentTo(frag, true);
     }
 
     @Override

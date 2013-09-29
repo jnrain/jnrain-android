@@ -20,6 +20,6 @@ import org.jnrain.mobile.util.SpiceRequestListener;
 
 
 @SuppressWarnings("rawtypes")
-public interface ReadThreadActivityListener extends SpiceRequestListener {
-    public void showReplyActivityFor(Post post);
+public interface ReadThreadFragmentListener extends SpiceRequestListener {
+    public void showReplyUIFor(Post post);
 }

@@ -40,14 +40,6 @@
         </service>
 
         <activity
-            android:name="org.jnrain.mobile.ui.kbs.ReadThreadActivity"
-            android:label="@string/title_activity_read_thread"
-            android:theme="@style/Theme.JNRain.DefaultLight" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.jnrain.mobile.ThreadListActivity" />
-        </activity>
-        <activity
             android:name="org.jnrain.mobile.ui.kbs.NewPostActivity"
             android:label="@string/title_activity_new_post"
             android:theme="@style/Theme.JNRain.DefaultLight" >

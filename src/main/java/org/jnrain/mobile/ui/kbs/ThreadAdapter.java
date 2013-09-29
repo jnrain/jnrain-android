@@ -139,8 +139,8 @@ public class ThreadAdapter extends BaseAdapter {
         btnReply.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                ReadThreadActivityListener listener = (ReadThreadActivityListener) _activity;
-                listener.showReplyActivityFor(post);
+                ReadThreadFragmentListener listener = (ReadThreadFragmentListener) _activity;
+                listener.showReplyUIFor(post);
             }
         });
 

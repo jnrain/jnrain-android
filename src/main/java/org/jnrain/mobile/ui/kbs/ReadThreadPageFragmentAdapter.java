@@ -9,11 +9,11 @@ import android.content.Context;
 import android.support.v4.app.FragmentManager;
 
 
-class ReadThreadFragmentAdapter
-        extends DynPageFragmentAdapter<ReadThreadFragment> {
+class ReadThreadPageFragmentAdapter
+        extends DynPageFragmentAdapter<ReadThreadPageFragment> {
     protected Context _ctx;
 
-    public ReadThreadFragmentAdapter(FragmentManager fm, Context ctx) {
+    public ReadThreadPageFragmentAdapter(FragmentManager fm, Context ctx) {
         super(fm);
         this._ctx = ctx;
     }
@@ -26,7 +26,7 @@ class ReadThreadFragmentAdapter
     }
 
     public void addItem(String brd_id, long tid, int page) {
-        ReadThreadFragment frag = new ReadThreadFragment(brd_id, tid, page);
+        ReadThreadPageFragment frag = new ReadThreadPageFragment(brd_id, tid, page);
 
         // retain state in case of configuration change (e.g. rotation)
         frag.setRetainInstance(true);

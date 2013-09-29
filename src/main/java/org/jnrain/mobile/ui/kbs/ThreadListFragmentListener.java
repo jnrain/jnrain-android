@@ -22,5 +22,5 @@ import org.jnrain.mobile.util.SpiceRequestListener;
 
 public interface ThreadListFragmentListener
         extends SpiceRequestListener<ListPosts> {
-    public void sendReadThreadIntent(Post post);
+    public void showReadThreadUI(Post post);
 }

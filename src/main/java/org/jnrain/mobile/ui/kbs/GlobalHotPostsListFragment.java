@@ -25,6 +25,7 @@ import org.jnrain.mobile.util.CacheKeyManager;
 import roboguice.inject.InjectResource;
 import roboguice.inject.InjectView;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -99,23 +100,14 @@ public class GlobalHotPostsListFragment extends JNRainFragment<ListHotPosts> {
                     Log.i(TAG, "clicked: " + position + ", post.title="
                             + post.getTitle());
 
-                    // Intent intent = new Intent(
-                    // GlobalHotPostsListFragment.this,
-                    // ReadThreadActivity.class);
-                    // intent.putExtra(
-                    // BoardListActivity.BRD_ID,
-                    // post.getBoard());
-                    // intent.putExtra(
-                    // ThreadListActivity.THREAD_ID,
-                    // post.getID());
-                    // intent.putExtra(
-                    // ThreadListActivity.THREAD_TITLE,
-                    // post.getTitle());
-                    // intent.putExtra(
-                    // BoardListActivity.NUM_POSTS,
-                    // post.getReplies());
-
-                    // startActivity(intent);
+                    Fragment frag = new ReadThreadFragment(
+                            post.getBoard(),
+                            post.getID(),
+                            post.getTitle(),
+                            post.getReplies());
+                    GlobalHotPostsListFragment.this.switchMainContentTo(
+                            frag,
+                            true);
                 }
             });
 
