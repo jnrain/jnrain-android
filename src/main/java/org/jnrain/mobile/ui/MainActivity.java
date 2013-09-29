@@ -111,17 +111,19 @@ public class MainActivity extends ExitPointActivity
         super.onResume();
 
         // TODO: refactor this!
-        Account account = getAccount();
-        GlobalState.setAccount(account);
+        if (GlobalState.getAccount() == null) {
+            Account account = getAccount();
+            GlobalState.setAccount(account);
 
-        Log.d(TAG, "Account info: " + account.toString());
+            Log.d(TAG, "Account info: " + account.toString());
 
-        String psw = AccountManager.get(this).getPassword(account);
+            String psw = AccountManager.get(this).getPassword(account);
 
-        _loginHandler.sendMessage(new Message());
-        makeSpiceRequest(
-                new KBSLoginRequest(account.name, psw),
-                new KBSLoginRequestListener(this, account.name, psw));
+            _loginHandler.sendMessage(new Message());
+            makeSpiceRequest(
+                    new KBSLoginRequest(account.name, psw),
+                    new KBSLoginRequestListener(this, account.name, psw));
+        }
     }
 
     @Override

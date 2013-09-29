@@ -62,6 +62,7 @@ public class KBSLogoutRequestListener
         switch (status) {
             case 0:
                 String uid = GlobalState.getUserName();
+                GlobalState.setAccount(null);
 
                 // successful
                 ToastHelper.makeTextToast(
