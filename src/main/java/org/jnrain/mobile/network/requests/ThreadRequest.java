@@ -15,7 +15,7 @@
  */
 package org.jnrain.mobile.network.requests;
 
-import org.jnrain.luohua.collection.ListPosts;
+import org.jnrain.kbs.collection.ListPosts;
 
 import com.octo.android.robospice.request.springandroid.SpringAndroidSpiceRequest;
 

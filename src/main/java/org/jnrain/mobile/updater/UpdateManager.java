@@ -170,16 +170,17 @@ public class UpdateManager {
     public static void issueAutoCheckRequest(SpiceRequestListener listener) {
         listener.makeSpiceRequest(
                 new CheckUpdateRequest(),
-                new NotifyingCheckUpdateRequestListener((Context) listener));
+                new NotifyingCheckUpdateRequestListener(listener
+                    .getThisActivity()));
     }
 
-    @SuppressWarnings("rawtypes")
-    public static void doAutoCheckUpdate(Context ctx) {
+    public static void doAutoCheckUpdate(SpiceRequestListener<?> listener) {
         boolean updateReqIssued = false;
+        Context ctx = listener.getThisActivity();
 
         if (GlobalState.getUpdateInfo() == null) {
             // init the update info cache
-            UpdateManager.issueAutoCheckRequest((SpiceRequestListener) ctx);
+            UpdateManager.issueAutoCheckRequest(listener);
             updateReqIssued = true;
         }
 
@@ -187,8 +188,7 @@ public class UpdateManager {
             // should perform auto check of updates
             // but don't repeat the request twice
             if (!updateReqIssued) {
-                UpdateManager
-                    .issueAutoCheckRequest((SpiceRequestListener) ctx);
+                UpdateManager.issueAutoCheckRequest(listener);
             }
         }
     }

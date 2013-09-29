@@ -17,6 +17,8 @@ package org.jnrain.mobile.util;
 
 import org.jnrain.mobile.service.JNRainSpiceService;
 
+import android.app.Activity;
+
 import com.github.rtyley.android.sherlock.roboguice.activity.RoboSherlockAccountAuthenticatorActivity;
 import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.request.SpiceRequest;
@@ -63,5 +65,10 @@ public class SpicedRoboAccountAuthenticatorActivity<T>
                 requestCacheKey,
                 cacheDuration,
                 requestListener);
+    }
+
+    @Override
+    public Activity getThisActivity() {
+        return this;
     }
 }

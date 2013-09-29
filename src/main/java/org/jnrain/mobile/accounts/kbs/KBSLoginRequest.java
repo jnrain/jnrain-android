@@ -15,7 +15,7 @@
  */
 package org.jnrain.mobile.accounts.kbs;
 
-import org.jnrain.luohua.entity.SimpleReturnCode;
+import org.jnrain.kbs.entity.SimpleReturnCode;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;

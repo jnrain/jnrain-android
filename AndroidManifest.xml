@@ -18,18 +18,19 @@
         android:label="@string/app_name"
         android:theme="@style/Theme.JNRain.DefaultLight.NoActionBar" >
         <activity
-            android:name="org.jnrain.mobile.accounts.kbs.KBSLoginActivity"
+            android:name="org.jnrain.mobile.ui.MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/Theme.JNRain.LoginScreen" >
-        </activity>
-        <activity
-            android:name="org.jnrain.mobile.SectionListActivity"
-            android:label="@string/title_activity_section_list" >
+            android:theme="@style/Theme.JNRain.DefaultLight" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name="org.jnrain.mobile.accounts.kbs.KBSLoginActivity"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.JNRain.LoginScreen" >
         </activity>
 
         <service
@@ -39,41 +40,12 @@
         </service>
 
         <activity
-            android:name="org.jnrain.mobile.BoardListActivity"
-            android:label="@string/title_activity_board_list" >
-        </activity>
-        <activity
-            android:name="org.jnrain.mobile.GlobalHotPostsListActivity"
-            android:label="@string/title_activity_global_hot_posts_list" >
-        </activity>
-        <activity
-            android:name="org.jnrain.mobile.ThreadListActivity"
-            android:label="@string/title_activity_board"
-            android:theme="@style/Theme.JNRain.DefaultLight" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.jnrain.mobile.BoardListActivity" />
-        </activity>
-        <activity
-            android:name="org.jnrain.mobile.ReadThreadActivity"
-            android:label="@string/title_activity_read_thread"
-            android:theme="@style/Theme.JNRain.DefaultLight" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.jnrain.mobile.ThreadListActivity" />
-        </activity>
-        <activity
-            android:name="org.jnrain.mobile.NewPostActivity"
-            android:label="@string/title_activity_new_post"
-            android:theme="@style/Theme.JNRain.DefaultLight" >
-        </activity>
-        <activity
-            android:name="org.jnrain.mobile.SettingsActivity"
+            android:name="org.jnrain.mobile.ui.preferences.SettingsActivity"
             android:label="@string/title_activity_preference"
             android:theme="@style/Theme.JNRain.DefaultLight" >
         </activity>
         <activity
-            android:name="org.jnrain.mobile.AboutActivity"
+            android:name="org.jnrain.mobile.ui.AboutActivity"
             android:label="@string/title_activity_about"
             android:theme="@style/Theme.JNRain.DefaultLight" >
         </activity>

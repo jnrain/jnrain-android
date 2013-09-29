@@ -15,25 +15,25 @@
  */
 package org.jnrain.mobile.network.util;
 
-import android.app.Activity;
 import android.app.Service;
+import android.content.Context;
 import android.net.ConnectivityManager;
 
 
 public class ConnectivityState {
-    protected Activity activity;
+    protected Context ctx;
 
-    public ConnectivityState(Activity activity) {
-        this.activity = activity;
+    public ConnectivityState(Context ctx) {
+        this.ctx = ctx;
     }
 
-    public static ConnectivityState getStateFor(Activity activity) {
-        return new ConnectivityState(activity);
+    public static ConnectivityState getStateFor(Context ctx) {
+        return new ConnectivityState(ctx);
     }
 
     protected final ConnectivityManager getManager() {
-        return (ConnectivityManager) activity
-            .getSystemService(Service.CONNECTIVITY_SERVICE);
+        return (ConnectivityManager) (ctx
+            .getSystemService(Service.CONNECTIVITY_SERVICE));
     }
 
     public boolean isNoNetwork() {
