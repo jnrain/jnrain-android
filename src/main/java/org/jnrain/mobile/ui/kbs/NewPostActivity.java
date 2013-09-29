@@ -102,13 +102,14 @@ public class NewPostActivity extends JNRainActivity<SimpleReturnCode> {
         // Show the Up button in the action bar.
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        // dummy code, going to be deleted anyway
         Intent intent = getIntent();
-        _brd_id = intent.getStringExtra(BoardListFragment.BRD_ID);
+        _brd_id = intent.getStringExtra(KBSUIConstants.BOARD_ID_STORE);
         _is_new_thread = intent.getBooleanExtra(IS_NEW_THREAD, false);
         if (!_is_new_thread) {
-            _tid = intent.getLongExtra(ThreadListFragment.THREAD_ID, 0);
+            _tid = intent.getLongExtra(KBSUIConstants.THREAD_ID_STORE, 0);
             _reid = intent.getLongExtra(IN_REPLY_TO, 0);
-            _title = intent.getStringExtra(ThreadListFragment.THREAD_TITLE);
+            _title = intent.getStringExtra(KBSUIConstants.POST_TITLE_STORE);
         }
 
         // set title
