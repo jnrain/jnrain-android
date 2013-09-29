@@ -43,11 +43,17 @@ public class SectionListFragment extends JNRainFragment<ListSections> {
     private static final String TAG = "SectionListFragment";
     private static final String CACHE_KEY = "secs_json";
 
+    private static final String SECTIONS_STORE = "_secs";
+
     public static final String SEC_ORD = "org.jnrain.mobile.SEC_ORD";
 
     private ListSections _secs;
 
     public synchronized void updateData() {
+        if (getActivity() == null) {
+            return;
+        }
+
         SectionListAdapter adapter = new SectionListAdapter(
                 getActivity(),
                 _secs);
@@ -87,13 +93,34 @@ public class SectionListFragment extends JNRainFragment<ListSections> {
                 container,
                 false);
 
-        _listener.makeSpiceRequest(
-                new SectionListRequest(),
-                CACHE_KEY,
-                DurationInMillis.ONE_WEEK,
-                new SectionListRequestListener());
+        if (savedInstanceState != null) {
+            _secs = (ListSections) savedInstanceState
+                .getSerializable(SECTIONS_STORE);
+        }
 
         return view;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        if (_secs != null) {
+            updateData();
+        } else {
+            _listener.makeSpiceRequest(
+                    new SectionListRequest(),
+                    CACHE_KEY,
+                    DurationInMillis.ONE_WEEK,
+                    new SectionListRequestListener());
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putSerializable(SECTIONS_STORE, _secs);
     }
 
     private class SectionListRequestListener

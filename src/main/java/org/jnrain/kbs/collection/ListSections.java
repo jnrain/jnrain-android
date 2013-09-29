@@ -15,6 +15,7 @@
  */
 package org.jnrain.kbs.collection;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
@@ -22,7 +23,9 @@ import org.jnrain.kbs.entity.Section;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ListSections {
+public class ListSections implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private List<Section> _sections;
 
     public List<Section> getSections() {
