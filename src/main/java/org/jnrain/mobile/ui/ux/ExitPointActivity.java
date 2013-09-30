@@ -122,7 +122,7 @@ public class ExitPointActivity<T> extends JNRainSlidingFragmentActivity<T>
         // super.onBackPressed() is called via shim in listener
         spiceManager.execute(
                 new KBSLogoutRequest(),
-                new KBSLogoutRequestListener(this));
+                new KBSLogoutRequestListener(this, false));
     }
 
     @Override
@@ -133,7 +133,8 @@ public class ExitPointActivity<T> extends JNRainSlidingFragmentActivity<T>
 
     @Override
     public void onAccountLoggedOut() {
-        // Delayed "press" of Back button d-:
-        super.onBackPressed();
+        // Equivalent to a delayed "press" of Back button d-:
+        // super.onBackPressed();
+        finish();
     }
 }

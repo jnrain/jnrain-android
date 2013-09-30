@@ -37,4 +37,10 @@
         android:layout_height="wrap_content"
         android:text="@string/title_activity_preference" />
 
+    <Button
+        android:id="@+id/btnRemoveAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/nav_remove_account" />
+
 </LinearLayout>

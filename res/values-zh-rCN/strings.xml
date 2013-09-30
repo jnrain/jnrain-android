@@ -165,4 +165,7 @@
     <!-- Accounts -->
     <string name="account_type_kbs">江南听雨 (旧站)</string>
 
+    <!-- Nav -->
+    <string name="nav_remove_account">切换登陆身份</string>
+
 </resources>

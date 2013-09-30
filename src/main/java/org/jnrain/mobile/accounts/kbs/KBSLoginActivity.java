@@ -22,6 +22,7 @@ import org.jnrain.mobile.ui.base.JNRainAccountAuthenticatorActivity;
 import org.jnrain.mobile.ui.base.LoginPoint;
 import org.jnrain.mobile.ui.ux.DialogHelper;
 import org.jnrain.mobile.ui.ux.ToastHelper;
+import org.jnrain.mobile.util.GlobalState;
 
 import roboguice.inject.InjectView;
 import android.accounts.Account;
@@ -123,7 +124,7 @@ public class KBSLoginActivity
         mHandler.sendMessage(new Message());
         spiceManager.execute(
                 new KBSLoginRequest(uid, psw),
-                new KBSLoginRequestListener(loginActivity, uid, psw));
+                new KBSLoginRequestListener(loginActivity, null, uid, psw));
     }
 
     public ProgressDialog getLoadingDialog() {
@@ -165,9 +166,12 @@ public class KBSLoginActivity
         finish();
     }
 
-    public void onAuthenticationSuccess(String uid, String psw) {
-        // record user name in global state
+    public void onAuthenticationSuccess(
+            Account account,
+            String uid,
+            String psw) {
         assert uid.length() > 0;
+        assert account == null;
 
         // successful
         ToastHelper.makeTextToast(this, R.string.msg_login_success);
@@ -177,13 +181,15 @@ public class KBSLoginActivity
             return;
         }
 
-        Account account = new Account(uid, AccountConstants.ACCOUNT_TYPE_KBS);
+        Account acct = new Account(uid, AccountConstants.ACCOUNT_TYPE_KBS);
         if (requestNewAccount) {
-            accountManager.addAccountExplicitly(account, psw, null);
+            accountManager.addAccountExplicitly(acct, psw, null);
         } else {
-            accountManager.setPassword(account, psw);
+            accountManager.setPassword(acct, psw);
         }
 
+        // avoid repeated login on subsequent main activity launch
+        GlobalState.setAccount(acct);
         finishLogin(uid, psw);
     }
 }

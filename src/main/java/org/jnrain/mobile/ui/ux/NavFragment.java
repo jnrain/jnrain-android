@@ -16,6 +16,8 @@
 package org.jnrain.mobile.ui.ux;
 
 import org.jnrain.mobile.R;
+import org.jnrain.mobile.accounts.kbs.KBSLogoutRequest;
+import org.jnrain.mobile.accounts.kbs.KBSLogoutRequestListener;
 import org.jnrain.mobile.ui.base.JNRainFragment;
 import org.jnrain.mobile.ui.kbs.GlobalHotPostsListFragment;
 import org.jnrain.mobile.ui.kbs.SectionListFragment;
@@ -38,6 +40,8 @@ public class NavFragment extends JNRainFragment {
     Button btnSections;
     @InjectView(R.id.btnPrefs)
     Button btnPrefs;
+    @InjectView(R.id.btnRemoveAccount)
+    Button btnRemoveAccount;
 
     @Override
     public View onCreateView(
@@ -78,6 +82,16 @@ public class NavFragment extends JNRainFragment {
             @Override
             public void onClick(View v) {
                 SettingsActivity.show(getActivity().getApplicationContext());
+            }
+        });
+
+        btnRemoveAccount.setOnClickListener(new OnClickListener() {
+            @SuppressWarnings("unchecked")
+            @Override
+            public void onClick(View v) {
+                _listener.makeSpiceRequest(
+                        new KBSLogoutRequest(),
+                        new KBSLogoutRequestListener(getActivity(), true));
             }
         });
     }

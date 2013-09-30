@@ -21,6 +21,7 @@ import org.jnrain.mobile.network.listeners.ContextRequestListener;
 import org.jnrain.mobile.ui.base.LoginPoint;
 import org.jnrain.mobile.ui.ux.ToastHelper;
 
+import android.accounts.Account;
 import android.app.Activity;
 import android.util.Log;
 
@@ -31,12 +32,18 @@ public class KBSLoginRequestListener
         extends ContextRequestListener<SimpleReturnCode> {
     private static final String TAG = "LoginRequestListener";
     private LoginPoint _ui;
+    private Account _account;
     private String _uid;
     private String _psw;
 
-    public KBSLoginRequestListener(Activity activity, String uid, String psw) {
+    public KBSLoginRequestListener(
+            Activity activity,
+            Account account,
+            String uid,
+            String psw) {
         super(activity);
         _ui = (LoginPoint) activity;
+        _account = account;
         _uid = uid;
         _psw = psw;
     }
@@ -56,7 +63,7 @@ public class KBSLoginRequestListener
         switch (status) {
             case 0:
                 // callback into activity for code simplicity
-                _ui.onAuthenticationSuccess(_uid, _psw);
+                _ui.onAuthenticationSuccess(_account, _uid, _psw);
                 break;
             case 1:
                 ToastHelper.makeTextToast(ctx, R.string.msg_login_fail);

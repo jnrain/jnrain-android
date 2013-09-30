@@ -15,6 +15,8 @@
  */
 package org.jnrain.mobile.accounts.kbs;
 
+import java.io.IOException;
+
 import org.jnrain.kbs.entity.SimpleReturnCode;
 import org.jnrain.mobile.R;
 import org.jnrain.mobile.network.listeners.ContextRequestListener;
@@ -22,6 +24,11 @@ import org.jnrain.mobile.ui.ux.ToastHelper;
 import org.jnrain.mobile.util.AccountStateListener;
 import org.jnrain.mobile.util.GlobalState;
 
+import android.accounts.AccountManager;
+import android.accounts.AccountManagerCallback;
+import android.accounts.AccountManagerFuture;
+import android.accounts.AuthenticatorException;
+import android.accounts.OperationCanceledException;
 import android.app.Activity;
 import android.util.Log;
 
@@ -33,8 +40,9 @@ public class KBSLogoutRequestListener
     private static final String TAG = "LogoutRequestListener";
 
     private AccountStateListener _accountListener;
+    private boolean _removeAccount;
 
-    public KBSLogoutRequestListener(Activity activity) {
+    public KBSLogoutRequestListener(Activity activity, boolean removeAccount) {
         super(activity);
 
         try {
@@ -43,6 +51,8 @@ public class KBSLogoutRequestListener
             throw new ClassCastException(activity.toString()
                     + " must implement AccountStateListener");
         }
+
+        _removeAccount = removeAccount;
     }
 
     @Override
@@ -62,6 +72,41 @@ public class KBSLogoutRequestListener
         switch (status) {
             case 0:
                 String uid = GlobalState.getUserName();
+
+                // remove account if requested
+                if (_removeAccount) {
+                    AccountManager am = AccountManager.get(ctx);
+                    am.removeAccount(
+                            GlobalState.getAccount(),
+                            new AccountManagerCallback<Boolean>() {
+                                @Override
+                                public void run(
+                                        AccountManagerFuture<Boolean> response) {
+                                    try {
+                                        boolean result = response
+                                            .getResult();
+
+                                        Log
+                                            .d(
+                                                    TAG,
+                                                    "AccountManager.removeAccount: "
+                                                            + Boolean
+                                                                .toString(result));
+                                    } catch (OperationCanceledException e) {
+                                        // TODO Auto-generated catch block
+                                        e.printStackTrace();
+                                    } catch (AuthenticatorException e) {
+                                        // TODO Auto-generated catch block
+                                        e.printStackTrace();
+                                    } catch (IOException e) {
+                                        // TODO Auto-generated catch block
+                                        e.printStackTrace();
+                                    }
+                                }
+                            },
+                            null);
+                }
+
                 GlobalState.setAccount(null);
 
                 // successful

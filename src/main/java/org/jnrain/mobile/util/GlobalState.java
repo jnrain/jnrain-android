@@ -59,6 +59,10 @@ public class GlobalState {
     }
 
     public static synchronized String getUserName() {
+        if (_account == null) {
+            return "";
+        }
+
         return _account.name;
     }
 

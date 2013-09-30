@@ -176,4 +176,7 @@
     <!-- Accounts -->
     <string name="account_type_kbs">JNRain (old site)</string>
 
+    <!-- Nav -->
+    <string name="nav_remove_account">Change identity</string>
+
 </resources>

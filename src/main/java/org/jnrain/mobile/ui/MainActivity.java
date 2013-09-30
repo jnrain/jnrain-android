@@ -16,7 +16,6 @@
 package org.jnrain.mobile.ui;
 
 import java.io.IOException;
-import java.util.concurrent.ExecutionException;
 
 import org.jnrain.mobile.R;
 import org.jnrain.mobile.accounts.AccountConstants;
@@ -32,6 +31,7 @@ import org.jnrain.mobile.util.GlobalState;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.accounts.AccountManagerCallback;
 import android.accounts.AccountManagerFuture;
 import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
@@ -50,7 +50,8 @@ import com.jeremyfeinstein.slidingmenu.lib.app.SlidingActivityHelper.SlidingActi
 
 @SuppressWarnings("rawtypes")
 public class MainActivity extends ExitPointActivity
-        implements ContentFragmentHost, LoginPoint {
+        implements ContentFragmentHost, LoginPoint,
+        AccountManagerCallback<Account[]> {
     private static final String TAG = "MainActivity";
     private static final String CONTENT_FRAGMENT_STORE = "_content";
     private static final String BACK_ACTION_STORE = "_backAction";
@@ -107,26 +108,6 @@ public class MainActivity extends ExitPointActivity
 
     @SuppressWarnings("unchecked")
     @Override
-    protected void onResume() {
-        super.onResume();
-
-        // TODO: refactor this!
-        if (GlobalState.getAccount() == null) {
-            Account account = getAccount();
-            GlobalState.setAccount(account);
-
-            Log.d(TAG, "Account info: " + account.toString());
-
-            String psw = AccountManager.get(this).getPassword(account);
-
-            _loginHandler.sendMessage(new Message());
-            makeSpiceRequest(
-                    new KBSLoginRequest(account.name, psw),
-                    new KBSLoginRequestListener(this, account.name, psw));
-        }
-    }
-
-    @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
 
@@ -137,10 +118,12 @@ public class MainActivity extends ExitPointActivity
         //
         // we needn't do restore here, as the library already takes
         // care of this.
-
         if (savedInstanceState == null) {
             setBackAction(SlidingActivityBackAction.BACK_TO_MENU);
         }
+
+        // TODO: refactor this!
+        initAccount();
     }
 
     @Override
@@ -221,63 +204,25 @@ public class MainActivity extends ExitPointActivity
         super.onBackPressed();
     }
 
-    public Account getAccount() {
+    public void initAccount() {
         // TODO: move this code out to accounts package
-        try {
-            return new AsyncTask<Void, Void, Account>() {
+        if (GlobalState.getAccount() == null) {
+            new AsyncTask<Void, Void, Void>() {
                 @Override
-                protected Account doInBackground(Void... params) {
+                protected Void doInBackground(Void... arg0) {
                     AccountManager am = AccountManager
                         .get(getThisActivity());
-                    AccountManagerFuture<Account[]> future = am
-                        .getAccountsByTypeAndFeatures(
-                                AccountConstants.ACCOUNT_TYPE_KBS,
-                                null,
-                                null,
-                                null);
-                    Account[] accounts;
 
-                    while (true) {
-                        try {
-                            accounts = future.getResult();
+                    am.getAccountsByTypeAndFeatures(
+                            AccountConstants.ACCOUNT_TYPE_KBS,
+                            null,
+                            MainActivity.this,
+                            null);
 
-                            if (accounts != null && accounts.length > 0) {
-                                return accounts[0];
-                            }
-
-                            // no account
-                            @SuppressWarnings("unused")
-                            Bundle result = am.addAccount(
-                                    AccountConstants.ACCOUNT_TYPE_KBS,
-                                    null,
-                                    null,
-                                    null,
-                                    getThisActivity(),
-                                    null,
-                                    null).getResult();
-
-                        } catch (OperationCanceledException e) {
-                            e.printStackTrace();
-                            finish();
-                        } catch (AuthenticatorException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        } catch (IOException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        }
-                    }
+                    return null;
                 }
-            }.execute((Void) null).get();
-        } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            }.execute((Void) null);
         }
-
-        return null;
     }
 
     @Override
@@ -286,7 +231,101 @@ public class MainActivity extends ExitPointActivity
     }
 
     @Override
-    public void onAuthenticationSuccess(String uid, String psw) {
-        // empty
+    public void onAuthenticationSuccess(
+            Account account,
+            String uid,
+            String psw) {
+        // set global account on successful login
+        GlobalState.setAccount(account);
+    }
+
+    @SuppressWarnings("unchecked")
+    public void onAccountAcquired(Account account) {
+        Log.d(TAG, "Account info: " + account.toString());
+
+        String psw = AccountManager.get(this).getPassword(account);
+
+        _loginHandler.sendMessage(new Message());
+        makeSpiceRequest(
+                new KBSLoginRequest(account.name, psw),
+                new KBSLoginRequestListener(this, account, account.name, psw));
+    }
+
+    @Override
+    public void run(AccountManagerFuture<Account[]> response) {
+        Account[] accounts;
+
+        try {
+            accounts = response.getResult();
+
+            if (accounts.length > 0) {
+                onAccountAcquired(accounts[0]);
+                return;
+            }
+
+            // no account
+            new AsyncTask<Void, Void, Void>() {
+                @Override
+                protected Void doInBackground(Void... arg0) {
+                    AccountManager am = AccountManager
+                        .get(getThisActivity());
+
+                    try {
+                        am.addAccount(
+                                AccountConstants.ACCOUNT_TYPE_KBS,
+                                null,
+                                null,
+                                null,
+                                getThisActivity(),
+                                new AccountManagerCallback<Bundle>() {
+                                    @Override
+                                    public void run(
+                                            AccountManagerFuture<Bundle> response) {
+                                        try {
+                                            response.getResult();
+                                        } catch (OperationCanceledException e) {
+                                            // TODO Auto-generated catch
+                                            // block
+                                            e.printStackTrace();
+                                        } catch (AuthenticatorException e) {
+                                            // TODO Auto-generated catch
+                                            // block
+                                            e.printStackTrace();
+                                        } catch (IOException e) {
+                                            // TODO Auto-generated catch
+                                            // block
+                                            e.printStackTrace();
+                                        }
+
+                                        MainActivity.this.initAccount();
+                                    }
+                                },
+                                null)
+                            .getResult();
+                    } catch (OperationCanceledException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    } catch (AuthenticatorException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+
+                    return null;
+                }
+            }.execute((Void) null);
+        } catch (OperationCanceledException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            finish();
+        } catch (AuthenticatorException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 }

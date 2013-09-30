@@ -15,11 +15,15 @@
  */
 package org.jnrain.mobile.ui.base;
 
+import android.accounts.Account;
 import android.app.ProgressDialog;
 
 
 public interface LoginPoint {
     public ProgressDialog getLoadingDialog();
 
-    public void onAuthenticationSuccess(String uid, String psw);
+    public void onAuthenticationSuccess(
+            Account account,
+            String uid,
+            String psw);
 }
