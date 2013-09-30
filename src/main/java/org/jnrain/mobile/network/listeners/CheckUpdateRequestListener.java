@@ -24,7 +24,6 @@ import org.jnrain.mobile.updater.UpdateInfo;
 import org.jnrain.mobile.updater.UpdateInfoFile;
 import org.jnrain.mobile.util.GlobalState;
 
-import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 
@@ -32,13 +31,11 @@ import com.octo.android.robospice.persistence.exception.SpiceException;
 
 
 public abstract class CheckUpdateRequestListener
-        extends ActivityRequestListener<UpdateInfo> {
+        extends ContextRequestListener<UpdateInfo> {
     private static final String TAG = "ChkUpdReqListener";
-    protected Activity m_activity;
 
-    public CheckUpdateRequestListener(Activity activity) {
-        super(activity);
-        m_activity = activity;
+    public CheckUpdateRequestListener(Context ctx) {
+        super(ctx);
     }
 
     @Override
@@ -49,8 +46,6 @@ public abstract class CheckUpdateRequestListener
 
     @Override
     public void onRequestSuccess(UpdateInfo result) {
-        Context ctx = m_activity.getApplicationContext();
-
         // update global update info
         GlobalState.setUpdateInfo(result);
 
@@ -61,7 +56,7 @@ public abstract class CheckUpdateRequestListener
         UpdaterConfigUtil updUtil = ConfigHub.getUpdaterUtil(ctx);
         updUtil.setLastCheckTime();
 
-        UpdateChannel chan = result.getCurrentChannel(m_activity);
+        UpdateChannel chan = result.getCurrentChannel(ctx);
         if (chan.isCurrentVersionLatest()) {
             onVersionLatest();
         } else {

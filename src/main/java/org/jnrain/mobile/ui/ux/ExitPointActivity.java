@@ -16,22 +16,27 @@
 package org.jnrain.mobile.ui.ux;
 
 import org.jnrain.mobile.R;
+import org.jnrain.mobile.accounts.kbs.KBSLogoutRequest;
+import org.jnrain.mobile.accounts.kbs.KBSLogoutRequestListener;
 import org.jnrain.mobile.config.ConfigConstants.ExitBehavior;
 import org.jnrain.mobile.config.ConfigHub;
 import org.jnrain.mobile.config.UIConfigUtil;
-import org.jnrain.mobile.network.listeners.LogoutRequestListener;
-import org.jnrain.mobile.network.requests.LogoutRequest;
+import org.jnrain.mobile.ui.base.JNRainSlidingFragmentActivity;
 import org.jnrain.mobile.util.AccountStateListener;
-import org.jnrain.mobile.util.JNRainActivity;
 
 import roboguice.inject.InjectResource;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.os.Bundle;
 import android.os.SystemClock;
 
+import com.jeremyfeinstein.slidingmenu.lib.app.SlidingActivityHelper.SlidingActivityBackAction;
 
-public class ExitPointActivity<T> extends JNRainActivity<T>
+
+public class ExitPointActivity<T> extends JNRainSlidingFragmentActivity<T>
         implements AccountStateListener {
+    // private static final String TAG = "ExitPoint";
+
     @InjectResource(R.string.dlg_exit_confirm_title)
     String _exitDlgTitle;
     @InjectResource(R.string.dlg_exit_confirm_msg)
@@ -42,6 +47,14 @@ public class ExitPointActivity<T> extends JNRainActivity<T>
     String _exitDlgNo;
 
     protected long lastBackPressed = 0;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        // Renren-like back to menu first behavior
+        setBackAction(SlidingActivityBackAction.BACK_TO_MENU);
+    }
 
     @Override
     public void onBackPressed() {
@@ -107,8 +120,9 @@ public class ExitPointActivity<T> extends JNRainActivity<T>
     protected void doExit() {
         // this SHOULD be the last activity on the task stack. logout
         // super.onBackPressed() is called via shim in listener
-        spiceManager.execute(new LogoutRequest(), new LogoutRequestListener(
-                this));
+        spiceManager.execute(
+                new KBSLogoutRequest(),
+                new KBSLogoutRequestListener(this, false));
     }
 
     @Override
@@ -119,7 +133,8 @@ public class ExitPointActivity<T> extends JNRainActivity<T>
 
     @Override
     public void onAccountLoggedOut() {
-        // Delayed "press" of Back button d-:
-        super.onBackPressed();
+        // Equivalent to a delayed "press" of Back button d-:
+        // super.onBackPressed();
+        finish();
     }
 }

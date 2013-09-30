@@ -15,8 +15,8 @@
  */
 package org.jnrain.mobile.network.listeners;
 
-import org.jnrain.mobile.AboutActivity;
 import org.jnrain.mobile.R;
+import org.jnrain.mobile.ui.AboutActivity;
 import org.jnrain.mobile.ui.ux.ToastHelper;
 import org.jnrain.mobile.updater.UpdateChannel;
 import org.jnrain.mobile.updater.UpdateInfo;

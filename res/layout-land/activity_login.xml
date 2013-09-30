@@ -27,81 +27,48 @@
     <ImageView
         android:id="@+id/imageLogo"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dip"
         android:layout_gravity="center_vertical|center_horizontal"
         android:layout_weight="1"
         android:contentDescription="@string/splash_image_desc"
         android:src="@drawable/jnrain_splash_logo" />
 
-    <TableLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0"
-        android:gravity="top|center_horizontal" >
+        android:gravity="top|center_horizontal"
+        android:orientation="horizontal" >
 
-        <TableRow
-            android:id="@+id/tableRow1"
+        <EditText
+            android:id="@+id/editUID"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:hint="@string/field_uid"
+            android:imeOptions="actionNext|flagForceAscii"
+            android:maxLength="14"
+            android:nextFocusRight="@+id/editPassword"
+            android:singleLine="true" />
 
-            <EditText
-                android:id="@+id/editUID"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:hint="@string/field_uid"
-                android:imeOptions="actionNext|flagForceAscii"
-                android:maxLength="14"
-                android:nextFocusRight="@+id/editPassword"
-                android:singleLine="true" />
-
-            <EditText
-                android:id="@+id/editPassword"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:hint="@string/field_psw"
-                android:imeOptions="actionDone"
-                android:inputType="textPassword"
-                android:nextFocusRight="@+id/btnLogin"
-                android:singleLine="true"
-                android:typeface="monospace" />
-
-            <Button
-                android:id="@+id/btnLogin"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="0"
-                android:nextFocusRight="@+id/btnGuestLogin"
-                android:text="@string/login" />
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/tableRow2"
+        <EditText
+            android:id="@+id/editPassword"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:hint="@string/field_psw"
+            android:imeOptions="actionDone"
+            android:inputType="textPassword"
+            android:nextFocusRight="@+id/btnLogin"
+            android:singleLine="true"
+            android:typeface="monospace" />
 
-            <CheckBox
-                android:id="@+id/checkBoxIsAutoLogin"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="@string/is_auto_login" />
-
-            <CheckBox
-                android:id="@+id/checkBoxIsRemember"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="@string/is_remember_psw" />
-
-            <Button
-                android:id="@+id/btnGuestLogin"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="0"
-                android:text="@string/guest_login_land" />
-        </TableRow>
-    </TableLayout>
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0"
+            android:nextFocusRight="@+id/btnGuestLogin"
+            android:text="@string/login" />
+    </LinearLayout>
 
 </LinearLayout>

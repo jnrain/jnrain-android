@@ -17,6 +17,10 @@ package org.jnrain.mobile.util;
 
 import org.jnrain.mobile.updater.UpdateInfo;
 
+import android.accounts.Account;
+import android.content.Context;
+import android.webkit.CookieSyncManager;
+
 
 public class GlobalState {
     protected static boolean _cookieInited = false;
@@ -25,7 +29,18 @@ public class GlobalState {
     protected static String _versionName = "VERSION_NOT_INITED";
     protected static UpdateInfo _updInfo = null;
 
-    protected static String _userName = "";
+    protected static Account _account = null;
+
+    public static synchronized void possiblyInitState(Context ctx) {
+        // init global version info
+        AppVersionHelper.ensureVersionInited(ctx);
+
+        // cookie manager
+        if (!GlobalState.getCookieInited()) {
+            CookieSyncManager.createInstance(ctx);
+            GlobalState.setCookieInited(true);
+        }
+    }
 
     public static synchronized boolean getCookieInited() {
         return _cookieInited;
@@ -35,12 +50,20 @@ public class GlobalState {
         _cookieInited = inited;
     }
 
-    public static synchronized String getUserName() {
-        return _userName;
+    public static synchronized Account getAccount() {
+        return _account;
     }
 
-    public static synchronized void setUserName(String userName) {
-        _userName = userName;
+    public static synchronized void setAccount(Account account) {
+        _account = account;
+    }
+
+    public static synchronized String getUserName() {
+        if (_account == null) {
+            return "";
+        }
+
+        return _account.name;
     }
 
     public static synchronized boolean isVersionInited() {
