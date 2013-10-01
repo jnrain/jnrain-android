@@ -54,7 +54,6 @@ public class MainActivity extends ExitPointActivity
         AccountManagerCallback<Account[]> {
     private static final String TAG = "MainActivity";
     private static final String CONTENT_FRAGMENT_STORE = "_content";
-    private static final String BACK_ACTION_STORE = "_backAction";
 
     private Fragment _content;
 
@@ -133,8 +132,6 @@ public class MainActivity extends ExitPointActivity
                 outState,
                 CONTENT_FRAGMENT_STORE,
                 _content);
-
-        outState.putSerializable(BACK_ACTION_STORE, getBackAction());
     }
 
     /**
