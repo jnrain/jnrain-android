@@ -65,7 +65,8 @@ public class JNRainActivityHelper {
         menu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
         menu.setBehindScrollScale(0.3f);
 
-        // prevent overdraw
-        menu.setAddBackground(false);
+        // menu overdrawing manipulation
+        // disabled for removing unwanted background transparency
+        // menu.setAddBackground(false);
     }
 }

@@ -22,5 +22,6 @@
     <!-- pressed = 10% #A9D46D plus jnrain_green_light -->
     <color name="jnrain_green_pressed">#F0F8E5</color>
     <color name="jnrain_green_dark">#669A1F</color>
+    <color name="jnrain_green_darker">#334D0F</color>
 
 </resources>
