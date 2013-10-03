@@ -24,9 +24,9 @@ import org.jnrain.mobile.accounts.kbs.KBSLoginRequestListener;
 import org.jnrain.mobile.ui.base.ContentFragmentHost;
 import org.jnrain.mobile.ui.base.LoginPoint;
 import org.jnrain.mobile.ui.kbs.GlobalHotPostsListFragment;
+import org.jnrain.mobile.ui.nav.NavFragment;
 import org.jnrain.mobile.ui.ux.DialogHelper;
 import org.jnrain.mobile.ui.ux.ExitPointActivity;
-import org.jnrain.mobile.ui.ux.NavFragment;
 import org.jnrain.mobile.util.GlobalState;
 
 import android.accounts.Account;

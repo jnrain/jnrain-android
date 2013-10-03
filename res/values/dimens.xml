@@ -18,5 +18,12 @@
 
     <dimen name="slidingmenu_shadow_width">16dp</dimen>
     <dimen name="slidingmenu_offset">48dp</dimen>
+    <dimen name="nav_uid_text_size">30sp</dimen>
+    <dimen name="nav_menu_item_padding_t">8dp</dimen>
+    <dimen name="nav_menu_item_padding_b">8dp</dimen>
+    <dimen name="nav_menu_item_padding_l">12dp</dimen>
+    <dimen name="nav_menu_item_padding_r">8dp</dimen>
+    <dimen name="nav_menu_text_size">24sp</dimen>
+    <dimen name="nav_menu_icon_padding">4dp</dimen>
 
 </resources>

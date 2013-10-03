@@ -15,6 +15,9 @@
  */
 package org.jnrain.mobile.util;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.jnrain.mobile.updater.UpdateInfo;
 
 import android.accounts.Account;
@@ -30,15 +33,25 @@ public class GlobalState {
     protected static UpdateInfo _updInfo = null;
 
     protected static Account _account = null;
+    protected static List<AccountStateListener> _accountListeners = null;
 
     public static synchronized void possiblyInitState(Context ctx) {
         // init global version info
         AppVersionHelper.ensureVersionInited(ctx);
 
         // cookie manager
-        if (!GlobalState.getCookieInited()) {
+        if (!getCookieInited()) {
             CookieSyncManager.createInstance(ctx);
-            GlobalState.setCookieInited(true);
+            setCookieInited(true);
+        }
+
+        // account state listener
+        ensureAccountListenersList();
+    }
+
+    protected static void ensureAccountListenersList() {
+        if (_accountListeners == null) {
+            _accountListeners = new ArrayList<AccountStateListener>();
         }
     }
 
@@ -56,6 +69,20 @@ public class GlobalState {
 
     public static synchronized void setAccount(Account account) {
         _account = account;
+
+        // notify listeners
+        ensureAccountListenersList();
+        if (_account != null) {
+            // logged in event
+            for (AccountStateListener listener : _accountListeners) {
+                listener.onAccountLoggedIn(_account.name);
+            }
+        } else {
+            // logged out event
+            for (AccountStateListener listener : _accountListeners) {
+                listener.onAccountLoggedOut();
+            }
+        }
     }
 
     public static synchronized String getUserName() {
@@ -64,6 +91,16 @@ public class GlobalState {
         }
 
         return _account.name;
+    }
+
+    public static void registerAccountStateListener(
+            AccountStateListener listener) {
+        ensureAccountListenersList();
+        if (_accountListeners.contains(listener)) {
+            return;
+        }
+
+        _accountListeners.add(listener);
     }
 
     public static synchronized boolean isVersionInited() {

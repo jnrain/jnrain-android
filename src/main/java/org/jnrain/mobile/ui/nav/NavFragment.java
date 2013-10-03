@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package org.jnrain.mobile.ui.ux;
+package org.jnrain.mobile.ui.nav;
 
 import org.jnrain.mobile.R;
 import org.jnrain.mobile.accounts.kbs.KBSLogoutRequest;
@@ -22,26 +22,27 @@ import org.jnrain.mobile.ui.base.JNRainFragment;
 import org.jnrain.mobile.ui.kbs.GlobalHotPostsListFragment;
 import org.jnrain.mobile.ui.kbs.SectionListFragment;
 import org.jnrain.mobile.ui.preferences.SettingsActivity;
+import org.jnrain.mobile.util.AccountStateListener;
+import org.jnrain.mobile.util.GlobalState;
 
 import roboguice.inject.InjectView;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.TextView;
 
 
 @SuppressWarnings("rawtypes")
-public class NavFragment extends JNRainFragment {
-    @InjectView(R.id.btnHotPosts)
-    Button btnHotPosts;
-    @InjectView(R.id.btnSections)
-    Button btnSections;
-    @InjectView(R.id.btnPrefs)
-    Button btnPrefs;
-    @InjectView(R.id.btnRemoveAccount)
-    Button btnRemoveAccount;
+public class NavFragment extends JNRainFragment
+        implements AccountStateListener {
+    @InjectView(R.id.textUserID)
+    TextView textUserID;
+    @InjectView(R.id.listNavMenu)
+    ListView listNavMenu;
 
     @Override
     public View onCreateView(
@@ -58,9 +59,16 @@ public class NavFragment extends JNRainFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        btnHotPosts.setOnClickListener(new OnClickListener() {
+        setUserName(GlobalState.getUserName());
+        GlobalState.registerAccountStateListener(this);
+
+        // nav menu
+        final NavMenuAdapter menuAdapter = new NavMenuAdapter(getActivity());
+        menuAdapter.addItem(new NavItem(
+                R.string.title_activity_global_hot_posts_list,
+                R.drawable.ic_nav_hotpost) {
             @Override
-            public void onClick(View v) {
+            public void onNavItemActivated(Context context) {
                 NavFragment.this.clearBackStack();
                 NavFragment.this.switchMainContentTo(
                         new GlobalHotPostsListFragment(),
@@ -68,9 +76,11 @@ public class NavFragment extends JNRainFragment {
             }
         });
 
-        btnSections.setOnClickListener(new OnClickListener() {
+        menuAdapter.addItem(new NavItem(
+                R.string.title_activity_section_list,
+                R.drawable.ic_nav_sections) {
             @Override
-            public void onClick(View v) {
+            public void onNavItemActivated(Context context) {
                 NavFragment.this.clearBackStack();
                 NavFragment.this.switchMainContentTo(
                         new SectionListFragment(),
@@ -78,21 +88,55 @@ public class NavFragment extends JNRainFragment {
             }
         });
 
-        btnPrefs.setOnClickListener(new OnClickListener() {
+        menuAdapter.addItem(new NavItem(
+                R.string.title_activity_preference,
+                R.drawable.ic_nav_settings) {
             @Override
-            public void onClick(View v) {
+            public void onNavItemActivated(Context context) {
                 SettingsActivity.show(getActivity().getApplicationContext());
             }
         });
 
-        btnRemoveAccount.setOnClickListener(new OnClickListener() {
+        menuAdapter.addItem(new NavItem(
+                R.string.nav_remove_account,
+                R.drawable.ic_nav_logout) {
             @SuppressWarnings("unchecked")
             @Override
-            public void onClick(View v) {
+            public void onNavItemActivated(Context context) {
                 _listener.makeSpiceRequest(
                         new KBSLogoutRequest(),
                         new KBSLogoutRequestListener(getActivity(), true));
             }
         });
+
+        listNavMenu.setAdapter(menuAdapter);
+        listNavMenu
+            .setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(
+                        AdapterView<?> parent,
+                        View view,
+                        int position,
+                        long id) {
+                    NavItem item = menuAdapter.getItem(position);
+                    item.onNavItemActivated(getActivity());
+                }
+            });
+
+    }
+
+    public void setUserName(String uid) {
+        textUserID.setText(uid);
+    }
+
+    @Override
+    public void onAccountLoggedIn(String uid) {
+        setUserName(uid);
+    }
+
+    @Override
+    public void onAccountLoggedOut() {
+        // TODO: something more user-friendly
+        setUserName("");
     }
 }
