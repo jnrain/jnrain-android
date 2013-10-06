@@ -218,6 +218,8 @@ public class MainActivity extends ExitPointActivity
     public void initAccount() {
         // TODO: move this code out to accounts package
         if (GlobalState.getAccount() == null) {
+            // prevent infinite recursion
+            GlobalState.incrementAccountInitLevel();
             new AsyncTask<Void, Void, Void>() {
                 @Override
                 protected Void doInBackground(Void... arg0) {
@@ -275,6 +277,14 @@ public class MainActivity extends ExitPointActivity
             }
 
             // no account
+            // try to create one, but don't recurse infinitely
+            if (GlobalState.getAccountInitLevel() > 2) {
+                // finish self
+                finish();
+                return;
+            }
+
+            // create account
             new AsyncTask<Void, Void, Void>() {
                 @Override
                 protected Void doInBackground(Void... arg0) {

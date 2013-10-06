@@ -34,6 +34,7 @@ public class GlobalState {
 
     protected static Account _account = null;
     protected static List<AccountStateListener> _accountListeners = null;
+    protected static int _accountInitLevel = 0;
 
     public static synchronized void possiblyInitState(Context ctx) {
         // init global version info
@@ -61,6 +62,14 @@ public class GlobalState {
 
     public static void setCookieInited(boolean inited) {
         _cookieInited = inited;
+    }
+
+    public static synchronized int getAccountInitLevel() {
+        return _accountInitLevel;
+    }
+
+    public static synchronized void incrementAccountInitLevel() {
+        _accountInitLevel++;
     }
 
     public static synchronized Account getAccount() {
