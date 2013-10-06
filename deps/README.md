@@ -14,7 +14,7 @@
 **注意** 以下设置步骤需要网络连接。
 
 1.  确保安装了 [Gradle](http://www.gradle.org)，后边编译 ActionBarSherlock 会用到。
-2.  在你的 Android SDK 管理器里下载 Android Support Repository （在 Extras 分类里），并将其中的 support-v4 链接或拷贝到你的 Maven 本地库中。
+1.  在你的 Android SDK 管理器里下载 Android Support Repository （在 Extras 分类里），并将其中的 support-v4 链接或拷贝到你的 Maven 本地库中。
 
     ```bash
     # 假设你的 Android SDK 装在 /path/to/android-sdk, 你的 Maven 本地库就在默认位置 (~/.m2/repository)
@@ -24,7 +24,7 @@
     ln -s /path/to/android-sdk/extras/android/m2repository/com/android/support/support-v4 ~/.m2/repository/com/android/support-v4
     ```
 
-3.  检出版本库到本地之后，请在此目录下检出依赖关系的版本库：
+1.  检出版本库到本地之后，请在此目录下检出依赖关系的版本库：
 
     ```bash
     git clone https://github.com/xen0n/ActionBarSherlock.git
@@ -32,7 +32,7 @@
     git clone https://github.com/xen0n/SlidingMenu.git
     ```
 
-4.  然后根据版本库根目录下的 `pom.xml` 指定的依赖关系版本，切到合适的 tag：
+1.  然后根据版本库根目录下的 `pom.xml` 指定的依赖关系版本，切到合适的 tag：
 
     ```bash
     cd ActionBarSherlock
@@ -42,7 +42,7 @@
     # SlidingMenu 目前使用的就是自己 fork 的 master 分支, 所以不用切换
     ```
 
-5.  如果你的 Android SDK 里没有 Android 4.0 (API level 14) 的话，下载一个装上，ABS 的构建需要。
+1.  如果你的 Android SDK 里没有 Android 4.0 (API level 14) 的话，下载一个装上，ABS 的构建需要。
 
 
 ## 构建
@@ -77,9 +77,9 @@ mvn install -N
 
 1.  在 Eclipse 里导入各个库的项目，项目类型选 `Git/Projects from Git`，搜索根目录就选本目录。然后只导入 `actionbarsherlock` 和两个 `library` 项目。Maven 特性会被自动识别出来的。
 
-2.  （可能不需要）刷新 `jnrain-android` 项目的 Maven 依赖（在右键菜单的 Maven 子菜单里），构建项目。这应该会触发各 apklib 的构建然后成功；如果失败了，手动构建三个依赖关系，应该也没问题。
+1.  （可能不需要）刷新 `jnrain-android` 项目的 Maven 依赖（在右键菜单的 Maven 子菜单里），构建项目。这应该会触发各 apklib 的构建然后成功；如果失败了，手动构建三个依赖关系，应该也没问题。
 
-3.  如果构建还是不能成功，就在各项目的项目属性 -> Android 里边调整下 apklib 声明，实在不行就 refresh 或者 clean 项目都试一下。然后分别构建各个依赖项目，应该能解决 build path 的问题了。
+1.  如果构建还是不能成功，就在各项目的项目属性 -> Android 里边调整下 apklib 声明，实在不行就 refresh 或者 clean 项目都试一下。然后分别构建各个依赖项目，应该能解决 build path 的问题了。
 
 
 <!-- vim:set ai et ts=4 sw=4 sts=4 ff=unix fenc=utf-8: -->

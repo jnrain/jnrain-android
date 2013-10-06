@@ -40,6 +40,7 @@ import android.webkit.CookieManager;
 import com.octo.android.robospice.SpringAndroidSpiceService;
 import com.octo.android.robospice.persistence.CacheManager;
 import com.octo.android.robospice.persistence.binary.InFileInputStreamObjectPersister;
+import com.octo.android.robospice.persistence.exception.CacheCreationException;
 import com.octo.android.robospice.persistence.springandroid.json.jackson.JacksonObjectPersisterFactory;
 import com.octo.android.robospice.persistence.string.InFileStringObjectPersister;
 
@@ -60,23 +61,34 @@ public class JNRainSpiceService extends SpringAndroidSpiceService {
         _interceptors.add(new AuthCookieHttpRequestInterceptor());
     }
 
-    public CacheManager createCacheManager(Application application) {
+    public CacheManager createCacheManager(Application application)
+            throws CacheCreationException {
         CacheManager cacheManager = new CacheManager();
 
-        InFileStringObjectPersister inFileStringObjectPersister = new InFileStringObjectPersister(
-                application);
-        InFileInputStreamObjectPersister inFileInputStreamObjectPersister = new InFileInputStreamObjectPersister(
-                application);
-        JacksonObjectPersisterFactory inJSonFileObjectPersisterFactory = new JacksonObjectPersisterFactory(
-                application);
+        InFileStringObjectPersister inFileStringObjectPersister;
+        InFileInputStreamObjectPersister inFileInputStreamObjectPersister;
+        JacksonObjectPersisterFactory inJSonFileObjectPersisterFactory;
+        try {
+            inFileStringObjectPersister = new InFileStringObjectPersister(
+                    application);
+            inFileInputStreamObjectPersister = new InFileInputStreamObjectPersister(
+                    application);
+            inJSonFileObjectPersisterFactory = new JacksonObjectPersisterFactory(
+                    application);
 
-        inFileStringObjectPersister.setAsyncSaveEnabled(true);
-        inFileInputStreamObjectPersister.setAsyncSaveEnabled(true);
-        inJSonFileObjectPersisterFactory.setAsyncSaveEnabled(true);
+            inFileStringObjectPersister.setAsyncSaveEnabled(true);
+            inFileInputStreamObjectPersister.setAsyncSaveEnabled(true);
+            inJSonFileObjectPersisterFactory.setAsyncSaveEnabled(true);
 
-        cacheManager.addPersister(inFileStringObjectPersister);
-        cacheManager.addPersister(inFileInputStreamObjectPersister);
-        cacheManager.addPersister(inJSonFileObjectPersisterFactory);
+            cacheManager.addPersister(inFileStringObjectPersister);
+            cacheManager.addPersister(inFileInputStreamObjectPersister);
+            cacheManager.addPersister(inJSonFileObjectPersisterFactory);
+        } catch (CacheCreationException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            throw e;
+        }
+
         return cacheManager;
     }
 
