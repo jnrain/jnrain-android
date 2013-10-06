@@ -26,6 +26,7 @@ import org.jnrain.mobile.util.AccountStateListener;
 import org.jnrain.mobile.util.GlobalState;
 
 import roboguice.inject.InjectView;
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -43,6 +44,15 @@ public class NavFragment extends JNRainFragment
     TextView textUserID;
     @InjectView(R.id.listNavMenu)
     ListView listNavMenu;
+
+    NavMenuAdapter _menuAdapter;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        _menuAdapter = new NavMenuAdapter(getActivity());
+    }
 
     @Override
     public View onCreateView(
@@ -63,10 +73,11 @@ public class NavFragment extends JNRainFragment
         GlobalState.registerAccountStateListener(this);
 
         // nav menu
-        final NavMenuAdapter menuAdapter = new NavMenuAdapter(getActivity());
-        menuAdapter.addItem(new NavItem(
+        _menuAdapter.addItem(new NavItem(
                 R.string.title_activity_global_hot_posts_list,
-                R.drawable.ic_nav_hotpost) {
+                R.drawable.ic_nav_hotpost,
+                true,
+                true) {
             @Override
             public void onNavItemActivated(Context context) {
                 NavFragment.this.clearBackStack();
@@ -76,9 +87,10 @@ public class NavFragment extends JNRainFragment
             }
         });
 
-        menuAdapter.addItem(new NavItem(
+        _menuAdapter.addItem(new NavItem(
                 R.string.title_activity_section_list,
-                R.drawable.ic_nav_sections) {
+                R.drawable.ic_nav_sections,
+                true) {
             @Override
             public void onNavItemActivated(Context context) {
                 NavFragment.this.clearBackStack();
@@ -88,18 +100,20 @@ public class NavFragment extends JNRainFragment
             }
         });
 
-        menuAdapter.addItem(new NavItem(
+        _menuAdapter.addItem(new NavItem(
                 R.string.title_activity_preference,
-                R.drawable.ic_nav_settings) {
+                R.drawable.ic_nav_settings,
+                false) {
             @Override
             public void onNavItemActivated(Context context) {
                 SettingsActivity.show(getActivity().getApplicationContext());
             }
         });
 
-        menuAdapter.addItem(new NavItem(
+        _menuAdapter.addItem(new NavItem(
                 R.string.nav_remove_account,
-                R.drawable.ic_nav_logout) {
+                R.drawable.ic_nav_logout,
+                false) {
             @SuppressWarnings("unchecked")
             @Override
             public void onNavItemActivated(Context context) {
@@ -109,7 +123,7 @@ public class NavFragment extends JNRainFragment
             }
         });
 
-        listNavMenu.setAdapter(menuAdapter);
+        listNavMenu.setAdapter(_menuAdapter);
         listNavMenu
             .setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
@@ -118,11 +132,28 @@ public class NavFragment extends JNRainFragment
                         View view,
                         int position,
                         long id) {
-                    NavItem item = menuAdapter.getItem(position);
+                    NavItem item = _menuAdapter.getItem(position);
+
+                    // update active status of items
+                    if (item.canActivate()) {
+                        clearMenuItemActiveStatus();
+                        ((NavItemView) view).setActive(true);
+                    }
+
+                    // notify activation
                     item.onNavItemActivated(getActivity());
                 }
             });
+    }
 
+    public void clearMenuItemActiveStatus() {
+        int viewCount = listNavMenu.getChildCount();
+
+        for (int i = 0; i < viewCount; i++) {
+            NavItemView view = (NavItemView) listNavMenu.getChildAt(i);
+
+            view.setActive(false);
+        }
     }
 
     public void setUserName(String uid) {

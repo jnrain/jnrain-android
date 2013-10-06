@@ -21,14 +21,15 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
-public class NavItemView extends LinearLayout {
+public class NavItemView extends RelativeLayout {
     // private static final String TAG = "NavItemView";
 
     TextView textNavItem;
+    View viewIsActive;
 
     public static final int LAYOUT_RES_ID = R.layout.navitemview;
 
@@ -36,6 +37,8 @@ public class NavItemView extends LinearLayout {
     // protected OnNavItemActivatedListener _onActivatedListener;
     protected CharSequence _itemText;
     protected int _itemIconRes;
+    protected boolean _canBeActive;
+    protected boolean _isActive;
 
     public NavItemView(Context context) {
         super(context);
@@ -61,6 +64,7 @@ public class NavItemView extends LinearLayout {
         _ctx = ctx;
         View.inflate(ctx, LAYOUT_RES_ID, this);
         textNavItem = (TextView) findViewById(R.id.textNavItem);
+        viewIsActive = findViewById(R.id.viewIsActive);
         // setOnClickListener(new OnNavItemClickListener());
     }
 
@@ -79,9 +83,15 @@ public class NavItemView extends LinearLayout {
                 doSetText(isInEditMode() ? "Placeholder title" : "");
             }
 
-            doSetItemIcon(a.getResourceId(
-                    R.styleable.NavItemView_itemIcon,
-                    0));
+            doSetItemIcon(isInEditMode() ? R.drawable.ic_nav_settings : a
+                .getResourceId(R.styleable.NavItemView_itemIcon, 0));
+
+            doSetCanBeActive(isInEditMode() ? true : a.getBoolean(
+                    R.styleable.NavItemView_canBeActive,
+                    true));
+            doSetActive(isInEditMode() ? true : a.getBoolean(
+                    R.styleable.NavItemView_isActive,
+                    false));
         } finally {
             a.recycle();
         }
@@ -127,6 +137,41 @@ public class NavItemView extends LinearLayout {
 
     public void setItemIcon(int resId) {
         doSetItemIcon(resId);
+        invalidate();
+        requestLayout();
+    }
+
+    protected void doSetActive(boolean active) {
+        if (!_canBeActive && active) {
+            return;
+        }
+
+        _isActive = active;
+        viewIsActive.setVisibility(active ? View.VISIBLE : View.INVISIBLE);
+    }
+
+    protected void doSetCanBeActive(boolean canBeActive) {
+        _canBeActive = canBeActive;
+
+        if (!canBeActive && _isActive) {
+            setActive(false);
+        }
+    }
+
+    public boolean canBeActive() {
+        return _canBeActive;
+    }
+
+    public void setCanBeActive(boolean canBeActive) {
+        doSetCanBeActive(canBeActive);
+    }
+
+    public boolean isActive() {
+        return _isActive;
+    }
+
+    public void setActive(boolean active) {
+        doSetActive(active);
         invalidate();
         requestLayout();
     }

@@ -23,6 +23,8 @@
     <declare-styleable name="NavItemView">
         <attr name="android:text" />
         <attr name="itemIcon" format="reference" />
+        <attr name="canBeActive" format="boolean" />
+        <attr name="isActive" format="boolean" />
     </declare-styleable>
 
 </resources>

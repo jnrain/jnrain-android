@@ -75,6 +75,13 @@ public class NavMenuAdapter extends BaseAdapter {
         NavItemView view = (NavItemView) convertView;
         view.setText(item.getTextId());
         view.setItemIcon(item.getIconId());
+        view.setCanBeActive(item.canActivate());
+
+        // set the default nav item to activated
+        // TODO: implement proper inter-fragment communication so that
+        // the nav item activated is ALWAYS the one actually shown,
+        // rather than hard coded to some specific item.
+        view.setActive(item.isDefault());
 
         return convertView;
     }

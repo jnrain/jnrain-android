@@ -16,12 +16,24 @@
 package org.jnrain.mobile.ui.nav;
 
 public abstract class NavItem implements OnNavItemActivatedListener {
-    protected int _textId;
-    protected int _iconId;
+    protected final int _textId;
+    protected final int _iconId;
+    protected final boolean _canActivate;
+    protected final boolean _isDefault;
 
-    public NavItem(int textId, int iconId) {
+    public NavItem(int textId, int iconId, boolean canActivate) {
+        this(textId, iconId, canActivate, false);
+    }
+
+    public NavItem(
+            int textId,
+            int iconId,
+            boolean canActivate,
+            boolean isDefault) {
         _textId = textId;
         _iconId = iconId;
+        _canActivate = canActivate;
+        _isDefault = isDefault;
     }
 
     public int getTextId() {
@@ -30,5 +42,13 @@ public abstract class NavItem implements OnNavItemActivatedListener {
 
     public int getIconId() {
         return _iconId;
+    }
+
+    public boolean canActivate() {
+        return _canActivate;
+    }
+
+    public boolean isDefault() {
+        return _isDefault;
     }
 }

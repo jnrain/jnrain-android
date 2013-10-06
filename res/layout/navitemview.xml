@@ -15,20 +15,15 @@
   limitations under the License.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="horizontal"
-    android:paddingBottom="@dimen/nav_menu_item_padding_b"
-    android:paddingLeft="@dimen/nav_menu_item_padding_l"
-    android:paddingRight="@dimen/nav_menu_item_padding_r"
-    android:paddingTop="@dimen/nav_menu_item_padding_t" >
+    style="@style/NavMenuItem"
+    android:orientation="horizontal" >
+
+    <View
+        android:id="@+id/viewIsActive"
+        style="@style/NavMenuItemActiveBar" />
 
     <TextView
         android:id="@+id/textNavItem"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:drawablePadding="@dimen/nav_menu_icon_padding"
-        android:textColor="@color/jnrain_green_light"
-        android:textSize="@dimen/nav_menu_text_size" />
+        style="@style/NavMenuItemText" />
 
 </LinearLayout>
