@@ -111,6 +111,10 @@ public class BoardListFragment extends JNRainFragment<ListBoards> {
     }
 
     public synchronized void updateData() {
+        if (getActivity() == null) {
+            return;
+        }
+
         BoardListAdapter adapter = new BoardListAdapter(
                 getActivity(),
                 _boards);
