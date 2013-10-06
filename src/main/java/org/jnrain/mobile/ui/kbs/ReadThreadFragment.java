@@ -123,6 +123,8 @@ public class ReadThreadFragment extends JNRainFragment
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        setActionBarTitle(_title);
+
         _adapter = new ReadThreadPageFragmentAdapter(
                 getChildFragmentManager(),
                 getActivity());

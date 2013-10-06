@@ -22,4 +22,10 @@ public interface ContentFragmentHost {
     public void switchContentTo(Fragment fragment, boolean addToBackStack);
 
     public void clearBackStack();
+
+    public CharSequence getActionBarTitle();
+
+    public void setActionBarTitle(CharSequence title);
+
+    public void setActionBarTitle(int resId);
 }

@@ -139,6 +139,10 @@ public class NewPostFragment extends JNRainFragment<SimpleReturnCode> {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        // if (_is_new_thread) {
+        setActionBarTitle(R.string.title_activity_new_post);
+        // }
+
         // Show the Up button in the action bar.
         // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

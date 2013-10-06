@@ -17,6 +17,7 @@ package org.jnrain.mobile.ui.kbs;
 
 import org.jnrain.kbs.collection.ListBoards;
 import org.jnrain.kbs.entity.Board;
+import org.jnrain.kbs.entity.Section;
 import org.jnrain.mobile.R;
 import org.jnrain.mobile.network.requests.BoardListRequest;
 import org.jnrain.mobile.ui.base.JNRainFragment;
@@ -44,12 +45,12 @@ public class BoardListFragment extends JNRainFragment<ListBoards> {
 
     private static final String TAG = "BoardListFragment";
 
-    private String _sec_ord;
+    private Section _sec;
     private ListBoards _boards;
 
-    public BoardListFragment(String secOrd) {
+    public BoardListFragment(Section sec) {
         super();
-        _sec_ord = secOrd;
+        _sec = sec;
     }
 
     public BoardListFragment() {
@@ -59,7 +60,7 @@ public class BoardListFragment extends JNRainFragment<ListBoards> {
         // make sure class name exists, is public, and has an empty
         // constructor that is public
         super();
-        _sec_ord = null;
+        _sec = null;
     }
 
     @Override
@@ -73,15 +74,15 @@ public class BoardListFragment extends JNRainFragment<ListBoards> {
                 false);
 
         if (savedInstanceState != null) {
-            _sec_ord = savedInstanceState
-                .getString(KBSUIConstants.SECTION_ORD_STORE);
+            _sec = (Section) savedInstanceState
+                .getSerializable(KBSUIConstants.SECTION_STORE);
             _boards = (ListBoards) savedInstanceState
                 .getSerializable(KBSUIConstants.BOARDS_LIST_STORE);
         } else {
             _listener.makeSpiceRequest(
-                    new BoardListRequest(_sec_ord),
+                    new BoardListRequest(_sec.getOrd()),
                     CacheKeyManager.keyForBoardList(
-                            _sec_ord,
+                            _sec.getOrd(),
                             GlobalState.getUserName()),
                     DurationInMillis.ONE_HOUR,
                     new BoardListRequestListener());
@@ -94,6 +95,8 @@ public class BoardListFragment extends JNRainFragment<ListBoards> {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        setActionBarTitle(_sec.getName());
+
         if (_boards != null) {
             updateData();
         }
@@ -103,7 +106,7 @@ public class BoardListFragment extends JNRainFragment<ListBoards> {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putString(KBSUIConstants.SECTION_ORD_STORE, _sec_ord);
+        outState.putSerializable(KBSUIConstants.SECTION_STORE, _sec);
         outState.putSerializable(KBSUIConstants.BOARDS_LIST_STORE, _boards);
     }
 

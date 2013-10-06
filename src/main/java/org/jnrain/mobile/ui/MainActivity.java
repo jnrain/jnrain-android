@@ -174,6 +174,21 @@ public class MainActivity extends ExitPointActivity
     }
 
     @Override
+    public CharSequence getActionBarTitle() {
+        return getSupportActionBar().getTitle();
+    }
+
+    @Override
+    public void setActionBarTitle(CharSequence title) {
+        getSupportActionBar().setTitle(title);
+    }
+
+    @Override
+    public void setActionBarTitle(int resId) {
+        getSupportActionBar().setTitle(resId);
+    }
+
+    @Override
     public void onBackPressed() {
         FragmentManager fm = getSupportFragmentManager();
         int fragCount = fm.getBackStackEntryCount();

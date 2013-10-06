@@ -111,6 +111,8 @@ public class ThreadListFragment extends JNRainFragment<ListPosts>
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        setActionBarTitle(_brd_id);
+
         // tabHost.setup();
         _adapter = new ThreadListPageFragmentAdapter(
                 getChildFragmentManager(),
