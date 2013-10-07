@@ -134,6 +134,15 @@ public class MainActivity extends ExitPointActivity
                 _content);
     }
 
+    @Override
+    protected void onStop() {
+        // reset account init level, so that canceled logins don't make
+        // re-entering app impossible w/o killing the backgrounded activity
+        GlobalState.resetAccountInitLevel();
+
+        super.onStop();
+    }
+
     /**
      * Change the content fragment to the one passed in.
      * 

@@ -72,6 +72,10 @@ public class GlobalState {
         _accountInitLevel++;
     }
 
+    public static synchronized void resetAccountInitLevel() {
+        _accountInitLevel = 0;
+    }
+
     public static synchronized Account getAccount() {
         return _account;
     }
