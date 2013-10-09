@@ -24,6 +24,8 @@
 
     <style name="Theme.JNRain.DefaultLight" parent="@style/Theme.Sherlock.Light">
         <item name="android:windowBackground">@color/jnrain_green_light</item>
+        <item name="actionBarStyle">@style/JNRainActionBar</item>
+        <item name="android:actionBarStyle">@style/JNRainActionBar</item>
         <item name="vpiTitlePageIndicatorStyle">@style/JNRainTitlePageIndicator</item>
     </style>
 

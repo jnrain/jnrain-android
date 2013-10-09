@@ -16,6 +16,19 @@
 -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <style name="JNRainActionBar" parent="Widget.Sherlock.Light.ActionBar.Solid.Inverse">
+        <item name="height">@dimen/header_height</item>
+        <item name="android:height">@dimen/header_height</item>
+        <item name="background">@color/jnrain_green_darker</item>
+        <item name="android:background">@color/jnrain_green_darker</item>
+        <item name="titleTextStyle">@style/JNRainActionBar.Title</item>
+        <item name="android:titleTextStyle">@style/JNRainActionBar.Title</item>
+    </style>
+
+    <style name="JNRainActionBar.Title" parent="TextAppearance.Sherlock.Widget.ActionBar.Title.Inverse">
+        <item name="android:textColor">@color/gray_ee</item>
+    </style>
+
     <style name="JNRainTitlePageIndicator">
         <item name="android:background">#18A9D46D</item>
         <item name="footerColor">@color/jnrain_green_dark</item>
