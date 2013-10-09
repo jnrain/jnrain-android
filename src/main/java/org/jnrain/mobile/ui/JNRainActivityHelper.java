@@ -61,6 +61,8 @@ public class JNRainActivityHelper {
             return;
         }
 
+        // default is to show an icon signifying sliding menu's presence
+        bar.setIcon(R.drawable.ic_actionbar_navmenu);
         bar.setDisplayHomeAsUpEnabled(true);
     }
 
