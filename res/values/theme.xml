@@ -24,8 +24,17 @@
 
     <style name="Theme.JNRain.DefaultLight" parent="@style/Theme.Sherlock.Light">
         <item name="android:windowBackground">@color/jnrain_green_light</item>
+
+        <!-- for pressed style of action bar -->
+        <item name="android:selectableItemBackground">@drawable/jnrain_sel_bkgnd</item>
+        <item name="actionBarItemBackground">@drawable/jnrain_sel_bkgnd</item>
+        <item name="android:actionBarItemBackground">@drawable/jnrain_sel_bkgnd</item>
+
+        <!-- action bar -->
         <item name="actionBarStyle">@style/JNRainActionBar</item>
         <item name="android:actionBarStyle">@style/JNRainActionBar</item>
+
+        <!-- VPI -->
         <item name="vpiTitlePageIndicatorStyle">@style/JNRainTitlePageIndicator</item>
     </style>
 
