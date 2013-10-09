@@ -19,6 +19,8 @@ import org.jnrain.mobile.ui.JNRainActivityHelper;
 import org.jnrain.mobile.ui.OptionsMenuProvider;
 import org.jnrain.mobile.util.SpicedRoboAccountAuthenticatorActivity;
 
+import android.os.Bundle;
+
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
@@ -32,6 +34,13 @@ public class JNRainAccountAuthenticatorActivity<T>
         super();
 
         _helper = new JNRainActivityHelper(this);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        JNRainActivityHelper.setUpActionBar(getSupportActionBar());
     }
 
     @Override

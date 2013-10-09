@@ -23,9 +23,12 @@ import android.app.Activity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+import com.jeremyfeinstein.slidingmenu.lib.app.SlidingActivityBase;
 
 
 public class OptionsMenuProvider {
+    // private static final String TAG = "OptionsMenuProvider";
+
     private static OptionsMenuProvider optionsMenuProvider;
 
     private OptionsMenuProvider() {
@@ -46,7 +49,28 @@ public class OptionsMenuProvider {
     public boolean optionsItemSelected(MenuItem aitem, Activity activity) {
         switch (aitem.getItemId()) {
             case android.R.id.home:
-                activity.finish();
+                // just open menu, like renren
+                try {
+                    SlidingActivityBase slidingActivity = (SlidingActivityBase) activity;
+                    slidingActivity.showMenu();
+                } catch (ClassCastException e) {
+                    // intentionally uncaught
+                    e.printStackTrace();
+                }
+
+                /*
+                 * // simulate a back press instead of force-finishing
+                 * boolean result; activity.onKeyDown(KeyEvent.KEYCODE_BACK,
+                 * new KeyEvent( KeyEvent.ACTION_DOWN,
+                 * KeyEvent.KEYCODE_BACK)); result = activity.onKeyUp(
+                 * KeyEvent.KEYCODE_BACK, new KeyEvent( KeyEvent.ACTION_UP,
+                 * KeyEvent.KEYCODE_BACK));
+                 * 
+                 * Log.d(TAG, result ? "onKeyUp processed" :
+                 * "onKeyUp wasn't processed"); if (!result) {
+                 * activity.onBackPressed(); }
+                 */
+
                 return true;
 
             case R.id.menu_item_settings:

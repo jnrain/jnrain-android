@@ -46,6 +46,7 @@ public class JNRainSlidingActivity<T> extends SpicedRoboSlidingActivity<T> {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        JNRainActivityHelper.setUpActionBar(getSupportActionBar());
         JNRainActivityHelper.setUpSlidingMenu(getSlidingMenu());
     }
 

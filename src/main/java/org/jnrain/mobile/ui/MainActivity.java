@@ -24,9 +24,9 @@ import org.jnrain.mobile.accounts.kbs.KBSLoginRequestListener;
 import org.jnrain.mobile.ui.base.ContentFragmentHost;
 import org.jnrain.mobile.ui.base.LoginPoint;
 import org.jnrain.mobile.ui.kbs.GlobalHotPostsListFragment;
+import org.jnrain.mobile.ui.nav.NavFragment;
 import org.jnrain.mobile.ui.ux.DialogHelper;
 import org.jnrain.mobile.ui.ux.ExitPointActivity;
-import org.jnrain.mobile.ui.ux.NavFragment;
 import org.jnrain.mobile.util.GlobalState;
 
 import android.accounts.Account;
@@ -65,6 +65,7 @@ public class MainActivity extends ExitPointActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // SlidingMenu layout setup
         FragmentManager fm = getSupportFragmentManager();
 
         setContentView(R.layout.content_frame);
@@ -134,6 +135,15 @@ public class MainActivity extends ExitPointActivity
                 _content);
     }
 
+    @Override
+    protected void onStop() {
+        // reset account init level, so that canceled logins don't make
+        // re-entering app impossible w/o killing the backgrounded activity
+        GlobalState.resetAccountInitLevel();
+
+        super.onStop();
+    }
+
     /**
      * Change the content fragment to the one passed in.
      * 
@@ -174,6 +184,21 @@ public class MainActivity extends ExitPointActivity
     }
 
     @Override
+    public CharSequence getActionBarTitle() {
+        return getSupportActionBar().getTitle();
+    }
+
+    @Override
+    public void setActionBarTitle(CharSequence title) {
+        getSupportActionBar().setTitle(title);
+    }
+
+    @Override
+    public void setActionBarTitle(int resId) {
+        getSupportActionBar().setTitle(resId);
+    }
+
+    @Override
     public void onBackPressed() {
         FragmentManager fm = getSupportFragmentManager();
         int fragCount = fm.getBackStackEntryCount();
@@ -203,6 +228,8 @@ public class MainActivity extends ExitPointActivity
     public void initAccount() {
         // TODO: move this code out to accounts package
         if (GlobalState.getAccount() == null) {
+            // prevent infinite recursion
+            GlobalState.incrementAccountInitLevel();
             new AsyncTask<Void, Void, Void>() {
                 @Override
                 protected Void doInBackground(Void... arg0) {
@@ -260,6 +287,14 @@ public class MainActivity extends ExitPointActivity
             }
 
             // no account
+            // try to create one, but don't recurse infinitely
+            if (GlobalState.getAccountInitLevel() > 2) {
+                // finish self
+                finish();
+                return;
+            }
+
+            // create account
             new AsyncTask<Void, Void, Void>() {
                 @Override
                 protected Void doInBackground(Void... arg0) {

@@ -16,14 +16,27 @@
 -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <style name="JNRainActionBar" parent="Widget.Sherlock.Light.ActionBar.Solid.Inverse">
+        <item name="height">@dimen/header_height</item>
+        <item name="android:height">@dimen/header_height</item>
+        <item name="background">@color/jnrain_green_darker</item>
+        <item name="android:background">@color/jnrain_green_darker</item>
+        <item name="titleTextStyle">@style/JNRainActionBar.Title</item>
+        <item name="android:titleTextStyle">@style/JNRainActionBar.Title</item>
+    </style>
+
+    <style name="JNRainActionBar.Title" parent="TextAppearance.Sherlock.Widget.ActionBar.Title.Inverse">
+        <item name="android:textColor">@color/gray_ee</item>
+    </style>
+
     <style name="JNRainTitlePageIndicator">
         <item name="android:background">#18A9D46D</item>
-        <item name="footerColor">#FF669A1F</item>
+        <item name="footerColor">@color/jnrain_green_dark</item>
         <item name="footerLineHeight">1dp</item>
         <item name="footerIndicatorHeight">3dp</item>
         <item name="footerIndicatorStyle">underline</item>
         <item name="android:textColor">#CCA9D46D</item>
-        <item name="selectedColor">#FF669A1F</item>
+        <item name="selectedColor">@color/jnrain_green_dark</item>
         <item name="selectedBold">true</item>
     </style>
 
@@ -35,6 +48,51 @@
         <item name="android:paddingBottom">4dp</item>
         <item name="android:paddingLeft">4dp</item>
         <item name="android:background">@drawable/list_item_bkgnd</item>
+    </style>
+
+    <style name="NavFragmentLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/gray_26</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="NavUserID">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/jnrain_green_dark</item>
+        <item name="android:paddingBottom">@dimen/nav_uid_text_padding_vert</item>
+        <item name="android:paddingLeft">@dimen/nav_uid_text_padding_l</item>
+        <item name="android:paddingTop">@dimen/nav_uid_text_padding_vert</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceLarge</item>
+        <item name="android:textColor">@color/gray_ee</item>
+        <item name="android:textSize">@dimen/nav_uid_text_size</item>
+    </style>
+
+    <style name="NavMenuItem">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:background">@drawable/navmenuitem_bkgnd</item>
+    </style>
+
+    <style name="NavMenuItemActiveBar">
+        <item name="android:layout_width">@dimen/nav_menu_item_active_indicator_width</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:layout_alignParentTop">true</item>
+        <item name="android:background">@color/jnrain_green_dark</item>
+    </style>
+
+    <style name="NavMenuItemText">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:paddingBottom">@dimen/nav_menu_item_padding_b</item>
+        <item name="android:paddingLeft">@dimen/nav_menu_item_padding_l</item>
+        <item name="android:paddingRight">@dimen/nav_menu_item_padding_r</item>
+        <item name="android:paddingTop">@dimen/nav_menu_item_padding_t</item>
+        <item name="android:drawablePadding">@dimen/nav_menu_icon_padding</item>
+        <item name="android:textColor">@color/gray_ee</item>
+        <item name="android:textSize">@dimen/nav_menu_text_size</item>
     </style>
 
 </resources>

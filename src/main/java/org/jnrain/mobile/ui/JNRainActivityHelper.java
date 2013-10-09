@@ -24,6 +24,7 @@ import org.jnrain.mobile.util.SpiceRequestListener;
 
 import android.content.Context;
 
+import com.actionbarsherlock.app.ActionBar;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
 
@@ -55,6 +56,16 @@ public class JNRainActivityHelper {
         UpdateManager.doAutoCheckUpdate(_activity);
     }
 
+    public static void setUpActionBar(ActionBar bar) {
+        if (bar == null) {
+            return;
+        }
+
+        // default is to show an icon signifying sliding menu's presence
+        bar.setIcon(R.drawable.ic_actionbar_navmenu);
+        bar.setDisplayHomeAsUpEnabled(true);
+    }
+
     public static void setUpSlidingMenu(SlidingMenu menu) {
         // default values
         menu.setMode(SlidingMenu.LEFT);
@@ -65,7 +76,8 @@ public class JNRainActivityHelper {
         menu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
         menu.setBehindScrollScale(0.3f);
 
-        // prevent overdraw
-        menu.setAddBackground(false);
+        // menu overdrawing manipulation
+        // disabled for removing unwanted background transparency
+        // menu.setAddBackground(false);
     }
 }

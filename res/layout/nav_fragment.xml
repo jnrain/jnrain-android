@@ -15,32 +15,18 @@
   limitations under the License.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/NavFragmentLayout" >
 
-    <Button
-        android:id="@+id/btnHotPosts"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/title_activity_global_hot_posts_list" />
+    <TextView
+        android:id="@+id/textUserID"
+        style="@style/NavUserID" />
 
-    <Button
-        android:id="@+id/btnSections"
-        android:layout_width="wrap_content"
+    <ListView
+        android:id="@+id/listNavMenu"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/title_activity_section_list" />
-
-    <Button
-        android:id="@+id/btnPrefs"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/title_activity_preference" />
-
-    <Button
-        android:id="@+id/btnRemoveAccount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/nav_remove_account" />
+        tools:listitem="@layout/nav_menu_item" >
+    </ListView>
 
 </LinearLayout>

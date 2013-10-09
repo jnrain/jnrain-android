@@ -68,12 +68,7 @@ public class SectionListFragment extends JNRainFragment<ListSections> {
                     Log.i(TAG, "clicked: " + position + ", id=" + id
                             + ", sec=" + sec.toString());
 
-                    // Intent intent = new Intent(
-                    // SectionListFragment.this,
-                    // BoardListActivity.class);
-                    // intent.putExtra(SEC_ORD, sec.getOrd());
-                    // startActivity(intent);
-                    Fragment frag = new BoardListFragment(sec.getOrd());
+                    Fragment frag = new BoardListFragment(sec);
                     SectionListFragment.this.switchMainContentTo(frag, true);
                 }
             });
@@ -100,6 +95,8 @@ public class SectionListFragment extends JNRainFragment<ListSections> {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        setActionBarTitle(R.string.title_activity_section_list);
 
         if (_secs != null) {
             updateData();

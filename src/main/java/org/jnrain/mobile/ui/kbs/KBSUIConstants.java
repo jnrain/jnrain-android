@@ -17,7 +17,7 @@ package org.jnrain.mobile.ui.kbs;
 
 public final class KBSUIConstants {
     // Section
-    public static final String SECTION_ORD_STORE = "_secOrd";
+    public static final String SECTION_STORE = "_sec";
     public static final String SECTIONS_LIST_STORE = "_sections";
 
     // Board
