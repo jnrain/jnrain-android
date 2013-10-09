@@ -25,4 +25,9 @@
     <color name="jnrain_green_darker">#334D0F</color>
     <color name="jnrain_green_evendarker">#192608</color>
 
+    <!-- gray shades -->
+    <color name="gray_11">#111111</color>
+    <color name="gray_26">#262626</color>
+    <color name="gray_ee">#EEEEEE</color>
+
 </resources>

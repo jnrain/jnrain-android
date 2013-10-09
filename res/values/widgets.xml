@@ -18,12 +18,12 @@
 
     <style name="JNRainTitlePageIndicator">
         <item name="android:background">#18A9D46D</item>
-        <item name="footerColor">#FF669A1F</item>
+        <item name="footerColor">@color/jnrain_green_dark</item>
         <item name="footerLineHeight">1dp</item>
         <item name="footerIndicatorHeight">3dp</item>
         <item name="footerIndicatorStyle">underline</item>
         <item name="android:textColor">#CCA9D46D</item>
-        <item name="selectedColor">#FF669A1F</item>
+        <item name="selectedColor">@color/jnrain_green_dark</item>
         <item name="selectedBold">true</item>
     </style>
 
@@ -35,6 +35,25 @@
         <item name="android:paddingBottom">4dp</item>
         <item name="android:paddingLeft">4dp</item>
         <item name="android:background">@drawable/list_item_bkgnd</item>
+    </style>
+
+    <style name="NavFragmentLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/gray_26</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="NavUserID">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/jnrain_green_dark</item>
+        <item name="android:paddingBottom">@dimen/nav_uid_text_padding_vert</item>
+        <item name="android:paddingLeft">@dimen/nav_uid_text_padding_l</item>
+        <item name="android:paddingTop">@dimen/nav_uid_text_padding_vert</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceLarge</item>
+        <item name="android:textColor">@color/gray_ee</item>
+        <item name="android:textSize">@dimen/nav_uid_text_size</item>
     </style>
 
     <style name="NavMenuItem">
@@ -59,7 +78,7 @@
         <item name="android:paddingRight">@dimen/nav_menu_item_padding_r</item>
         <item name="android:paddingTop">@dimen/nav_menu_item_padding_t</item>
         <item name="android:drawablePadding">@dimen/nav_menu_icon_padding</item>
-        <item name="android:textColor">@color/jnrain_green_light</item>
+        <item name="android:textColor">@color/gray_ee</item>
         <item name="android:textSize">@dimen/nav_menu_text_size</item>
     </style>
 

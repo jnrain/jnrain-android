@@ -16,22 +16,11 @@
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/jnrain_green_darker"
-    android:orientation="vertical" >
+    style="@style/NavFragmentLayout" >
 
     <TextView
         android:id="@+id/textUserID"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/jnrain_green_evendarker"
-        android:paddingBottom="3dp"
-        android:paddingLeft="20dp"
-        android:paddingTop="3dp"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="@color/jnrain_green_light"
-        android:textSize="@dimen/nav_uid_text_size" />
+        style="@style/NavUserID" />
 
     <ListView
         android:id="@+id/listNavMenu"
