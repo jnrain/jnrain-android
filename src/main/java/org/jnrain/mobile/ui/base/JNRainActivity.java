@@ -19,6 +19,8 @@ import org.jnrain.mobile.ui.JNRainActivityHelper;
 import org.jnrain.mobile.ui.OptionsMenuProvider;
 import org.jnrain.mobile.util.SpicedRoboActivity;
 
+import android.os.Bundle;
+
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
@@ -38,6 +40,13 @@ public class JNRainActivity<T> extends SpicedRoboActivity<T> {
         _helper.doPreOnStart();
         super.onStart();
         _helper.doPostOnStart();
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        JNRainActivityHelper.setUpActionBar(getSupportActionBar());
     }
 
     @Override

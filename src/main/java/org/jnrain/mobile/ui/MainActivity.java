@@ -65,6 +65,7 @@ public class MainActivity extends ExitPointActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // SlidingMenu layout setup
         FragmentManager fm = getSupportFragmentManager();
 
         setContentView(R.layout.content_frame);

@@ -24,6 +24,7 @@ import org.jnrain.mobile.util.SpiceRequestListener;
 
 import android.content.Context;
 
+import com.actionbarsherlock.app.ActionBar;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
 
@@ -53,6 +54,14 @@ public class JNRainActivityHelper {
 
         // auto update things
         UpdateManager.doAutoCheckUpdate(_activity);
+    }
+
+    public static void setUpActionBar(ActionBar bar) {
+        if (bar == null) {
+            return;
+        }
+
+        bar.setDisplayHomeAsUpEnabled(true);
     }
 
     public static void setUpSlidingMenu(SlidingMenu menu) {
