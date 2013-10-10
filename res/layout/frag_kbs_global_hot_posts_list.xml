@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:text="@string/title_activity_global_hot_posts_list"
+        android:text="@string/title_kbs_global_hot_posts_list"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@color/activity_title"
         android:textSize="48sp" />

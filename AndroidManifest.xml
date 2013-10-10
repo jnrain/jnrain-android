@@ -42,11 +42,11 @@
 
         <activity
             android:name="org.jnrain.mobile.ui.preferences.SettingsActivity"
-            android:label="@string/title_activity_preference" >
+            android:label="@string/title_preference" >
         </activity>
         <activity
             android:name="org.jnrain.mobile.ui.AboutActivity"
-            android:label="@string/title_activity_about" >
+            android:label="@string/title_about" >
         </activity>
 
         <service android:name="org.jnrain.mobile.accounts.kbs.JNRainKBSAccountAuthenticatorService" >

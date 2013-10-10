@@ -140,7 +140,7 @@ public class NewPostFragment extends JNRainFragment<SimpleReturnCode> {
         super.onActivityCreated(savedInstanceState);
 
         // if (_is_new_thread) {
-        setActionBarTitle(R.string.title_activity_new_post);
+        setActionBarTitle(R.string.title_kbs_new_post);
         // }
 
         // Show the Up button in the action bar.

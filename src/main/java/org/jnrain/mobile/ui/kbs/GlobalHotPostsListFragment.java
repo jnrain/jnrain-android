@@ -74,7 +74,7 @@ public class GlobalHotPostsListFragment extends JNRainFragment<ListHotPosts> {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        setActionBarTitle(R.string.title_activity_global_hot_posts_list);
+        setActionBarTitle(R.string.title_kbs_global_hot_posts_list);
 
         if (_posts != null) {
             updateData();

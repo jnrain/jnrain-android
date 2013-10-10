@@ -19,14 +19,14 @@
     <string name="app_name">江南听雨</string>
     <string name="hello_world">TODO</string>
     <string name="menu_settings">设置</string>
-    <string name="title_activity_section_list">大区列表</string>
-    <string name="title_activity_board_list">版面列表</string>
-    <string name="title_activity_global_hot_posts_list">全站热帖</string>
-    <string name="title_activity_board">帖子列表</string>
-    <string name="title_activity_read_thread">读帖</string>
-    <string name="title_activity_new_post">发表新帖</string>
-    <string name="title_activity_preference">偏好设置</string>
-    <string name="title_activity_about">关于江南听雨 for Android</string>
+    <string name="title_kbs_section_list">大区列表</string>
+    <string name="title_kbs_board_list">版面列表</string>
+    <string name="title_kbs_global_hot_posts_list">全站热帖</string>
+    <string name="title_kbs_board">帖子列表</string>
+    <string name="title_kbs_read_thread">读帖</string>
+    <string name="title_kbs_new_post">发表新帖</string>
+    <string name="title_preference">偏好设置</string>
+    <string name="title_about">关于江南听雨 for Android</string>
     <string name="app_name_en">JNRain</string>
     <string name="splash_image_desc">欢迎图像</string>
 

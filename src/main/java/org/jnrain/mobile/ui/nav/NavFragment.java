@@ -59,8 +59,7 @@ public class NavFragment extends JNRainFragment
             LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {
-        View view = inflater
-            .inflate(R.layout.frag_nav, container, false);
+        View view = inflater.inflate(R.layout.frag_nav, container, false);
 
         return view;
     }
@@ -74,7 +73,7 @@ public class NavFragment extends JNRainFragment
 
         // nav menu
         _menuAdapter.addItem(new NavItem(
-                R.string.title_activity_global_hot_posts_list,
+                R.string.title_kbs_global_hot_posts_list,
                 R.drawable.ic_nav_hotpost,
                 true,
                 true) {
@@ -88,7 +87,7 @@ public class NavFragment extends JNRainFragment
         });
 
         _menuAdapter.addItem(new NavItem(
-                R.string.title_activity_section_list,
+                R.string.title_kbs_section_list,
                 R.drawable.ic_nav_sections,
                 true) {
             @Override
@@ -101,7 +100,7 @@ public class NavFragment extends JNRainFragment
         });
 
         _menuAdapter.addItem(new NavItem(
-                R.string.title_activity_preference,
+                R.string.title_preference,
                 R.drawable.ic_nav_settings,
                 false) {
             @Override

@@ -96,7 +96,7 @@ public class SectionListFragment extends JNRainFragment<ListSections> {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        setActionBarTitle(R.string.title_activity_section_list);
+        setActionBarTitle(R.string.title_kbs_section_list);
 
         if (_secs != null) {
             updateData();
