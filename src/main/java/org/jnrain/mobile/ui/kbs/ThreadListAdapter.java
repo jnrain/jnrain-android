@@ -33,7 +33,7 @@ public class ThreadListAdapter extends ArrayAdapter<Post> {
     private ListPosts _data;
 
     public ThreadListAdapter(Context context, ListPosts data) {
-        super(context, R.layout.thread_item, data.getPosts());
+        super(context, R.layout.kbs_thread_item, data.getPosts());
         this._inflater = LayoutInflater.from(context);
         this._data = data;
     }
@@ -66,7 +66,7 @@ public class ThreadListAdapter extends ArrayAdapter<Post> {
         Post post = getItem(position);
 
         if (convertView == null) {
-            convertView = this._inflater.inflate(R.layout.thread_item, null);
+            convertView = this._inflater.inflate(R.layout.kbs_thread_item, null);
         }
 
         TextView textTitle = (TextView) convertView

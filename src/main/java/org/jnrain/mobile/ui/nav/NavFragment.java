@@ -60,7 +60,7 @@ public class NavFragment extends JNRainFragment
             ViewGroup container,
             Bundle savedInstanceState) {
         View view = inflater
-            .inflate(R.layout.nav_fragment, container, false);
+            .inflate(R.layout.frag_nav, container, false);
 
         return view;
     }

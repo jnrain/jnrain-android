@@ -66,7 +66,7 @@ public class HotPostsListAdapter extends BaseAdapter {
 
         if (convertView == null) {
             convertView = this._inflater.inflate(
-                    R.layout.hot_post_item,
+                    R.layout.kbs_hot_post_item,
                     null);
         }
 

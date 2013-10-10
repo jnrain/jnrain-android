@@ -78,7 +78,7 @@ public class ThreadListPageFragment extends RoboSherlockFragment {
             ViewGroup container,
             Bundle savedInstanceState) {
         View view = inflater.inflate(
-                R.layout.thread_list_fragment,
+                R.layout.frag_kbs_thread_list,
                 container,
                 false);
 

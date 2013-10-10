@@ -65,7 +65,7 @@ public class BoardListAdapter extends BaseAdapter {
         Board brd = getItem(position);
 
         if (convertView == null) {
-            convertView = this._inflater.inflate(R.layout.board_item, null);
+            convertView = this._inflater.inflate(R.layout.kbs_board_item, null);
         }
 
         TextView textBrdID = (TextView) convertView

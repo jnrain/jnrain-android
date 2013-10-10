@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        tools:listitem="@layout/hot_post_item" >
+        tools:listitem="@layout/kbs_hot_post_item" >
     </ListView>
 
     <TextView

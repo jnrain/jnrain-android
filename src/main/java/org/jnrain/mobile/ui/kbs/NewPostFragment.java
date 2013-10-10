@@ -128,7 +128,7 @@ public class NewPostFragment extends JNRainFragment<SimpleReturnCode> {
             ViewGroup container,
             Bundle savedInstanceState) {
         View view = inflater.inflate(
-                R.layout.activity_new_post,
+                R.layout.frag_kbs_new_post,
                 container,
                 false);
 

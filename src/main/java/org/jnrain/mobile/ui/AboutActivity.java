@@ -74,7 +74,7 @@ public class AboutActivity extends JNRainActivity<UpdateInfo> {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_about);
+        setContentView(R.layout.frag_about);
 
         updaterUtil = ConfigHub.getUpdaterUtil(getApplicationContext());
 

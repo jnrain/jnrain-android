@@ -109,7 +109,7 @@ public class ReadThreadPageFragment extends RoboSherlockFragment {
             ViewGroup container,
             Bundle savedInstanceState) {
         View view = inflater.inflate(
-                R.layout.read_thread_fragment,
+                R.layout.frag_kbs_read_thread,
                 container,
                 false);
 

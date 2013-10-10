@@ -90,7 +90,7 @@ public class ThreadAdapter extends BaseAdapter {
         final Post post = getItem(position);
 
         if (convertView == null) {
-            convertView = this._inflater.inflate(R.layout.post_item, null);
+            convertView = this._inflater.inflate(R.layout.kbs_post_item, null);
         }
 
         TextView textTitle = (TextView) convertView

@@ -80,7 +80,7 @@ public class SectionListFragment extends JNRainFragment<ListSections> {
             ViewGroup container,
             Bundle savedInstanceState) {
         View view = inflater.inflate(
-                R.layout.activity_section_list,
+                R.layout.frag_kbs_section_list,
                 container,
                 false);
 

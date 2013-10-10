@@ -72,7 +72,7 @@ public class KBSLoginActivity
     protected void onCreate(Bundle savedInstanceState) {
         loginActivity = this;
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.frag_kbs_login);
 
         // account manager
         accountManager = AccountManager.get(this);

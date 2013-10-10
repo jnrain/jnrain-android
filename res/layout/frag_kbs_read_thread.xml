@@ -18,14 +18,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SectionListFragment" >
+    tools:context=".BoardActivity" >
 
     <ListView
-        android:id="@+id/listSections"
+        android:id="@+id/listPosts"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        tools:listitem="@layout/section_item" >
+        tools:listitem="@layout/kbs_post_item" >
     </ListView>
 
 </RelativeLayout>

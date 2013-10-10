@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        tools:listitem="@layout/board_item" >
+        tools:listitem="@layout/kbs_board_item" >
     </ListView>
 
 </RelativeLayout>

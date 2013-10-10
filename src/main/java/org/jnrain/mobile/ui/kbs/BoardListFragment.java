@@ -69,7 +69,7 @@ public class BoardListFragment extends JNRainFragment<ListBoards> {
             ViewGroup container,
             Bundle savedInstanceState) {
         View view = inflater.inflate(
-                R.layout.activity_board_list,
+                R.layout.frag_kbs_board_list,
                 container,
                 false);
 

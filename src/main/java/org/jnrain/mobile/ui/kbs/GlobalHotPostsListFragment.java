@@ -58,7 +58,7 @@ public class GlobalHotPostsListFragment extends JNRainFragment<ListHotPosts> {
             ViewGroup container,
             Bundle savedInstanceState) {
         View view = inflater.inflate(
-                R.layout.activity_global_hot_posts_list,
+                R.layout.frag_kbs_global_hot_posts_list,
                 container,
                 false);
 

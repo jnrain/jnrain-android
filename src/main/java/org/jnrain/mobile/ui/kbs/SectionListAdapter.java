@@ -65,7 +65,7 @@ public class SectionListAdapter extends BaseAdapter {
 
         if (convertView == null) {
             convertView = this._inflater
-                .inflate(R.layout.section_item, null);
+                .inflate(R.layout.kbs_section_item, null);
         }
 
         TextView textSecName = (TextView) convertView
