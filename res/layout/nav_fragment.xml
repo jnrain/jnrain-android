@@ -24,8 +24,7 @@
 
     <ListView
         android:id="@+id/listNavMenu"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/NavMenu"
         tools:listitem="@layout/nav_menu_item" >
     </ListView>
 

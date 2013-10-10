@@ -69,6 +69,12 @@
         <item name="android:textSize">@dimen/nav_uid_text_size</item>
     </style>
 
+    <style name="NavMenu">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:divider">@null</item>
+    </style>
+
     <style name="NavMenuItem">
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_width">match_parent</item>
