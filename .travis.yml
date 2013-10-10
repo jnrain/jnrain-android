@@ -20,26 +20,8 @@ before_install:
   - mkdir -p ~/.m2/repository/com/android && ln -s ${ANDROID_HOME}/extras/android/m2repository/com/android/support/support-v4 ~/.m2/repository/com/android/support-v4
   # Dependencies
   - cd deps
-  - git clone https://github.com/xen0n/ActionBarSherlock.git
-  - git clone https://github.com/xen0n/Android-ViewPagerIndicator.git
-  - git clone https://github.com/xen0n/SlidingMenu.git
-  # custom ABS
-  - cd ActionBarSherlock
-  - git checkout 4.4.0-xen0n
-  - cd actionbarsherlock
-  - mvn clean install
+  - ./update-deps.sh
   - cd ..
-  - mvn install -N
-  # custom VPI
-  - cd ../Android-ViewPagerIndicator
-  - git checkout 2.4.1-xen0n
-  - mvn clean install
-  # custom SlidingMenu
-  - cd ../SlidingMenu/library
-  - mvn clean install
-  - cd ..
-  - mvn install -N
-  - cd ../..
 
 
 # vim:ai:et:ts=2:sw=2:sts=2:fenc=utf-8:

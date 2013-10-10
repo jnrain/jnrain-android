@@ -9,11 +9,12 @@
 * SlidingMenu
 
 
-## 准备
+## 
 
 **注意** 以下设置步骤需要网络连接。
 
 1.  确保安装了 [Gradle](http://www.gradle.org)，后边编译 ActionBarSherlock 会用到。
+1.  如果你的 Android SDK 里没有 Android 4.0 (API level 14) 的话，下载一个装上，ABS 的构建需要。
 1.  在你的 Android SDK 管理器里下载 Android Support Repository （在 Extras 分类里），并将其中的 support-v4 链接或拷贝到你的 Maven 本地库中。
 
     ```bash
@@ -23,6 +24,28 @@
     mkdir -p ~/.m2/repository/com/android
     ln -s /path/to/android-sdk/extras/android/m2repository/com/android/support/support-v4 ~/.m2/repository/com/android/support-v4
     ```
+
+## 自动设置/更新
+
+使用 Linux/Mac OS X 等类 Unix 操作系统的用户可执行本目录下的 `update-deps.sh` 自动在构建环境中设置依赖关系：
+
+```bash
+# 一般来讲是这样
+./update-deps.sh
+
+# 如果它告诉你你的 Maven 版本不对，这么给它指定路径
+MVN_CMD=mvn-3.0 ./update-deps.sh
+```
+
+其实 Windows 下的 Git Bash/Cygwin/MinGW 应该也都能用，不过我没测试过，如果你有这种设置的话欢迎开 issue 告诉我你的试验结果。
+
+
+## 手动设置步骤
+
+不用 bash 的 Windows 用户，不好意思了 :-P
+
+
+### 准备版本库
 
 1.  检出版本库到本地之后，请在此目录下检出依赖关系的版本库：
 
@@ -42,10 +65,8 @@
     # SlidingMenu 目前使用的就是自己 fork 的 master 分支, 所以不用切换
     ```
 
-1.  如果你的 Android SDK 里没有 Android 4.0 (API level 14) 的话，下载一个装上，ABS 的构建需要。
 
-
-## 构建
+### 构建
 
 ```bash
 # 先回到 deps/ 目录
