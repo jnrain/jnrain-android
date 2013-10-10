@@ -25,7 +25,7 @@ import android.support.v4.app.FragmentManager;
 import com.github.rtyley.android.sherlock.roboguice.fragment.RoboSherlockFragment;
 
 
-public class JNRainFragment<T> extends RoboSherlockFragment {
+public abstract class JNRainFragment<T> extends RoboSherlockFragment {
     public static final String PREVIOUS_TITLE_STORE = "JNRainFragment.prevTitle";
     public static final String CURRENT_TITLE_STORE = "JNRainFragment.currTitle";
 

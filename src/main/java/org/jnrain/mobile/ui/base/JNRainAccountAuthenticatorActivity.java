@@ -26,7 +26,7 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
 
-public class JNRainAccountAuthenticatorActivity<T>
+public abstract class JNRainAccountAuthenticatorActivity<T>
         extends SpicedRoboAccountAuthenticatorActivity<T> {
     JNRainActivityHelper _helper;
 

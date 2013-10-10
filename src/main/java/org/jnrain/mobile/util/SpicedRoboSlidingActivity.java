@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2013 JNRain
+ * Copyright 2013 JNRain
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may
  * not use this file except in compliance with the License. You may obtain a
@@ -25,7 +25,7 @@ import com.octo.android.robospice.request.SpiceRequest;
 import com.octo.android.robospice.request.listener.RequestListener;
 
 
-public class SpicedRoboSlidingActivity<T>
+public abstract class SpicedRoboSlidingActivity<T>
         extends RoboSherlockSlidingActivity
         implements SpiceRequestListener<T> {
     protected SpiceManager spiceManager = new SpiceManager(

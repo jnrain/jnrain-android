@@ -25,7 +25,7 @@ import com.octo.android.robospice.request.SpiceRequest;
 import com.octo.android.robospice.request.listener.RequestListener;
 
 
-public class SpicedRoboAccountAuthenticatorActivity<T>
+public abstract class SpicedRoboAccountAuthenticatorActivity<T>
         extends RoboSherlockAccountAuthenticatorActivity
         implements SpiceRequestListener<T> {
     protected SpiceManager spiceManager = new SpiceManager(

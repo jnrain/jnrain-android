@@ -26,7 +26,8 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
 
-public class JNRainSlidingActivity<T> extends SpicedRoboSlidingActivity<T> {
+public abstract class JNRainSlidingActivity<T>
+        extends SpicedRoboSlidingActivity<T> {
     JNRainActivityHelper _helper;
 
     public JNRainSlidingActivity() {

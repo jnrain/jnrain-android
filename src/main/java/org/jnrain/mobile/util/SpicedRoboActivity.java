@@ -25,7 +25,7 @@ import com.octo.android.robospice.request.SpiceRequest;
 import com.octo.android.robospice.request.listener.RequestListener;
 
 
-public class SpicedRoboActivity<T> extends RoboSherlockActivity
+public abstract class SpicedRoboActivity<T> extends RoboSherlockActivity
         implements SpiceRequestListener<T> {
     protected SpiceManager spiceManager = new SpiceManager(
             JNRainSpiceService.class);
