@@ -7,7 +7,7 @@ jdk: openjdk7
 before_install:
   # Install base Android SDK
   - sudo apt-get update -qq
-  - if [ `uname -m` = x86_64 ]; then printf "\n\n\n\n\n" | sudo apt-get install -q --force-yes libgd2-xpm ia32-libs ia32-libs-multiarch; fi
+  - if [ `uname -m` = x86_64 ]; then printf "\n\n\n\n\n" | sudo apt-get install -qq --force-yes libgd2-xpm ia32-libs ia32-libs-multiarch; fi
   - wget http://dl.google.com/android/android-sdk_r22.2.1-linux.tgz
   - tar -zxf android-sdk_r22.2.1-linux.tgz
   - export ANDROID_HOME=`pwd`/android-sdk-linux
@@ -19,9 +19,7 @@ before_install:
   # Official Android Support Library Maven repo
   - mkdir -p ~/.m2/repository/com/android && ln -s ${ANDROID_HOME}/extras/android/m2repository/com/android/support/support-v4 ~/.m2/repository/com/android/support-v4
   # Dependencies
-  - cd deps
-  - ./update-deps.sh
-  - cd ..
+  - ( cd deps && ./update-deps.sh )
 
 
 # vim:ai:et:ts=2:sw=2:sts=2:fenc=utf-8:
