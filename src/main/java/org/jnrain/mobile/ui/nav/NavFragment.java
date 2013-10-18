@@ -18,6 +18,7 @@ package org.jnrain.mobile.ui.nav;
 import org.jnrain.mobile.R;
 import org.jnrain.mobile.accounts.kbs.KBSLogoutRequest;
 import org.jnrain.mobile.accounts.kbs.KBSLogoutRequestListener;
+import org.jnrain.mobile.ui.AboutActivity;
 import org.jnrain.mobile.ui.base.JNRainFragment;
 import org.jnrain.mobile.ui.kbs.GlobalHotPostsListFragment;
 import org.jnrain.mobile.ui.kbs.SectionListFragment;
@@ -105,7 +106,17 @@ public class NavFragment extends JNRainFragment
                 false) {
             @Override
             public void onNavItemActivated(Context context) {
-                SettingsActivity.show(getActivity().getApplicationContext());
+                SettingsActivity.show(context);
+            }
+        });
+
+        _menuAdapter.addItem(new NavItem(
+                R.string.title_about,
+                R.drawable.ic_nav_about,
+                false) {
+            @Override
+            public void onNavItemActivated(Context context) {
+                AboutActivity.show(context);
             }
         });
 
