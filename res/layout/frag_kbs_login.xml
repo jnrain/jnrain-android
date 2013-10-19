@@ -75,15 +75,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:nextFocusRight="@+id/btnGuestLogin"
+                android:nextFocusRight="@+id/btnRegister"
                 android:text="@string/login" />
 
             <Button
-                android:id="@+id/btnGuestLogin"
+                android:id="@+id/btnRegister"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/guest_login" />
+                android:text="@string/register" />
         </LinearLayout>
     </LinearLayout>
 

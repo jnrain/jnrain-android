@@ -55,6 +55,8 @@ public class KBSLoginActivity
     EditText editPassword;
     @InjectView(R.id.btnLogin)
     Button btnLogin;
+    @InjectView(R.id.btnRegister)
+    Button btnRegister;
 
     private static final String TAG = "LoginActivity";
     public KBSLoginActivity loginActivity;
@@ -100,6 +102,13 @@ public class KBSLoginActivity
                 doLogin(
                         editUID.getText().toString().toLowerCase(),
                         editPassword.getText().toString());
+            }
+        });
+
+        btnRegister.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                KBSRegisterActivity.show(KBSLoginActivity.this);
             }
         });
 

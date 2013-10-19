@@ -101,4 +101,76 @@
         <item name="android:textSize">@dimen/nav_menu_text_size</item>
     </style>
 
+    <style name="FormLayout">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:paddingTop">@dimen/form_layout_padding_t</item>
+        <item name="android:paddingBottom">@dimen/form_layout_padding_b</item>
+        <item name="android:paddingLeft">@dimen/form_layout_padding_l</item>
+        <item name="android:paddingRight">@dimen/form_layout_padding_r</item>
+    </style>
+
+    <!-- Widgets -->
+    <style name="Widget.JNRain">
+        <item name="android:layout_marginTop">@dimen/view_margin_t</item>
+    </style>
+
+    <style name="Widget.JNRain.TextView">
+        <item name="android:textColor">@color/jnrain_green_darker</item>
+        <item name="android:textSize">@dimen/view_text_size</item>
+    </style>
+
+    <style name="Widget.JNRain.TextView.Notice">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center_horizontal</item>
+    </style>
+
+    <style name="Widget.JNRain.TextView.Notice.Small">
+        <item name="android:textSize">@dimen/view_small_text_size</item>
+    </style>
+
+    <style name="Widget.JNRain.EditText">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">@dimen/edittext_padding_t</item>
+        <item name="android:paddingBottom">@dimen/edittext_padding_b</item>
+        <item name="android:paddingLeft">@dimen/edittext_padding_l</item>
+        <item name="android:paddingRight">@dimen/edittext_padding_r</item>
+        <item name="android:background">@drawable/edittext_bkgnd</item>
+        <item name="android:textColor">@color/jnrain_green_evendarker</item>
+        <item name="android:textColorHint">@color/jnrain_green</item>
+        <item name="android:textSize">@dimen/edittext_text_size</item>
+    </style>
+
+    <style name="Widget.JNRain.EditText.Password">
+        <item name="android:inputType">textPassword</item>
+    </style>
+
+    <style name="Widget.JNRain.EditText.Email">
+        <item name="android:inputType">textEmailAddress</item>
+    </style>
+
+    <style name="Widget.JNRain.EditText.PersonName">
+        <item name="android:inputType">textPersonName</item>
+    </style>
+
+    <style name="Widget.JNRain.Button">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">3dp</item>
+        <item name="android:paddingBottom">3dp</item>
+        <item name="android:paddingLeft">6dp</item>
+        <item name="android:paddingRight">6dp</item>
+
+        <!-- remove default minimum dimension -->
+        <item name="android:minHeight">0dp</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:background">@drawable/button_bkgnd</item>
+        <item name="android:textColor">@color/gray_ee</item>
+        <item name="android:textSize">@dimen/button_text_size</item>
+    </style>
+
+    <style name="Widget.JNRain.Button.Action">
+        <item name="android:textSize">@dimen/action_button_text_size</item>
+    </style>
+
 </resources>

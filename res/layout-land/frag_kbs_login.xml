@@ -67,8 +67,15 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="0"
-            android:nextFocusRight="@+id/btnGuestLogin"
+            android:nextFocusRight="@+id/btnRegister"
             android:text="@string/login" />
+
+        <Button
+            android:id="@+id/btnRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0"
+            android:text="@string/register" />
     </LinearLayout>
 
 </LinearLayout>

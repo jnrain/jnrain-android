@@ -53,6 +53,25 @@
     <string name="guest_login_land">Guest</string>
     <string name="login_dlg_title">Logging in</string>
 
+    <!-- Register screen -->
+    <string name="register">New account</string>
+    <string name="field_new_uid">Choose a user ID</string>
+    <string name="field_new_email">E-mail address</string>
+    <string name="field_new_password">Your password</string>
+    <string name="field_repeat_password">Repeat your password</string>
+    <string name="field_realname">Real name</string>
+    <string name="field_stud_id">Student ID number</string>
+    <string name="field_is_ethnic_minority">My name needs a star prefix</string>
+    <string name="submit_register">Submit</string>
+    <string name="register_disclaimer">
+<![CDATA[
+<p>By using this site you agree to be bound by this <a href="http://bbs.jnrain.com/wForum/register.php">Terms of Service</a> (in Chinese).</p>
+<p>JNRain is a Jiangnan University-affiliated site, under regulations from the Ministry of Education.
+This does mean you have to submit your real identity before you can use this site, thanks for your cooperation.</p>
+<p>Note: Accounts registered here are those of the legacy BBS site.</p>
+        ]]>
+    </string>
+
     <!-- Read thread -->
     <string name="action_reply">Reply to this post</string>
 

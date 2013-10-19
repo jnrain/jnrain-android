@@ -14,15 +14,13 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle" >
 
-    <TextView
-        android:id="@+id/textRegisterDisclaimer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView" />
+    <stroke
+        android:width="@dimen/edittext_border_width"
+        android:color="@color/jnrain_green_dark" />
 
-</LinearLayout>
+    <corners android:radius="@dimen/view_border_radius" />
+
+</shape>

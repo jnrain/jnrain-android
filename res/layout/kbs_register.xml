@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Copyright 2013 JNRain
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/FormLayout"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/textRegisterDisclaimer"
+        style="@style/Widget.JNRain.TextView.Notice.Small"
+        android:text="@string/register_disclaimer" />
+
+    <EditText
+        android:id="@+id/editNewUID"
+        style="@style/Widget.JNRain.EditText"
+        android:layout_width="match_parent"
+        android:hint="@string/field_new_uid" >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/editNewEmail"
+        style="@style/Widget.JNRain.EditText.Email"
+        android:layout_width="match_parent"
+        android:hint="@string/field_new_email" />
+
+    <EditText
+        android:id="@+id/editNewPassword"
+        style="@style/Widget.JNRain.EditText.Password"
+        android:layout_width="match_parent"
+        android:hint="@string/field_new_password" />
+
+    <EditText
+        android:id="@+id/editRetypeNewPassword"
+        style="@style/Widget.JNRain.EditText.Password"
+        android:layout_width="match_parent"
+        android:hint="@string/field_repeat_password" />
+
+    <EditText
+        android:id="@+id/editStudID"
+        style="@style/Widget.JNRain.EditText"
+        android:layout_width="match_parent"
+        android:hint="@string/field_stud_id" />
+
+    <EditText
+        android:id="@+id/editRealName"
+        style="@style/Widget.JNRain.EditText.PersonName"
+        android:layout_width="match_parent"
+        android:hint="@string/field_realname" />
+
+    <CheckBox
+        android:id="@+id/checkIsEthnicMinority"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/field_is_ethnic_minority" />
+
+    <Button
+        android:id="@+id/btnSubmitRegister"
+        style="@style/Widget.JNRain.Button.Action"
+        android:layout_width="match_parent"
+        android:text="@string/submit_register" />
+
+</LinearLayout>
