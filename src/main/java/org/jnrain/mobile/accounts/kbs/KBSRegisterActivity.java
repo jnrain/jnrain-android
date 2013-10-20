@@ -365,7 +365,7 @@ public class KBSRegisterActivity extends JNRainActivity<SimpleReturnCode>
                 // Profanity
                 updateUIDAvailability(
                         false,
-                        R.string.reg_uid_profanity,
+                        R.string.reg_uid_banned,
                         timestamp);
                 break;
 

@@ -84,7 +84,7 @@
     <string name="reg_uid_too_short">ID 太短</string>
     <string name="reg_uid_too_long">ID 太长</string>
     <string name="reg_uid_malformed">含禁用字符</string>
-    <string name="reg_uid_profanity">ID 不雅</string>
+    <string name="reg_uid_banned">不可注册</string>
 
     <!-- Read thread -->
     <string name="action_reply">回复此帖</string>
