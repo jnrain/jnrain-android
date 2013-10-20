@@ -362,7 +362,7 @@ public class KBSRegisterActivity extends JNRainActivity<SimpleReturnCode>
                 break;
 
             case 6:
-                // Profanity
+                // Banned
                 updateUIDAvailability(
                         false,
                         R.string.reg_uid_banned,
