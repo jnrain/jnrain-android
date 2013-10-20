@@ -43,8 +43,6 @@ import android.widget.TextView;
 @SuppressWarnings("rawtypes")
 public class KBSRegisterActivity extends JNRainActivity
         implements RegisterPoint {
-    public static final String CAPTCHA_BASE_URL = "http://bbs.jnrain.com/wForum/img_rand/";
-
     @InjectView(R.id.textRegisterDisclaimer)
     TextView textRegisterDisclaimer;
     @InjectView(R.id.editNewUID)
