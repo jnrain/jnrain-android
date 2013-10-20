@@ -23,6 +23,7 @@ import org.jnrain.kbs.pres.formatter.post.JNRainPostFormatter;
 import org.jnrain.kbs.pres.formatter.post.PostFormatter;
 import org.jnrain.mobile.R;
 import org.jnrain.mobile.ui.JNRainURLImageGetter;
+import org.jnrain.mobile.ui.TextViewURLImageConsumer;
 import org.jnrain.mobile.util.SpiceRequestListener;
 
 import android.app.Activity;
@@ -90,7 +91,9 @@ public class ThreadAdapter extends BaseAdapter {
         final Post post = getItem(position);
 
         if (convertView == null) {
-            convertView = this._inflater.inflate(R.layout.kbs_post_item, null);
+            convertView = this._inflater.inflate(
+                    R.layout.kbs_post_item,
+                    null);
         }
 
         TextView textTitle = (TextView) convertView
@@ -126,6 +129,7 @@ public class ThreadAdapter extends BaseAdapter {
                         textContent,
                         ctx,
                         RESOURCE_BASE_URL,
+                        TextViewURLImageConsumer.class,
                         _listener),
                 null), BufferType.SPANNABLE);
         textSignature.setText(Html.fromHtml(
@@ -135,6 +139,7 @@ public class ThreadAdapter extends BaseAdapter {
                         textSignature,
                         ctx,
                         RESOURCE_BASE_URL,
+                        TextViewURLImageConsumer.class,
                         _listener),
                 null), BufferType.SPANNABLE);
 

@@ -13,14 +13,25 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package org.jnrain.mobile.ui.base;
+package org.jnrain.mobile.accounts.kbs;
 
-import android.accounts.Account;
+import org.jnrain.mobile.ui.URLImageConsumer;
+
+import android.graphics.drawable.Drawable;
+import android.view.View;
+import android.widget.ImageView;
 
 
-public interface LoginPoint extends ProgressDialogProvider {
-    public void onAuthenticationSuccess(
-            Account account,
-            String uid,
-            String psw);
+public class KBSCaptchaURLImageConsumer extends URLImageConsumer {
+    public KBSCaptchaURLImageConsumer(View v) {
+        super(v);
+    }
+
+    @Override
+    public void doPostprocess(Drawable drawable) {
+        ImageView iv = (ImageView) _container;
+
+        iv.setImageDrawable(drawable);
+        iv.invalidate();
+    }
 }

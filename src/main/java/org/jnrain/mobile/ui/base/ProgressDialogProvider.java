@@ -15,12 +15,9 @@
  */
 package org.jnrain.mobile.ui.base;
 
-import android.accounts.Account;
+import android.app.ProgressDialog;
 
 
-public interface LoginPoint extends ProgressDialogProvider {
-    public void onAuthenticationSuccess(
-            Account account,
-            String uid,
-            String psw);
+public interface ProgressDialogProvider {
+    public ProgressDialog getLoadingDialog();
 }

@@ -20,7 +20,7 @@ import java.io.InputStream;
 import android.app.Activity;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
-import android.widget.TextView;
+import android.view.View;
 
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
@@ -29,20 +29,24 @@ import com.octo.android.robospice.request.listener.RequestListener;
 public class URLImageRequestListener implements RequestListener<InputStream> {
     private static final String TAG = "URLImgReqListener";
     protected Activity _a;
-    protected TextView _v;
+    protected View _v;
     protected URLDrawable _u;
     protected String _url;
+    protected URLImageConsumer consumer;
 
     public URLImageRequestListener(
-            TextView v,
+            View v,
             URLDrawable u,
             String url,
-            Activity a) {
+            Activity a,
+            URLImageConsumer consumer) {
         super();
         _v = v;
         _u = u;
         _url = url;
         _a = a;
+
+        this.consumer = consumer;
     }
 
     @Override
@@ -96,12 +100,11 @@ public class URLImageRequestListener implements RequestListener<InputStream> {
             // from the HTTP call
             _u.setDrawable(_drawable);
 
-            // according to this SO question,
-            // stackoverflow.com/questions/7739649/async-imagegetter-not-functioning-properly
-            // we need to force a reflow of the container.
-            // TODO: extract interface for reusability here
-            _v.setText(_v.getText());
-            _v.invalidate();
+            // view-specific postprocess
+            // e.g. this is required by TextView's
+            if (consumer != null) {
+                consumer.doPostprocess(_drawable);
+            }
         }
     }
 }

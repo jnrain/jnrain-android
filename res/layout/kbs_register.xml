@@ -73,7 +73,7 @@
 
         <EditText
             android:id="@+id/editStudID"
-            style="@style/Widget.JNRain.EditText"
+            style="@style/Widget.JNRain.EditText.Number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/field_stud_id" />
@@ -109,15 +109,16 @@
         <ImageView
             android:id="@+id/imageRegCaptcha"
             style="@style/Widget.JNRain.ImageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/kbs_register_captcha_height"
             android:layout_gravity="center_horizontal"
             android:contentDescription="@string/field_captcha"
+            android:scaleType="fitCenter"
             android:src="@drawable/loading_pic" />
 
         <EditText
             android:id="@+id/editCaptcha"
-            style="@style/Widget.JNRain.EditText"
+            style="@style/Widget.JNRain.EditText.Number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/field_captcha" />

@@ -17,6 +17,7 @@ package org.jnrain.mobile.ui;
 
 import java.io.File;
 import java.io.InputStream;
+import java.lang.reflect.InvocationTargetException;
 
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -29,7 +30,6 @@ import android.graphics.drawable.Drawable;
 import android.text.Html.ImageGetter;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
 
 import com.octo.android.robospice.persistence.DurationInMillis;
 import com.octo.android.robospice.request.simple.BigBinaryRequest;
@@ -42,6 +42,7 @@ import com.octo.android.robospice.request.simple.BigBinaryRequest;
  */
 public class URLImageGetter implements ImageGetter {
     private static final String TAG = "URLImageGetter";
+    public static final Long DEFAULT_CACHE_DURATION = DurationInMillis.ONE_DAY;
 
     protected Context _c;
     protected View _container;
@@ -49,25 +50,84 @@ public class URLImageGetter implements ImageGetter {
     protected Activity _activity;
     protected SpiceRequestListener<InputStream> _listener;
 
-    /***
+    // protected Class<? extends URLImageConsumer> consumerClass;
+    protected URLImageConsumer consumer;
+    protected long _duration;
+
+    /**
      * Construct the URLImageParser which will execute AsyncTask and refresh
      * the container
      * 
-     * @param t
+     * @param view
      * @param c
      * @param baseURL
+     * @param consumerClass
+     * @param cacheDuration
+     * @param listener
      */
     public URLImageGetter(
             Activity activity,
-            View t,
+            View view,
             Context c,
             String baseURL,
+            Class<? extends URLImageConsumer> consumerClass,
+            SpiceRequestListener<InputStream> listener) {
+        this(
+                activity,
+                view,
+                c,
+                baseURL,
+                consumerClass,
+                DEFAULT_CACHE_DURATION,
+                listener);
+    }
+
+    /**
+     * Construct the URLImageParser which will execute AsyncTask and refresh
+     * the container
+     * 
+     * @param view
+     * @param c
+     * @param baseURL
+     * @param consumerClass
+     * @param cacheDuration
+     * @param listener
+     */
+    public URLImageGetter(
+            Activity activity,
+            View view,
+            Context c,
+            String baseURL,
+            Class<? extends URLImageConsumer> consumerClass,
+            long cacheDuration,
             SpiceRequestListener<InputStream> listener) {
         _activity = activity;
         _c = c;
-        _container = t;
+        _container = view;
         _baseURL = baseURL;
+        _duration = cacheDuration;
         _listener = listener;
+
+        // this.consumerClass = consumerClass;
+        try {
+            consumer = (URLImageConsumer) consumerClass.getConstructor(
+                    View.class).newInstance(view);
+        } catch (IllegalArgumentException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     protected String transformSource(String source) {
@@ -121,12 +181,13 @@ public class URLImageGetter implements ImageGetter {
         _listener.makeSpiceRequest(
                 req,
                 absURLHash,
-                DurationInMillis.ONE_DAY,
+                _duration,
                 new URLImageRequestListener(
-                        (TextView) _container,
+                        _container,
                         urlDrawable,
                         absoluteURL,
-                        _activity));
+                        _activity,
+                        consumer));
 
         // return reference to URLDrawable where I will change with actual
         // image

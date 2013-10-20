@@ -33,8 +33,9 @@ public class JNRainURLImageGetter extends URLImageGetter {
             View t,
             Context c,
             String baseURL,
+            Class<? extends URLImageConsumer> consumerClass,
             SpiceRequestListener<InputStream> listener) {
-        super(activity, t, c, baseURL, listener);
+        super(activity, t, c, baseURL, consumerClass, listener);
     }
 
     @Override

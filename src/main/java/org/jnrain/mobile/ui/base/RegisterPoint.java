@@ -15,12 +15,6 @@
  */
 package org.jnrain.mobile.ui.base;
 
-import android.accounts.Account;
-
-
-public interface LoginPoint extends ProgressDialogProvider {
-    public void onAuthenticationSuccess(
-            Account account,
-            String uid,
-            String psw);
+public interface RegisterPoint extends ProgressDialogProvider {
+    public void fetchCaptcha();
 }

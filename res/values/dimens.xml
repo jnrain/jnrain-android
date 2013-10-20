@@ -67,4 +67,7 @@
     <!-- Action button -->
     <dimen name="action_button_text_size">24sp</dimen>
 
+    <!-- Layout dimens -->
+    <dimen name="kbs_register_captcha_height">80dp</dimen>
+
 </resources>

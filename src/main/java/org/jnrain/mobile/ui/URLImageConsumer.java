@@ -13,14 +13,18 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package org.jnrain.mobile.ui.base;
+package org.jnrain.mobile.ui;
 
-import android.accounts.Account;
+import android.graphics.drawable.Drawable;
+import android.view.View;
 
 
-public interface LoginPoint extends ProgressDialogProvider {
-    public void onAuthenticationSuccess(
-            Account account,
-            String uid,
-            String psw);
+public abstract class URLImageConsumer {
+    protected View _container;
+
+    public URLImageConsumer(View container) {
+        _container = container;
+    }
+
+    public abstract void doPostprocess(Drawable drawable);
 }

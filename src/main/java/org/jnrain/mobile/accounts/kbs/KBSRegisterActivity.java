@@ -17,6 +17,7 @@ package org.jnrain.mobile.accounts.kbs;
 
 import org.jnrain.mobile.R;
 import org.jnrain.mobile.ui.base.JNRainActivity;
+import org.jnrain.mobile.ui.base.RegisterPoint;
 import org.jnrain.mobile.ui.ux.DialogHelper;
 import org.jnrain.mobile.ui.ux.FormatHelper;
 import org.jnrain.mobile.util.GlobalState;
@@ -35,10 +36,15 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 
-public class KBSRegisterActivity extends JNRainActivity {
+@SuppressWarnings("rawtypes")
+public class KBSRegisterActivity extends JNRainActivity
+        implements RegisterPoint {
+    public static final String CAPTCHA_BASE_URL = "http://bbs.jnrain.com/wForum/img_rand/";
+
     @InjectView(R.id.textRegisterDisclaimer)
     TextView textRegisterDisclaimer;
     @InjectView(R.id.editNewUID)
@@ -61,6 +67,10 @@ public class KBSRegisterActivity extends JNRainActivity {
     CheckBox checkUseCurrentPhone;
     @InjectView(R.id.editPhone)
     EditText editPhone;
+    @InjectView(R.id.imageRegCaptcha)
+    ImageView imageRegCaptcha;
+    @InjectView(R.id.editCaptcha)
+    EditText editCaptcha;
     @InjectView(R.id.btnSubmitRegister)
     Button btnSubmitRegister;
 
@@ -72,12 +82,15 @@ public class KBSRegisterActivity extends JNRainActivity {
     private String currentPhoneNumber;
     private boolean isCurrentPhoneNumberAvailable;
 
+    private KBSCaptchaHelper captchaHelper;
+
     public static void show(Context context) {
         final Intent intent = new Intent(context, KBSRegisterActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -135,6 +148,15 @@ public class KBSRegisterActivity extends JNRainActivity {
         // default to use current phone number if available
         checkUseCurrentPhone.setChecked(isCurrentPhoneNumberAvailable);
         setUseCurrentPhone(isCurrentPhoneNumberAvailable);
+
+        // init captcha helper
+        captchaHelper = new KBSCaptchaHelper(this, imageRegCaptcha);
+
+        // issue preflight request
+        // load captcha in success callback
+        this.makeSpiceRequest(
+                new KBSRegisterRequest(),
+                new KBSRegisterRequestListener(this));
     }
 
     public ProgressDialog getLoadingDialog() {
@@ -144,5 +166,10 @@ public class KBSRegisterActivity extends JNRainActivity {
     public synchronized void setUseCurrentPhone(boolean useCurrent) {
         editPhone.setEnabled(!useCurrent);
         editPhone.setVisibility(useCurrent ? View.GONE : View.VISIBLE);
+    }
+
+    @Override
+    public void fetchCaptcha() {
+        captchaHelper.doFetchCaptcha();
     }
 }
