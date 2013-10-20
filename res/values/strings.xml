@@ -62,13 +62,18 @@
     <string name="field_realname">Real name</string>
     <string name="field_stud_id">Student ID number</string>
     <string name="field_is_ethnic_minority">My name needs a star prefix</string>
+    <string name="field_gender">Gender</string>
+    <string name="field_nickname">Nickname</string>
+    <string name="field_captcha">Verification code</string>
+    <string name="field_use_current_phone"><![CDATA[Use <b>{0}</b> as phone number]]></string>
+    <string name="field_phone">Phone number</string>
     <string name="submit_register">Submit</string>
     <string name="register_disclaimer">
 <![CDATA[
 <p>By using this site you agree to be bound by this <a href="http://bbs.jnrain.com/wForum/register.php">Terms of Service</a> (in Chinese).</p>
 <p>JNRain is a Jiangnan University-affiliated site, under regulations from the Ministry of Education.
 This does mean you have to submit your real identity before you can use this site, thanks for your cooperation.</p>
-<p>Note: Accounts registered here are those of the legacy BBS site.</p>
+Note: Accounts registered here are those of the legacy BBS site.
         ]]>
     </string>
 

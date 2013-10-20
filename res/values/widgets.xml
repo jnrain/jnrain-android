@@ -154,6 +154,10 @@
         <item name="android:inputType">textPersonName</item>
     </style>
 
+    <style name="Widget.JNRain.EditText.Phone">
+        <item name="android:inputType">phone</item>
+    </style>
+
     <style name="Widget.JNRain.Button">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:paddingTop">3dp</item>
@@ -172,5 +176,12 @@
     <style name="Widget.JNRain.Button.Action">
         <item name="android:textSize">@dimen/action_button_text_size</item>
     </style>
+
+    <!-- TODO: customize these -->
+    <style name="Widget.JNRain.CheckBox" parent="android:Widget.CompoundButton.CheckBox">
+        <item name="android:layout_marginTop">@dimen/view_margin_t</item>
+    </style>
+
+    <style name="Widget.JNRain.ImageView"></style>
 
 </resources>

@@ -62,12 +62,17 @@
     <string name="field_realname">真实姓名</string>
     <string name="field_stud_id">学号</string>
     <string name="field_is_ethnic_minority">我的档案姓名前需要加星</string>
+    <string name="field_gender">您的性别</string>
+    <string name="field_nickname">您的昵称</string>
+    <string name="field_captcha">验证码</string>
+    <string name="field_use_current_phone"><![CDATA[使用此号码注册: <b>{0}</b>]]></string>
+    <string name="field_phone">电话号码</string>
     <string name="submit_register">提交注册</string>
     <string name="register_disclaimer">
 <![CDATA[
 <p>注册本站帐号即意味着您同意遵守 <a href="http://bbs.jnrain.com/wForum/register.php">江南听雨 BBS 论坛协议</a> 的各项条款。</p>
 <p>江南听雨为江南大学校园网站，按照教育部管理规定，注册用户需提供实名验证信息，望您配合。</p>
-<p>注: 在此处注册的帐号为江南听雨 BBS 旧站帐号。</p>
+注: 在此处注册的帐号为江南听雨 BBS 旧站帐号。
         ]]>
     </string>
 

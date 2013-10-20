@@ -129,6 +129,8 @@ public class MainActivity extends ExitPointActivity
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
+        // FIXME: this will crash when fragments are not put into fm
+        // in advance, then activity got paused
         getSupportFragmentManager().putFragment(
                 outState,
                 CONTENT_FRAGMENT_STORE,

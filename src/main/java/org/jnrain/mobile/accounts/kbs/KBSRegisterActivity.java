@@ -19,6 +19,7 @@ import org.jnrain.mobile.R;
 import org.jnrain.mobile.ui.base.JNRainActivity;
 import org.jnrain.mobile.ui.ux.DialogHelper;
 import org.jnrain.mobile.ui.ux.FormatHelper;
+import org.jnrain.mobile.util.GlobalState;
 
 import roboguice.inject.InjectView;
 import android.app.ProgressDialog;
@@ -28,8 +29,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.method.LinkMovementMethod;
+import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -45,12 +49,18 @@ public class KBSRegisterActivity extends JNRainActivity {
     EditText editNewPassword;
     @InjectView(R.id.editRetypeNewPassword)
     EditText editRetypeNewPassword;
+    @InjectView(R.id.editNewNickname)
+    EditText editNewNickname;
     @InjectView(R.id.editStudID)
     EditText editStudID;
     @InjectView(R.id.editRealName)
     EditText editRealName;
     @InjectView(R.id.checkIsEthnicMinority)
     CheckBox checkIsEthnicMinority;
+    @InjectView(R.id.checkUseCurrentPhone)
+    CheckBox checkUseCurrentPhone;
+    @InjectView(R.id.editPhone)
+    EditText editPhone;
     @InjectView(R.id.btnSubmitRegister)
     Button btnSubmitRegister;
 
@@ -58,6 +68,9 @@ public class KBSRegisterActivity extends JNRainActivity {
 
     private ProgressDialog loadingDlg;
     private Handler mHandler;
+
+    private String currentPhoneNumber;
+    private boolean isCurrentPhoneNumberAvailable;
 
     public static void show(Context context) {
         final Intent intent = new Intent(context, KBSRegisterActivity.class);
@@ -82,6 +95,18 @@ public class KBSRegisterActivity extends JNRainActivity {
             }
         };
 
+        // event handlers
+        checkUseCurrentPhone
+            .setOnCheckedChangeListener(new OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(
+                        CompoundButton buttonView,
+                        boolean isChecked) {
+                    setUseCurrentPhone(isChecked);
+                }
+            });
+
+        // interface init
         // HTML-formatted register disclaimer
         FormatHelper.setHtmlText(
                 this,
@@ -89,9 +114,35 @@ public class KBSRegisterActivity extends JNRainActivity {
                 R.string.register_disclaimer);
         textRegisterDisclaimer.setMovementMethod(LinkMovementMethod
             .getInstance());
+
+        // current phone number
+        currentPhoneNumber = GlobalState.getPhoneNumber(this);
+        isCurrentPhoneNumberAvailable = currentPhoneNumber != null;
+
+        if (isCurrentPhoneNumberAvailable) {
+            // display the obtained number as hint
+            FormatHelper.setHtmlText(
+                    this,
+                    checkUseCurrentPhone,
+                    R.string.field_use_current_phone,
+                    currentPhoneNumber);
+        } else {
+            // phone number unavailable, disable the choice
+            checkUseCurrentPhone.setEnabled(false);
+            checkUseCurrentPhone.setVisibility(View.GONE);
+        }
+
+        // default to use current phone number if available
+        checkUseCurrentPhone.setChecked(isCurrentPhoneNumberAvailable);
+        setUseCurrentPhone(isCurrentPhoneNumberAvailable);
     }
 
     public ProgressDialog getLoadingDialog() {
         return loadingDlg;
+    }
+
+    public synchronized void setUseCurrentPhone(boolean useCurrent) {
+        editPhone.setEnabled(!useCurrent);
+        editPhone.setVisibility(useCurrent ? View.GONE : View.VISIBLE);
     }
 }
