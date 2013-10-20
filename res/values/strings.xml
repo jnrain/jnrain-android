@@ -77,6 +77,16 @@ Note: Accounts registered here are those of the legacy BBS site.
         ]]>
     </string>
 
+    <!-- Register process -->
+    <!-- UID availability check -->
+    <string name="reg_uid_available">OK</string>
+    <string name="reg_uid_empty">Empty UID</string>
+    <string name="reg_uid_exists">Unavailable</string>
+    <string name="reg_uid_too_short">Too short</string>
+    <string name="reg_uid_too_long">Too long</string>
+    <string name="reg_uid_malformed">Malformed</string>
+    <string name="reg_uid_profanity">Not acceptable</string>
+
     <!-- Read thread -->
     <string name="action_reply">Reply to this post</string>
 

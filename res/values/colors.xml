@@ -30,4 +30,7 @@
     <color name="gray_26">#262626</color>
     <color name="gray_ee">#EEEEEE</color>
 
+    <!-- error reds -->
+    <color name="error_red">#990000</color>
+
 </resources>

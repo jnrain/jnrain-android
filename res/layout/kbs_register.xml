@@ -33,15 +33,32 @@
             android:layout_height="wrap_content"
             android:text="@string/register_disclaimer" />
 
-        <EditText
-            android:id="@+id/editNewUID"
-            style="@style/Widget.JNRain.EditText"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/field_new_uid" >
+            android:layout_marginTop="@dimen/view_margin_t" >
 
-            <requestFocus />
-        </EditText>
+            <EditText
+                android:id="@+id/editNewUID"
+                style="@style/Widget.JNRain.EditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:hint="@string/field_new_uid" />
+
+            <TextView
+                android:id="@+id/textUIDAvailability"
+                style="@style/Widget.JNRain.TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/edittext_padding_r"
+                android:layout_marginTop="0dp"
+                android:focusable="false"
+                android:textSize="@dimen/view_small_text_size" />
+
+        </RelativeLayout>
 
         <EditText
             android:id="@+id/editNewEmail"

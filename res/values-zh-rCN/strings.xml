@@ -76,6 +76,16 @@
         ]]>
     </string>
 
+    <!-- Register process -->
+    <!-- UID availability check -->
+    <string name="reg_uid_available">可注册</string>
+    <string name="reg_uid_empty">请输入 ID</string>
+    <string name="reg_uid_exists">已被占用</string>
+    <string name="reg_uid_too_short">ID 太短</string>
+    <string name="reg_uid_too_long">ID 太长</string>
+    <string name="reg_uid_malformed">含禁用字符</string>
+    <string name="reg_uid_profanity">ID 不雅</string>
+
     <!-- Read thread -->
     <string name="action_reply">回复此帖</string>
 

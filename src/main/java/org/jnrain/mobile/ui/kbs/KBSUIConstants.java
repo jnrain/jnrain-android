@@ -41,4 +41,6 @@ public final class KBSUIConstants {
 
     public static final int THREADS_PER_PAGE = 30;
     public static final int POSTS_PER_PAGE = 10;
+
+    public static final long REG_CHECK_UID_INTERVAL_MILLIS = 2500;
 }

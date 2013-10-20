@@ -15,22 +15,32 @@
  */
 package org.jnrain.mobile.accounts.kbs;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
+import org.jnrain.kbs.entity.SimpleReturnCode;
 import org.jnrain.mobile.R;
 import org.jnrain.mobile.ui.base.JNRainActivity;
 import org.jnrain.mobile.ui.base.RegisterPoint;
+import org.jnrain.mobile.ui.kbs.KBSUIConstants;
 import org.jnrain.mobile.ui.ux.DialogHelper;
 import org.jnrain.mobile.ui.ux.FormatHelper;
 import org.jnrain.mobile.util.GlobalState;
+import org.jnrain.mobile.util.SpiceRequestListener;
 
 import roboguice.inject.InjectView;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.text.method.LinkMovementMethod;
 import android.view.View;
+import android.view.View.OnFocusChangeListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -40,13 +50,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
-@SuppressWarnings("rawtypes")
-public class KBSRegisterActivity extends JNRainActivity
+public class KBSRegisterActivity extends JNRainActivity<SimpleReturnCode>
         implements RegisterPoint {
     @InjectView(R.id.textRegisterDisclaimer)
     TextView textRegisterDisclaimer;
+
     @InjectView(R.id.editNewUID)
     EditText editNewUID;
+    @InjectView(R.id.textUIDAvailability)
+    TextView textUIDAvailability;
+
     @InjectView(R.id.editNewEmail)
     EditText editNewEmail;
     @InjectView(R.id.editNewPassword)
@@ -55,20 +68,25 @@ public class KBSRegisterActivity extends JNRainActivity
     EditText editRetypeNewPassword;
     @InjectView(R.id.editNewNickname)
     EditText editNewNickname;
+
     @InjectView(R.id.editStudID)
     EditText editStudID;
     @InjectView(R.id.editRealName)
     EditText editRealName;
+
     @InjectView(R.id.checkIsEthnicMinority)
     CheckBox checkIsEthnicMinority;
+
     @InjectView(R.id.checkUseCurrentPhone)
     CheckBox checkUseCurrentPhone;
     @InjectView(R.id.editPhone)
     EditText editPhone;
+
     @InjectView(R.id.imageRegCaptcha)
     ImageView imageRegCaptcha;
     @InjectView(R.id.editCaptcha)
     EditText editCaptcha;
+
     @InjectView(R.id.btnSubmitRegister)
     Button btnSubmitRegister;
 
@@ -81,6 +99,8 @@ public class KBSRegisterActivity extends JNRainActivity
     private boolean isCurrentPhoneNumberAvailable;
 
     private KBSCaptchaHelper captchaHelper;
+    private Timer delayedUIDChecker;
+    private long lastUIDCheckTime;
 
     public static void show(Context context) {
         final Intent intent = new Intent(context, KBSRegisterActivity.class);
@@ -88,7 +108,6 @@ public class KBSRegisterActivity extends JNRainActivity
         context.startActivity(intent);
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,7 +125,89 @@ public class KBSRegisterActivity extends JNRainActivity
             }
         };
 
+        lastUIDCheckTime = 0;
+
         // event handlers
+        editNewUID.addTextChangedListener(new TextWatcher() {
+            long lastCheckTime = 0;
+            String lastUID;
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+
+            @Override
+            public void beforeTextChanged(
+                    CharSequence s,
+                    int start,
+                    int count,
+                    int after) {
+            }
+
+            @Override
+            public void onTextChanged(
+                    CharSequence s,
+                    int start,
+                    int before,
+                    int count) {
+                // FIXME: use monotonic clock...
+                long curtime = System.currentTimeMillis();
+                if (curtime - lastCheckTime >= KBSUIConstants.REG_CHECK_UID_INTERVAL_MILLIS) {
+                    String uid = s.toString();
+
+                    // don't check at the first char
+                    if (uid.length() > 1) {
+                        checkUIDAvailability(uid, curtime);
+                    }
+
+                    lastCheckTime = curtime;
+                    lastUID = uid;
+
+                    // schedule a new delayed check
+                    if (delayedUIDChecker != null) {
+                        delayedUIDChecker.cancel();
+                        delayedUIDChecker.purge();
+                    }
+                    delayedUIDChecker = new Timer();
+                    delayedUIDChecker.schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            final String uid = getUID();
+
+                            if (uid != lastUID) {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        checkUIDAvailability(
+                                                uid,
+                                                System.currentTimeMillis());
+                                    }
+                                });
+
+                                lastUID = uid;
+                            }
+                        }
+                    },
+                            KBSUIConstants.REG_CHECK_UID_INTERVAL_MILLIS);
+                }
+            }
+        });
+
+        editNewUID.setOnFocusChangeListener(new OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    // lost focus, force check uid availability
+                    checkUIDAvailability(
+                            getUID(),
+                            System.currentTimeMillis());
+                } else {
+                    // inputting, temporarily clear that notice
+                    updateUIDAvailability(false, 0);
+                }
+            }
+        });
+
         checkUseCurrentPhone
             .setOnCheckedChangeListener(new OnCheckedChangeListener() {
                 @Override
@@ -118,6 +219,9 @@ public class KBSRegisterActivity extends JNRainActivity
             });
 
         // interface init
+        // UID availability
+        updateUIDAvailability(false, 0);
+
         // HTML-formatted register disclaimer
         FormatHelper.setHtmlText(
                 this,
@@ -147,14 +251,20 @@ public class KBSRegisterActivity extends JNRainActivity
         checkUseCurrentPhone.setChecked(isCurrentPhoneNumberAvailable);
         setUseCurrentPhone(isCurrentPhoneNumberAvailable);
 
-        // init captcha helper
-        captchaHelper = new KBSCaptchaHelper(this, imageRegCaptcha);
-
         // issue preflight request
         // load captcha in success callback
         this.makeSpiceRequest(
                 new KBSRegisterRequest(),
                 new KBSRegisterRequestListener(this));
+    }
+
+    @Override
+    protected void onStop() {
+        if (delayedUIDChecker != null) {
+            delayedUIDChecker.cancel();
+        }
+
+        super.onStop();
     }
 
     public ProgressDialog getLoadingDialog() {
@@ -166,8 +276,132 @@ public class KBSRegisterActivity extends JNRainActivity
         editPhone.setVisibility(useCurrent ? View.GONE : View.VISIBLE);
     }
 
+    @SuppressWarnings({
+            "rawtypes",
+            "unchecked"
+    })
     @Override
     public void fetchCaptcha() {
+        // init captcha helper
+        if (captchaHelper == null) {
+            captchaHelper = new KBSCaptchaHelper(
+                    (SpiceRequestListener) this,
+                    imageRegCaptcha);
+        }
+
         captchaHelper.doFetchCaptcha();
+    }
+
+    @Override
+    public String getUID() {
+        return editNewUID.getText().toString();
+    }
+
+    @Override
+    public void checkUIDAvailability(String uid, long timestamp) {
+        if (uid.length() == 0) {
+            // directly "return"
+            updateUIDAvailability(false, R.string.reg_uid_empty);
+            return;
+        }
+
+        makeSpiceRequest(
+                new KBSCheckIDRequest(uid),
+                new KBSCheckIDRequestListener(this, timestamp));
+    }
+
+    @Override
+    public void notifyUIDAvailability(int status, long timestamp) {
+        switch (status) {
+            case 0:
+                // Success
+                updateUIDAvailability(
+                        true,
+                        R.string.reg_uid_available,
+                        timestamp);
+                break;
+
+            case 1:
+                // UID empty
+                updateUIDAvailability(
+                        false,
+                        R.string.reg_uid_empty,
+                        timestamp);
+                break;
+
+            case 2:
+                // Already exists
+                updateUIDAvailability(
+                        false,
+                        R.string.reg_uid_exists,
+                        timestamp);
+                break;
+
+            case 3:
+                // Too short
+                updateUIDAvailability(
+                        false,
+                        R.string.reg_uid_too_short,
+                        timestamp);
+                break;
+
+            case 4:
+                // Too long
+                updateUIDAvailability(
+                        false,
+                        R.string.reg_uid_too_long,
+                        timestamp);
+                break;
+
+            case 5:
+                // Forbidden characters
+                updateUIDAvailability(
+                        false,
+                        R.string.reg_uid_malformed,
+                        timestamp);
+                break;
+
+            case 6:
+                // Profanity
+                updateUIDAvailability(
+                        false,
+                        R.string.reg_uid_profanity,
+                        timestamp);
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    protected synchronized void updateUIDAvailability(
+            boolean ok,
+            int statusResId,
+            long timestamp) {
+        if (timestamp < lastUIDCheckTime) {
+            // results of an earlier check arrived late, discard it
+            return;
+        }
+
+        updateUIDAvailability(ok, statusResId);
+    }
+
+    protected synchronized void updateUIDAvailability(
+            boolean ok,
+            int statusResId) {
+        // Color
+        Resources res = this.getResources();
+        textUIDAvailability.setTextColor(ok ? res
+            .getColorStateList(R.color.jnrain_green_dark) : res
+            .getColorStateList(R.color.error_red));
+
+        // Message
+        if (statusResId != 0) {
+            textUIDAvailability.setText(statusResId);
+            textUIDAvailability.setVisibility(View.VISIBLE);
+        } else {
+            textUIDAvailability.setText("");
+            textUIDAvailability.setVisibility(View.GONE);
+        }
     }
 }
