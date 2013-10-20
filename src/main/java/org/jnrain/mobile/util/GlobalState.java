@@ -22,6 +22,7 @@ import org.jnrain.mobile.updater.UpdateInfo;
 
 import android.accounts.Account;
 import android.content.Context;
+import android.telephony.TelephonyManager;
 import android.webkit.CookieSyncManager;
 
 
@@ -144,5 +145,11 @@ public class GlobalState {
 
     public static synchronized void setUpdateInfo(UpdateInfo updInfo) {
         _updInfo = updInfo;
+    }
+
+    public static String getPhoneNumber(Context ctx) {
+        TelephonyManager tMgr = (TelephonyManager) (ctx
+            .getSystemService(Context.TELEPHONY_SERVICE));
+        return tMgr.getLine1Number();
     }
 }
