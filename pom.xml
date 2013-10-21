@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.jnrain.mobile</groupId>
   <artifactId>jnrain-android</artifactId>
-  <version>0.3-dev</version>
+  <version>0.4-dev</version>
   <packaging>apk</packaging>
   <name>jnrain-android</name>
 
@@ -12,13 +12,14 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
     <platform.version>4.1.1.4</platform.version>
-    <robospice.version>1.4.0</robospice.version>
-    <jackson.version>1.9.12</jackson.version>
+    <robospice.version>1.4.7</robospice.version>
+    <jackson.version>1.9.13</jackson.version>
     <ccodec.version>1.8</ccodec.version>
     <roboguice.version>2.0</roboguice.version>
-    <abs.version>4.3.1</abs.version>
+    <abs.version>4.4.0-xen0n</abs.version>
     <robosherlock.version>1.5</robosherlock.version>
-    <vpi.version>2.4.1</vpi.version>
+    <vpi.version>2.4.1-xen0n</vpi.version>
+    <slidingmenu.version>1.3-SNAPSHOT</slidingmenu.version>
   </properties>
 
   <dependencies>
@@ -70,9 +71,22 @@
     </dependency>
 
     <dependency>
+      <groupId>com.jeremyfeinstein.slidingmenu</groupId>
+      <artifactId>slidingmenu</artifactId>
+      <version>${slidingmenu.version}</version>
+      <type>apklib</type>
+    </dependency>
+
+    <dependency>
       <groupId>com.google.android</groupId>
       <artifactId>android</artifactId>
       <version>${platform.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.google.android</groupId>
+      <artifactId>support-v4</artifactId>
+      <version>r7</version>
       <scope>provided</scope>
     </dependency>
   </dependencies>

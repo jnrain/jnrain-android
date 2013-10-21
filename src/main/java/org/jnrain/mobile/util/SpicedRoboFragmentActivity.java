@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 JNRain
+ * Copyright 2012-2013 JNRain
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may
  * not use this file except in compliance with the License. You may obtain a
@@ -15,19 +15,17 @@
  */
 package org.jnrain.mobile.util;
 
-import org.jnrain.mobile.OptionsMenuProvider;
 import org.jnrain.mobile.service.JNRainSpiceService;
 
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
+import android.app.Activity;
+
 import com.github.rtyley.android.sherlock.roboguice.activity.RoboSherlockFragmentActivity;
 import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.request.SpiceRequest;
 import com.octo.android.robospice.request.listener.RequestListener;
 
 
-public class SpicedRoboFragmentActivity<T>
+public abstract class SpicedRoboFragmentActivity<T>
         extends RoboSherlockFragmentActivity
         implements SpiceRequestListener<T> {
     protected SpiceManager spiceManager = new SpiceManager(
@@ -35,9 +33,6 @@ public class SpicedRoboFragmentActivity<T>
 
     @Override
     protected void onStart() {
-        // init global version info
-        AppVersionHelper.ensureVersionInited(this);
-
         synchronized (this) {
             super.onStart();
             spiceManager.start(this);
@@ -73,17 +68,7 @@ public class SpicedRoboFragmentActivity<T>
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getSupportMenuInflater();
-        OptionsMenuProvider optionsMenuProvider = OptionsMenuProvider
-            .getOptionsMenuProvider();
-        return optionsMenuProvider.createOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        OptionsMenuProvider optionsMenuProvider = OptionsMenuProvider
-            .getOptionsMenuProvider();
-        return optionsMenuProvider.optionsItemSelected(item, this);
+    public Activity getThisActivity() {
+        return this;
     }
 }

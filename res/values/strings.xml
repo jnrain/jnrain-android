@@ -19,14 +19,14 @@
     <string name="app_name">JNRain</string>
     <string name="hello_world">TODO</string>
     <string name="menu_settings">Settings</string>
-    <string name="title_activity_section_list">Sections</string>
-    <string name="title_activity_board_list">Boards</string>
-    <string name="title_activity_global_hot_posts_list">Hot posts</string>
-    <string name="title_activity_board">View threads</string>
-    <string name="title_activity_read_thread">Read thread</string>
-    <string name="title_activity_new_post">New post</string>
-    <string name="title_activity_preference">Preference</string>
-    <string name="title_activity_about">About JNRain for Android</string>
+    <string name="title_kbs_section_list">Sections</string>
+    <string name="title_kbs_board_list">Boards</string>
+    <string name="title_kbs_global_hot_posts_list">Hot posts</string>
+    <string name="title_kbs_board">View threads</string>
+    <string name="title_kbs_read_thread">Read thread</string>
+    <string name="title_kbs_new_post">New post</string>
+    <string name="title_preference">Preference</string>
+    <string name="title_about">About</string>
     <string name="app_name_en">JNRain</string>
     <string name="splash_image_desc">Splash image</string>
 
@@ -52,6 +52,40 @@
     <string name="guest_login">Guest login</string>
     <string name="guest_login_land">Guest</string>
     <string name="login_dlg_title">Logging in</string>
+
+    <!-- Register screen -->
+    <string name="register">New account</string>
+    <string name="field_new_uid">Choose a user ID</string>
+    <string name="field_new_email">E-mail address</string>
+    <string name="field_new_password">Your password</string>
+    <string name="field_repeat_password">Repeat your password</string>
+    <string name="field_realname">Real name</string>
+    <string name="field_stud_id">Student ID number</string>
+    <string name="field_is_ethnic_minority">My name needs a star prefix</string>
+    <string name="field_gender">Gender</string>
+    <string name="field_nickname">Nickname</string>
+    <string name="field_captcha">Verification code</string>
+    <string name="field_use_current_phone"><![CDATA[Use <b>{0}</b> as phone number]]></string>
+    <string name="field_phone">Phone number</string>
+    <string name="submit_register">Submit</string>
+    <string name="register_disclaimer">
+<![CDATA[
+<p>By using this site you agree to be bound by this <a href="http://bbs.jnrain.com/wForum/register.php">Terms of Service</a> (in Chinese).</p>
+<p>JNRain is a Jiangnan University-affiliated site, under regulations from the Ministry of Education.
+This does mean you have to submit your real identity before you can use this site, thanks for your cooperation.</p>
+Note: Accounts registered here are those of the legacy BBS site.
+        ]]>
+    </string>
+
+    <!-- Register process -->
+    <!-- UID availability check -->
+    <string name="reg_uid_available">OK</string>
+    <string name="reg_uid_empty">Empty UID</string>
+    <string name="reg_uid_exists">Unavailable</string>
+    <string name="reg_uid_too_short">Too short</string>
+    <string name="reg_uid_too_long">Too long</string>
+    <string name="reg_uid_malformed">Malformed</string>
+    <string name="reg_uid_banned">Banned</string>
 
     <!-- Read thread -->
     <string name="action_reply">Reply to this post</string>
@@ -105,7 +139,7 @@
 
     <!-- Preferences -->
     <string name="prefs_title_account">Account</string>
-    <string name="prefs_title_ui">Interface</string>
+    <string name="prefs_title_general">General</string>
     <string name="prefs_ui_exit_behavior">App exit style</string>
 
     <string-array name="prefs_ui_exit_choices">
@@ -126,6 +160,12 @@
     <string name="prefs_ui_exit_dialog">dialog</string>
     <string name="prefs_ui_exit_doubleclick_timeout">Doubleclick timeout</string>
 
+    <!-- Updater preferences -->
+    <string name="prefs_updater_enable_auto">Auto check for updates</string>
+    <string name="prefs_updater_channel">Update channel</string>
+    <string name="prefs_updater_channel_select">Select an update channel</string>
+    <string name="prefs_updater_check_freq">Update check frequency</string>
+
     <!-- App exit dialog -->
     <string name="dlg_exit_confirm_title">Confirm exit</string>
     <string name="dlg_exit_confirm_msg">Do you want to leave the app now?</string>
@@ -140,9 +180,37 @@
     <!-- Updater -->
     <string name="check_updates_dlg_title">Checking for updates</string>
     <string name="msg_version_is_latest">v{0} is the latest version</string>
-    <string name="msg_new_version_available">New version v{0} available</string>
+    <string name="new_version_available">New version {0} now available</string>
     <string name="current_update_channel"><![CDATA[Currently on the <b>{1}</b> ({0}) update channel.]]></string>
     <string name="update_chan_name_stable">Stable</string>
     <string name="update_chan_name_next">Preview</string>
+    <string name="latest_version_is"><![CDATA[Latest: <b>{0}</b>]]></string>
+    <string name="latest_version_is_w_codename"><![CDATA[Latest: <b>{0}</b> [{1}]]]></string>
+    <string name="latest_version_unknown">To be checked</string>
+    <string name="last_checked_time"><![CDATA[Last checked: <b>{0}</b>]]></string>
+    <string name="last_checked_never">Never before</string>
+    <string name="download_update">Download update</string>
+
+    <!-- New version available dialog -->
+    <string name="new_version_available">Version {0} available</string>
+    <string name="new_version_ok_btn">Try it out</string>
+    <string name="new_version_cancel_btn">Not now</string>
+    <string name="new_version_number"><![CDATA[<b>{0}</b>]]></string>
+    <string name="new_version_number_w_codename"><![CDATA[{0} [<b>{1}</b>]]]></string>
+    <string name="new_version_message">
+<![CDATA[
+        <p>Version: {0}</p>
+        <p>Changes:<br />
+        {1}
+        </p>
+        ]]>
+    </string>
+    <string name="new_version_desc_empty">No changelog</string>
+
+    <!-- Accounts -->
+    <string name="account_type_kbs">JNRain (old site)</string>
+
+    <!-- Nav -->
+    <string name="nav_remove_account">Change identity</string>
 
 </resources>

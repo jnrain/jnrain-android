@@ -22,5 +22,15 @@
     <!-- pressed = 10% #A9D46D plus jnrain_green_light -->
     <color name="jnrain_green_pressed">#F0F8E5</color>
     <color name="jnrain_green_dark">#669A1F</color>
+    <color name="jnrain_green_darker">#334D0F</color>
+    <color name="jnrain_green_evendarker">#192608</color>
+
+    <!-- gray shades -->
+    <color name="gray_11">#111111</color>
+    <color name="gray_26">#262626</color>
+    <color name="gray_ee">#EEEEEE</color>
+
+    <!-- error reds -->
+    <color name="error_red">#990000</color>
 
 </resources>

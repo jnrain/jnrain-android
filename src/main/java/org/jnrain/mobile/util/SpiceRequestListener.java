@@ -15,11 +15,15 @@
  */
 package org.jnrain.mobile.util;
 
+import android.app.Activity;
+
 import com.octo.android.robospice.request.SpiceRequest;
 import com.octo.android.robospice.request.listener.RequestListener;
 
 
 public interface SpiceRequestListener<T> {
+    public Activity getThisActivity();
+
     public void makeSpiceRequest(
             SpiceRequest<T> request,
             RequestListener<T> requestListener);

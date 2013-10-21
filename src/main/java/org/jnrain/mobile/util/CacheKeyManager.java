@@ -15,7 +15,7 @@
  */
 package org.jnrain.mobile.util;
 
-import org.jnrain.luohua.collection.ListHotPosts;
+import org.jnrain.kbs.collection.ListHotPosts;
 
 
 public class CacheKeyManager {
