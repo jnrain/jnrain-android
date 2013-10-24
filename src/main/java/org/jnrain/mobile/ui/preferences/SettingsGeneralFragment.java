@@ -18,16 +18,17 @@ package org.jnrain.mobile.ui.preferences;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import name.xen0n.cytosol.config.UIConfigConstants;
+import name.xen0n.cytosol.config.UpdaterConfigUtil;
+import name.xen0n.cytosol.ui.preference.SeekBarPreference;
+import name.xen0n.cytosol.ui.preference.SummarizedListPreference;
+import name.xen0n.cytosol.updater.AppVersionHelper;
+import name.xen0n.cytosol.updater.UpdateChannel;
+import name.xen0n.cytosol.updater.UpdateInfo;
+
 import org.jnrain.mobile.R;
-import org.jnrain.mobile.config.ConfigConstants;
 import org.jnrain.mobile.config.ConfigHub;
-import org.jnrain.mobile.config.UpdaterConfigUtil;
-import org.jnrain.mobile.updater.UpdateChannel;
-import org.jnrain.mobile.updater.UpdateInfo;
-import org.jnrain.mobile.util.AppVersionHelper;
 import org.jnrain.mobile.util.GlobalState;
-import org.jnrain.mobile.util.preference.SeekBarPreference;
-import org.jnrain.mobile.util.preference.SummarizedListPreference;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -58,8 +59,8 @@ public class SettingsGeneralFragment extends PreferenceListFragment {
         // dynamically add preference for update channel
         addUpdateChannelPreference();
 
-        exitBehavior = (ListPreference) findPreference(ConfigConstants.EXIT_BEHAVIOR);
-        exitDoubleclickTimeout = (SeekBarPreference) findPreference(ConfigConstants.EXIT_DOUBLECLICK_TIMEOUT);
+        exitBehavior = (ListPreference) findPreference(UIConfigConstants.EXIT_BEHAVIOR);
+        exitDoubleclickTimeout = (SeekBarPreference) findPreference(UIConfigConstants.EXIT_DOUBLECLICK_TIMEOUT);
         enableAutoUpdate = (CheckBoxPreference) findPreference(UpdaterConfigUtil.ENABLE_AUTO_CHECK);
         updateCheckFreq = (SeekBarPreference) findPreference(UpdaterConfigUtil.CHECK_FREQ);
 
@@ -93,7 +94,7 @@ public class SettingsGeneralFragment extends PreferenceListFragment {
     }
 
     public synchronized void syncExitBehaviorDep(String newValue) {
-        boolean enabled = ConfigConstants.EXIT_DOUBLECLICK.equals(newValue
+        boolean enabled = UIConfigConstants.EXIT_DOUBLECLICK.equals(newValue
             .toString());
         exitDoubleclickTimeout.setEnabled(enabled);
 

@@ -15,13 +15,14 @@
  */
 package org.jnrain.mobile.accounts.kbs;
 
-import org.jnrain.kbs.entity.SimpleReturnCode;
+import name.xen0n.cytosol.data.SimpleReturnCode;
+import name.xen0n.cytosol.ui.util.DialogHelper;
+import name.xen0n.cytosol.ui.util.ToastHelper;
+
 import org.jnrain.mobile.R;
 import org.jnrain.mobile.accounts.AccountConstants;
 import org.jnrain.mobile.ui.base.JNRainAccountAuthenticatorActivity;
 import org.jnrain.mobile.ui.base.LoginPoint;
-import org.jnrain.mobile.ui.ux.DialogHelper;
-import org.jnrain.mobile.ui.ux.ToastHelper;
 import org.jnrain.mobile.util.GlobalState;
 
 import roboguice.inject.InjectView;

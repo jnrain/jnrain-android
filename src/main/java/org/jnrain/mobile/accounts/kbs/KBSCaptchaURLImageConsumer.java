@@ -15,7 +15,7 @@
  */
 package org.jnrain.mobile.accounts.kbs;
 
-import org.jnrain.mobile.ui.URLImageConsumer;
+import name.xen0n.cytosol.ui.imagegetter.URLImageConsumer;
 
 import android.graphics.drawable.Drawable;
 import android.view.View;

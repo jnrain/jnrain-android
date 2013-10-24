@@ -15,7 +15,8 @@
  */
 package org.jnrain.mobile.accounts.kbs;
 
-import org.jnrain.kbs.entity.SimpleReturnCode;
+import name.xen0n.cytosol.data.SimpleReturnCode;
+
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;

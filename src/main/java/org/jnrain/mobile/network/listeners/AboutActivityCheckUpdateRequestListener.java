@@ -15,11 +15,13 @@
  */
 package org.jnrain.mobile.network.listeners;
 
+import name.xen0n.cytosol.network.listeners.NotifyingCheckUpdateRequestListener;
+import name.xen0n.cytosol.ui.util.ToastHelper;
+import name.xen0n.cytosol.updater.UpdateChannel;
+import name.xen0n.cytosol.updater.UpdateInfo;
+
 import org.jnrain.mobile.R;
 import org.jnrain.mobile.ui.AboutActivity;
-import org.jnrain.mobile.ui.ux.ToastHelper;
-import org.jnrain.mobile.updater.UpdateChannel;
-import org.jnrain.mobile.updater.UpdateInfo;
 import org.jnrain.mobile.util.GlobalState;
 
 import android.app.Activity;

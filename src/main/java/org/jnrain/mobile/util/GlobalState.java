@@ -18,7 +18,8 @@ package org.jnrain.mobile.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jnrain.mobile.updater.UpdateInfo;
+import name.xen0n.cytosol.updater.AppVersionHelper;
+import name.xen0n.cytosol.updater.UpdateInfo;
 
 import android.accounts.Account;
 import android.content.Context;

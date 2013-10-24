@@ -17,14 +17,15 @@ package org.jnrain.mobile.ui.kbs;
 
 import java.io.InputStream;
 
+import name.xen0n.cytosol.app.SpiceRequestListener;
+import name.xen0n.cytosol.ui.imagegetter.TextViewURLImageConsumer;
+
 import org.jnrain.kbs.collection.ListPosts;
 import org.jnrain.kbs.entity.Post;
 import org.jnrain.kbs.pres.formatter.post.JNRainPostFormatter;
 import org.jnrain.kbs.pres.formatter.post.PostFormatter;
 import org.jnrain.mobile.R;
 import org.jnrain.mobile.ui.JNRainURLImageGetter;
-import org.jnrain.mobile.ui.TextViewURLImageConsumer;
-import org.jnrain.mobile.util.SpiceRequestListener;
 
 import android.app.Activity;
 import android.content.Context;
