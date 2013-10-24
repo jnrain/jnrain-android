@@ -15,7 +15,8 @@
  */
 package org.jnrain.mobile.ui.base;
 
-import org.jnrain.mobile.util.SpiceRequestListener;
+import name.xen0n.cytosol.app.ContentFragmentHost;
+import name.xen0n.cytosol.app.SpiceRequestListener;
 
 import android.app.Activity;
 import android.os.Bundle;

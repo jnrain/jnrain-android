@@ -17,8 +17,9 @@ package org.jnrain.mobile.accounts.kbs;
 
 import java.io.InputStream;
 
-import org.jnrain.mobile.ui.URLImageGetter;
-import org.jnrain.mobile.util.SpiceRequestListener;
+import name.xen0n.cytosol.app.SpiceRequestListener;
+import name.xen0n.cytosol.ui.imagegetter.URLImageGetter;
+
 
 import android.app.Activity;
 import android.graphics.drawable.Drawable;

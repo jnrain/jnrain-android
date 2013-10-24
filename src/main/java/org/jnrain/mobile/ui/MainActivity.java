@@ -17,15 +17,16 @@ package org.jnrain.mobile.ui;
 
 import java.io.IOException;
 
+import name.xen0n.cytosol.app.ContentFragmentHost;
+import name.xen0n.cytosol.ui.util.DialogHelper;
+
 import org.jnrain.mobile.R;
 import org.jnrain.mobile.accounts.AccountConstants;
 import org.jnrain.mobile.accounts.kbs.KBSLoginRequest;
 import org.jnrain.mobile.accounts.kbs.KBSLoginRequestListener;
-import org.jnrain.mobile.ui.base.ContentFragmentHost;
 import org.jnrain.mobile.ui.base.LoginPoint;
 import org.jnrain.mobile.ui.kbs.GlobalHotPostsListFragment;
 import org.jnrain.mobile.ui.nav.NavFragment;
-import org.jnrain.mobile.ui.ux.DialogHelper;
 import org.jnrain.mobile.ui.ux.ExitPointActivity;
 import org.jnrain.mobile.util.GlobalState;
 

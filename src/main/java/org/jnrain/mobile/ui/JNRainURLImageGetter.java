@@ -19,7 +19,9 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
-import org.jnrain.mobile.util.SpiceRequestListener;
+import name.xen0n.cytosol.app.SpiceRequestListener;
+import name.xen0n.cytosol.ui.imagegetter.URLImageConsumer;
+import name.xen0n.cytosol.ui.imagegetter.URLImageGetter;
 
 import android.app.Activity;
 import android.content.Context;
