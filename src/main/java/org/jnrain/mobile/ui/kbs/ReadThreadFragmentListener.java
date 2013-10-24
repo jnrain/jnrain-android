@@ -15,8 +15,9 @@
  */
 package org.jnrain.mobile.ui.kbs;
 
+import name.xen0n.cytosol.app.SpiceRequestListener;
+
 import org.jnrain.kbs.entity.Post;
-import org.jnrain.mobile.util.SpiceRequestListener;
 
 
 @SuppressWarnings("rawtypes")

@@ -18,15 +18,16 @@ package org.jnrain.mobile.accounts.kbs;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import org.jnrain.kbs.entity.SimpleReturnCode;
+import name.xen0n.cytosol.app.SpiceRequestListener;
+import name.xen0n.cytosol.data.SimpleReturnCode;
+import name.xen0n.cytosol.ui.util.DialogHelper;
+import name.xen0n.cytosol.ui.util.FormatHelper;
+
 import org.jnrain.mobile.R;
 import org.jnrain.mobile.ui.base.JNRainActivity;
 import org.jnrain.mobile.ui.base.RegisterPoint;
 import org.jnrain.mobile.ui.kbs.KBSUIConstants;
-import org.jnrain.mobile.ui.ux.DialogHelper;
-import org.jnrain.mobile.ui.ux.FormatHelper;
 import org.jnrain.mobile.util.GlobalState;
-import org.jnrain.mobile.util.SpiceRequestListener;
 
 import roboguice.inject.InjectView;
 import android.app.ProgressDialog;

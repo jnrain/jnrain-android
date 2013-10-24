@@ -15,11 +15,12 @@
  */
 package org.jnrain.mobile.accounts.kbs;
 
-import org.jnrain.kbs.entity.SimpleReturnCode;
+import name.xen0n.cytosol.data.SimpleReturnCode;
+import name.xen0n.cytosol.network.listeners.ContextRequestListener;
+import name.xen0n.cytosol.ui.util.ToastHelper;
+
 import org.jnrain.mobile.R;
-import org.jnrain.mobile.network.listeners.ContextRequestListener;
 import org.jnrain.mobile.ui.base.RegisterPoint;
-import org.jnrain.mobile.ui.ux.ToastHelper;
 
 import android.app.Activity;
 import android.util.Log;

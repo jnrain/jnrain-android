@@ -17,8 +17,9 @@ package org.jnrain.mobile.ui.kbs;
 
 import java.text.MessageFormat;
 
+import name.xen0n.cytosol.ui.widget.DynPageFragmentAdapter;
+
 import org.jnrain.mobile.R;
-import org.jnrain.mobile.util.DynPageFragmentAdapter;
 
 import android.content.Context;
 import android.support.v4.app.FragmentManager;

@@ -17,6 +17,10 @@ package org.jnrain.mobile.config;
 
 import java.util.HashMap;
 
+import name.xen0n.cytosol.config.ConfigManager;
+import name.xen0n.cytosol.config.UIConfigUtil;
+import name.xen0n.cytosol.config.UpdaterConfigUtil;
+
 import android.content.Context;
 
 

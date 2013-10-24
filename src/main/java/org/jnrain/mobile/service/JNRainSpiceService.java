@@ -15,179 +15,33 @@
  */
 package org.jnrain.mobile.service;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.jnrain.mobile.network.util.GzipRestTemplate;
-import org.springframework.http.HttpRequest;
-import org.springframework.http.client.ClientHttpRequestExecution;
-import org.springframework.http.client.ClientHttpRequestFactory;
-import org.springframework.http.client.ClientHttpRequestInterceptor;
-import org.springframework.http.client.ClientHttpResponse;
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
-import org.springframework.http.client.SimpleClientHttpRequestFactory;
-import org.springframework.http.converter.FormHttpMessageConverter;
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.StringHttpMessageConverter;
-import org.springframework.http.converter.json.MappingJacksonHttpMessageConverter;
-import org.springframework.web.client.RestTemplate;
-
-import android.app.Application;
+import name.xen0n.cytosol.network.util.CookieHttpRequestInterceptor;
+import name.xen0n.cytosol.service.CytosolSpiceService;
 import android.util.Log;
-import android.webkit.CookieManager;
-
-import com.octo.android.robospice.SpringAndroidSpiceService;
-import com.octo.android.robospice.persistence.CacheManager;
-import com.octo.android.robospice.persistence.binary.InFileInputStreamObjectPersister;
-import com.octo.android.robospice.persistence.exception.CacheCreationException;
-import com.octo.android.robospice.persistence.springandroid.json.jackson.JacksonObjectPersisterFactory;
-import com.octo.android.robospice.persistence.string.InFileStringObjectPersister;
 
 
-public class JNRainSpiceService extends SpringAndroidSpiceService {
+public class JNRainSpiceService extends CytosolSpiceService {
+    private static final String TAG = "JNRainSpiceService";
+
     /**
      * Network request timeout in milliseconds.
      */
     public static final int REQUEST_TIMEOUT = 5000;
-    private ArrayList<ClientHttpRequestInterceptor> _interceptors;
+
+    public static final String JNRAIN_COOKIE_DOMAIN = "http://bbs.jnrain.com/";
 
     public JNRainSpiceService() {
-        super();
+        super(REQUEST_TIMEOUT);
 
-        // session interceptor should be a singleton
-        Log.d(getClass().getSimpleName(), ">>> setting up interceptor(s)");
-        _interceptors = new ArrayList<ClientHttpRequestInterceptor>();
-        _interceptors.add(new AuthCookieHttpRequestInterceptor());
+        // cookie interceptor
+        Log.d(TAG, ">>> setting up interceptor(s)");
+        this.addInterceptor(new JNRainCookieHttpRequestInterceptor());
     }
 
-    public CacheManager createCacheManager(Application application)
-            throws CacheCreationException {
-        CacheManager cacheManager = new CacheManager();
-
-        InFileStringObjectPersister inFileStringObjectPersister;
-        InFileInputStreamObjectPersister inFileInputStreamObjectPersister;
-        JacksonObjectPersisterFactory inJSonFileObjectPersisterFactory;
-        try {
-            inFileStringObjectPersister = new InFileStringObjectPersister(
-                    application);
-            inFileInputStreamObjectPersister = new InFileInputStreamObjectPersister(
-                    application);
-            inJSonFileObjectPersisterFactory = new JacksonObjectPersisterFactory(
-                    application);
-
-            inFileStringObjectPersister.setAsyncSaveEnabled(true);
-            inFileInputStreamObjectPersister.setAsyncSaveEnabled(true);
-            inJSonFileObjectPersisterFactory.setAsyncSaveEnabled(true);
-
-            cacheManager.addPersister(inFileStringObjectPersister);
-            cacheManager.addPersister(inFileInputStreamObjectPersister);
-            cacheManager.addPersister(inJSonFileObjectPersisterFactory);
-        } catch (CacheCreationException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-            throw e;
-        }
-
-        return cacheManager;
-    }
-
-    @Override
-    public RestTemplate createRestTemplate() {
-        RestTemplate restTemplate = new GzipRestTemplate();
-        // find more complete examples in RoboSpice Motivation app
-        // to enable Gzip compression and setting request timeouts.
-
-        // web services support json responses
-        MappingJacksonHttpMessageConverter jsonConverter = new MappingJacksonHttpMessageConverter();
-        FormHttpMessageConverter formHttpMessageConverter = new FormHttpMessageConverter();
-        StringHttpMessageConverter stringHttpMessageConverter = new StringHttpMessageConverter();
-        final List<HttpMessageConverter<?>> listHttpMessageConverters = restTemplate
-            .getMessageConverters();
-
-        listHttpMessageConverters.add(jsonConverter);
-        listHttpMessageConverters.add(formHttpMessageConverter);
-        listHttpMessageConverters.add(stringHttpMessageConverter);
-        restTemplate.setMessageConverters(listHttpMessageConverters);
-
-        // timeout
-        manageTimeOuts(restTemplate);
-
-        // session interceptor
-        restTemplate.setInterceptors(_interceptors);
-
-        return restTemplate;
-    }
-
-    // SO question
-    // 16707357/setting-connection-timeout-in-robospice-request-android
-    private void manageTimeOuts(RestTemplate restTemplate) {
-        // set timeout for requests
-        ClientHttpRequestFactory factory = restTemplate.getRequestFactory();
-        if (factory instanceof HttpComponentsClientHttpRequestFactory) {
-            HttpComponentsClientHttpRequestFactory advancedFactory = (HttpComponentsClientHttpRequestFactory) factory;
-            advancedFactory.setConnectTimeout(REQUEST_TIMEOUT);
-            advancedFactory.setReadTimeout(REQUEST_TIMEOUT);
-        } else if (factory instanceof SimpleClientHttpRequestFactory) {
-            SimpleClientHttpRequestFactory advancedFactory = (SimpleClientHttpRequestFactory) factory;
-            advancedFactory.setConnectTimeout(REQUEST_TIMEOUT);
-            advancedFactory.setReadTimeout(REQUEST_TIMEOUT);
-        }
-    }
-
-    /*
-     * source code referenced from SO question
-     * 7101677/spring-android-using-resttemplate-with-https-and-cookies
-     */
-    class AuthCookieHttpRequestInterceptor
-            implements ClientHttpRequestInterceptor {
-        public static final String COOKIE = "cookie";
-        public static final String SET_COOKIE = "set-cookie";
-        public static final String COOKIE_STORE = "cookieStore";
-
-        @Override
-        public ClientHttpResponse intercept(
-                HttpRequest request,
-                byte[] body,
-                ClientHttpRequestExecution execution) throws IOException {
-            Log.d(getClass().getSimpleName(), ">>> entering intercept");
-
-            List<String> cookies = request.getHeaders().get(COOKIE);
-            // if the header doesn't exist, add any existing, saved cookies
-            if (cookies == null) {
-                /*
-                 * @SuppressWarnings("unchecked") List<String> cookieStore =
-                 * (List<String>) StaticCacheHelper
-                 * .retrieveObjectFromCache(COOKIE_STORE); // if we have
-                 * stored cookies, add them to the headers if (cookieStore !=
-                 * null) { for (String cookie : cookieStore) {
-                 * request.getHeaders().add(COOKIE, cookie); } }
-                 */
-                request.getHeaders().add(
-                        COOKIE,
-                        CookieManager.getInstance().getCookie(
-                                "http://bbs.jnrain.com/"));
-            }
-
-            ClientHttpResponse response = execution.execute(request, body);
-
-            cookies = response.getHeaders().get(SET_COOKIE);
-            if (cookies != null) {
-                for (String cookie : cookies) {
-                    Log.d(
-                            getClass().getSimpleName(),
-                            ">>> response cookie = " + cookie);
-                    CookieManager.getInstance().setCookie(
-                            "http://bbs.jnrain.com/",
-                            cookie);
-                }
-                // StaticCacheHelper.storeObjectInCache(COOKIE_STORE,
-                // cookies);
-            }
-
-            Log.d(getClass().getSimpleName(), ">>> leaving intercept");
-
-            return response;
+    class JNRainCookieHttpRequestInterceptor
+            extends CookieHttpRequestInterceptor {
+        public JNRainCookieHttpRequestInterceptor() {
+            super(JNRAIN_COOKIE_DOMAIN);
         }
     }
 }

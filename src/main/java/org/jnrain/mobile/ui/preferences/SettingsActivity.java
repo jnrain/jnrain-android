@@ -15,8 +15,9 @@
  */
 package org.jnrain.mobile.ui.preferences;
 
+import name.xen0n.cytosol.ui.preference.PreferenceListFragment.OnPreferenceAttachedListener;
+
 import org.jnrain.mobile.R;
-import org.jnrain.mobile.ui.preferences.PreferenceListFragment.OnPreferenceAttachedListener;
 
 import roboguice.inject.InjectView;
 import android.content.Context;

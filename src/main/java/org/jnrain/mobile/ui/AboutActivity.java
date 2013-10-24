@@ -17,18 +17,19 @@ package org.jnrain.mobile.ui;
 
 import java.util.Date;
 
+import name.xen0n.cytosol.config.UpdaterConfigUtil;
+import name.xen0n.cytosol.network.requests.CheckUpdateRequest;
+import name.xen0n.cytosol.ui.util.DialogHelper;
+import name.xen0n.cytosol.ui.util.FormatHelper;
+import name.xen0n.cytosol.updater.AppVersionHelper;
+import name.xen0n.cytosol.updater.UpdateInfo;
+import name.xen0n.cytosol.updater.UpdateManager;
+import name.xen0n.cytosol.updater.VersionInfo;
+
 import org.jnrain.mobile.R;
 import org.jnrain.mobile.config.ConfigHub;
-import org.jnrain.mobile.config.UpdaterConfigUtil;
 import org.jnrain.mobile.network.listeners.AboutActivityCheckUpdateRequestListener;
-import org.jnrain.mobile.network.requests.CheckUpdateRequest;
 import org.jnrain.mobile.ui.base.JNRainActivity;
-import org.jnrain.mobile.ui.ux.DialogHelper;
-import org.jnrain.mobile.ui.ux.FormatHelper;
-import org.jnrain.mobile.updater.UpdateInfo;
-import org.jnrain.mobile.updater.UpdateManager;
-import org.jnrain.mobile.updater.VersionInfo;
-import org.jnrain.mobile.util.AppVersionHelper;
 import org.jnrain.mobile.util.GlobalState;
 
 import roboguice.inject.InjectView;

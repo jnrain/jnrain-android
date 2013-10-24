@@ -15,11 +15,12 @@
  */
 package org.jnrain.mobile.ui.kbs;
 
-import org.jnrain.kbs.entity.SimpleReturnCode;
+import name.xen0n.cytosol.data.SimpleReturnCode;
+import name.xen0n.cytosol.ui.util.ToastHelper;
+
 import org.jnrain.mobile.R;
 import org.jnrain.mobile.network.requests.NewPostRequest;
 import org.jnrain.mobile.ui.base.JNRainFragment;
-import org.jnrain.mobile.ui.ux.ToastHelper;
 
 import roboguice.inject.InjectView;
 import android.os.Bundle;

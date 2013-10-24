@@ -33,7 +33,12 @@
 
     ```sh
     # 在版本库的顶层目录下
-    mvn clean package  # 生成的 apk 包在 target/ 目录里
+    # 生成的 apk 包会出现在 target/ 目录里
+    # 生成调试用 apk:
+    mvn clean package
+
+    # 用正式版配置生成 (进行多遍优化, 混淆生成的字节码, 去除调试信息)
+    mvn clean package -Ddebug=0
     ```
 
 ### Eclipse 设置

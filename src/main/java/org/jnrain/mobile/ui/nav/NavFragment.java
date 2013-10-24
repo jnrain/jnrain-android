@@ -15,6 +15,10 @@
  */
 package org.jnrain.mobile.ui.nav;
 
+import name.xen0n.cytosol.ui.widget.NavItem;
+import name.xen0n.cytosol.ui.widget.NavItemView;
+import name.xen0n.cytosol.ui.widget.NavMenuAdapter;
+
 import org.jnrain.mobile.R;
 import org.jnrain.mobile.accounts.kbs.KBSLogoutRequest;
 import org.jnrain.mobile.accounts.kbs.KBSLogoutRequestListener;

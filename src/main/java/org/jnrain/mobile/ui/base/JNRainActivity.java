@@ -15,9 +15,10 @@
  */
 package org.jnrain.mobile.ui.base;
 
+import name.xen0n.cytosol.app.SpicedRoboActivity;
+
 import org.jnrain.mobile.ui.JNRainActivityHelper;
 import org.jnrain.mobile.ui.OptionsMenuProvider;
-import org.jnrain.mobile.util.SpicedRoboActivity;
 
 import android.os.Bundle;
 
