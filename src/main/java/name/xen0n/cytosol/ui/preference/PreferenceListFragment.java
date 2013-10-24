@@ -1,4 +1,4 @@
-package org.jnrain.mobile.ui.preferences;
+package name.xen0n.cytosol.ui.preference;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;

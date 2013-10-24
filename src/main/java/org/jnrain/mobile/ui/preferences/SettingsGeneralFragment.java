@@ -20,6 +20,7 @@ import java.util.Iterator;
 
 import name.xen0n.cytosol.config.UIConfigConstants;
 import name.xen0n.cytosol.config.UpdaterConfigUtil;
+import name.xen0n.cytosol.ui.preference.PreferenceListFragment;
 import name.xen0n.cytosol.ui.preference.SeekBarPreference;
 import name.xen0n.cytosol.ui.preference.SummarizedListPreference;
 import name.xen0n.cytosol.updater.AppVersionHelper;
