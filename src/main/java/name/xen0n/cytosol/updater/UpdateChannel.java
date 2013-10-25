@@ -23,7 +23,6 @@ import java.util.List;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-import org.jnrain.mobile.util.GlobalState;
 
 import android.app.Activity;
 
@@ -75,13 +74,17 @@ public class UpdateChannel {
 
     @JsonIgnore
     public final boolean isCurrentVersionLatest() {
-        return GlobalState.getVersionCode() >= latest;
+        return UpdateManagerManager
+            .getUpdateManager()
+            .getCurrentVersionCode() >= latest;
     }
 
     @JsonIgnore
     public final List<VersionInfo> getVersionsSinceUpdate() {
         ArrayList<VersionInfo> result = new ArrayList<VersionInfo>();
-        int currVersion = GlobalState.getVersionCode();
+        int currVersion = UpdateManagerManager
+            .getUpdateManager()
+            .getCurrentVersionCode();
         Iterator<Integer> iter = _versions.keySet().iterator();
 
         while (iter.hasNext()) {

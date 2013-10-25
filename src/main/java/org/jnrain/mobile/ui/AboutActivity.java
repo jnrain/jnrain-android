@@ -24,12 +24,12 @@ import name.xen0n.cytosol.ui.util.DialogHelper;
 import name.xen0n.cytosol.ui.util.FormatHelper;
 import name.xen0n.cytosol.updater.AppVersionHelper;
 import name.xen0n.cytosol.updater.UpdateInfo;
-import name.xen0n.cytosol.updater.UpdateManager;
+import name.xen0n.cytosol.updater.UpdateManagerManager;
 import name.xen0n.cytosol.updater.VersionInfo;
 
 import org.jnrain.mobile.R;
-import org.jnrain.mobile.network.listeners.AboutActivityCheckUpdateRequestListener;
 import org.jnrain.mobile.ui.base.JNRainActivity;
+import org.jnrain.mobile.updater.AboutActivityCheckUpdateRequestListener;
 import org.jnrain.mobile.util.GlobalState;
 
 import roboguice.inject.InjectView;
@@ -131,7 +131,7 @@ public class AboutActivity extends JNRainActivity<UpdateInfo> {
         btnDownloadUpdate.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                UpdateManager.openApkInBrowser(
+                UpdateManagerManager.getUpdateManager().openApkInBrowser(
                         AboutActivity.this,
                         GlobalState.getUpdateInfo().getLatestVersion(
                                 getApplicationContext()));

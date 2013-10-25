@@ -18,9 +18,10 @@ package org.jnrain.mobile.ui;
 import name.xen0n.cytosol.app.SpiceRequestListener;
 import name.xen0n.cytosol.network.util.ConnectivityState;
 import name.xen0n.cytosol.updater.AppVersionHelper;
-import name.xen0n.cytosol.updater.UpdateManager;
+import name.xen0n.cytosol.updater.UpdateManagerManager;
 
 import org.jnrain.mobile.R;
+import org.jnrain.mobile.updater.JNRainUpdateManager;
 import org.jnrain.mobile.util.GlobalState;
 
 import android.content.Context;
@@ -36,6 +37,11 @@ public class JNRainActivityHelper {
 
     public JNRainActivityHelper(SpiceRequestListener<?> activity) {
         _activity = activity;
+
+        // inject update manager
+        // do this as early as possible, strangely if it's done instead
+        // at line 51 then UpdateInfoFile.fromFile will NPE
+        UpdateManagerManager.ensureUpdateManager(JNRainUpdateManager.class);
     }
 
     public void doPreOnStart() {
@@ -54,7 +60,7 @@ public class JNRainActivityHelper {
         netState = new ConnectivityState(ctx);
 
         // auto update things
-        UpdateManager.doAutoCheckUpdate(_activity);
+        UpdateManagerManager.getUpdateManager().doAutoCheckUpdate(_activity);
     }
 
     public static void setUpActionBar(ActionBar bar) {

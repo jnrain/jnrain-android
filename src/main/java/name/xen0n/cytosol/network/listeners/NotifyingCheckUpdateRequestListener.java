@@ -16,9 +16,8 @@
 package name.xen0n.cytosol.network.listeners;
 
 import name.xen0n.cytosol.updater.UpdateChannel;
-import name.xen0n.cytosol.updater.UpdateManager;
+import name.xen0n.cytosol.updater.UpdateManagerManager;
 import name.xen0n.cytosol.updater.VersionInfo;
-
 import android.content.Context;
 
 
@@ -38,6 +37,8 @@ public class NotifyingCheckUpdateRequestListener
         // pop up a dialog showing new version info
         VersionInfo latestVersion = channel.getLatestVersion();
 
-        UpdateManager.showUpdateNotifyDialog(ctx, latestVersion);
+        UpdateManagerManager.getUpdateManager().showUpdateNotifyDialog(
+                ctx,
+                latestVersion);
     }
 }

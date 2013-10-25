@@ -32,7 +32,7 @@ public class UpdateInfoFile {
     public static UpdateInfo fromFile(Context ctx) {
         return fromFile(new File(
                 ctx.getCacheDir(),
-                UpdateManager.UPDATE_INFO_CACHE_FILENAME));
+                UpdateManagerManager.getUpdateManager().UPDATE_INFO_CACHE_FILENAME));
     }
 
     public static UpdateInfo fromFile(File file) {
@@ -73,9 +73,11 @@ public class UpdateInfoFile {
     }
 
     public static void toFile(Context ctx, UpdateInfo updInfo) {
-        toFile(ctx, new File(
-                ctx.getCacheDir(),
-                UpdateManager.UPDATE_INFO_CACHE_FILENAME), updInfo);
+        toFile(
+                ctx,
+                new File(ctx.getCacheDir(), UpdateManagerManager
+                    .getUpdateManager().UPDATE_INFO_CACHE_FILENAME),
+                updInfo);
     }
 
     public static void toFile(Context ctx, File file, UpdateInfo updInfo) {

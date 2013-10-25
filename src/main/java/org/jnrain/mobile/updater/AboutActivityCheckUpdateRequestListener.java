@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package org.jnrain.mobile.network.listeners;
+package org.jnrain.mobile.updater;
 
 import name.xen0n.cytosol.network.listeners.NotifyingCheckUpdateRequestListener;
 import name.xen0n.cytosol.ui.util.ToastHelper;

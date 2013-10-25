@@ -24,7 +24,6 @@ import name.xen0n.cytosol.network.listeners.NotifyingCheckUpdateRequestListener;
 import name.xen0n.cytosol.network.requests.CheckUpdateRequest;
 
 import org.jnrain.mobile.R;
-import org.jnrain.mobile.util.GlobalState;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -35,21 +34,30 @@ import android.net.Uri;
 import android.text.Html;
 
 
-public class UpdateManager {
+public abstract class BaseUpdateManager {
     /**
      * Filename of update info cache. 升级信息缓存的文件名.
      */
-    public static final String UPDATE_INFO_CACHE_FILENAME = "updates.json";
+    public final String UPDATE_INFO_CACHE_FILENAME;
 
     /**
      * Base URL for update packages. 升级包的 URL 基准.
      */
-    public static final String UPDATE_URL_BASE = "http://dl.jnrain.com/android/";
+    public final String UPDATE_URL_BASE;
 
     /**
      * Format string for APK filename. APK 文件名的格式.
      */
-    public static final String UPDATE_APK_NAME = "jnrain-android-{0}.apk";
+    public final String UPDATE_APK_NAME;
+
+    protected BaseUpdateManager(
+            final String updateInfoCacheFilename,
+            final String updateURLBase,
+            final String updateApkName) {
+        UPDATE_INFO_CACHE_FILENAME = updateInfoCacheFilename;
+        UPDATE_URL_BASE = updateURLBase;
+        UPDATE_APK_NAME = updateApkName;
+    }
 
     /**
      * Returns the canonical filename of this app's official download.
@@ -59,7 +67,7 @@ public class UpdateManager {
      *            app version requested
      * @return a String of canonical apk filename containing version
      */
-    public static String getApkNameForVersion(String version) {
+    public String getApkNameForVersion(String version) {
         return MessageFormat.format(UPDATE_APK_NAME, version);
     }
 
@@ -71,7 +79,7 @@ public class UpdateManager {
      *            VersionInfo object specifying requested version
      * @return a String of canonical apk filename containing version
      */
-    public static String getApkNameForVersion(VersionInfo version) {
+    public String getApkNameForVersion(VersionInfo version) {
         return getApkNameForVersion(version.getName());
     }
 
@@ -83,7 +91,7 @@ public class UpdateManager {
      *            VersionInfo object specifying requested version
      * @return URL for the .apk file
      */
-    public static String getApkURLForVersion(String version) {
+    public String getApkURLForVersion(String version) {
         return UPDATE_URL_BASE + getApkNameForVersion(version);
     }
 
@@ -95,7 +103,7 @@ public class UpdateManager {
      *            app version requested
      * @return URL for the .apk file
      */
-    public static String getApkURLForVersion(VersionInfo version) {
+    public String getApkURLForVersion(VersionInfo version) {
         return UPDATE_URL_BASE + getApkNameForVersion(version);
     }
 
@@ -108,7 +116,7 @@ public class UpdateManager {
      * @param version
      *            app version requested
      */
-    public static void openApkInBrowser(Context ctx, String version) {
+    public void openApkInBrowser(Context ctx, String version) {
         Intent intent = new Intent(
                 Intent.ACTION_VIEW,
                 Uri.parse(getApkURLForVersion(version)));
@@ -124,7 +132,7 @@ public class UpdateManager {
      * @param version
      *            VersionInfo object specifying requested version
      */
-    public static void openApkInBrowser(Context ctx, VersionInfo version) {
+    public void openApkInBrowser(Context ctx, VersionInfo version) {
         Intent intent = new Intent(
                 Intent.ACTION_VIEW,
                 Uri.parse(getApkURLForVersion(version)));
@@ -142,7 +150,7 @@ public class UpdateManager {
      * @return true, if current time minus last check time is greater than
      *         specified interval
      */
-    public static boolean shouldAutoCheck(Context ctx) {
+    public boolean shouldAutoCheck(Context ctx) {
         UpdaterConfigUtil updUtil = ConfigHub.getUpdaterUtil(ctx);
 
         if (!updUtil.isAutoCheckEnabled()) {
@@ -157,6 +165,36 @@ public class UpdateManager {
     }
 
     /**
+     * Access app-specific global state information to get previously fetched
+     * update information.
+     * 
+     * 访问特定于应用的全局状态信息, 来获取之前存放的升级信息.
+     * 
+     * @return an UpdateInfo instance
+     */
+    public abstract UpdateInfo getGlobalUpdateInfo();
+
+    /**
+     * Record new update information to app-specific global state.
+     * 
+     * 向特定于应用的全局状态中记录新的升级信息.
+     * 
+     * @param updInfo
+     *            the new UpdateInfo object to store
+     */
+    public abstract void setGlobalUpdateInfo(final UpdateInfo updInfo);
+
+    // these are also global state bridges
+    public abstract boolean isGlobalVersionInited();
+
+    public abstract void setGlobalVersionInfo(
+            int versionCode,
+            String versionName,
+            UpdateInfo updInfo);
+
+    public abstract int getCurrentVersionCode();
+
+    /**
      * Issue network request for auto checking updates.
      * 
      * 发送自动检查更新的网络请求.
@@ -168,28 +206,28 @@ public class UpdateManager {
             "rawtypes",
             "unchecked"
     })
-    public static void issueAutoCheckRequest(SpiceRequestListener listener) {
+    public void issueAutoCheckRequest(SpiceRequestListener listener) {
         listener.makeSpiceRequest(
                 new CheckUpdateRequest(),
                 new NotifyingCheckUpdateRequestListener(listener
                     .getThisActivity()));
     }
 
-    public static void doAutoCheckUpdate(SpiceRequestListener<?> listener) {
+    public void doAutoCheckUpdate(SpiceRequestListener<?> listener) {
         boolean updateReqIssued = false;
         Context ctx = listener.getThisActivity();
 
-        if (GlobalState.getUpdateInfo() == null) {
+        if (getGlobalUpdateInfo() == null) {
             // init the update info cache
-            UpdateManager.issueAutoCheckRequest(listener);
+            issueAutoCheckRequest(listener);
             updateReqIssued = true;
         }
 
-        if (UpdateManager.shouldAutoCheck(ctx)) {
+        if (shouldAutoCheck(ctx)) {
             // should perform auto check of updates
             // but don't repeat the request twice
             if (!updateReqIssued) {
-                UpdateManager.issueAutoCheckRequest(listener);
+                issueAutoCheckRequest(listener);
             }
         }
     }
@@ -204,7 +242,7 @@ public class UpdateManager {
      * @param version
      *            VersionInfo of the version presented to user
      */
-    public static void showUpdateNotifyDialog(
+    public void showUpdateNotifyDialog(
             final Context ctx,
             final VersionInfo version) {
         String dialogTitle = MessageFormat.format(
@@ -250,7 +288,7 @@ public class UpdateManager {
                 new OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        UpdateManager.openApkInBrowser(ctx, version);
+                        openApkInBrowser(ctx, version);
                     }
                 });
         builder.setNegativeButton(R.string.new_version_cancel_btn, null);
