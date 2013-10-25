@@ -22,12 +22,12 @@ import name.xen0n.cytosol.app.SpiceRequestListener;
 import name.xen0n.cytosol.data.SimpleReturnCode;
 import name.xen0n.cytosol.ui.util.DialogHelper;
 import name.xen0n.cytosol.ui.util.FormatHelper;
+import name.xen0n.cytosol.util.TelephonyHelper;
 
 import org.jnrain.mobile.R;
 import org.jnrain.mobile.ui.base.JNRainActivity;
 import org.jnrain.mobile.ui.base.RegisterPoint;
 import org.jnrain.mobile.ui.kbs.KBSUIConstants;
-import org.jnrain.mobile.util.GlobalState;
 
 import roboguice.inject.InjectView;
 import android.app.ProgressDialog;
@@ -232,7 +232,7 @@ public class KBSRegisterActivity extends JNRainActivity<SimpleReturnCode>
             .getInstance());
 
         // current phone number
-        currentPhoneNumber = GlobalState.getPhoneNumber(this);
+        currentPhoneNumber = TelephonyHelper.getPhoneNumber(this);
         isCurrentPhoneNumberAvailable = currentPhoneNumber != null;
 
         if (isCurrentPhoneNumberAvailable) {

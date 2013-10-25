@@ -21,7 +21,6 @@ import java.util.List;
 import name.xen0n.cytosol.util.GlobalUpdaterState;
 import android.accounts.Account;
 import android.content.Context;
-import android.telephony.TelephonyManager;
 import android.webkit.CookieSyncManager;
 
 
@@ -110,11 +109,5 @@ public class GlobalState {
         }
 
         _accountListeners.add(listener);
-    }
-
-    public static String getPhoneNumber(Context ctx) {
-        TelephonyManager tMgr = (TelephonyManager) (ctx
-            .getSystemService(Context.TELEPHONY_SERVICE));
-        return tMgr.getLine1Number();
     }
 }
