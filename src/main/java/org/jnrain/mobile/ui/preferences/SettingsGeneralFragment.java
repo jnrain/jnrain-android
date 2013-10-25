@@ -18,6 +18,7 @@ package org.jnrain.mobile.ui.preferences;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import name.xen0n.cytosol.config.ConfigHub;
 import name.xen0n.cytosol.config.UIConfigConstants;
 import name.xen0n.cytosol.config.UpdaterConfigUtil;
 import name.xen0n.cytosol.ui.preference.PreferenceListFragment;
@@ -28,7 +29,6 @@ import name.xen0n.cytosol.updater.UpdateChannel;
 import name.xen0n.cytosol.updater.UpdateInfo;
 
 import org.jnrain.mobile.R;
-import org.jnrain.mobile.config.ConfigHub;
 import org.jnrain.mobile.util.GlobalState;
 
 import android.app.Activity;

@@ -18,12 +18,12 @@ package name.xen0n.cytosol.updater;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import name.xen0n.cytosol.config.ConfigHub;
 import name.xen0n.cytosol.config.UpdaterConfigUtil;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
-import org.jnrain.mobile.config.ConfigHub;
 
 import android.content.Context;
 

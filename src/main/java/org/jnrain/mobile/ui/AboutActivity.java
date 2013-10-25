@@ -17,6 +17,7 @@ package org.jnrain.mobile.ui;
 
 import java.util.Date;
 
+import name.xen0n.cytosol.config.ConfigHub;
 import name.xen0n.cytosol.config.UpdaterConfigUtil;
 import name.xen0n.cytosol.network.requests.CheckUpdateRequest;
 import name.xen0n.cytosol.ui.util.DialogHelper;
@@ -27,7 +28,6 @@ import name.xen0n.cytosol.updater.UpdateManager;
 import name.xen0n.cytosol.updater.VersionInfo;
 
 import org.jnrain.mobile.R;
-import org.jnrain.mobile.config.ConfigHub;
 import org.jnrain.mobile.network.listeners.AboutActivityCheckUpdateRequestListener;
 import org.jnrain.mobile.ui.base.JNRainActivity;
 import org.jnrain.mobile.util.GlobalState;

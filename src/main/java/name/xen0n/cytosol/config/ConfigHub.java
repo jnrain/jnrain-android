@@ -13,13 +13,9 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package org.jnrain.mobile.config;
+package name.xen0n.cytosol.config;
 
 import java.util.HashMap;
-
-import name.xen0n.cytosol.config.ConfigManager;
-import name.xen0n.cytosol.config.UIConfigUtil;
-import name.xen0n.cytosol.config.UpdaterConfigUtil;
 
 import android.content.Context;
 

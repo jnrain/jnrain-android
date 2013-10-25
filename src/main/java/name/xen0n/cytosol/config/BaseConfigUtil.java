@@ -15,8 +15,6 @@
  */
 package name.xen0n.cytosol.config;
 
-import org.jnrain.mobile.config.ConfigHub;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 

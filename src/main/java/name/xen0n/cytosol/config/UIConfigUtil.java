@@ -15,9 +15,7 @@
  */
 package name.xen0n.cytosol.config;
 
-
 import name.xen0n.cytosol.config.UIConfigConstants.ExitBehavior;
-
 import android.content.Context;
 
 
