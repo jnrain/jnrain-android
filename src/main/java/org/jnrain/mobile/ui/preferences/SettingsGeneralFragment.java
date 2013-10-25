@@ -27,9 +27,9 @@ import name.xen0n.cytosol.ui.preference.SummarizedListPreference;
 import name.xen0n.cytosol.updater.AppVersionHelper;
 import name.xen0n.cytosol.updater.UpdateChannel;
 import name.xen0n.cytosol.updater.UpdateInfo;
+import name.xen0n.cytosol.util.GlobalUpdaterState;
 
 import org.jnrain.mobile.R;
-import org.jnrain.mobile.util.GlobalState;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -118,7 +118,7 @@ public class SettingsGeneralFragment extends PreferenceListFragment {
 
     public void addUpdateChannelPreference() {
         Activity activity = getActivity();
-        UpdateInfo updInfo = GlobalState.getUpdateInfo();
+        UpdateInfo updInfo = GlobalUpdaterState.getUpdateInfo();
         SummarizedListPreference pref = new SummarizedListPreference(
                 activity);
 

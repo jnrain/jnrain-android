@@ -21,7 +21,7 @@ import name.xen0n.cytosol.ui.util.ToastHelper;
 import name.xen0n.cytosol.updater.UpdateChannel;
 import name.xen0n.cytosol.updater.UpdateInfo;
 import name.xen0n.cytosol.updater.UpdateInfoFile;
-import name.xen0n.cytosol.updater.UpdateManagerManager;
+import name.xen0n.cytosol.util.GlobalUpdaterState;
 
 import org.jnrain.mobile.R;
 
@@ -48,7 +48,7 @@ public abstract class CheckUpdateRequestListener
     @Override
     public void onRequestSuccess(UpdateInfo result) {
         // update global update info
-        UpdateManagerManager.getUpdateManager().setGlobalUpdateInfo(result);
+        GlobalUpdaterState.setUpdateInfo(result);
 
         // record update info in cache
         UpdateInfoFile.toFile(ctx, result);

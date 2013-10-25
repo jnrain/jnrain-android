@@ -22,6 +22,7 @@ import name.xen0n.cytosol.config.ConfigHub;
 import name.xen0n.cytosol.config.UpdaterConfigUtil;
 import name.xen0n.cytosol.network.listeners.NotifyingCheckUpdateRequestListener;
 import name.xen0n.cytosol.network.requests.CheckUpdateRequest;
+import name.xen0n.cytosol.util.GlobalUpdaterState;
 
 import org.jnrain.mobile.R;
 
@@ -165,36 +166,6 @@ public abstract class BaseUpdateManager {
     }
 
     /**
-     * Access app-specific global state information to get previously fetched
-     * update information.
-     * 
-     * 访问特定于应用的全局状态信息, 来获取之前存放的升级信息.
-     * 
-     * @return an UpdateInfo instance
-     */
-    public abstract UpdateInfo getGlobalUpdateInfo();
-
-    /**
-     * Record new update information to app-specific global state.
-     * 
-     * 向特定于应用的全局状态中记录新的升级信息.
-     * 
-     * @param updInfo
-     *            the new UpdateInfo object to store
-     */
-    public abstract void setGlobalUpdateInfo(final UpdateInfo updInfo);
-
-    // these are also global state bridges
-    public abstract boolean isGlobalVersionInited();
-
-    public abstract void setGlobalVersionInfo(
-            int versionCode,
-            String versionName,
-            UpdateInfo updInfo);
-
-    public abstract int getCurrentVersionCode();
-
-    /**
      * Issue network request for auto checking updates.
      * 
      * 发送自动检查更新的网络请求.
@@ -217,7 +188,7 @@ public abstract class BaseUpdateManager {
         boolean updateReqIssued = false;
         Context ctx = listener.getThisActivity();
 
-        if (getGlobalUpdateInfo() == null) {
+        if (GlobalUpdaterState.getUpdateInfo() == null) {
             // init the update info cache
             issueAutoCheckRequest(listener);
             updateReqIssued = true;

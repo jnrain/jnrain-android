@@ -16,9 +16,6 @@
 package org.jnrain.mobile.updater;
 
 import name.xen0n.cytosol.updater.BaseUpdateManager;
-import name.xen0n.cytosol.updater.UpdateInfo;
-
-import org.jnrain.mobile.util.GlobalState;
 
 
 public class JNRainUpdateManager extends BaseUpdateManager {
@@ -39,34 +36,5 @@ public class JNRainUpdateManager extends BaseUpdateManager {
 
     public JNRainUpdateManager() {
         super(UPDATE_INFO_CACHE_FILENAME, UPDATE_URL_BASE, UPDATE_APK_NAME);
-    }
-
-    // GlobalState bridges
-    @Override
-    public UpdateInfo getGlobalUpdateInfo() {
-        return GlobalState.getUpdateInfo();
-    }
-
-    @Override
-    public void setGlobalUpdateInfo(UpdateInfo updInfo) {
-        GlobalState.setUpdateInfo(updInfo);
-    }
-
-    @Override
-    public boolean isGlobalVersionInited() {
-        return GlobalState.isVersionInited();
-    }
-
-    @Override
-    public void setGlobalVersionInfo(
-            int versionCode,
-            String versionName,
-            UpdateInfo updInfo) {
-        GlobalState.setVersionInfo(versionCode, versionName, updInfo);
-    }
-
-    @Override
-    public int getCurrentVersionCode() {
-        return GlobalState.getVersionCode();
     }
 }

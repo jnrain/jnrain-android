@@ -26,11 +26,11 @@ import name.xen0n.cytosol.updater.AppVersionHelper;
 import name.xen0n.cytosol.updater.UpdateInfo;
 import name.xen0n.cytosol.updater.UpdateManagerManager;
 import name.xen0n.cytosol.updater.VersionInfo;
+import name.xen0n.cytosol.util.GlobalUpdaterState;
 
 import org.jnrain.mobile.R;
 import org.jnrain.mobile.ui.base.JNRainActivity;
 import org.jnrain.mobile.updater.AboutActivityCheckUpdateRequestListener;
-import org.jnrain.mobile.util.GlobalState;
 
 import roboguice.inject.InjectView;
 import android.app.ProgressDialog;
@@ -91,7 +91,7 @@ public class AboutActivity extends JNRainActivity<UpdateInfo> {
             }
         };
 
-        textVersion.setText(GlobalState.getVersionName());
+        textVersion.setText(GlobalUpdaterState.getVersionName());
 
         // update channel
         String currentChannel = updaterUtil.getCurrentUpdateChannel();
@@ -119,7 +119,7 @@ public class AboutActivity extends JNRainActivity<UpdateInfo> {
         });
 
         // download update button
-        UpdateInfo updInfo = GlobalState.getUpdateInfo();
+        UpdateInfo updInfo = GlobalUpdaterState.getUpdateInfo();
 
         if (updInfo == null) {
             updateDownloadButtonVisibility(false);
@@ -133,7 +133,7 @@ public class AboutActivity extends JNRainActivity<UpdateInfo> {
             public void onClick(View v) {
                 UpdateManagerManager.getUpdateManager().openApkInBrowser(
                         AboutActivity.this,
-                        GlobalState.getUpdateInfo().getLatestVersion(
+                        GlobalUpdaterState.getUpdateInfo().getLatestVersion(
                                 getApplicationContext()));
             }
         });
@@ -173,7 +173,7 @@ public class AboutActivity extends JNRainActivity<UpdateInfo> {
 
     public void updateLatestVersionDisplay() {
         // called at init
-        UpdateInfo updInfo = GlobalState.getUpdateInfo();
+        UpdateInfo updInfo = GlobalUpdaterState.getUpdateInfo();
 
         if (updInfo == null) {
             // never checked

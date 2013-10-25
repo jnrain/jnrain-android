@@ -15,6 +15,7 @@
  */
 package name.xen0n.cytosol.updater;
 
+import name.xen0n.cytosol.util.GlobalUpdaterState;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -27,11 +28,8 @@ public class AppVersionHelper {
     public static final String CHANNEL_NAME_RES_PREFIX = "update_chan_name_";
 
     public static void ensureVersionInited(Context ctx) {
-        BaseUpdateManager updateMgr = UpdateManagerManager
-            .getUpdateManager();
-
         // init global version info if not done yet
-        if (!updateMgr.isGlobalVersionInited()) {
+        if (!GlobalUpdaterState.isVersionInited()) {
             PackageManager mgr = ctx.getPackageManager();
 
             // fetch update info
@@ -41,7 +39,7 @@ public class AppVersionHelper {
                 PackageInfo pkg = mgr
                     .getPackageInfo(ctx.getPackageName(), 0);
 
-                updateMgr.setGlobalVersionInfo(
+                GlobalUpdaterState.setVersionInfo(
                         pkg.versionCode,
                         pkg.versionName,
                         updInfo);
@@ -49,7 +47,7 @@ public class AppVersionHelper {
                 // Wwwwhat? You say my package is NOT FOUND when it's
                 // currently RUNNING?
                 // Put something really bizarre here...
-                updateMgr.setGlobalVersionInfo(
+                GlobalUpdaterState.setVersionInfo(
                         0,
                         "VERSION-INIT-FAILED",
                         null);

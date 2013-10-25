@@ -21,6 +21,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+import name.xen0n.cytosol.util.GlobalUpdaterState;
+
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
@@ -74,17 +76,13 @@ public class UpdateChannel {
 
     @JsonIgnore
     public final boolean isCurrentVersionLatest() {
-        return UpdateManagerManager
-            .getUpdateManager()
-            .getCurrentVersionCode() >= latest;
+        return GlobalUpdaterState.getVersionCode() >= latest;
     }
 
     @JsonIgnore
     public final List<VersionInfo> getVersionsSinceUpdate() {
         ArrayList<VersionInfo> result = new ArrayList<VersionInfo>();
-        int currVersion = UpdateManagerManager
-            .getUpdateManager()
-            .getCurrentVersionCode();
+        int currVersion = GlobalUpdaterState.getVersionCode();
         Iterator<Integer> iter = _versions.keySet().iterator();
 
         while (iter.hasNext()) {

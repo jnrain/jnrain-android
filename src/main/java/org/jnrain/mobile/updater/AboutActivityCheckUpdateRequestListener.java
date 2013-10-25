@@ -19,10 +19,10 @@ import name.xen0n.cytosol.network.listeners.NotifyingCheckUpdateRequestListener;
 import name.xen0n.cytosol.ui.util.ToastHelper;
 import name.xen0n.cytosol.updater.UpdateChannel;
 import name.xen0n.cytosol.updater.UpdateInfo;
+import name.xen0n.cytosol.util.GlobalUpdaterState;
 
 import org.jnrain.mobile.R;
 import org.jnrain.mobile.ui.AboutActivity;
-import org.jnrain.mobile.util.GlobalState;
 
 import android.app.Activity;
 
@@ -51,7 +51,7 @@ public class AboutActivityCheckUpdateRequestListener
         super.onRequestSuccess(result);
 
         m_activity.updateLastCheckedTimeDisplay();
-        m_activity.updateLatestVersionDisplay(GlobalState
+        m_activity.updateLatestVersionDisplay(GlobalUpdaterState
             .getUpdateInfo()
             .getCurrentChannel(m_activity)
             .getLatestVersion());
@@ -63,7 +63,7 @@ public class AboutActivityCheckUpdateRequestListener
         ToastHelper.makeTextToast(
                 ctx,
                 R.string.msg_version_is_latest,
-                GlobalState.getVersionName());
+                GlobalUpdaterState.getVersionName());
         super.onVersionLatest();
     }
 
