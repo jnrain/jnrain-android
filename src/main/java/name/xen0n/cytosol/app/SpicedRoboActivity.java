@@ -15,20 +15,24 @@
  */
 package name.xen0n.cytosol.app;
 
-import org.jnrain.mobile.service.JNRainSpiceService;
-
 import android.app.Activity;
 
 import com.github.rtyley.android.sherlock.roboguice.activity.RoboSherlockActivity;
 import com.octo.android.robospice.SpiceManager;
+import com.octo.android.robospice.SpiceService;
 import com.octo.android.robospice.request.SpiceRequest;
 import com.octo.android.robospice.request.listener.RequestListener;
 
 
 public abstract class SpicedRoboActivity<T> extends RoboSherlockActivity
         implements SpiceRequestListener<T> {
-    protected SpiceManager spiceManager = new SpiceManager(
-            JNRainSpiceService.class);
+    protected final SpiceManager spiceManager;
+
+    protected SpicedRoboActivity(
+            Class<? extends SpiceService> spiceServiceClass) {
+        super();
+        spiceManager = new SpiceManager(spiceServiceClass);
+    }
 
     @Override
     protected void onStart() {

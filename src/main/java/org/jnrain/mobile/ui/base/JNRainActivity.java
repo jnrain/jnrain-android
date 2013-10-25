@@ -17,6 +17,7 @@ package org.jnrain.mobile.ui.base;
 
 import name.xen0n.cytosol.app.SpicedRoboActivity;
 
+import org.jnrain.mobile.service.JNRainSpiceService;
 import org.jnrain.mobile.ui.JNRainActivityHelper;
 import org.jnrain.mobile.ui.OptionsMenuProvider;
 
@@ -31,7 +32,7 @@ public abstract class JNRainActivity<T> extends SpicedRoboActivity<T> {
     JNRainActivityHelper _helper;
 
     public JNRainActivity() {
-        super();
+        super(JNRainSpiceService.class);
 
         _helper = new JNRainActivityHelper(this);
     }
