@@ -26,7 +26,7 @@ public class SeekBarPreference extends Preference
     private final String TAG = getClass().getName();
 
     private static final String ANDROIDNS = "http://schemas.android.com/apk/res/android";
-    private static final String JNRAINNS = "http://schemas.jnrain.com/android";
+    private static final String CYTOSOLNS = "http://schemas.android.com/apk/res/name.xen0n.cytosol";
     private static final int DEFAULT_VALUE = 50;
 
     private int mMaxValue = 100;
@@ -61,23 +61,23 @@ public class SeekBarPreference extends Preference
 
     private void setValuesFromXml(AttributeSet attrs) {
         mMaxValue = attrs.getAttributeIntValue(ANDROIDNS, "max", 100);
-        mMinValue = attrs.getAttributeIntValue(JNRAINNS, "min", 0);
+        mMinValue = attrs.getAttributeIntValue(CYTOSOLNS, "min", 0);
 
         mUnitsLeft = getAttributeStringValue(
                 attrs,
-                JNRAINNS,
+                CYTOSOLNS,
                 "unitsLeft",
                 "");
-        String units = getAttributeStringValue(attrs, JNRAINNS, "units", "");
+        String units = getAttributeStringValue(attrs, CYTOSOLNS, "units", "");
         mUnitsRight = getAttributeStringValue(
                 attrs,
-                JNRAINNS,
+                CYTOSOLNS,
                 "unitsRight",
                 units);
 
         try {
             String newInterval = attrs.getAttributeValue(
-                    JNRAINNS,
+                    CYTOSOLNS,
                     "interval");
             if (newInterval != null)
                 mInterval = Integer.parseInt(newInterval);
