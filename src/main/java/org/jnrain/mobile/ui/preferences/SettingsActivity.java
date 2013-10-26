@@ -15,43 +15,22 @@
  */
 package org.jnrain.mobile.ui.preferences;
 
-import name.xen0n.cytosol.ui.preference.PreferenceListFragment.OnPreferenceAttachedListener;
-
-import org.jnrain.mobile.R;
-
-import roboguice.inject.InjectView;
+import name.xen0n.cytosol.ui.preference.CytosolSettingsActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.preference.Preference;
-import android.preference.Preference.OnPreferenceChangeListener;
-import android.preference.Preference.OnPreferenceClickListener;
-import android.preference.PreferenceScreen;
-import android.support.v4.view.ViewPager;
 
-import com.github.rtyley.android.sherlock.roboguice.activity.RoboSherlockFragmentActivity;
-import com.viewpagerindicator.TitlePageIndicator;
 import com.viewpagerindicator.TitlePageIndicator.IndicatorStyle;
 
 
-public class SettingsActivity extends RoboSherlockFragmentActivity
-        implements OnPreferenceAttachedListener, OnPreferenceChangeListener,
-        OnPreferenceClickListener {
-    @InjectView(R.id.pager)
-    ViewPager viewPager;
-    @InjectView(R.id.indicator)
-    TitlePageIndicator indicator;
-
-    SettingsFragmentAdapter _adapter;
+public class SettingsActivity extends CytosolSettingsActivity {
+    public SettingsActivity() {
+        super(SettingsFragmentAdapter.class);
+    }
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.dyn_pages);
-        _adapter = new SettingsFragmentAdapter(
-                getSupportFragmentManager(),
-                getApplicationContext());
-        viewPager.setAdapter(_adapter);
-        indicator.setViewPager(viewPager);
+
         indicator.setFooterIndicatorStyle(IndicatorStyle.Underline);
     }
 
@@ -59,22 +38,5 @@ public class SettingsActivity extends RoboSherlockFragmentActivity
         final Intent intent = new Intent(context, SettingsActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
-    }
-
-    @Override
-    public boolean onPreferenceClick(Preference preference) {
-        // TODO Auto-generated method stub
-        return true;
-    }
-
-    @Override
-    public boolean onPreferenceChange(Preference preference, Object newValue) {
-        // TODO Auto-generated method stub
-        return true;
-    }
-
-    @Override
-    public void onPreferenceAttached(PreferenceScreen root, int xmlId) {
-        // TODO Auto-generated method stub
     }
 }
