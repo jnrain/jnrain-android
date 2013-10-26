@@ -13,8 +13,9 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package name.xen0n.cytosol.app;
+package name.xen0n.cytosol.app.base;
 
+import name.xen0n.cytosol.app.SpiceRequestListener;
 import android.app.Activity;
 
 import com.github.rtyley.android.sherlock.roboguice.activity.RoboSherlockAccountAuthenticatorActivity;
@@ -30,7 +31,7 @@ public abstract class SpicedRoboAccountAuthenticatorActivity<T>
     protected final SpiceManager spiceManager;
 
     protected SpicedRoboAccountAuthenticatorActivity(
-            Class<? extends SpiceService> spiceServiceClass) {
+            final Class<? extends SpiceService> spiceServiceClass) {
         super();
         spiceManager = new SpiceManager(spiceServiceClass);
     }

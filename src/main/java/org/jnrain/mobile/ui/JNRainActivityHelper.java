@@ -16,9 +16,7 @@
 package org.jnrain.mobile.ui;
 
 import name.xen0n.cytosol.app.SpiceRequestListener;
-import name.xen0n.cytosol.network.util.ConnectivityState;
-import name.xen0n.cytosol.updater.AppVersionHelper;
-import name.xen0n.cytosol.updater.UpdateManagerManager;
+import name.xen0n.cytosol.ui.util.CytosolActivityHelper;
 
 import org.jnrain.mobile.R;
 import org.jnrain.mobile.updater.JNRainUpdateManager;
@@ -30,40 +28,28 @@ import com.actionbarsherlock.app.ActionBar;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
 
-public class JNRainActivityHelper {
-    protected ConnectivityState netState;
-    protected boolean _isFrag;
-    protected SpiceRequestListener<?> _activity;
-
-    public JNRainActivityHelper(SpiceRequestListener<?> activity) {
-        _activity = activity;
-
-        // inject update manager
-        // do this as early as possible, strangely if it's done instead
-        // at line 51 then UpdateInfoFile.fromFile will NPE
-        UpdateManagerManager.ensureUpdateManager(JNRainUpdateManager.class);
+public class JNRainActivityHelper extends CytosolActivityHelper {
+    public JNRainActivityHelper(final SpiceRequestListener<?> activity) {
+        super(activity, JNRainUpdateManager.class);
     }
 
-    public void doPreOnStart() {
-        Context ctx = _activity.getThisActivity().getApplicationContext();
-
+    @Override
+    public void doAppPrePreOnStart(final Context ctx) {
         GlobalState.possiblyInitState(ctx);
-
-        // init global version info
-        AppVersionHelper.ensureVersionInited(ctx);
     }
 
-    public void doPostOnStart() {
-        Context ctx = _activity.getThisActivity().getApplicationContext();
-
-        // connectivity state object
-        netState = new ConnectivityState(ctx);
-
-        // auto update things
-        UpdateManagerManager.getUpdateManager().doAutoCheckUpdate(_activity);
+    @Override
+    public void doAppPostPreOnStart(final Context ctx) {
+        // nothing to do
     }
 
-    public static void setUpActionBar(ActionBar bar) {
+    @Override
+    public void doAppPostOnStart(final Context ctx) {
+        // nothing to do
+    }
+
+    @Override
+    public void setUpActionBar(final ActionBar bar) {
         if (bar == null) {
             return;
         }
@@ -73,7 +59,8 @@ public class JNRainActivityHelper {
         bar.setDisplayHomeAsUpEnabled(true);
     }
 
-    public static void setUpSlidingMenu(SlidingMenu menu) {
+    @Override
+    public void setUpSlidingMenu(final SlidingMenu menu) {
         // default values
         menu.setMode(SlidingMenu.LEFT);
         menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);

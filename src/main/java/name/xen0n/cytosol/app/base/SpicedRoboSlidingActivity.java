@@ -13,23 +13,24 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package name.xen0n.cytosol.app;
+package name.xen0n.cytosol.app.base;
 
+import name.xen0n.cytosol.app.SpiceRequestListener;
 import android.app.Activity;
 
-import com.jeremyfeinstein.slidingmenu.lib.app.RoboSherlockSlidingFragmentActivity;
+import com.jeremyfeinstein.slidingmenu.lib.app.RoboSherlockSlidingActivity;
 import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.SpiceService;
 import com.octo.android.robospice.request.SpiceRequest;
 import com.octo.android.robospice.request.listener.RequestListener;
 
 
-public abstract class SpicedRoboSlidingFragmentActivity<T>
-        extends RoboSherlockSlidingFragmentActivity
+public abstract class SpicedRoboSlidingActivity<T>
+        extends RoboSherlockSlidingActivity
         implements SpiceRequestListener<T> {
     protected final SpiceManager spiceManager;
 
-    protected SpicedRoboSlidingFragmentActivity(
+    protected SpicedRoboSlidingActivity(
             Class<? extends SpiceService> spiceServiceClass) {
         super();
         spiceManager = new SpiceManager(spiceServiceClass);

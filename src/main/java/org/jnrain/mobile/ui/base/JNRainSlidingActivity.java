@@ -15,13 +15,11 @@
  */
 package org.jnrain.mobile.ui.base;
 
-import name.xen0n.cytosol.app.SpicedRoboSlidingActivity;
+import name.xen0n.cytosol.app.CytosolSlidingActivity;
 
 import org.jnrain.mobile.service.JNRainSpiceService;
 import org.jnrain.mobile.ui.JNRainActivityHelper;
 import org.jnrain.mobile.ui.OptionsMenuProvider;
-
-import android.os.Bundle;
 
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
@@ -29,28 +27,9 @@ import com.actionbarsherlock.view.MenuItem;
 
 
 public abstract class JNRainSlidingActivity<T>
-        extends SpicedRoboSlidingActivity<T> {
-    JNRainActivityHelper _helper;
-
+        extends CytosolSlidingActivity<T> {
     public JNRainSlidingActivity() {
-        super(JNRainSpiceService.class);
-
-        _helper = new JNRainActivityHelper(this);
-    }
-
-    @Override
-    protected void onStart() {
-        _helper.doPreOnStart();
-        super.onStart();
-        _helper.doPostOnStart();
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        JNRainActivityHelper.setUpActionBar(getSupportActionBar());
-        JNRainActivityHelper.setUpSlidingMenu(getSlidingMenu());
+        super(JNRainSpiceService.class, JNRainActivityHelper.class);
     }
 
     @Override
