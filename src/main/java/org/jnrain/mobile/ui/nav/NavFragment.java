@@ -15,6 +15,7 @@
  */
 package org.jnrain.mobile.ui.nav;
 
+import name.xen0n.cytosol.app.CytosolFragment;
 import name.xen0n.cytosol.ui.widget.NavItem;
 import name.xen0n.cytosol.ui.widget.NavItemView;
 import name.xen0n.cytosol.ui.widget.NavMenuAdapter;
@@ -23,7 +24,6 @@ import org.jnrain.mobile.R;
 import org.jnrain.mobile.accounts.kbs.KBSLogoutRequest;
 import org.jnrain.mobile.accounts.kbs.KBSLogoutRequestListener;
 import org.jnrain.mobile.ui.AboutActivity;
-import org.jnrain.mobile.ui.base.JNRainFragment;
 import org.jnrain.mobile.ui.kbs.GlobalHotPostsListFragment;
 import org.jnrain.mobile.ui.kbs.SectionListFragment;
 import org.jnrain.mobile.ui.preferences.SettingsActivity;
@@ -43,7 +43,7 @@ import android.widget.TextView;
 
 
 @SuppressWarnings("rawtypes")
-public class NavFragment extends JNRainFragment
+public class NavFragment extends CytosolFragment
         implements AccountStateListener {
     @InjectView(R.id.textUserID)
     TextView textUserID;

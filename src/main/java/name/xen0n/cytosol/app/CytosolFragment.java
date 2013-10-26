@@ -13,10 +13,7 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package org.jnrain.mobile.ui.base;
-
-import name.xen0n.cytosol.app.ContentFragmentHost;
-import name.xen0n.cytosol.app.SpiceRequestListener;
+package name.xen0n.cytosol.app;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -26,9 +23,9 @@ import android.support.v4.app.FragmentManager;
 import com.github.rtyley.android.sherlock.roboguice.fragment.RoboSherlockFragment;
 
 
-public abstract class JNRainFragment<T> extends RoboSherlockFragment {
-    public static final String PREVIOUS_TITLE_STORE = "JNRainFragment.prevTitle";
-    public static final String CURRENT_TITLE_STORE = "JNRainFragment.currTitle";
+public abstract class CytosolFragment<T> extends RoboSherlockFragment {
+    public static final String PREVIOUS_TITLE_STORE = "CytosolFragment.prevTitle";
+    public static final String CURRENT_TITLE_STORE = "CytosolFragment.currTitle";
 
     protected SpiceRequestListener<T> _listener;
     private ContentFragmentHost fragHost;

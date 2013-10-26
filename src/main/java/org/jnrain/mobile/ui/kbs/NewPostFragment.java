@@ -15,12 +15,12 @@
  */
 package org.jnrain.mobile.ui.kbs;
 
+import name.xen0n.cytosol.app.CytosolFragment;
 import name.xen0n.cytosol.data.SimpleReturnCode;
 import name.xen0n.cytosol.ui.util.ToastHelper;
 
 import org.jnrain.mobile.R;
 import org.jnrain.mobile.network.requests.NewPostRequest;
-import org.jnrain.mobile.ui.base.JNRainFragment;
 
 import roboguice.inject.InjectView;
 import android.os.Bundle;
@@ -37,7 +37,7 @@ import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
 
 
-public class NewPostFragment extends JNRainFragment<SimpleReturnCode> {
+public class NewPostFragment extends CytosolFragment<SimpleReturnCode> {
     @InjectView(R.id.editTitle)
     EditText editTitle;
     @InjectView(R.id.editContent)

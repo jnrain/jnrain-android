@@ -15,11 +15,12 @@
  */
 package org.jnrain.mobile.ui.kbs;
 
+import name.xen0n.cytosol.app.CytosolFragment;
+
 import org.jnrain.kbs.collection.ListSections;
 import org.jnrain.kbs.entity.Section;
 import org.jnrain.mobile.R;
 import org.jnrain.mobile.network.requests.SectionListRequest;
-import org.jnrain.mobile.ui.base.JNRainFragment;
 
 import roboguice.inject.InjectView;
 import android.os.Bundle;
@@ -36,7 +37,7 @@ import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
 
 
-public class SectionListFragment extends JNRainFragment<ListSections> {
+public class SectionListFragment extends CytosolFragment<ListSections> {
     @InjectView(R.id.listSections)
     ListView listSections;
 

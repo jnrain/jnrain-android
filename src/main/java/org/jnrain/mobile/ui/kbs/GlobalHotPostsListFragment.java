@@ -15,11 +15,12 @@
  */
 package org.jnrain.mobile.ui.kbs;
 
+import name.xen0n.cytosol.app.CytosolFragment;
+
 import org.jnrain.kbs.collection.ListHotPosts;
 import org.jnrain.kbs.entity.Post;
 import org.jnrain.mobile.R;
 import org.jnrain.mobile.network.requests.HotPostsListRequest;
-import org.jnrain.mobile.ui.base.JNRainFragment;
 import org.jnrain.mobile.util.CacheKeyManager;
 
 import roboguice.inject.InjectResource;
@@ -39,7 +40,7 @@ import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
 
 
-public class GlobalHotPostsListFragment extends JNRainFragment<ListHotPosts> {
+public class GlobalHotPostsListFragment extends CytosolFragment<ListHotPosts> {
     @InjectView(R.id.textGlobalHotPostsStatus)
     TextView textStatus;
     @InjectView(R.id.listGlobalHotPosts)
