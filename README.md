@@ -48,7 +48,7 @@
 
 ## 依赖的库
 
-JNRain for Android 是基于很多开源库开发而成的产品，以下是本项目所有的直接依赖关系。
+JNRain for Android 是基于很多开源库开发而成的产品，以下是依赖项目的列表。为实现代码重用，大量辅助代码和胶水层分离到了 [Cytosol](https://github.com/xen0n/Cytosol/) 库中。
 
 * [RoboSpice](https://github.com/octo-online/robospice/): 异步网络请求。
 * [RoboGuice](http://code.google.com/p/roboguice/): 简化 UI 代码。
