@@ -16,7 +16,7 @@
 -->
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:cytosol="http://schemas.android.com/apk/res/name.xen0n.cytosol" >
+    xmlns:cytosol="http://schemas.xen0n.name/cytosol/android" >
 
     <name.xen0n.cytosol.ui.preference.SummarizedListPreference
         android:defaultValue="@string/prefs_ui_exit_doubleclick"

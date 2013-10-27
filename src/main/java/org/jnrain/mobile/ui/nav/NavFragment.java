@@ -56,7 +56,7 @@ public class NavFragment extends CytosolFragment
     public void onAttach(Activity activity) {
         super.onAttach(activity);
 
-        _menuAdapter = new NavMenuAdapter(getActivity());
+        _menuAdapter = new JNRainNavMenuAdapter(getActivity());
     }
 
     @Override

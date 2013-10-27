@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  Copyright 2012 JNRain
+  Copyright 2012-2013 JNRain
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -100,9 +100,6 @@
     <string name="msg_network_fail">网络请求出错</string>
     <string name="msg_unknown_status">未知返回状态： {0}</string>
 
-    <!-- UI -->
-    <string name="msg_exit_doubleclick">{0} 秒内再按返回键退出</string>
-
     <!-- Authentication -->
     <string name="msg_login_success">登陆成功</string>
     <string name="msg_login_no_uid">请输入您的用户名</string>
@@ -178,22 +175,6 @@
     <string name="last_checked_time">上次检查: {0}</string>
     <string name="last_checked_never">从未检查过</string>
     <string name="download_update">下载更新</string>
-
-    <!-- New version available dialog -->
-    <string name="new_version_available">有更新版本 v{0} 可用</string>
-    <string name="new_version_ok_btn">下载试试</string>
-    <string name="new_version_cancel_btn">先不升级</string>
-    <string name="new_version_number"><![CDATA[<b>{0}</b>]]></string>
-    <string name="new_version_number_w_codename"><![CDATA[{0} [<b>{1}</b>]]]></string>
-    <string name="new_version_message">
-<![CDATA[
-        <p>版本号: {0}</p>
-        <p>版本说明:<br />
-        {1}
-        </p>
-        ]]>
-    </string>
-    <string name="new_version_desc_empty">暂无说明</string>
 
     <!-- Accounts -->
     <string name="account_type_kbs">江南听雨 (旧站)</string>

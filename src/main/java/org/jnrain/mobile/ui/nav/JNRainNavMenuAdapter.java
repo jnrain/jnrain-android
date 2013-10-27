@@ -13,24 +13,17 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package name.xen0n.cytosol.network.requests;
+package org.jnrain.mobile.ui.nav;
 
-import name.xen0n.cytosol.updater.UpdateInfo;
+import name.xen0n.cytosol.ui.widget.NavMenuAdapter;
 
-import com.octo.android.robospice.request.springandroid.SpringAndroidSpiceRequest;
+import org.jnrain.mobile.R;
+
+import android.content.Context;
 
 
-public class CheckUpdateRequest
-        extends SpringAndroidSpiceRequest<UpdateInfo> {
-
-    public CheckUpdateRequest() {
-        super(UpdateInfo.class);
-    }
-
-    @Override
-    public UpdateInfo loadDataFromNetwork() throws Exception {
-        return getRestTemplate().getForObject(
-                "http://dl.jnrain.com/updates/android.json",
-                UpdateInfo.class);
+public class JNRainNavMenuAdapter extends NavMenuAdapter {
+    public JNRainNavMenuAdapter(final Context context) {
+        super(context, R.layout.jn_1navmenuitem);
     }
 }

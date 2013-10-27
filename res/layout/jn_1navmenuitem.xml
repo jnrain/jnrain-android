@@ -14,8 +14,21 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
+<!--
+XXX: You can never imagine how this processing of resources is actually
+ordered by FILE NAME.
+
+This file MUST come AFTER the customized NavItemView, or you'll have
+either NPE (in NavItemView) or aapt failure (on those @id/xxx references).
+Not quite declarative as it might look like... Killed a whole afternoon
+by this particular issue so I thought I should document this.
+-->
 <name.xen0n.cytosol.ui.widget.NavItemView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content" >
+    android:layout_height="wrap_content"
+    app:activeBarViewId="@id/viewIsActive"
+    app:itemLayout="@layout/jn_0navitemview"
+    app:titleViewId="@id/textNavItem" >
 
 </name.xen0n.cytosol.ui.widget.NavItemView>

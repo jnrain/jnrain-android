@@ -69,38 +69,6 @@
         <item name="android:textSize">@dimen/nav_uid_text_size</item>
     </style>
 
-    <style name="NavMenu">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:divider">@null</item>
-    </style>
-
-    <style name="NavMenuItem">
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:background">@drawable/navmenuitem_bkgnd</item>
-    </style>
-
-    <style name="NavMenuItemActiveBar">
-        <item name="android:layout_width">@dimen/nav_menu_item_active_indicator_width</item>
-        <item name="android:layout_height">fill_parent</item>
-        <item name="android:layout_alignParentLeft">true</item>
-        <item name="android:layout_alignParentTop">true</item>
-        <item name="android:background">@color/jnrain_green_dark</item>
-    </style>
-
-    <style name="NavMenuItemText">
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:paddingBottom">@dimen/nav_menu_item_padding_b</item>
-        <item name="android:paddingLeft">@dimen/nav_menu_item_padding_l</item>
-        <item name="android:paddingRight">@dimen/nav_menu_item_padding_r</item>
-        <item name="android:paddingTop">@dimen/nav_menu_item_padding_t</item>
-        <item name="android:drawablePadding">@dimen/nav_menu_icon_padding</item>
-        <item name="android:textColor">@color/gray_ee</item>
-        <item name="android:textSize">@dimen/nav_menu_text_size</item>
-    </style>
-
     <style name="FormLayout">
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_width">match_parent</item>
@@ -188,4 +156,23 @@
 
     <style name="Widget.JNRain.ImageView"></style>
 
+    <!-- Nav widgets -->
+    <style name="Widget.JNRain.NavMenuItem" parent="Widget.Cytosol.NavMenuItem">
+        <item name="android:background">@drawable/navmenuitem_bkgnd</item>
+    </style>
+
+    <style name="Widget.JNRain.NavMenuItemActiveBar" parent="Widget.Cytosol.NavMenuItemActiveBar">
+        <item name="android:layout_width">@dimen/nav_menu_item_active_indicator_width</item>
+        <item name="android:background">@color/jnrain_green_dark</item>
+    </style>
+
+    <style name="Widget.JNRain.NavMenuItemText" parent="Widget.Cytosol.NavMenuItemText">
+        <item name="android:paddingBottom">@dimen/nav_menu_item_padding_b</item>
+        <item name="android:paddingLeft">@dimen/nav_menu_item_padding_l</item>
+        <item name="android:paddingRight">@dimen/nav_menu_item_padding_r</item>
+        <item name="android:paddingTop">@dimen/nav_menu_item_padding_t</item>
+        <item name="android:drawablePadding">@dimen/nav_menu_icon_padding</item>
+        <item name="android:textColor">@color/gray_ee</item>
+        <item name="android:textSize">@dimen/nav_menu_text_size</item>
+    </style>
 </resources>

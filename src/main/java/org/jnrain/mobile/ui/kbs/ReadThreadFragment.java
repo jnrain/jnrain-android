@@ -115,7 +115,10 @@ public class ReadThreadFragment extends CytosolFragment
             LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.dyn_pages, container, false);
+        View view = inflater.inflate(
+                name.xen0n.cytosol.R.layout.cy__dyn_pages,
+                container,
+                false);
 
         return view;
     }

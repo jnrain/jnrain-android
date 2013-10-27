@@ -101,9 +101,6 @@ Note: Accounts registered here are those of the legacy BBS site.
     <string name="msg_network_fail">Network failure</string>
     <string name="msg_unknown_status">Unknown status: {0}</string>
 
-    <!-- UI -->
-    <string name="msg_exit_doubleclick">Press Back again in {0} sec(s) to exit</string>
-
     <!-- Authentication -->
     <string name="msg_login_success">Login successful</string>
     <string name="msg_login_no_uid">Please enter your user ID</string>
@@ -190,22 +187,6 @@ Note: Accounts registered here are those of the legacy BBS site.
     <string name="last_checked_time"><![CDATA[Last checked: <b>{0}</b>]]></string>
     <string name="last_checked_never">Never before</string>
     <string name="download_update">Download update</string>
-
-    <!-- New version available dialog -->
-    <string name="new_version_available">Version {0} available</string>
-    <string name="new_version_ok_btn">Try it out</string>
-    <string name="new_version_cancel_btn">Not now</string>
-    <string name="new_version_number"><![CDATA[<b>{0}</b>]]></string>
-    <string name="new_version_number_w_codename"><![CDATA[{0} [<b>{1}</b>]]]></string>
-    <string name="new_version_message">
-<![CDATA[
-        <p>Version: {0}</p>
-        <p>Changes:<br />
-        {1}
-        </p>
-        ]]>
-    </string>
-    <string name="new_version_desc_empty">No changelog</string>
 
     <!-- Accounts -->
     <string name="account_type_kbs">JNRain (old site)</string>

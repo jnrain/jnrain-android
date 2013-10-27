@@ -69,8 +69,8 @@ public class MainActivity extends ExitPointActivity
         // SlidingMenu layout setup
         FragmentManager fm = getSupportFragmentManager();
 
-        setContentView(R.layout.content_frame);
-        setBehindContentView(R.layout.menu_frame);
+        setContentView(name.xen0n.cytosol.R.layout.cy__content_frame);
+        setBehindContentView(name.xen0n.cytosol.R.layout.cy__menu_frame);
 
         // retrieve or construct the Above view
         if (savedInstanceState != null) {
