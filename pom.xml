@@ -65,6 +65,17 @@
       <version>${cytosol.version}</version>
       <type>apklib</type>
     </dependency>
+
+    <!-- necessary duplicate of Cytosol's parent POM definition to avoid 
+      some duplicated classes -->
+    <dependency>
+      <groupId>com.google.code.findbugs</groupId>
+      <artifactId>jsr305</artifactId>
+
+      <!-- keep this in sync with com.google.guava:guava's spec -->
+      <version>1.3.9</version>
+      <scope>provided</scope>
+    </dependency>
   </dependencies>
 
   <build>
