@@ -61,7 +61,9 @@
     <string name="field_repeat_password">重复输入密码</string>
     <string name="field_realname">真实姓名</string>
     <string name="field_stud_id">学号</string>
-    <string name="field_is_ethnic_minority">我的档案姓名前需要加星</string>
+    <string name="field_is_ethnic_minority">我是少数民族学生</string>
+    <string name="field_ethnic_minority_star">☆</string>
+    <string name="field_ethnic_minority_desc">部分少数民族同学请选择此项在姓名前自动加☆</string>
     <string name="field_gender">您的性别</string>
     <string name="field_nickname">您的昵称</string>
     <string name="field_captcha">验证码</string>

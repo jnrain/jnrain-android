@@ -75,6 +75,8 @@ public class KBSRegisterActivity extends JNRainActivity<SimpleReturnCode>
     @InjectView(R.id.editRealName)
     EditText editRealName;
 
+    @InjectView(R.id.textEthnicMinorityIndicator)
+    TextView textEthnicMinorityIndicator;
     @InjectView(R.id.checkIsEthnicMinority)
     CheckBox checkIsEthnicMinority;
 
@@ -219,6 +221,16 @@ public class KBSRegisterActivity extends JNRainActivity<SimpleReturnCode>
                 }
             });
 
+        checkIsEthnicMinority
+            .setOnCheckedChangeListener(new OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(
+                        CompoundButton buttonView,
+                        boolean isChecked) {
+                    setEthnicMinority(isChecked);
+                }
+            });
+
         // interface init
         // UID availability
         updateUIDAvailability(false, 0);
@@ -230,6 +242,10 @@ public class KBSRegisterActivity extends JNRainActivity<SimpleReturnCode>
                 R.string.register_disclaimer);
         textRegisterDisclaimer.setMovementMethod(LinkMovementMethod
             .getInstance());
+
+        // is ethnic minority defaults to false
+        checkIsEthnicMinority.setChecked(false);
+        setEthnicMinority(false);
 
         // current phone number
         currentPhoneNumber = TelephonyHelper.getPhoneNumber(this);
@@ -275,6 +291,12 @@ public class KBSRegisterActivity extends JNRainActivity<SimpleReturnCode>
     public synchronized void setUseCurrentPhone(boolean useCurrent) {
         editPhone.setEnabled(!useCurrent);
         editPhone.setVisibility(useCurrent ? View.GONE : View.VISIBLE);
+    }
+
+    public synchronized void setEthnicMinority(boolean isEthnicMinority) {
+        textEthnicMinorityIndicator.setVisibility(isEthnicMinority
+                ? View.VISIBLE
+                : View.GONE);
     }
 
     @SuppressWarnings({

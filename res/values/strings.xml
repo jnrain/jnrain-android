@@ -61,7 +61,9 @@
     <string name="field_repeat_password">Repeat your password</string>
     <string name="field_realname">Real name</string>
     <string name="field_stud_id">Student ID number</string>
-    <string name="field_is_ethnic_minority">My name needs a star prefix</string>
+    <string name="field_is_ethnic_minority">I belong to an ethnic minority group</string>
+    <string name="field_ethnic_minority_star">☆</string>
+    <string name="field_ethnic_minority_desc">Some students from ethnic minority groups need a ☆ in front of their names. Check this if you are one.</string>
     <string name="field_gender">Gender</string>
     <string name="field_nickname">Nickname</string>
     <string name="field_captcha">Verification code</string>
