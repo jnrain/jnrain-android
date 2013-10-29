@@ -17,6 +17,7 @@ package org.jnrain.mobile.accounts.kbs;
 
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.regex.Pattern;
 
 import name.xen0n.cytosol.app.SpiceRequestListener;
 import name.xen0n.cytosol.data.SimpleReturnCode;
@@ -39,8 +40,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.method.LinkMovementMethod;
+import android.util.SparseBooleanArray;
 import android.view.View;
 import android.view.View.OnFocusChangeListener;
 import android.widget.Button;
@@ -91,6 +94,20 @@ public class KBSRegisterActivity extends JNRainActivity<SimpleReturnCode>
     Button btnSubmitRegister;
 
     // private static final String TAG = "KBSRegisterActivity";
+    private static final int FIXED_VALIDATION_FIELD_IDS[] = {
+            R.id.editNewUID,
+            R.id.editNewEmail,
+            R.id.editNewPassword,
+            R.id.editRetypeNewPassword,
+            R.id.editNewNickname,
+            R.id.editStudID,
+            R.id.editRealName,
+            // R.id.editPhone,
+            R.id.editCaptcha
+    };
+
+    private static final String EMAIL_CHECK_RE = "^[0-9A-Za-z]+(?:[+][0-9A-Za-z]+)?@[0-9A-Za-z]+\\.[A-Za-z]+$";
+    private final Pattern EMAIL_CHECKER = Pattern.compile(EMAIL_CHECK_RE);
 
     private ProgressDialog loadingDlg;
     private Handler mHandler;
@@ -102,10 +119,25 @@ public class KBSRegisterActivity extends JNRainActivity<SimpleReturnCode>
     private Timer delayedUIDChecker;
     private long lastUIDCheckTime;
 
+    private SparseBooleanArray validatedMap;
+
     public static void show(Context context) {
         final Intent intent = new Intent(context, KBSRegisterActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
+    }
+
+    protected synchronized void initValidationMapping() {
+        if (validatedMap == null) {
+            validatedMap = new SparseBooleanArray();
+
+            for (int id : FIXED_VALIDATION_FIELD_IDS) {
+                validatedMap.put(id, false);
+            }
+
+            // dynamic fields
+            validatedMap.put(R.id.editPhone, false);
+        }
     }
 
     @Override
@@ -127,7 +159,10 @@ public class KBSRegisterActivity extends JNRainActivity<SimpleReturnCode>
 
         lastUIDCheckTime = 0;
 
+        initValidationMapping();
+
         // event handlers
+        // UID
         editNewUID.addTextChangedListener(new TextWatcher() {
             long lastCheckTime = 0;
             String lastUID;
@@ -208,6 +243,120 @@ public class KBSRegisterActivity extends JNRainActivity<SimpleReturnCode>
             }
         });
 
+        // E-mail
+        editNewEmail.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+
+            @Override
+            public void beforeTextChanged(
+                    CharSequence s,
+                    int start,
+                    int count,
+                    int after) {
+            }
+
+            @Override
+            public void onTextChanged(
+                    CharSequence s,
+                    int start,
+                    int before,
+                    int count) {
+                if (TextUtils.isEmpty(s)) {
+                    updateValidation(
+                            editNewEmail,
+                            false,
+                            true,
+                            R.string.reg_email_empty);
+                    return;
+                }
+
+                if (!EMAIL_CHECKER.matcher(s).matches()) {
+                    updateValidation(
+                            editNewEmail,
+                            false,
+                            true,
+                            R.string.reg_email_malformed);
+                    return;
+                }
+
+                updateValidation(editNewEmail, true, true, R.string.ok_short);
+            }
+        });
+
+        // Password
+        editNewPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+
+            @Override
+            public void beforeTextChanged(
+                    CharSequence s,
+                    int start,
+                    int count,
+                    int after) {
+            }
+
+            @Override
+            public void onTextChanged(
+                    CharSequence s,
+                    int start,
+                    int before,
+                    int count) {
+                if (TextUtils.isEmpty(s)) {
+                    updateValidation(
+                            editNewPassword,
+                            false,
+                            true,
+                            R.string.reg_psw_empty);
+                    return;
+                }
+
+                if (s.length() < 6) {
+                    updateValidation(
+                            editNewPassword,
+                            false,
+                            true,
+                            R.string.reg_psw_too_short);
+                    return;
+                }
+
+                updateValidation(
+                        editNewPassword,
+                        true,
+                        true,
+                        R.string.ok_short);
+
+                updateRetypedPasswordCorrectness();
+            }
+        });
+
+        // Retype password
+        editRetypeNewPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+
+            @Override
+            public void beforeTextChanged(
+                    CharSequence s,
+                    int start,
+                    int count,
+                    int after) {
+            }
+
+            @Override
+            public void onTextChanged(
+                    CharSequence s,
+                    int start,
+                    int before,
+                    int count) {
+                updateRetypedPasswordCorrectness();
+            }
+        });
+
         checkUseCurrentPhone
             .setOnCheckedChangeListener(new OnCheckedChangeListener() {
                 @Override
@@ -285,6 +434,14 @@ public class KBSRegisterActivity extends JNRainActivity<SimpleReturnCode>
         return loadingDlg;
     }
 
+    public boolean isUseCurrentPhone() {
+        return checkUseCurrentPhone.isChecked();
+    }
+
+    public String getPhone() {
+        return editPhone.getText().toString();
+    }
+
     public synchronized void setUseCurrentPhone(boolean useCurrent) {
         editPhone.setEnabled(!useCurrent);
         editPhone.setVisibility(useCurrent ? View.GONE : View.VISIBLE);
@@ -335,10 +492,7 @@ public class KBSRegisterActivity extends JNRainActivity<SimpleReturnCode>
         switch (status) {
             case 0:
                 // Success
-                updateUIDAvailability(
-                        true,
-                        R.string.reg_uid_available,
-                        timestamp);
+                updateUIDAvailability(true, R.string.ok_short, timestamp);
                 break;
 
             case 1:
@@ -409,19 +563,82 @@ public class KBSRegisterActivity extends JNRainActivity<SimpleReturnCode>
     protected synchronized void updateUIDAvailability(
             boolean ok,
             int statusResId) {
-        // Color
+        if (statusResId != 0) {
+            updateValidation(editNewUID, ok, true, statusResId);
+        } else {
+            updateValidation(editNewUID, ok, false, "");
+        }
+    }
+
+    protected synchronized void updateRetypedPasswordCorrectness() {
+        if (!editNewPassword
+            .getText()
+            .toString()
+            .equals(editRetypeNewPassword.getText().toString())) {
+            updateValidation(
+                    editRetypeNewPassword,
+                    false,
+                    true,
+                    R.string.reg_psw_mismatch);
+            return;
+        }
+
+        updateValidation(
+                editRetypeNewPassword,
+                true,
+                true,
+                R.string.ok_short);
+    }
+
+    protected void setValidationColor(GuidedEditText editText, boolean ok) {
         Resources res = this.getResources();
-        editNewUID.setGuideTextColor(ok ? res
+        editText.setGuideTextColor(ok ? res
             .getColorStateList(R.color.jnrain_green_dark) : res
             .getColorStateList(R.color.error_red));
+    }
 
-        // Message
-        if (statusResId != 0) {
-            editNewUID.setGuideText(statusResId);
-            editNewUID.setGuideVisible(true);
-        } else {
-            editNewUID.setGuideText("");
-            editNewUID.setGuideVisible(false);
+    protected void updateValidation(
+            GuidedEditText editText,
+            boolean ok,
+            boolean visible,
+            CharSequence text) {
+        setValidationColor(editText, ok);
+        editText.setGuideVisible(visible);
+        editText.setGuideText(text);
+
+        validatedMap.put(editText.getId(), ok);
+        doValidation();
+    }
+
+    protected void updateValidation(
+            GuidedEditText editText,
+            boolean ok,
+            boolean visible,
+            int resId) {
+        setValidationColor(editText, ok);
+        editText.setGuideVisible(visible);
+        editText.setGuideText(resId);
+
+        validatedMap.put(editText.getId(), ok);
+        doValidation();
+    }
+
+    protected void doValidation() {
+        boolean passed = true;
+
+        // fixed fields
+        for (int itemId : FIXED_VALIDATION_FIELD_IDS) {
+            if (!validatedMap.get(itemId)) {
+                passed = false;
+                break;
+            }
         }
+
+        // dynamic fields
+        if (!isUseCurrentPhone() && !validatedMap.get(R.id.editPhone)) {
+            passed = false;
+        }
+
+        btnSubmitRegister.setEnabled(passed);
     }
 }

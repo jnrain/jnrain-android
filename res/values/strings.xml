@@ -34,6 +34,9 @@
     <string name="loading_global_hot_posts">Loading global hot posts…</string>
     <string name="please_wait">Please wait…</string>
 
+    <!-- success messages -->
+    <string name="ok_short">OK</string>
+
     <!-- failure messages -->
     <string name="fail_load_global_hot_posts">Failed loading global hot posts.</string>
 
@@ -81,13 +84,36 @@ Note: Accounts registered here are those of the legacy BBS site.
 
     <!-- Register process -->
     <!-- UID availability check -->
-    <string name="reg_uid_available">OK</string>
     <string name="reg_uid_empty">Empty UID</string>
     <string name="reg_uid_exists">Unavailable</string>
     <string name="reg_uid_too_short">Too short</string>
     <string name="reg_uid_too_long">Too long</string>
     <string name="reg_uid_malformed">Malformed</string>
     <string name="reg_uid_banned">Banned</string>
+
+    <!-- Password -->
+    <string name="reg_psw_empty">No password</string>
+    <string name="reg_psw_too_short">Too short</string>
+    <string name="reg_psw_mismatch">Mismatch</string>
+
+    <!-- Email -->
+    <string name="reg_email_empty">Empty e-mail address</string>
+    <string name="reg_email_malformed">Wrong format</string>
+
+    <!-- Nickname -->
+    <string name="reg_nick_empty">No nickname</string>
+
+    <!-- Student ID -->
+    <string name="reg_stud_id_empty">No student ID</string>
+
+    <!-- Real name -->
+    <string name="reg_realname_empty">No name</string>
+
+    <!-- Phone -->
+    <string name="reg_phone_empty">No phone number</string>
+
+    <!-- Captcha -->
+    <string name="reg_captcha_empty">No captcha</string>
 
     <!-- Read thread -->
     <string name="action_reply">Reply to this post</string>

@@ -34,6 +34,9 @@
     <string name="loading_global_hot_posts">全站热帖加载中…</string>
     <string name="please_wait">请稍候…</string>
 
+    <!-- success messages -->
+    <string name="ok_short">OK</string>
+
     <!-- failure messages -->
     <string name="fail_load_global_hot_posts">加载全站热帖失败。</string>
 
@@ -80,13 +83,36 @@
 
     <!-- Register process -->
     <!-- UID availability check -->
-    <string name="reg_uid_available">可注册</string>
     <string name="reg_uid_empty">请输入 ID</string>
     <string name="reg_uid_exists">已被占用</string>
     <string name="reg_uid_too_short">ID 太短</string>
     <string name="reg_uid_too_long">ID 太长</string>
     <string name="reg_uid_malformed">含禁用字符</string>
     <string name="reg_uid_banned">不可注册</string>
+
+    <!-- Password -->
+    <string name="reg_psw_empty">请设置密码</string>
+    <string name="reg_psw_too_short">密码太短</string>
+    <string name="reg_psw_mismatch">两次输入不一致</string>
+
+    <!-- Email -->
+    <string name="reg_email_empty">请输入邮箱</string>
+    <string name="reg_email_malformed">格式不正确</string>
+
+    <!-- Nickname -->
+    <string name="reg_nick_empty">请设置昵称</string>
+
+    <!-- Student ID -->
+    <string name="reg_stud_id_empty">请输入学号</string>
+
+    <!-- Real name -->
+    <string name="reg_realname_empty">请输入姓名</string>
+
+    <!-- Phone -->
+    <string name="reg_phone_empty">请指定电话号码</string>
+
+    <!-- Captcha -->
+    <string name="reg_captcha_empty">请输入验证码</string>
 
     <!-- Read thread -->
     <string name="action_reply">回复此帖</string>
