@@ -22,6 +22,7 @@ import name.xen0n.cytosol.app.SpiceRequestListener;
 import name.xen0n.cytosol.data.SimpleReturnCode;
 import name.xen0n.cytosol.ui.util.DialogHelper;
 import name.xen0n.cytosol.ui.util.FormatHelper;
+import name.xen0n.cytosol.ui.widget.GuidedEditText;
 import name.xen0n.cytosol.util.TelephonyHelper;
 
 import org.jnrain.mobile.R;
@@ -46,7 +47,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -57,23 +57,20 @@ public class KBSRegisterActivity extends JNRainActivity<SimpleReturnCode>
     TextView textRegisterDisclaimer;
 
     @InjectView(R.id.editNewUID)
-    EditText editNewUID;
-    @InjectView(R.id.textUIDAvailability)
-    TextView textUIDAvailability;
-
+    GuidedEditText editNewUID;
     @InjectView(R.id.editNewEmail)
-    EditText editNewEmail;
+    GuidedEditText editNewEmail;
     @InjectView(R.id.editNewPassword)
-    EditText editNewPassword;
+    GuidedEditText editNewPassword;
     @InjectView(R.id.editRetypeNewPassword)
-    EditText editRetypeNewPassword;
+    GuidedEditText editRetypeNewPassword;
     @InjectView(R.id.editNewNickname)
-    EditText editNewNickname;
+    GuidedEditText editNewNickname;
 
     @InjectView(R.id.editStudID)
-    EditText editStudID;
+    GuidedEditText editStudID;
     @InjectView(R.id.editRealName)
-    EditText editRealName;
+    GuidedEditText editRealName;
 
     @InjectView(R.id.textEthnicMinorityIndicator)
     TextView textEthnicMinorityIndicator;
@@ -83,12 +80,12 @@ public class KBSRegisterActivity extends JNRainActivity<SimpleReturnCode>
     @InjectView(R.id.checkUseCurrentPhone)
     CheckBox checkUseCurrentPhone;
     @InjectView(R.id.editPhone)
-    EditText editPhone;
+    GuidedEditText editPhone;
 
     @InjectView(R.id.imageRegCaptcha)
     ImageView imageRegCaptcha;
     @InjectView(R.id.editCaptcha)
-    EditText editCaptcha;
+    GuidedEditText editCaptcha;
 
     @InjectView(R.id.btnSubmitRegister)
     Button btnSubmitRegister;
@@ -414,17 +411,17 @@ public class KBSRegisterActivity extends JNRainActivity<SimpleReturnCode>
             int statusResId) {
         // Color
         Resources res = this.getResources();
-        textUIDAvailability.setTextColor(ok ? res
+        editNewUID.setGuideTextColor(ok ? res
             .getColorStateList(R.color.jnrain_green_dark) : res
             .getColorStateList(R.color.error_red));
 
         // Message
         if (statusResId != 0) {
-            textUIDAvailability.setText(statusResId);
-            textUIDAvailability.setVisibility(View.VISIBLE);
+            editNewUID.setGuideText(statusResId);
+            editNewUID.setGuideVisible(true);
         } else {
-            textUIDAvailability.setText("");
-            textUIDAvailability.setVisibility(View.GONE);
+            editNewUID.setGuideText("");
+            editNewUID.setGuideVisible(false);
         }
     }
 }

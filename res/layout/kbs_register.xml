@@ -16,6 +16,7 @@
 -->
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/scrollKBSRegisterView"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
@@ -33,62 +34,45 @@
             android:layout_height="wrap_content"
             android:text="@string/register_disclaimer" />
 
-        <RelativeLayout
+        <name.xen0n.cytosol.ui.widget.GuidedEditText
+            android:id="@+id/editNewUID"
+            style="@style/Widget.JNRain.EditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/view_margin_t" >
+            android:hint="@string/field_new_uid" >
 
-            <EditText
-                android:id="@+id/editNewUID"
-                style="@style/Widget.JNRain.EditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="0dp"
-                android:hint="@string/field_new_uid" />
+            <requestFocus />
+        </name.xen0n.cytosol.ui.widget.GuidedEditText>
 
-            <TextView
-                android:id="@+id/textUIDAvailability"
-                style="@style/Widget.JNRain.TextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="@dimen/edittext_padding_r"
-                android:layout_marginTop="0dp"
-                android:focusable="false"
-                android:textSize="@dimen/view_small_text_size" />
-
-        </RelativeLayout>
-
-        <EditText
+        <name.xen0n.cytosol.ui.widget.GuidedEditText
             android:id="@+id/editNewEmail"
             style="@style/Widget.JNRain.EditText.Email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/field_new_email" />
 
-        <EditText
+        <name.xen0n.cytosol.ui.widget.GuidedEditText
             android:id="@+id/editNewPassword"
             style="@style/Widget.JNRain.EditText.Password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/field_new_password" />
 
-        <EditText
+        <name.xen0n.cytosol.ui.widget.GuidedEditText
             android:id="@+id/editRetypeNewPassword"
             style="@style/Widget.JNRain.EditText.Password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/field_repeat_password" />
 
-        <EditText
+        <name.xen0n.cytosol.ui.widget.GuidedEditText
             android:id="@+id/editNewNickname"
             style="@style/Widget.JNRain.EditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/field_nickname" />
 
-        <EditText
+        <name.xen0n.cytosol.ui.widget.GuidedEditText
             android:id="@+id/editStudID"
             style="@style/Widget.JNRain.EditText.Number"
             android:layout_width="match_parent"
@@ -111,7 +95,7 @@
                 android:layout_weight="0"
                 android:text="@string/field_ethnic_minority_star" />
 
-            <EditText
+            <name.xen0n.cytosol.ui.widget.GuidedEditText
                 android:id="@+id/editRealName"
                 style="@style/Widget.JNRain.EditText.PersonName"
                 android:layout_width="wrap_content"
@@ -143,7 +127,7 @@
             android:layout_height="wrap_content"
             android:text="@string/field_use_current_phone" />
 
-        <EditText
+        <name.xen0n.cytosol.ui.widget.GuidedEditText
             android:id="@+id/editPhone"
             style="@style/Widget.JNRain.EditText.Phone"
             android:layout_width="match_parent"
@@ -160,7 +144,7 @@
             android:scaleType="fitCenter"
             android:src="@drawable/loading_pic" />
 
-        <EditText
+        <name.xen0n.cytosol.ui.widget.GuidedEditText
             android:id="@+id/editCaptcha"
             style="@style/Widget.JNRain.EditText.Number"
             android:layout_width="match_parent"
