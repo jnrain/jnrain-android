@@ -256,9 +256,6 @@ public class MainActivity extends ExitPointActivity
                     return null;
                 }
             }.execute((Void) null);
-
-            // don't progress any further without a usable account
-            finish();
         }
     }
 
