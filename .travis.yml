@@ -2,6 +2,12 @@ language: java
 jdk: openjdk7
 
 
+# Config for different update channels
+env:
+  - CHANNEL=dev ENV_DEBUG=1
+  - CHANNEL=stable ENV_DEBUG=0
+
+
 # many of the setup fixed with information provided in
 # http://rkistner.github.com/android/2013/02/05/android-builds-on-travis-ci/
 before_install:
@@ -20,6 +26,11 @@ before_install:
   - mkdir -p ~/.m2/repository/com/android && ln -s ${ANDROID_HOME}/extras/android/m2repository/com/android/support/support-v4 ~/.m2/repository/com/android/support-v4
   # Dependencies
   - ( cd deps && ./update-deps.sh )
+
+
+# build for individual update channels
+install:
+  - mvn install -DskipTests=true -B -Ddebug=${ENV_DEBUG}
 
 
 # vim:ai:et:ts=2:sw=2:sts=2:fenc=utf-8:
