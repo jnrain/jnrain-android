@@ -1,33 +1,30 @@
 #!/bin/sh
 
+PROJECT_NAME="jnrain-android"
+
+
 # Commands
 GIT_CMD="${GIT_CMD:-git}"
 MVN_CMD="${MVN_CMD:-mvn}"
 
 
 # Semi-hardcoded dependencies
-abs_name=ActionBarSherlock
-abs_repo_author=xen0n
-abs_ver=4.4.0-xen0n
-
-vpi_name=Android-ViewPagerIndicator
-vpi_repo_author=xen0n
-vpi_ver=2.4.1-xen0n
-
-smenu_name=SlidingMenu
-smenu_repo_author=xen0n
-smenu_ver=master
+use_custom_cy=true
+cy_name=Cytosol
+cy_repo_author=xen0n
+cy_ver=master
+cy_pull=true
 
 
 # Helpers
 echoinfo () {
-    echo -e "\033[1;32m * \033[m$@" ;
+    echo -e "\033[1;32m * \033[m[${PROJECT_NAME}] $@" ;
 }
 
 # stderr Helper
 # http://stackoverflow.com/questions/2990414/echo-that-outputs-to-stderr
 echoerr () {
-    echo -e "$@" >&2;
+    echo -e "\033[1;31m * \033[m[${PROJECT_NAME}] $@" >&2;
 }
 
 
@@ -92,62 +89,42 @@ gh_repo_sync () {
 # Build helpers
 git_co () {
     ver=$1
+    do_pull=$2
 
-    "${GIT_CMD}" checkout "${ver}" || errexit 101 "git checkout failed"
+    "${GIT_CMD}" checkout "${ver}" || errexit 5 "git checkout failed"
+
+    if ${do_pull}; then
+        "${GIT_CMD}" pull || errexit 6 "git pull failed"
+    fi
 }
 
 
 domvn () {
-    "${MVN_CMD}" $@ || errexit 103 "domvn failed"
+    "${MVN_CMD}" $@ || errexit 7 "domvn failed"
 }
 
 
-# custom ABS
-build_abs () {
-    echoinfo "Building and installing ActionBarSherlock library"
+# Cytosol
+build_cy () {
+    if ${use_custom_cy}; then
+        gh_repo_sync "${cy_repo_author}" "${cy_name}"
 
-    cd "${abs_name}"
-    git_co "${abs_ver}"
+        cd "${cy_name}"
+        git_co "${cy_ver}" "${cy_pull}"
 
-    cd actionbarsherlock || errexit 102 "directory layout unrecognized"
-    domvn clean install
+        # Sync deps of Cytosol
+        cd deps || errexit 101 "Cytosol repo directory layout unrecognized"
+        echoinfo "Syncing Cytosol dependencies"
+        ./update-deps.sh || errexit 102 "Syncing of Cytosol dependencies failed"
 
-    cd ..
-    echoinfo "Installing ActionBarSherlock parent POM"
-    domvn install -N
+        cd ..
+        echoinfo "Building and installing Cytosol"
+        domvn clean install -q
 
-    cd ..
-}
-
-
-# custom VPI
-build_vpi () {
-    echoinfo "Building and installing ViewPagerIndicator"
-
-    cd "${vpi_name}"
-    git_co "${vpi_ver}"
-
-    domvn clean install
-
-    cd ..
-}
-
-
-# custom SlidingMenu
-build_smenu () {
-    echoinfo "Building and installing SlidingMenu library"
-
-    cd "${smenu_name}"
-    git_co "${smenu_ver}"
-
-    cd library || errexit 102 "directory layout unrecognized"
-    domvn clean install
-
-    cd ..
-    echoinfo "Installing SlidingMenu parent POM"
-    domvn install -N
-
-    cd ..
+        cd ..
+    else
+        echoinfo "Using Cytosol from Maven Central"
+    fi
 }
 
 
@@ -160,13 +137,8 @@ _mvnver="$( mvn_version )"
 echo "${_mvnver}" | grep '^Apache Maven 3.0' > /dev/null 2>&1 || mvn_version_fail "${_mvnver}"
 unset _mvnver
 
-gh_repo_sync "${abs_repo_author}" "${abs_name}"
-gh_repo_sync "${vpi_repo_author}" "${vpi_name}"
-gh_repo_sync "${smenu_repo_author}" "${smenu_name}"
 
-build_abs
-build_vpi
-build_smenu
+build_cy
 
 echoinfo ""
 echoinfo "Dependencies successfully set up"
