@@ -339,9 +339,6 @@ public class MainActivity extends ExitPointActivity
                                             // block
                                             e.printStackTrace();
                                         }
-
-                                        MainActivity
-                                            .show(getApplicationContext());
                                     }
                                 },
                                 null)
