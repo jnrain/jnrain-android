@@ -15,6 +15,8 @@
  */
 package org.jnrain.mobile.accounts.kbs;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.regex.Pattern;
@@ -26,6 +28,7 @@ import name.xen0n.cytosol.ui.util.FormatHelper;
 import name.xen0n.cytosol.ui.widget.GuidedEditText;
 import name.xen0n.cytosol.util.TelephonyHelper;
 
+import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.jnrain.mobile.R;
 import org.jnrain.mobile.ui.base.JNRainActivity;
 import org.jnrain.mobile.ui.base.RegisterPoint;
@@ -36,6 +39,10 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.Bitmap.CompressFormat;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -106,8 +113,13 @@ public class KBSRegisterActivity extends JNRainActivity<SimpleReturnCode>
             R.id.editCaptcha
     };
 
-    private static final String EMAIL_CHECK_RE = "^[0-9A-Za-z]+(?:[+][0-9A-Za-z]+)?@[0-9A-Za-z]+\\.[A-Za-z]+$";
-    private final Pattern EMAIL_CHECKER = Pattern.compile(EMAIL_CHECK_RE);
+    private static final String EMAIL_CHECK_RE = "^[0-9A-Za-z._\\-]+(?:[+][0-9A-Za-z._\\-]+)?@[0-9A-Za-z._\\-]+\\.[A-Za-z]+$";
+    private static final Pattern EMAIL_CHECKER = Pattern
+        .compile(EMAIL_CHECK_RE);
+
+    private static final String IDENT_CHECK_RE = "(?:\\d{10})|(?:[Ss]\\d{9})|(?:\\d{7})";
+    private static final Pattern IDENT_CHECKER = Pattern
+        .compile(IDENT_CHECK_RE);
 
     private ProgressDialog loadingDlg;
     private Handler mHandler;
@@ -161,23 +173,54 @@ public class KBSRegisterActivity extends JNRainActivity<SimpleReturnCode>
 
         initValidationMapping();
 
+        // instance state
+        if (savedInstanceState != null) {
+            /*
+             * editNewUID.onRestoreInstanceState(savedInstanceState
+             * .getParcelable("newUID"));
+             * editNewEmail.onRestoreInstanceState(savedInstanceState
+             * .getParcelable("newEmail"));
+             * editNewPassword.onRestoreInstanceState(savedInstanceState
+             * .getParcelable("newPass"));
+             * editRetypeNewPassword.onRestoreInstanceState
+             * (savedInstanceState .getParcelable("repeatPass"));
+             * editNewNickname.onRestoreInstanceState(savedInstanceState
+             * .getParcelable("newNickname"));
+             * editStudID.onRestoreInstanceState(savedInstanceState
+             * .getParcelable("studID"));
+             * editRealName.onRestoreInstanceState(savedInstanceState
+             * .getParcelable("realname"));
+             * editPhone.onRestoreInstanceState(savedInstanceState
+             * .getParcelable("phone"));
+             * editCaptcha.onRestoreInstanceState(savedInstanceState
+             * .getParcelable("captcha"));
+             */
+
+            // captcha image
+            byte[] captchaPNG = savedInstanceState
+                .getByteArray("captchaImage");
+            ByteArrayInputStream captchaStream = new ByteArrayInputStream(
+                    captchaPNG);
+            try {
+                Drawable captchaDrawable = BitmapDrawable.createFromStream(
+                        captchaStream,
+                        "src");
+                imageRegCaptcha.setImageDrawable(captchaDrawable);
+            } finally {
+                try {
+                    captchaStream.close();
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+        }
+
         // event handlers
         // UID
-        editNewUID.addTextChangedListener(new TextWatcher() {
+        editNewUID.addTextChangedListener(new StrippedDownTextWatcher() {
             long lastCheckTime = 0;
             String lastUID;
-
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-
-            @Override
-            public void beforeTextChanged(
-                    CharSequence s,
-                    int start,
-                    int count,
-                    int after) {
-            }
 
             @Override
             public void onTextChanged(
@@ -244,19 +287,7 @@ public class KBSRegisterActivity extends JNRainActivity<SimpleReturnCode>
         });
 
         // E-mail
-        editNewEmail.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-
-            @Override
-            public void beforeTextChanged(
-                    CharSequence s,
-                    int start,
-                    int count,
-                    int after) {
-            }
-
+        editNewEmail.addTextChangedListener(new StrippedDownTextWatcher() {
             @Override
             public void onTextChanged(
                     CharSequence s,
@@ -286,19 +317,83 @@ public class KBSRegisterActivity extends JNRainActivity<SimpleReturnCode>
         });
 
         // Password
-        editNewPassword.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
+        editNewPassword
+            .addTextChangedListener(new StrippedDownTextWatcher() {
+                @Override
+                public void onTextChanged(
+                        CharSequence s,
+                        int start,
+                        int before,
+                        int count) {
+                    if (TextUtils.isEmpty(s)) {
+                        updateValidation(
+                                editNewPassword,
+                                false,
+                                true,
+                                R.string.reg_psw_empty);
+                        return;
+                    }
 
-            @Override
-            public void beforeTextChanged(
-                    CharSequence s,
-                    int start,
-                    int count,
-                    int after) {
-            }
+                    if (s.length() < 6) {
+                        updateValidation(
+                                editNewPassword,
+                                false,
+                                true,
+                                R.string.reg_psw_too_short);
+                        return;
+                    }
 
+                    updateValidation(
+                            editNewPassword,
+                            true,
+                            true,
+                            R.string.ok_short);
+
+                    updateRetypedPasswordCorrectness();
+                }
+            });
+
+        // Retype password
+        editRetypeNewPassword
+            .addTextChangedListener(new StrippedDownTextWatcher() {
+                @Override
+                public void onTextChanged(
+                        CharSequence s,
+                        int start,
+                        int before,
+                        int count) {
+                    updateRetypedPasswordCorrectness();
+                }
+            });
+
+        // Nickname
+        editNewNickname
+            .addTextChangedListener(new StrippedDownTextWatcher() {
+                @Override
+                public void onTextChanged(
+                        CharSequence s,
+                        int start,
+                        int before,
+                        int count) {
+                    if (TextUtils.isEmpty(s)) {
+                        updateValidation(
+                                editNewNickname,
+                                false,
+                                true,
+                                R.string.reg_nick_empty);
+                        return;
+                    }
+
+                    updateValidation(
+                            editNewNickname,
+                            true,
+                            true,
+                            R.string.ok_short);
+                }
+            });
+
+        // Student ID
+        editStudID.addTextChangedListener(new StrippedDownTextWatcher() {
             @Override
             public void onTextChanged(
                     CharSequence s,
@@ -307,53 +402,95 @@ public class KBSRegisterActivity extends JNRainActivity<SimpleReturnCode>
                     int count) {
                 if (TextUtils.isEmpty(s)) {
                     updateValidation(
-                            editNewPassword,
+                            editStudID,
                             false,
                             true,
-                            R.string.reg_psw_empty);
+                            R.string.reg_stud_id_empty);
                     return;
                 }
 
-                if (s.length() < 6) {
+                if (!IDENT_CHECKER.matcher(s).matches()) {
                     updateValidation(
-                            editNewPassword,
+                            editStudID,
                             false,
                             true,
-                            R.string.reg_psw_too_short);
+                            R.string.reg_stud_id_malformed);
                     return;
                 }
 
-                updateValidation(
-                        editNewPassword,
-                        true,
-                        true,
-                        R.string.ok_short);
-
-                updateRetypedPasswordCorrectness();
+                updateValidation(editStudID, true, true, R.string.ok_short);
             }
         });
 
-        // Retype password
-        editRetypeNewPassword.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-
-            @Override
-            public void beforeTextChanged(
-                    CharSequence s,
-                    int start,
-                    int count,
-                    int after) {
-            }
-
+        // Real name
+        editRealName.addTextChangedListener(new StrippedDownTextWatcher() {
             @Override
             public void onTextChanged(
                     CharSequence s,
                     int start,
                     int before,
                     int count) {
-                updateRetypedPasswordCorrectness();
+                if (TextUtils.isEmpty(s)) {
+                    updateValidation(
+                            editRealName,
+                            false,
+                            true,
+                            R.string.reg_realname_empty);
+                    return;
+                }
+
+                updateValidation(editRealName, true, true, R.string.ok_short);
+            }
+        });
+
+        // Phone
+        editPhone.addTextChangedListener(new StrippedDownTextWatcher() {
+            @Override
+            public void onTextChanged(
+                    CharSequence s,
+                    int start,
+                    int before,
+                    int count) {
+                if (TextUtils.isEmpty(s)) {
+                    updateValidation(
+                            editPhone,
+                            false,
+                            true,
+                            R.string.reg_phone_empty);
+                    return;
+                }
+
+                if (!TextUtils.isDigitsOnly(s)) {
+                    updateValidation(
+                            editPhone,
+                            false,
+                            true,
+                            R.string.reg_phone_onlynumbers);
+                    return;
+                }
+
+                updateValidation(editPhone, true, true, R.string.ok_short);
+            }
+        });
+
+        // Captcha
+        editCaptcha.addTextChangedListener(new StrippedDownTextWatcher() {
+            @Override
+            public void onTextChanged(
+                    CharSequence s,
+                    int start,
+                    int before,
+                    int count) {
+                if (TextUtils.isEmpty(s)) {
+                    updateValidation(
+                            editCaptcha,
+                            false,
+                            true,
+                            R.string.reg_captcha_empty);
+                    return;
+                }
+
+                updateValidation(editCaptcha, true, true, R.string.ok_short);
             }
         });
 
@@ -414,11 +551,13 @@ public class KBSRegisterActivity extends JNRainActivity<SimpleReturnCode>
         checkUseCurrentPhone.setChecked(isCurrentPhoneNumberAvailable);
         setUseCurrentPhone(isCurrentPhoneNumberAvailable);
 
-        // issue preflight request
-        // load captcha in success callback
-        this.makeSpiceRequest(
-                new KBSRegisterRequest(),
-                new KBSRegisterRequestListener(this));
+        if (savedInstanceState == null) {
+            // issue preflight request
+            // load captcha in success callback
+            this.makeSpiceRequest(
+                    new KBSRegisterRequest(),
+                    new KBSRegisterRequestListener(this));
+        }
     }
 
     @Override
@@ -430,6 +569,37 @@ public class KBSRegisterActivity extends JNRainActivity<SimpleReturnCode>
         super.onStop();
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        /*
+         * outState.putParcelable("newUID",
+         * editNewUID.onSaveInstanceState()); outState.putParcelable(
+         * "newEmail", editNewEmail.onSaveInstanceState());
+         * outState.putParcelable( "newPass",
+         * editNewPassword.onSaveInstanceState()); outState.putParcelable(
+         * "repeatPass", editRetypeNewPassword.onSaveInstanceState());
+         * outState.putParcelable( "newNickname",
+         * editNewNickname.onSaveInstanceState());
+         * outState.putParcelable("studID",
+         * editStudID.onSaveInstanceState()); outState.putParcelable(
+         * "realname", editRealName.onSaveInstanceState());
+         * outState.putParcelable("phone", editPhone.onSaveInstanceState());
+         * outState.putParcelable("captcha",
+         * editCaptcha.onSaveInstanceState());
+         */
+
+        // captcha image
+        ByteArrayOutputStream captchaOutStream = new ByteArrayOutputStream();
+        Bitmap captchaBitmap = ((BitmapDrawable) imageRegCaptcha
+            .getDrawable()).getBitmap();
+        captchaBitmap.compress(CompressFormat.PNG, 100, captchaOutStream);
+
+        outState
+            .putByteArray("captchaImage", captchaOutStream.toByteArray());
+    }
+
     public ProgressDialog getLoadingDialog() {
         return loadingDlg;
     }
@@ -438,13 +608,32 @@ public class KBSRegisterActivity extends JNRainActivity<SimpleReturnCode>
         return checkUseCurrentPhone.isChecked();
     }
 
+    protected String getPhoneInput() {
+        return editPhone.getText().toString().trim();
+    }
+
     public String getPhone() {
-        return editPhone.getText().toString();
+        if (!isCurrentPhoneNumberAvailable) {
+            return getPhoneInput();
+        }
+
+        return checkUseCurrentPhone.isChecked()
+                ? currentPhoneNumber
+                : getPhoneInput();
     }
 
     public synchronized void setUseCurrentPhone(boolean useCurrent) {
         editPhone.setEnabled(!useCurrent);
         editPhone.setVisibility(useCurrent ? View.GONE : View.VISIBLE);
+    }
+
+    public String getRealName() {
+        String name = editRealName.getText().toString().trim();
+
+        // TODO: consider foreign students who have a "（留）" suffix
+        // appended to their last names WRITTEN IN UPPERCASE
+        // Note this is Jiangnan University-specific.
+        return checkIsEthnicMinority.isChecked() ? ('☆' + name) : name;
     }
 
     public synchronized void setEthnicMinority(boolean isEthnicMinority) {
@@ -571,10 +760,18 @@ public class KBSRegisterActivity extends JNRainActivity<SimpleReturnCode>
     }
 
     protected synchronized void updateRetypedPasswordCorrectness() {
+        CharSequence retypedPassword = editRetypeNewPassword.getText();
+        // don't show mismatch message if retyped password field is empty
+
+        if (TextUtils.isEmpty(retypedPassword)) {
+            updateValidation(editRetypeNewPassword, false, false, "");
+            return;
+        }
+
         if (!editNewPassword
             .getText()
             .toString()
-            .equals(editRetypeNewPassword.getText().toString())) {
+            .equals(retypedPassword.toString())) {
             updateValidation(
                     editRetypeNewPassword,
                     false,
@@ -640,5 +837,21 @@ public class KBSRegisterActivity extends JNRainActivity<SimpleReturnCode>
         }
 
         btnSubmitRegister.setEnabled(passed);
+    }
+
+    private abstract class StrippedDownTextWatcher implements TextWatcher {
+        @Override
+        public void afterTextChanged(Editable s) {
+            // stripped down to nothing
+        }
+
+        @Override
+        public void beforeTextChanged(
+                CharSequence s,
+                int start,
+                int count,
+                int after) {
+            // ditto
+        }
     }
 }

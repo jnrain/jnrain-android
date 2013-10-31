@@ -105,12 +105,14 @@ Note: Accounts registered here are those of the legacy BBS site.
 
     <!-- Student ID -->
     <string name="reg_stud_id_empty">No student ID</string>
+    <string name="reg_stud_id_malformed">Wrong format</string>
 
     <!-- Real name -->
     <string name="reg_realname_empty">No name</string>
 
     <!-- Phone -->
     <string name="reg_phone_empty">No phone number</string>
+    <string name="reg_phone_onlynumbers">Only numbers</string>
 
     <!-- Captcha -->
     <string name="reg_captcha_empty">No captcha</string>

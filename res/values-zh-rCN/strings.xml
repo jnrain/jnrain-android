@@ -104,12 +104,14 @@
 
     <!-- Student ID -->
     <string name="reg_stud_id_empty">请输入学号</string>
+    <string name="reg_stud_id_malformed">格式不正确</string>
 
     <!-- Real name -->
     <string name="reg_realname_empty">请输入姓名</string>
 
     <!-- Phone -->
     <string name="reg_phone_empty">请指定电话号码</string>
+    <string name="reg_phone_onlynumbers">应为全数字</string>
 
     <!-- Captcha -->
     <string name="reg_captcha_empty">请输入验证码</string>
