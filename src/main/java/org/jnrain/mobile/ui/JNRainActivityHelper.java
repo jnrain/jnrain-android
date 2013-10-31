@@ -67,7 +67,7 @@ public class JNRainActivityHelper extends CytosolActivityHelper {
         menu.setFadeEnabled(false);
         menu.setShadowWidthRes(R.dimen.slidingmenu_shadow_width);
         menu.setShadowDrawable(R.drawable.slidingmenu_shadow);
-        menu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
+        menu.setBehindWidthRes(R.dimen.slidingmenu_width);
         menu.setBehindScrollScale(0.3f);
 
         // menu overdrawing manipulation
