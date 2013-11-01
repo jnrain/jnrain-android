@@ -93,6 +93,7 @@
     <!-- Password -->
     <string name="reg_psw_empty">请设置密码</string>
     <string name="reg_psw_too_short">密码太短</string>
+    <string name="reg_psw_too_long">密码太长</string>
     <string name="reg_psw_mismatch">两次输入不一致</string>
     <string name="reg_psw_username">密码与 ID 相同</string>
 

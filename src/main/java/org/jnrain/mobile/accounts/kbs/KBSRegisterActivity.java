@@ -337,6 +337,15 @@ public class KBSRegisterActivity extends JNRainActivity<KBSRegisterResult>
                         return;
                     }
 
+                    if (s.length() > 39) {
+                        updateValidation(
+                                editNewPassword,
+                                false,
+                                true,
+                                R.string.reg_psw_too_long);
+                        return;
+                    }
+
                     if (getUID().equalsIgnoreCase(s.toString())) {
                         updateValidation(editNewPassword, false, true, 0);
                     }
