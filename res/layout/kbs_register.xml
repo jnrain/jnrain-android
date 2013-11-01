@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Copyright 2013 JNRain
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/scrollKBSRegisterView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        style="@style/FormLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/textRegisterDisclaimer"
+            style="@style/Widget.JNRain.TextView.Notice.Small"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/register_disclaimer" />
+
+        <name.xen0n.cytosol.ui.widget.GuidedEditText
+            android:id="@+id/editNewUID"
+            style="@style/Widget.JNRain.EditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/field_new_uid" >
+
+            <requestFocus />
+        </name.xen0n.cytosol.ui.widget.GuidedEditText>
+
+        <name.xen0n.cytosol.ui.widget.GuidedEditText
+            android:id="@+id/editNewEmail"
+            style="@style/Widget.JNRain.EditText.Email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/field_new_email" />
+
+        <name.xen0n.cytosol.ui.widget.GuidedEditText
+            android:id="@+id/editNewPassword"
+            style="@style/Widget.JNRain.EditText.Password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/field_new_password" />
+
+        <name.xen0n.cytosol.ui.widget.GuidedEditText
+            android:id="@+id/editRetypeNewPassword"
+            style="@style/Widget.JNRain.EditText.Password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/field_repeat_password" />
+
+        <name.xen0n.cytosol.ui.widget.GuidedEditText
+            android:id="@+id/editNewNickname"
+            style="@style/Widget.JNRain.EditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/field_nickname" />
+
+        <name.xen0n.cytosol.ui.widget.GuidedEditText
+            android:id="@+id/editStudID"
+            style="@style/Widget.JNRain.EditText.Number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/field_stud_id" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/view_margin_t" >
+
+            <TextView
+                android:id="@+id/textEthnicMinorityIndicator"
+                style="@style/Widget.JNRain.TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="4dp"
+                android:layout_marginTop="0dp"
+                android:layout_weight="0"
+                android:text="@string/field_ethnic_minority_star" />
+
+            <name.xen0n.cytosol.ui.widget.GuidedEditText
+                android:id="@+id/editRealName"
+                style="@style/Widget.JNRain.EditText.PersonName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:layout_weight="1"
+                android:hint="@string/field_realname" />
+        </LinearLayout>
+
+        <CheckBox
+            android:id="@+id/checkIsEthnicMinority"
+            style="@style/Widget.JNRain.CheckBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/field_is_ethnic_minority" />
+
+        <TextView
+            android:id="@+id/textEthnicMinorityDesc"
+            style="@style/Widget.JNRain.TextView.Notice.Small"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:text="@string/field_ethnic_minority_desc" />
+
+        <CheckBox
+            android:id="@+id/checkUseCurrentPhone"
+            style="@style/Widget.JNRain.CheckBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/field_use_current_phone" />
+
+        <name.xen0n.cytosol.ui.widget.GuidedEditText
+            android:id="@+id/editPhone"
+            style="@style/Widget.JNRain.EditText.Phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/field_phone" />
+
+        <ImageView
+            android:id="@+id/imageRegCaptcha"
+            style="@style/Widget.JNRain.ImageView"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/kbs_register_captcha_height"
+            android:layout_gravity="center_horizontal"
+            android:contentDescription="@string/field_captcha"
+            android:scaleType="fitCenter"
+            android:src="@drawable/loading_pic" />
+
+        <name.xen0n.cytosol.ui.widget.GuidedEditText
+            android:id="@+id/editCaptcha"
+            style="@style/Widget.JNRain.EditText.Number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/field_captcha" />
+
+        <Button
+            android:id="@+id/btnSubmitRegister"
+            style="@style/Widget.JNRain.Button.Action"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/submit_register" />
+    </LinearLayout>
+
+</ScrollView>

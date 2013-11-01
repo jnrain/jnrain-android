@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  Copyright 2012 JNRain
+  Copyright 2012-2013 JNRain
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -24,7 +24,22 @@
 
     <style name="Theme.JNRain.DefaultLight" parent="@style/Theme.Sherlock.Light">
         <item name="android:windowBackground">@color/jnrain_green_light</item>
+
+        <!-- for pressed style of action bar -->
+        <item name="android:selectableItemBackground">@drawable/jnrain_sel_bkgnd</item>
+        <item name="actionBarItemBackground">@drawable/jnrain_sel_bkgnd</item>
+        <item name="android:actionBarItemBackground">@drawable/jnrain_sel_bkgnd</item>
+
+        <!-- action bar -->
+        <item name="actionBarStyle">@style/JNRainActionBar</item>
+        <item name="android:actionBarStyle">@style/JNRainActionBar</item>
+
+        <!-- VPI -->
         <item name="vpiTitlePageIndicatorStyle">@style/JNRainTitlePageIndicator</item>
+
+        <!-- Cytosol -->
+        <!-- GuidedEditText -->
+        <item name="guideViewStyle">@style/Widget.JNRain.TextView.Small</item>
     </style>
 
     <style name="Theme.JNRain.DefaultLight.NoActionBar" parent="@style/Theme.Sherlock.Light.NoActionBar">

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Copyright 2013 JNRain
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<resources>
+
+    <!-- layout header -->
+    <dimen name="header_height">48dp</dimen>
+
+    <!-- Sliding menu -->
+    <dimen name="slidingmenu_shadow_width">16dp</dimen>
+    <dimen name="slidingmenu_width">272dp</dimen>
+
+    <!-- Nav fragment -->
+    <!-- User ID -->
+    <dimen name="nav_uid_text_size">30sp</dimen>
+    <dimen name="nav_uid_text_padding_l">20dp</dimen>
+    <dimen name="nav_uid_text_padding_vert">3dp</dimen>
+
+    <!-- NavMenuItem -->
+    <dimen name="nav_menu_item_padding_t">8dp</dimen>
+    <dimen name="nav_menu_item_padding_b">8dp</dimen>
+    <dimen name="nav_menu_item_padding_l">6dp</dimen>
+    <dimen name="nav_menu_item_padding_r">8dp</dimen>
+    <dimen name="nav_menu_text_size">24sp</dimen>
+    <dimen name="nav_menu_icon_padding">8dp</dimen>
+    <dimen name="nav_menu_item_active_indicator_width">6dp</dimen>
+
+    <!-- Activity/fragment layouts -->
+    <!-- Common -->
+    <dimen name="view_margin_t">12dp</dimen>
+    <dimen name="view_border_radius">10dp</dimen>
+    <dimen name="view_text_size">16sp</dimen>
+    <dimen name="view_small_text_size">12sp</dimen>
+
+    <!-- Form layout -->
+    <dimen name="form_layout_padding_t">0dp</dimen>
+    <dimen name="form_layout_padding_b">8dp</dimen>
+    <dimen name="form_layout_padding_l">16dp</dimen>
+    <dimen name="form_layout_padding_r">16dp</dimen>
+
+    <!-- EditText -->
+    <dimen name="edittext_border_width">2dp</dimen>
+    <dimen name="edittext_padding_t">4dp</dimen>
+    <dimen name="edittext_padding_b">4dp</dimen>
+    <dimen name="edittext_padding_l">8dp</dimen>
+    <dimen name="edittext_padding_r">8dp</dimen>
+    <dimen name="edittext_text_size">18sp</dimen>
+
+    <!-- Button -->
+    <!-- Common props -->
+    <dimen name="button_text_size">18sp</dimen>
+    <dimen name="button_border_radius">8dp</dimen>
+
+    <!-- Action button -->
+    <dimen name="action_button_text_size">24sp</dimen>
+
+    <!-- Layout dimens -->
+    <dimen name="kbs_register_captcha_height">80dp</dimen>
+
+</resources>

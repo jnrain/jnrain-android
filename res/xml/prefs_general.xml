@@ -16,9 +16,9 @@
 -->
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:jnrain="http://schemas.jnrain.com/android" >
+    xmlns:cytosol="http://schemas.xen0n.name/cytosol/android" >
 
-    <org.jnrain.mobile.util.preference.SummarizedListPreference
+    <name.xen0n.cytosol.ui.preference.SummarizedListPreference
         android:defaultValue="@string/prefs_ui_exit_doubleclick"
         android:dialogTitle="@string/prefs_ui_exit_behavior"
         android:entries="@array/prefs_ui_exit_choices"
@@ -28,15 +28,15 @@
         android:summary="%s"
         android:title="@string/prefs_ui_exit_behavior" />
 
-    <org.jnrain.mobile.util.preference.SeekBarPreference
+    <name.xen0n.cytosol.ui.preference.SeekBarPreference
         android:defaultValue="3"
         android:key="exit_doubleclick_timeout"
         android:max="6"
         android:order="2"
         android:title="@string/prefs_ui_exit_doubleclick_timeout"
-        jnrain:min="1"
-        jnrain:unitsLeft=""
-        jnrain:unitsRight="s" />
+        cytosol:min="1"
+        cytosol:unitsLeft=""
+        cytosol:unitsRight="s" />
 
     <CheckBoxPreference
         android:defaultValue="true"
@@ -44,15 +44,15 @@
         android:order="4"
         android:title="@string/prefs_updater_enable_auto" />
 
-    <org.jnrain.mobile.util.preference.SeekBarPreference
+    <name.xen0n.cytosol.ui.preference.SeekBarPreference
         android:defaultValue="3"
         android:dependency="enable_auto_update"
         android:key="update_check_freq"
         android:max="14"
         android:order="5"
         android:title="@string/prefs_updater_check_freq"
-        jnrain:min="1"
-        jnrain:unitsLeft="每"
-        jnrain:unitsRight="天" />
+        cytosol:min="1"
+        cytosol:unitsLeft="每"
+        cytosol:unitsRight="天" />
 
 </PreferenceScreen>

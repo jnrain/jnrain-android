@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  Copyright 2012 JNRain
+  Copyright 2012-2013 JNRain
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -19,20 +19,25 @@
     <string name="app_name">江南听雨</string>
     <string name="hello_world">TODO</string>
     <string name="menu_settings">设置</string>
-    <string name="title_activity_section_list">大区列表</string>
-    <string name="title_activity_board_list">版面列表</string>
-    <string name="title_activity_global_hot_posts_list">全站热帖</string>
-    <string name="title_activity_board">帖子列表</string>
-    <string name="title_activity_read_thread">读帖</string>
-    <string name="title_activity_new_post">发表新帖</string>
-    <string name="title_activity_preference">偏好设置</string>
-    <string name="title_activity_about">关于江南听雨 for Android</string>
+    <string name="title_kbs_section_list">大区列表</string>
+    <string name="title_kbs_board_list">版面列表</string>
+    <string name="title_kbs_global_hot_posts_list">全站热帖</string>
+    <string name="title_kbs_board">帖子列表</string>
+    <string name="title_kbs_read_thread">读帖</string>
+    <string name="title_kbs_new_post">发表新帖</string>
+    <string name="title_preference">偏好设置</string>
+    <string name="title_about">关于</string>
     <string name="app_name_en">JNRain</string>
     <string name="splash_image_desc">欢迎图像</string>
 
     <!-- loading messages -->
     <string name="loading_global_hot_posts">全站热帖加载中…</string>
     <string name="please_wait">请稍候…</string>
+    <string name="uid_logging_out">注销中…</string>
+
+    <!-- success messages -->
+    <string name="ok_short">OK</string>
+    <string name="uid_logged_out">已注销</string>
 
     <!-- failure messages -->
     <string name="fail_load_global_hot_posts">加载全站热帖失败。</string>
@@ -53,6 +58,85 @@
     <string name="guest_login_land">匿名</string>
     <string name="login_dlg_title">正在登陆</string>
 
+    <!-- Register screen -->
+    <string name="register">新建帐号</string>
+    <string name="field_new_uid">新用户 ID, 如 sunnysun233</string>
+    <string name="field_new_email">电子邮箱, 如 something@qq.com</string>
+    <string name="field_new_password">设置密码, 推荐超过 8 个字符</string>
+    <string name="field_repeat_password">重复输入密码</string>
+    <string name="field_realname">真实姓名</string>
+    <string name="field_stud_id">学号</string>
+    <string name="field_is_ethnic_minority">我是少数民族学生</string>
+    <string name="field_ethnic_minority_star">☆</string>
+    <string name="field_ethnic_minority_desc">部分少数民族同学请选择此项在姓名前自动加☆</string>
+    <string name="field_gender">您的性别</string>
+    <string name="field_nickname">您的昵称</string>
+    <string name="field_captcha">验证码</string>
+    <string name="field_use_current_phone"><![CDATA[使用此号码注册: <b>{0}</b>]]></string>
+    <string name="field_phone">电话号码</string>
+    <string name="submit_register">提交注册</string>
+    <string name="register_disclaimer">
+<![CDATA[
+<p>注册本站帐号即意味着您同意遵守 <a href="http://bbs.jnrain.com/wForum/register.php">江南听雨 BBS 论坛协议</a> 的各项条款。</p>
+<p>江南听雨为江南大学校园网站，按照教育部管理规定，注册用户需提供实名验证信息，望您配合。</p>
+注: 在此处注册的帐号为江南听雨 BBS 旧站帐号。
+        ]]>
+    </string>
+
+    <!-- Register process -->
+    <!-- UID availability check -->
+    <string name="reg_uid_empty">请输入 ID</string>
+    <string name="reg_uid_exists">已被占用</string>
+    <string name="reg_uid_too_short">ID 太短</string>
+    <string name="reg_uid_too_long">ID 太长</string>
+    <string name="reg_uid_malformed">含禁用字符</string>
+    <string name="reg_uid_banned">不可注册</string>
+
+    <!-- Password -->
+    <string name="reg_psw_empty">请设置密码</string>
+    <string name="reg_psw_too_short">密码太短</string>
+    <string name="reg_psw_too_long">密码太长</string>
+    <string name="reg_psw_mismatch">两次输入不一致</string>
+    <string name="reg_psw_username">密码与 ID 相同</string>
+
+    <!-- Email -->
+    <string name="reg_email_empty">请输入邮箱</string>
+    <string name="reg_email_malformed">格式不正确</string>
+
+    <!-- Nickname -->
+    <string name="reg_nick_empty">请设置昵称</string>
+
+    <!-- Student ID -->
+    <string name="reg_stud_id_empty">请输入学号</string>
+    <string name="reg_stud_id_malformed">格式不正确</string>
+
+    <!-- Real name -->
+    <string name="reg_realname_empty">请输入姓名</string>
+
+    <!-- Phone -->
+    <string name="reg_phone_empty">请指定电话号码</string>
+    <string name="reg_phone_onlynumbers">应为全数字</string>
+
+    <!-- Captcha -->
+    <string name="reg_captcha_empty">请输入验证码</string>
+
+    <!-- (Some) Status messages -->
+    <string name="reg_status_0">注册成功</string>
+    <string name="reg_status_101">请填写联系电话</string>
+    <string name="reg_status_201">验证码未成功加载</string>
+    <string name="reg_status_202">验证码错误</string>
+    <string name="reg_status_203">密码长度太短</string>
+    <string name="reg_status_204">密码不能与 ID 相同</string>
+    <string name="reg_status_299">未通过实名验证</string>
+    <string name="reg_status_301">ID 格式错误</string>
+    <string name="reg_status_302">ID 长度太短</string>
+    <string name="reg_status_303">ID 不可注册</string>
+    <string name="reg_status_304">ID 已被占用</string>
+    <string name="reg_status_305">ID 太长</string>
+    <string name="reg_status_306">密码太长</string>
+    <string name="reg_status_307">新建 ID 时系统错误</string>
+    <string name="reg_status_399">新建 ID 过程中发生未知错误</string>
+
     <!-- Read thread -->
     <string name="action_reply">回复此帖</string>
 
@@ -66,9 +150,6 @@
     <!-- General -->
     <string name="msg_network_fail">网络请求出错</string>
     <string name="msg_unknown_status">未知返回状态： {0}</string>
-
-    <!-- UI -->
-    <string name="msg_exit_doubleclick">{0} 秒内再按返回键退出</string>
 
     <!-- Authentication -->
     <string name="msg_login_success">登陆成功</string>
@@ -146,20 +227,10 @@
     <string name="last_checked_never">从未检查过</string>
     <string name="download_update">下载更新</string>
 
-    <!-- New version available dialog -->
-    <string name="new_version_available">有更新版本 v{0} 可用</string>
-    <string name="new_version_ok_btn">下载试试</string>
-    <string name="new_version_cancel_btn">先不升级</string>
-    <string name="new_version_number"><![CDATA[<b>{0}</b>]]></string>
-    <string name="new_version_number_w_codename"><![CDATA[{0} [<b>{1}</b>]]]></string>
-    <string name="new_version_message">
-<![CDATA[
-        <p>版本号: {0}</p>
-        <p>版本说明:<br />
-        {1}
-        </p>
-        ]]>
-    </string>
-    <string name="new_version_desc_empty">暂无说明</string>
+    <!-- Accounts -->
+    <string name="account_type_kbs">江南听雨 (旧站)</string>
+
+    <!-- Nav -->
+    <string name="nav_remove_account">切换登陆身份</string>
 
 </resources>

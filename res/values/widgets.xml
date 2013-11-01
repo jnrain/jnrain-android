@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  Copyright 2012 JNRain
+  Copyright 2012-2013 JNRain
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -16,14 +16,27 @@
 -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <style name="JNRainActionBar" parent="Widget.Sherlock.Light.ActionBar.Solid.Inverse">
+        <item name="height">@dimen/header_height</item>
+        <item name="android:height">@dimen/header_height</item>
+        <item name="background">@color/jnrain_green_darker</item>
+        <item name="android:background">@color/jnrain_green_darker</item>
+        <item name="titleTextStyle">@style/JNRainActionBar.Title</item>
+        <item name="android:titleTextStyle">@style/JNRainActionBar.Title</item>
+    </style>
+
+    <style name="JNRainActionBar.Title" parent="TextAppearance.Sherlock.Widget.ActionBar.Title.Inverse">
+        <item name="android:textColor">@color/gray_ee</item>
+    </style>
+
     <style name="JNRainTitlePageIndicator">
         <item name="android:background">#18A9D46D</item>
-        <item name="footerColor">#FF669A1F</item>
+        <item name="footerColor">@color/jnrain_green_dark</item>
         <item name="footerLineHeight">1dp</item>
         <item name="footerIndicatorHeight">3dp</item>
         <item name="footerIndicatorStyle">underline</item>
         <item name="android:textColor">#CCA9D46D</item>
-        <item name="selectedColor">#FF669A1F</item>
+        <item name="selectedColor">@color/jnrain_green_dark</item>
         <item name="selectedBold">true</item>
     </style>
 
@@ -35,6 +48,136 @@
         <item name="android:paddingBottom">4dp</item>
         <item name="android:paddingLeft">4dp</item>
         <item name="android:background">@drawable/list_item_bkgnd</item>
+    </style>
+
+    <style name="NavFragmentLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/gray_26</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="NavUserID">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/jnrain_green_dark</item>
+        <item name="android:paddingBottom">@dimen/nav_uid_text_padding_vert</item>
+        <item name="android:paddingLeft">@dimen/nav_uid_text_padding_l</item>
+        <item name="android:paddingTop">@dimen/nav_uid_text_padding_vert</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceLarge</item>
+        <item name="android:textColor">@color/gray_ee</item>
+        <item name="android:textSize">@dimen/nav_uid_text_size</item>
+    </style>
+
+    <style name="FormLayout">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:paddingTop">@dimen/form_layout_padding_t</item>
+        <item name="android:paddingBottom">@dimen/form_layout_padding_b</item>
+        <item name="android:paddingLeft">@dimen/form_layout_padding_l</item>
+        <item name="android:paddingRight">@dimen/form_layout_padding_r</item>
+    </style>
+
+    <!-- Widgets -->
+    <style name="Widget.JNRain">
+        <item name="android:layout_marginTop">@dimen/view_margin_t</item>
+    </style>
+
+    <style name="Widget.JNRain.TextView">
+        <item name="android:textColor">@color/jnrain_green_darker</item>
+        <item name="android:textSize">@dimen/view_text_size</item>
+    </style>
+
+    <style name="Widget.JNRain.TextView.Small">
+        <item name="android:textSize">@dimen/view_small_text_size</item>
+    </style>
+
+    <style name="Widget.JNRain.TextView.Notice">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center_horizontal</item>
+    </style>
+
+    <style name="Widget.JNRain.TextView.Notice.Small">
+        <item name="android:textSize">@dimen/view_small_text_size</item>
+    </style>
+
+    <style name="Widget.JNRain.EditText">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">@dimen/edittext_padding_t</item>
+        <item name="android:paddingBottom">@dimen/edittext_padding_b</item>
+        <item name="android:paddingLeft">@dimen/edittext_padding_l</item>
+        <item name="android:paddingRight">@dimen/edittext_padding_r</item>
+        <item name="android:background">@drawable/edittext_bkgnd</item>
+        <item name="android:textColor">@color/jnrain_green_evendarker</item>
+        <item name="android:textColorHint">@color/jnrain_green</item>
+        <item name="android:textSize">@dimen/edittext_text_size</item>
+    </style>
+
+    <style name="Widget.JNRain.EditText.Password">
+        <item name="android:inputType">textPassword</item>
+    </style>
+
+    <style name="Widget.JNRain.EditText.Email">
+        <item name="android:inputType">textEmailAddress</item>
+    </style>
+
+    <style name="Widget.JNRain.EditText.PersonName">
+        <item name="android:inputType">textPersonName</item>
+    </style>
+
+    <style name="Widget.JNRain.EditText.Phone">
+        <item name="android:inputType">phone</item>
+    </style>
+
+    <style name="Widget.JNRain.EditText.Number">
+        <item name="android:inputType">number</item>
+    </style>
+
+    <style name="Widget.JNRain.Button">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">3dp</item>
+        <item name="android:paddingBottom">3dp</item>
+        <item name="android:paddingLeft">6dp</item>
+        <item name="android:paddingRight">6dp</item>
+
+        <!-- remove default minimum dimension -->
+        <item name="android:minHeight">0dp</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:background">@drawable/button_bkgnd</item>
+        <item name="android:textColor">@color/gray_ee</item>
+        <item name="android:textSize">@dimen/button_text_size</item>
+    </style>
+
+    <style name="Widget.JNRain.Button.Action">
+        <item name="android:textSize">@dimen/action_button_text_size</item>
+    </style>
+
+    <!-- TODO: customize these -->
+    <style name="Widget.JNRain.CheckBox" parent="android:Widget.CompoundButton.CheckBox">
+        <item name="android:layout_marginTop">@dimen/view_margin_t</item>
+    </style>
+
+    <style name="Widget.JNRain.ImageView"></style>
+
+    <!-- Nav widgets -->
+    <style name="Widget.JNRain.NavMenuItem" parent="Widget.Cytosol.NavMenuItem">
+        <item name="android:background">@drawable/navmenuitem_bkgnd</item>
+    </style>
+
+    <style name="Widget.JNRain.NavMenuItemActiveBar" parent="Widget.Cytosol.NavMenuItemActiveBar">
+        <item name="android:layout_width">@dimen/nav_menu_item_active_indicator_width</item>
+        <item name="android:background">@color/jnrain_green_dark</item>
+    </style>
+
+    <style name="Widget.JNRain.NavMenuItemText" parent="Widget.Cytosol.NavMenuItemText">
+        <item name="android:paddingBottom">@dimen/nav_menu_item_padding_b</item>
+        <item name="android:paddingLeft">@dimen/nav_menu_item_padding_l</item>
+        <item name="android:paddingRight">@dimen/nav_menu_item_padding_r</item>
+        <item name="android:paddingTop">@dimen/nav_menu_item_padding_t</item>
+        <item name="android:drawablePadding">@dimen/nav_menu_icon_padding</item>
+        <item name="android:textColor">@color/gray_ee</item>
+        <item name="android:textSize">@dimen/nav_menu_text_size</item>
     </style>
 
 </resources>
