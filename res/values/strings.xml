@@ -95,6 +95,7 @@ Note: Accounts registered here are those of the legacy BBS site.
     <string name="reg_psw_empty">No password</string>
     <string name="reg_psw_too_short">Too short</string>
     <string name="reg_psw_mismatch">Mismatch</string>
+    <string name="reg_psw_username">Same as UID</string>
 
     <!-- Email -->
     <string name="reg_email_empty">Empty e-mail address</string>

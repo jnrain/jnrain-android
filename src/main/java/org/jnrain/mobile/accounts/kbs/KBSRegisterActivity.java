@@ -337,6 +337,10 @@ public class KBSRegisterActivity extends JNRainActivity<KBSRegisterResult>
                         return;
                     }
 
+                    if (getUID().equalsIgnoreCase(s.toString())) {
+                        updateValidation(editNewPassword, false, true, 0);
+                    }
+
                     updateValidation(
                             editNewPassword,
                             true,
