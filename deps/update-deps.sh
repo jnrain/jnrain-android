@@ -12,8 +12,8 @@ MVN_CMD="${MVN_CMD:-mvn}"
 use_custom_cy=true
 cy_name=Cytosol
 cy_repo_author=xen0n
-cy_ver=master
-cy_pull=true
+cy_ver=v1.0
+cy_pull=false
 
 
 # Helpers
