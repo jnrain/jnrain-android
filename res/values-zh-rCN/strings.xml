@@ -116,6 +116,23 @@
     <!-- Captcha -->
     <string name="reg_captcha_empty">请输入验证码</string>
 
+    <!-- (Some) Status messages -->
+    <string name="reg_status_0">注册成功</string>
+    <string name="reg_status_101">请填写联系电话</string>
+    <string name="reg_status_201">验证码未成功加载</string>
+    <string name="reg_status_202">验证码错误</string>
+    <string name="reg_status_203">密码长度太短</string>
+    <string name="reg_status_204">密码不能与 ID 相同</string>
+    <string name="reg_status_299">未通过实名验证</string>
+    <string name="reg_status_301">ID 格式错误</string>
+    <string name="reg_status_302">ID 长度太短</string>
+    <string name="reg_status_303">ID 不可注册</string>
+    <string name="reg_status_304">ID 已被占用</string>
+    <string name="reg_status_305">ID 太长</string>
+    <string name="reg_status_306">密码太长</string>
+    <string name="reg_status_307">新建 ID 时系统错误</string>
+    <string name="reg_status_399">新建 ID 过程中发生未知错误</string>
+
     <!-- Read thread -->
     <string name="action_reply">回复此帖</string>
 

@@ -117,6 +117,23 @@ Note: Accounts registered here are those of the legacy BBS site.
     <!-- Captcha -->
     <string name="reg_captcha_empty">No captcha</string>
 
+    <!-- (Some) Status messages -->
+    <string name="reg_status_0">Register successful</string>
+    <string name="reg_status_101">Please provide your phone number</string>
+    <string name="reg_status_201">Captcha image did not load</string>
+    <string name="reg_status_202">Wrong captcha</string>
+    <string name="reg_status_203">Password is too short</string>
+    <string name="reg_status_204">Password cannot be the same as UID</string>
+    <string name="reg_status_299">Identity check failed</string>
+    <string name="reg_status_301">Malformed UID</string>
+    <string name="reg_status_302">UID is too short</string>
+    <string name="reg_status_303">UID is banned</string>
+    <string name="reg_status_304">UID is already taken</string>
+    <string name="reg_status_305">UID is too long</string>
+    <string name="reg_status_306">Password is too long</string>
+    <string name="reg_status_307">System error while creating ID</string>
+    <string name="reg_status_399">Unknown error while creating ID</string>
+
     <!-- Read thread -->
     <string name="action_reply">Reply to this post</string>
 
