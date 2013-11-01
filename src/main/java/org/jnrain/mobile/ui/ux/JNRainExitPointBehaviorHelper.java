@@ -21,6 +21,7 @@ import name.xen0n.cytosol.ui.ux.ExitPointBehaviorHelper;
 import org.jnrain.mobile.R;
 import org.jnrain.mobile.accounts.kbs.KBSLogoutRequest;
 import org.jnrain.mobile.accounts.kbs.KBSLogoutRequestListener;
+import org.jnrain.mobile.ui.nav.NavManager;
 
 
 public class JNRainExitPointBehaviorHelper extends ExitPointBehaviorHelper {
@@ -42,6 +43,9 @@ public class JNRainExitPointBehaviorHelper extends ExitPointBehaviorHelper {
     @Override
     protected void doExit() {
         // this SHOULD be the last activity on the task stack. logout
+        // set user name to "logging out"
+        NavManager.getNavFragment().setUserName(R.string.uid_logging_out);
+
         // super.onBackPressed() is called via shim in listener
         listener.makeSpiceRequest(
                 new KBSLogoutRequest(),

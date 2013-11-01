@@ -33,9 +33,11 @@
     <!-- loading messages -->
     <string name="loading_global_hot_posts">Loading global hot posts…</string>
     <string name="please_wait">Please wait…</string>
+    <string name="uid_logging_out">Logging out…</string>
 
     <!-- success messages -->
     <string name="ok_short">OK</string>
+    <string name="uid_logged_out">Logged out</string>
 
     <!-- failure messages -->
     <string name="fail_load_global_hot_posts">Failed loading global hot posts.</string>

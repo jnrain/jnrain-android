@@ -33,9 +33,11 @@
     <!-- loading messages -->
     <string name="loading_global_hot_posts">全站热帖加载中…</string>
     <string name="please_wait">请稍候…</string>
+    <string name="uid_logging_out">注销中…</string>
 
     <!-- success messages -->
     <string name="ok_short">OK</string>
+    <string name="uid_logged_out">已注销</string>
 
     <!-- failure messages -->
     <string name="fail_load_global_hot_posts">加载全站热帖失败。</string>

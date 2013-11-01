@@ -57,6 +57,9 @@ public class NavFragment extends CytosolFragment
         super.onAttach(activity);
 
         _menuAdapter = new JNRainNavMenuAdapter(getActivity());
+
+        // register self
+        NavManager.setNavFragment(this);
     }
 
     @Override
@@ -131,6 +134,10 @@ public class NavFragment extends CytosolFragment
             @SuppressWarnings("unchecked")
             @Override
             public void onNavItemActivated(Context context) {
+                // change UID display
+                setUserName(R.string.uid_logging_out);
+
+                // make request
                 _listener.makeSpiceRequest(
                         new KBSLogoutRequest(),
                         new KBSLogoutRequestListener(getActivity(), true));
@@ -174,6 +181,10 @@ public class NavFragment extends CytosolFragment
         textUserID.setText(uid);
     }
 
+    public void setUserName(int resId) {
+        textUserID.setText(resId);
+    }
+
     @Override
     public void onAccountLoggedIn(String uid) {
         setUserName(uid);
@@ -181,7 +192,7 @@ public class NavFragment extends CytosolFragment
 
     @Override
     public void onAccountLoggedOut() {
-        // TODO: something more user-friendly
-        setUserName("");
+        // set user name
+        setUserName(R.string.uid_logged_out);
     }
 }
