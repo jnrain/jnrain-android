@@ -21,8 +21,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.regex.Pattern;
 
-import name.xen0n.cytosol.app.SpiceRequestListener;
-import name.xen0n.cytosol.data.SimpleReturnCode;
 import name.xen0n.cytosol.ui.util.DialogHelper;
 import name.xen0n.cytosol.ui.util.FormatHelper;
 import name.xen0n.cytosol.ui.widget.GuidedEditText;
@@ -36,7 +34,6 @@ import org.jnrain.mobile.ui.kbs.KBSUIConstants;
 
 import roboguice.inject.InjectView;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -52,6 +49,7 @@ import android.text.TextWatcher;
 import android.text.method.LinkMovementMethod;
 import android.util.SparseBooleanArray;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -61,8 +59,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
-public class KBSRegisterActivity extends JNRainActivity<SimpleReturnCode>
+public class KBSRegisterActivity extends JNRainActivity<KBSRegisterResult>
         implements RegisterPoint {
+    public static final String PARAM_NEW_UID = "org.jnrain.mobile.kbs.newuid";
+    public static final String PARAM_NEW_PSW = "org.jnrain.mobile.kbs.newpsw";
+
     @InjectView(R.id.textRegisterDisclaimer)
     TextView textRegisterDisclaimer;
 
@@ -127,17 +128,10 @@ public class KBSRegisterActivity extends JNRainActivity<SimpleReturnCode>
     private String currentPhoneNumber;
     private boolean isCurrentPhoneNumberAvailable;
 
-    private KBSCaptchaHelper captchaHelper;
     private Timer delayedUIDChecker;
     private long lastUIDCheckTime;
 
     private SparseBooleanArray validatedMap;
-
-    public static void show(Context context) {
-        final Intent intent = new Intent(context, KBSRegisterActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent);
-    }
 
     protected synchronized void initValidationMapping() {
         if (validatedMap == null) {
@@ -494,6 +488,7 @@ public class KBSRegisterActivity extends JNRainActivity<SimpleReturnCode>
             }
         });
 
+        // Use current phone
         checkUseCurrentPhone
             .setOnCheckedChangeListener(new OnCheckedChangeListener() {
                 @Override
@@ -504,6 +499,7 @@ public class KBSRegisterActivity extends JNRainActivity<SimpleReturnCode>
                 }
             });
 
+        // Is ethnic minority
         checkIsEthnicMinority
             .setOnCheckedChangeListener(new OnCheckedChangeListener() {
                 @Override
@@ -513,6 +509,36 @@ public class KBSRegisterActivity extends JNRainActivity<SimpleReturnCode>
                     setEthnicMinority(isChecked);
                 }
             });
+
+        // Submit form!
+        btnSubmitRegister.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                // progress dialog
+                mHandler.sendMessage(new Message());
+
+                // prevent repeated requests
+                setSubmitButtonEnabled(false);
+
+                // fire our biiiiiig request!
+                // TODO: 性别默认成了妹子23333
+                final String uid = getUID();
+                final String psw = editNewPassword.getText().toString();
+                makeSpiceRequest(new KBSRegisterRequest(
+                        uid,
+                        psw,
+                        editNewNickname.getText().toString(),
+                        getRealName(),
+                        editStudID.getText().toString(),
+                        editNewEmail.getText().toString(),
+                        getPhone(),
+                        editCaptcha.getText().toString(),
+                        2), new KBSRegisterRequestListener(
+                        KBSRegisterActivity.this,
+                        uid,
+                        psw));
+            }
+        });
 
         // interface init
         // UID availability
@@ -604,6 +630,17 @@ public class KBSRegisterActivity extends JNRainActivity<SimpleReturnCode>
         return loadingDlg;
     }
 
+    @Override
+    public void onRegisterSuccess(String uid, String psw) {
+        final Intent resultIntent = new Intent();
+
+        resultIntent.putExtra(PARAM_NEW_UID, uid);
+        resultIntent.putExtra(PARAM_NEW_PSW, psw);
+
+        setResult(RESULT_OK, resultIntent);
+        finish();
+    }
+
     public boolean isUseCurrentPhone() {
         return checkUseCurrentPhone.isChecked();
     }
@@ -642,25 +679,20 @@ public class KBSRegisterActivity extends JNRainActivity<SimpleReturnCode>
                 : View.GONE);
     }
 
-    @SuppressWarnings({
-            "rawtypes",
-            "unchecked"
-    })
     @Override
-    public void fetchCaptcha() {
-        // init captcha helper
-        if (captchaHelper == null) {
-            captchaHelper = new KBSCaptchaHelper(
-                    (SpiceRequestListener) this,
-                    imageRegCaptcha);
-        }
+    public void updateCaptcha(Drawable captcha) {
+        imageRegCaptcha.setImageDrawable(captcha);
+        imageRegCaptcha.invalidate();
+    }
 
-        captchaHelper.doFetchCaptcha();
+    @Override
+    public void setSubmitButtonEnabled(boolean enabled) {
+        btnSubmitRegister.setEnabled(enabled);
     }
 
     @Override
     public String getUID() {
-        return editNewUID.getText().toString();
+        return editNewUID.getText().toString().trim();
     }
 
     @Override
@@ -836,7 +868,7 @@ public class KBSRegisterActivity extends JNRainActivity<SimpleReturnCode>
             passed = false;
         }
 
-        btnSubmitRegister.setEnabled(passed);
+        setSubmitButtonEnabled(passed);
     }
 
     private abstract class StrippedDownTextWatcher implements TextWatcher {
