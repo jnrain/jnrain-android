@@ -14,7 +14,7 @@
     <platform.version>4.1.1.4</platform.version>
     <android-support.version>18.0.0</android-support.version>
 
-    <cytosol.version>1.0-SNAPSHOT</cytosol.version>
+    <cytosol.version>1.0</cytosol.version>
   </properties>
 
   <!-- Build configurations. -->
