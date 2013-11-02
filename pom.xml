@@ -2,16 +2,72 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.sonatype.oss</groupId>
+    <artifactId>oss-parent</artifactId>
+    <version>7</version>
+  </parent>
+
   <groupId>org.jnrain.mobile</groupId>
-  <artifactId>jnrain-android</artifactId>
+  <artifactId>parent</artifactId>
+  <packaging>pom</packaging>
   <version>0.5-dev</version>
-  <packaging>apk</packaging>
-  <name>jnrain-android</name>
+
+  <name>JNRain for Android (Parent)</name>
+  <description>Android client for JNRain (http://jnrain.com).</description>
+  <url>https://github.com/jnrainerds/jnrain-android</url>
+  <inceptionYear>2012</inceptionYear>
+
+  <modules>
+    <module>app</module>
+  </modules>
+
+  <scm>
+    <url>https://github.com/jnrainerds/jnrain-android/</url>
+    <connection>scm:git:https://github.com/jnrainerds/jnrain-android.git</connection>
+    <developerConnection>scm:git:https://github.com/jnrainerds/jnrain-android.git</developerConnection>
+  </scm>
+
+  <developers>
+    <developer>
+      <name>Wang Xuerui</name>
+      <email>idontknw.wang@gmail.com</email>
+      <id>xen0n</id>
+      <url>https://github.com/xen0n</url>
+      <timezone>+8</timezone>
+      <roles>
+        <role>developer</role>
+      </roles>
+    </developer>
+  </developers>
+
+  <licenses>
+    <license>
+      <name>Apache License Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <organization>
+    <name>JNRain</name>
+    <url>http://www.jnrain.com</url>
+  </organization>
+
+  <issueManagement>
+    <system>GitHub Issues</system>
+    <url>https://github.com/jnrainerds/jnrain-android/issues</url>
+  </issueManagement>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-    <platform.version>4.1.1.4</platform.version>
+    <java.version>1.6</java.version>
+
+    <android.platform>16</android.platform>
+    <android.version>4.1.1.4</android.version>
     <android-support.version>18.0.0</android-support.version>
 
     <cytosol.version>1.0</cytosol.version>
@@ -56,7 +112,7 @@
     <dependency>
       <groupId>com.google.android</groupId>
       <artifactId>android</artifactId>
-      <version>${platform.version}</version>
+      <version>${android.version}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
@@ -94,58 +150,61 @@
   </dependencies>
 
   <build>
-    <plugins>
-      <plugin>
-        <groupId>com.jayway.maven.plugins.android.generation2</groupId>
-        <artifactId>android-maven-plugin</artifactId>
-        <version>3.7.0</version>
-        <configuration>
-          <androidManifestFile>${project.basedir}/AndroidManifest.xml</androidManifestFile>
-          <assetsDirectory>${project.basedir}/assets</assetsDirectory>
-          <resourceDirectory>${project.basedir}/res</resourceDirectory>
-          <nativeLibrariesDirectory>${project.basedir}/src/main/native</nativeLibrariesDirectory>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>com.jayway.maven.plugins.android.generation2</groupId>
+          <artifactId>android-maven-plugin</artifactId>
+          <version>3.7.0</version>
+          <configuration>
+            <androidManifestFile>${project.basedir}/AndroidManifest.xml</androidManifestFile>
+            <assetsDirectory>${project.basedir}/assets</assetsDirectory>
+            <resourceDirectory>${project.basedir}/res</resourceDirectory>
+            <nativeLibrariesDirectory>${project.basedir}/src/main/native</nativeLibrariesDirectory>
 
-          <release>${buildcfg.release}</release>
+            <release>${buildcfg.release}</release>
 
-          <sdk>
-            <platform>16</platform>
-          </sdk>
+            <sdk>
+              <platform>${android.platform}</platform>
+            </sdk>
 
-          <undeployBeforeDeploy>true</undeployBeforeDeploy>
+            <undeployBeforeDeploy>true</undeployBeforeDeploy>
 
-          <zipalign>
-            <skip>false</skip>
-          </zipalign>
+            <zipalign>
+              <skip>false</skip>
+            </zipalign>
 
-          <proguard>
-            <skip>false</skip>
-            <config>${buildcfg.proguard.cfg.path}</config>
-          </proguard>
+            <proguard>
+              <skip>false</skip>
+              <config>${buildcfg.proguard.cfg.path}</config>
+            </proguard>
 
-          <apk>
-            <debug>${buildcfg.apk.debug}</debug>
-          </apk>
-        </configuration>
-        <executions>
-          <execution>
-            <id>zipalign</id>
-            <phase>package</phase>
-            <goals>
-              <goal>zipalign</goal>
-            </goals>
-          </execution>
-        </executions>
-        <extensions>true</extensions>
-      </plugin>
+            <apk>
+              <debug>${buildcfg.apk.debug}</debug>
+            </apk>
+          </configuration>
+          <executions>
+            <execution>
+              <id>zipalign</id>
+              <phase>package</phase>
+              <goals>
+                <goal>zipalign</goal>
+              </goals>
+            </execution>
+          </executions>
+          <extensions>true</extensions>
+        </plugin>
 
-      <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.1</version>
-        <configuration>
-          <source>1.6</source>
-          <target>1.6</target>
-        </configuration>
-      </plugin>
-    </plugins>
+        <plugin>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.1</version>
+          <configuration>
+            <source>${java.version}</source>
+            <target>${java.version}</target>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
   </build>
+<!-- vim:set ai et ts=2 sw=2 sts=2 fenc=utf-8: -->
 </project>
