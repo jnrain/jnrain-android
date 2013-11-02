@@ -13,25 +13,17 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package org.jnrain.mobile.accounts.kbs;
+package org.jnrain.mobile.ui.nav;
 
-import name.xen0n.cytosol.ui.imagegetter.URLImageConsumer;
+import name.xen0n.cytosol.ui.widget.NavMenuAdapter;
 
-import android.graphics.drawable.Drawable;
-import android.view.View;
-import android.widget.ImageView;
+import org.jnrain.mobile.R;
+
+import android.content.Context;
 
 
-public class KBSCaptchaURLImageConsumer extends URLImageConsumer {
-    public KBSCaptchaURLImageConsumer(View v) {
-        super(v);
-    }
-
-    @Override
-    public void doPostprocess(Drawable drawable) {
-        ImageView iv = (ImageView) _container;
-
-        iv.setImageDrawable(drawable);
-        iv.invalidate();
+public class JNRainNavMenuAdapter extends NavMenuAdapter {
+    public JNRainNavMenuAdapter(final Context context) {
+        super(context, R.layout.jn_1navmenuitem);
     }
 }

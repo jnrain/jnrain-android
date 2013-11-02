@@ -50,6 +50,9 @@ public class KBSLoginActivity
     public static final String PARAM_USERNAME = "org.jnrain.mobile.username";
     public static final String PARAM_CONFIRM_CREDENTIALS = "org.jnrain.mobile.confirm_creds";
 
+    // register action for startActivityForResult()
+    public static final int REGISTER_REQUEST = 1;
+
     @InjectView(R.id.editUID)
     EditText editUID;
     @InjectView(R.id.editPassword)
@@ -109,7 +112,7 @@ public class KBSLoginActivity
         btnRegister.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                KBSRegisterActivity.show(KBSLoginActivity.this);
+                showRegisterActivity();
             }
         });
 
@@ -202,4 +205,32 @@ public class KBSLoginActivity
         GlobalState.setAccount(acct);
         finishLogin(uid, psw);
     }
+
+    public void showRegisterActivity() {
+        final Intent intent = new Intent(this, KBSRegisterActivity.class);
+        startActivityForResult(intent, REGISTER_REQUEST);
+    }
+
+    @Override
+    protected void onActivityResult(
+            int requestCode,
+            int resultCode,
+            Intent data) {
+        if (requestCode == REGISTER_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                String uid = data
+                    .getStringExtra(KBSRegisterActivity.PARAM_NEW_UID);
+                String psw = data
+                    .getStringExtra(KBSRegisterActivity.PARAM_NEW_PSW);
+
+                editUID.setText(uid);
+                editPassword.setText(psw);
+            }
+
+            return;
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
 }

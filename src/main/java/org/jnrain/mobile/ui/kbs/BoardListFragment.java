@@ -15,12 +15,13 @@
  */
 package org.jnrain.mobile.ui.kbs;
 
+import name.xen0n.cytosol.app.CytosolFragment;
+
 import org.jnrain.kbs.collection.ListBoards;
 import org.jnrain.kbs.entity.Board;
 import org.jnrain.kbs.entity.Section;
 import org.jnrain.mobile.R;
 import org.jnrain.mobile.network.requests.BoardListRequest;
-import org.jnrain.mobile.ui.base.JNRainFragment;
 import org.jnrain.mobile.util.CacheKeyManager;
 import org.jnrain.mobile.util.GlobalState;
 
@@ -39,7 +40,7 @@ import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
 
 
-public class BoardListFragment extends JNRainFragment<ListBoards> {
+public class BoardListFragment extends CytosolFragment<ListBoards> {
     @InjectView(R.id.listBoards)
     ListView listBoards;
 

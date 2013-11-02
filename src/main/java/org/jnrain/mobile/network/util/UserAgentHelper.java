@@ -13,24 +13,25 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package name.xen0n.cytosol.data;
+package org.jnrain.mobile.network.util;
 
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import name.xen0n.cytosol.util.GlobalUpdaterState;
 
 
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class SimpleReturnCode {
-    private int _status;
+public class UserAgentHelper {
+    private static String preprocessedUserAgent;
 
-    public int getStatus() {
-        return _status;
+    public static boolean isUserAgentReady() {
+        return preprocessedUserAgent != null;
     }
 
-    public void setStatus(int status) {
-        _status = status;
+    public static void initUserAgent(String baseUA) {
+        preprocessedUserAgent = baseUA + " JNRain/"
+                + GlobalUpdaterState.getVersionName() + " (v"
+                + GlobalUpdaterState.getVersionCode();
     }
 
-    public String toString() {
-        return ("<Return code: [" + _status + "]>");
+    public static String getUserAgentString() {
+        return preprocessedUserAgent;
     }
 }

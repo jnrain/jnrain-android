@@ -13,24 +13,16 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package name.xen0n.cytosol.network.requests;
+package org.jnrain.mobile.ui.nav;
 
-import name.xen0n.cytosol.updater.UpdateInfo;
+public final class NavManager {
+    private static NavFragment _navFragment;
 
-import com.octo.android.robospice.request.springandroid.SpringAndroidSpiceRequest;
-
-
-public class CheckUpdateRequest
-        extends SpringAndroidSpiceRequest<UpdateInfo> {
-
-    public CheckUpdateRequest() {
-        super(UpdateInfo.class);
+    public static NavFragment getNavFragment() {
+        return _navFragment;
     }
 
-    @Override
-    public UpdateInfo loadDataFromNetwork() throws Exception {
-        return getRestTemplate().getForObject(
-                "http://dl.jnrain.com/updates/android.json",
-                UpdateInfo.class);
+    public static void setNavFragment(final NavFragment navFragment) {
+        _navFragment = navFragment;
     }
 }

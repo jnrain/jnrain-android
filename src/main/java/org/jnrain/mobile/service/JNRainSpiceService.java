@@ -17,6 +17,10 @@ package org.jnrain.mobile.service;
 
 import name.xen0n.cytosol.network.util.CookieHttpRequestInterceptor;
 import name.xen0n.cytosol.service.CytosolSpiceService;
+
+import org.jnrain.mobile.network.util.JNRainRestTemplate;
+import org.springframework.web.client.RestTemplate;
+
 import android.util.Log;
 
 
@@ -28,10 +32,15 @@ public class JNRainSpiceService extends CytosolSpiceService {
      */
     public static final int REQUEST_TIMEOUT = 5000;
 
+    /**
+     * RestTemplate to use.
+     */
+    public static final Class<? extends RestTemplate> REST_TEMPLATE_CLASS = JNRainRestTemplate.class;
+
     public static final String JNRAIN_COOKIE_DOMAIN = "http://bbs.jnrain.com/";
 
     public JNRainSpiceService() {
-        super(REQUEST_TIMEOUT);
+        super(REQUEST_TIMEOUT, REST_TEMPLATE_CLASS);
 
         // cookie interceptor
         Log.d(TAG, ">>> setting up interceptor(s)");

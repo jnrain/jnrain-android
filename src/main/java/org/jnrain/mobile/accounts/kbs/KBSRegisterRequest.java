@@ -15,8 +15,6 @@
  */
 package org.jnrain.mobile.accounts.kbs;
 
-import name.xen0n.cytosol.data.SimpleReturnCode;
-
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -27,7 +25,7 @@ import com.octo.android.robospice.request.springandroid.SpringAndroidSpiceReques
 
 
 public class KBSRegisterRequest
-        extends SpringAndroidSpiceRequest<SimpleReturnCode> {
+        extends SpringAndroidSpiceRequest<KBSRegisterResult> {
 
     private String _uid;
     private String _password;
@@ -42,7 +40,7 @@ public class KBSRegisterRequest
     private boolean isPreflight;
 
     public KBSRegisterRequest() {
-        super(SimpleReturnCode.class);
+        super(KBSRegisterResult.class);
         isPreflight = true;
     }
 
@@ -56,7 +54,7 @@ public class KBSRegisterRequest
             String phone,
             String captcha,
             int gender) {
-        super(SimpleReturnCode.class);
+        super(KBSRegisterResult.class);
         isPreflight = false;
 
         // TODO: validation
@@ -72,7 +70,7 @@ public class KBSRegisterRequest
     }
 
     @Override
-    public SimpleReturnCode loadDataFromNetwork() throws Exception {
+    public KBSRegisterResult loadDataFromNetwork() throws Exception {
         MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
 
         if (isPreflight) {
@@ -100,6 +98,6 @@ public class KBSRegisterRequest
         return getRestTemplate().postForObject(
                 "http://bbs.jnrain.com/rainstyle/apiregister.php",
                 req,
-                SimpleReturnCode.class);
+                KBSRegisterResult.class);
     }
 }

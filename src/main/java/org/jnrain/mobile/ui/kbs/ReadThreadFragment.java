@@ -15,9 +15,10 @@
  */
 package org.jnrain.mobile.ui.kbs;
 
+import name.xen0n.cytosol.app.CytosolFragment;
+
 import org.jnrain.kbs.entity.Post;
 import org.jnrain.mobile.R;
-import org.jnrain.mobile.ui.base.JNRainFragment;
 
 import roboguice.inject.InjectView;
 import android.app.Activity;
@@ -36,7 +37,7 @@ import com.viewpagerindicator.TitlePageIndicator.IndicatorStyle;
 
 
 @SuppressWarnings("rawtypes")
-public class ReadThreadFragment extends JNRainFragment
+public class ReadThreadFragment extends CytosolFragment
         implements ReadThreadFragmentListener {
     @InjectView(R.id.pager)
     ViewPager viewPager;
@@ -114,7 +115,10 @@ public class ReadThreadFragment extends JNRainFragment
             LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.dyn_pages, container, false);
+        View view = inflater.inflate(
+                name.xen0n.cytosol.R.layout.cy__dyn_pages,
+                container,
+                false);
 
         return view;
     }

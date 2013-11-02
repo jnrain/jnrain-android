@@ -33,6 +33,11 @@
     <!-- loading messages -->
     <string name="loading_global_hot_posts">Loading global hot posts…</string>
     <string name="please_wait">Please wait…</string>
+    <string name="uid_logging_out">Logging out…</string>
+
+    <!-- success messages -->
+    <string name="ok_short">OK</string>
+    <string name="uid_logged_out">Logged out</string>
 
     <!-- failure messages -->
     <string name="fail_load_global_hot_posts">Failed loading global hot posts.</string>
@@ -61,7 +66,9 @@
     <string name="field_repeat_password">Repeat your password</string>
     <string name="field_realname">Real name</string>
     <string name="field_stud_id">Student ID number</string>
-    <string name="field_is_ethnic_minority">My name needs a star prefix</string>
+    <string name="field_is_ethnic_minority">I belong to an ethnic minority group</string>
+    <string name="field_ethnic_minority_star">☆</string>
+    <string name="field_ethnic_minority_desc">Some students from ethnic minority groups need a ☆ in front of their names. Check this if you are one.</string>
     <string name="field_gender">Gender</string>
     <string name="field_nickname">Nickname</string>
     <string name="field_captcha">Verification code</string>
@@ -79,13 +86,57 @@ Note: Accounts registered here are those of the legacy BBS site.
 
     <!-- Register process -->
     <!-- UID availability check -->
-    <string name="reg_uid_available">OK</string>
     <string name="reg_uid_empty">Empty UID</string>
     <string name="reg_uid_exists">Unavailable</string>
     <string name="reg_uid_too_short">Too short</string>
     <string name="reg_uid_too_long">Too long</string>
     <string name="reg_uid_malformed">Malformed</string>
     <string name="reg_uid_banned">Banned</string>
+
+    <!-- Password -->
+    <string name="reg_psw_empty">No password</string>
+    <string name="reg_psw_too_short">Too short</string>
+    <string name="reg_psw_too_long">Too long</string>
+    <string name="reg_psw_mismatch">Mismatch</string>
+    <string name="reg_psw_username">Same as UID</string>
+
+    <!-- Email -->
+    <string name="reg_email_empty">Empty e-mail address</string>
+    <string name="reg_email_malformed">Wrong format</string>
+
+    <!-- Nickname -->
+    <string name="reg_nick_empty">No nickname</string>
+
+    <!-- Student ID -->
+    <string name="reg_stud_id_empty">No student ID</string>
+    <string name="reg_stud_id_malformed">Wrong format</string>
+
+    <!-- Real name -->
+    <string name="reg_realname_empty">No name</string>
+
+    <!-- Phone -->
+    <string name="reg_phone_empty">No phone number</string>
+    <string name="reg_phone_onlynumbers">Only numbers</string>
+
+    <!-- Captcha -->
+    <string name="reg_captcha_empty">No captcha</string>
+
+    <!-- (Some) Status messages -->
+    <string name="reg_status_0">Register successful</string>
+    <string name="reg_status_101">Please provide your phone number</string>
+    <string name="reg_status_201">Captcha image did not load</string>
+    <string name="reg_status_202">Wrong captcha</string>
+    <string name="reg_status_203">Password is too short</string>
+    <string name="reg_status_204">Password cannot be the same as UID</string>
+    <string name="reg_status_299">Identity check failed</string>
+    <string name="reg_status_301">Malformed UID</string>
+    <string name="reg_status_302">UID is too short</string>
+    <string name="reg_status_303">UID is banned</string>
+    <string name="reg_status_304">UID is already taken</string>
+    <string name="reg_status_305">UID is too long</string>
+    <string name="reg_status_306">Password is too long</string>
+    <string name="reg_status_307">System error while creating ID</string>
+    <string name="reg_status_399">Unknown error while creating ID</string>
 
     <!-- Read thread -->
     <string name="action_reply">Reply to this post</string>
@@ -100,9 +151,6 @@ Note: Accounts registered here are those of the legacy BBS site.
     <!-- General -->
     <string name="msg_network_fail">Network failure</string>
     <string name="msg_unknown_status">Unknown status: {0}</string>
-
-    <!-- UI -->
-    <string name="msg_exit_doubleclick">Press Back again in {0} sec(s) to exit</string>
 
     <!-- Authentication -->
     <string name="msg_login_success">Login successful</string>
@@ -190,22 +238,6 @@ Note: Accounts registered here are those of the legacy BBS site.
     <string name="last_checked_time"><![CDATA[Last checked: <b>{0}</b>]]></string>
     <string name="last_checked_never">Never before</string>
     <string name="download_update">Download update</string>
-
-    <!-- New version available dialog -->
-    <string name="new_version_available">Version {0} available</string>
-    <string name="new_version_ok_btn">Try it out</string>
-    <string name="new_version_cancel_btn">Not now</string>
-    <string name="new_version_number"><![CDATA[<b>{0}</b>]]></string>
-    <string name="new_version_number_w_codename"><![CDATA[{0} [<b>{1}</b>]]]></string>
-    <string name="new_version_message">
-<![CDATA[
-        <p>Version: {0}</p>
-        <p>Changes:<br />
-        {1}
-        </p>
-        ]]>
-    </string>
-    <string name="new_version_desc_empty">No changelog</string>
 
     <!-- Accounts -->
     <string name="account_type_kbs">JNRain (old site)</string>

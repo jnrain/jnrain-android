@@ -16,11 +16,10 @@
 package org.jnrain.mobile.ui;
 
 import name.xen0n.cytosol.app.SpiceRequestListener;
-import name.xen0n.cytosol.network.util.ConnectivityState;
-import name.xen0n.cytosol.updater.AppVersionHelper;
-import name.xen0n.cytosol.updater.UpdateManager;
+import name.xen0n.cytosol.ui.util.CytosolActivityHelper;
 
 import org.jnrain.mobile.R;
+import org.jnrain.mobile.updater.JNRainUpdateManager;
 import org.jnrain.mobile.util.GlobalState;
 
 import android.content.Context;
@@ -29,35 +28,28 @@ import com.actionbarsherlock.app.ActionBar;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
 
-public class JNRainActivityHelper {
-    protected ConnectivityState netState;
-    protected boolean _isFrag;
-    protected SpiceRequestListener<?> _activity;
-
-    public JNRainActivityHelper(SpiceRequestListener<?> activity) {
-        _activity = activity;
+public class JNRainActivityHelper extends CytosolActivityHelper {
+    public JNRainActivityHelper(final SpiceRequestListener<?> activity) {
+        super(activity, JNRainUpdateManager.class);
     }
 
-    public void doPreOnStart() {
-        Context ctx = _activity.getThisActivity().getApplicationContext();
-
+    @Override
+    public void doAppPrePreOnStart(final Context ctx) {
         GlobalState.possiblyInitState(ctx);
-
-        // init global version info
-        AppVersionHelper.ensureVersionInited(ctx);
     }
 
-    public void doPostOnStart() {
-        Context ctx = _activity.getThisActivity().getApplicationContext();
-
-        // connectivity state object
-        netState = new ConnectivityState(ctx);
-
-        // auto update things
-        UpdateManager.doAutoCheckUpdate(_activity);
+    @Override
+    public void doAppPostPreOnStart(final Context ctx) {
+        // nothing to do
     }
 
-    public static void setUpActionBar(ActionBar bar) {
+    @Override
+    public void doAppPostOnStart(final Context ctx) {
+        // nothing to do
+    }
+
+    @Override
+    public void setUpActionBar(final ActionBar bar) {
         if (bar == null) {
             return;
         }
@@ -67,14 +59,15 @@ public class JNRainActivityHelper {
         bar.setDisplayHomeAsUpEnabled(true);
     }
 
-    public static void setUpSlidingMenu(SlidingMenu menu) {
+    @Override
+    public void setUpSlidingMenu(final SlidingMenu menu) {
         // default values
         menu.setMode(SlidingMenu.LEFT);
         menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
         menu.setFadeEnabled(false);
         menu.setShadowWidthRes(R.dimen.slidingmenu_shadow_width);
         menu.setShadowDrawable(R.drawable.slidingmenu_shadow);
-        menu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
+        menu.setBehindWidthRes(R.dimen.slidingmenu_width);
         menu.setBehindScrollScale(0.3f);
 
         // menu overdrawing manipulation

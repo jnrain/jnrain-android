@@ -13,25 +13,32 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package name.xen0n.cytosol.network.util;
+package org.jnrain.mobile.network.util;
 
 import java.io.IOException;
 import java.net.URI;
 
-import org.springframework.http.ContentCodingType;
+import name.xen0n.cytosol.network.util.GzipRestTemplate;
+
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.client.ClientHttpRequest;
-import org.springframework.web.client.RestTemplate;
 
 
-public class GzipRestTemplate extends RestTemplate {
+public class JNRainRestTemplate extends GzipRestTemplate {
     @Override
     protected ClientHttpRequest createRequest(URI url, HttpMethod method)
             throws IOException {
         ClientHttpRequest request = super.createRequest(url, method);
-        HttpHeaders headers = request.getHeaders();
-        headers.setAcceptEncoding(ContentCodingType.GZIP);
+
+        // augment the default User-Agent
+        HttpHeaders hdrs = request.getHeaders();
+        if (!UserAgentHelper.isUserAgentReady()) {
+            UserAgentHelper.initUserAgent(hdrs.getUserAgent());
+        }
+
+        hdrs.setUserAgent(UserAgentHelper.getUserAgentString());
+
         return request;
     }
 }

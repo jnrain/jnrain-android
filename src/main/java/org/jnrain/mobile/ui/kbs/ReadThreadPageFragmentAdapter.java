@@ -41,6 +41,12 @@ class ReadThreadPageFragmentAdapter
                 Integer.toString(position + 1));
     }
 
+    @Override
+    public int getIconResId(int arg0) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
     public void addItem(String brd_id, long tid, int page) {
         ReadThreadPageFragment frag = new ReadThreadPageFragment(
                 brd_id,

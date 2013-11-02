@@ -15,8 +15,6 @@
  */
 package org.jnrain.mobile.accounts.kbs;
 
-import name.xen0n.cytosol.data.SimpleReturnCode;
-
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -27,18 +25,18 @@ import com.octo.android.robospice.request.springandroid.SpringAndroidSpiceReques
 
 
 public class KBSCheckIDRequest
-        extends SpringAndroidSpiceRequest<SimpleReturnCode> {
+        extends SpringAndroidSpiceRequest<KBSRegisterResult> {
 
     private String _uid;
 
     public KBSCheckIDRequest(String uid) {
-        super(SimpleReturnCode.class);
+        super(KBSRegisterResult.class);
 
         _uid = uid;
     }
 
     @Override
-    public SimpleReturnCode loadDataFromNetwork() throws Exception {
+    public KBSRegisterResult loadDataFromNetwork() throws Exception {
         MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
         params.set("id", _uid);
 
@@ -51,6 +49,6 @@ public class KBSCheckIDRequest
         return getRestTemplate().postForObject(
                 "http://bbs.jnrain.com/rainstyle/apicheckid.php",
                 req,
-                SimpleReturnCode.class);
+                KBSRegisterResult.class);
     }
 }

@@ -37,6 +37,8 @@ import android.accounts.AccountManagerFuture;
 import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -62,15 +64,24 @@ public class MainActivity extends ExitPointActivity
     private Handler _loginHandler;
     private ProgressDialog _loadingDlg;
 
+    public static void show(Context context) {
+        final Intent intent = new Intent(context, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // TODO: refactor this!
+        initAccount();
+
         // SlidingMenu layout setup
         FragmentManager fm = getSupportFragmentManager();
 
-        setContentView(R.layout.content_frame);
-        setBehindContentView(R.layout.menu_frame);
+        setContentView(name.xen0n.cytosol.R.layout.cy__content_frame);
+        setBehindContentView(name.xen0n.cytosol.R.layout.cy__menu_frame);
 
         // retrieve or construct the Above view
         if (savedInstanceState != null) {
@@ -121,9 +132,6 @@ public class MainActivity extends ExitPointActivity
         if (savedInstanceState == null) {
             setBackAction(SlidingActivityBackAction.BACK_TO_MENU);
         }
-
-        // TODO: refactor this!
-        initAccount();
     }
 
     @Override
@@ -291,7 +299,7 @@ public class MainActivity extends ExitPointActivity
 
             // no account
             // try to create one, but don't recurse infinitely
-            if (GlobalState.getAccountInitLevel() > 2) {
+            if (GlobalState.getAccountInitLevel() > 1) {
                 // finish self
                 finish();
                 return;
@@ -321,6 +329,7 @@ public class MainActivity extends ExitPointActivity
                                             // TODO Auto-generated catch
                                             // block
                                             e.printStackTrace();
+                                            finish();
                                         } catch (AuthenticatorException e) {
                                             // TODO Auto-generated catch
                                             // block
@@ -330,8 +339,6 @@ public class MainActivity extends ExitPointActivity
                                             // block
                                             e.printStackTrace();
                                         }
-
-                                        MainActivity.this.initAccount();
                                     }
                                 },
                                 null)
@@ -339,6 +346,7 @@ public class MainActivity extends ExitPointActivity
                     } catch (OperationCanceledException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
+                        finish();
                     } catch (AuthenticatorException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();

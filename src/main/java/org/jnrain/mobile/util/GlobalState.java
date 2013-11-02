@@ -18,29 +18,22 @@ package org.jnrain.mobile.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import name.xen0n.cytosol.updater.AppVersionHelper;
-import name.xen0n.cytosol.updater.UpdateInfo;
-
+import name.xen0n.cytosol.util.GlobalUpdaterState;
 import android.accounts.Account;
 import android.content.Context;
-import android.telephony.TelephonyManager;
 import android.webkit.CookieSyncManager;
 
 
 public class GlobalState {
     protected static boolean _cookieInited = false;
-    protected static boolean _versionInited = false;
-    protected static int _versionCode = -1;
-    protected static String _versionName = "VERSION_NOT_INITED";
-    protected static UpdateInfo _updInfo = null;
 
     protected static Account _account = null;
     protected static List<AccountStateListener> _accountListeners = null;
     protected static int _accountInitLevel = 0;
 
     public static synchronized void possiblyInitState(Context ctx) {
-        // init global version info
-        AppVersionHelper.ensureVersionInited(ctx);
+        // init version info and updater
+        GlobalUpdaterState.possiblyInitState(ctx);
 
         // cookie manager
         if (!getCookieInited()) {
@@ -116,41 +109,5 @@ public class GlobalState {
         }
 
         _accountListeners.add(listener);
-    }
-
-    public static synchronized boolean isVersionInited() {
-        return _versionInited;
-    }
-
-    public static synchronized int getVersionCode() {
-        return _versionCode;
-    }
-
-    public static synchronized String getVersionName() {
-        return _versionName;
-    }
-
-    public static synchronized UpdateInfo getUpdateInfo() {
-        return _updInfo;
-    }
-
-    public static synchronized void setVersionInfo(
-            int versionCode,
-            String versionName,
-            UpdateInfo updInfo) {
-        _versionCode = versionCode;
-        _versionName = versionName;
-        _updInfo = updInfo;
-        _versionInited = true;
-    }
-
-    public static synchronized void setUpdateInfo(UpdateInfo updInfo) {
-        _updInfo = updInfo;
-    }
-
-    public static String getPhoneNumber(Context ctx) {
-        TelephonyManager tMgr = (TelephonyManager) (ctx
-            .getSystemService(Context.TELEPHONY_SERVICE));
-        return tMgr.getLine1Number();
     }
 }

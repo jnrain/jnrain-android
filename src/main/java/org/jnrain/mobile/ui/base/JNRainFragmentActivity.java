@@ -15,12 +15,11 @@
  */
 package org.jnrain.mobile.ui.base;
 
-import name.xen0n.cytosol.app.SpicedRoboFragmentActivity;
+import name.xen0n.cytosol.app.CytosolFragmentActivity;
 
+import org.jnrain.mobile.service.JNRainSpiceService;
 import org.jnrain.mobile.ui.JNRainActivityHelper;
 import org.jnrain.mobile.ui.OptionsMenuProvider;
-
-import android.os.Bundle;
 
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
@@ -28,27 +27,9 @@ import com.actionbarsherlock.view.MenuItem;
 
 
 public abstract class JNRainFragmentActivity<T>
-        extends SpicedRoboFragmentActivity<T> {
-    JNRainActivityHelper _helper;
-
+        extends CytosolFragmentActivity<T> {
     public JNRainFragmentActivity() {
-        super();
-
-        _helper = new JNRainActivityHelper(this);
-    }
-
-    @Override
-    protected void onStart() {
-        _helper.doPreOnStart();
-        super.onStart();
-        _helper.doPostOnStart();
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        JNRainActivityHelper.setUpActionBar(getSupportActionBar());
+        super(JNRainSpiceService.class, JNRainActivityHelper.class);
     }
 
     @Override

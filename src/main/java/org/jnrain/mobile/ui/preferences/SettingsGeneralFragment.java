@@ -18,6 +18,7 @@ package org.jnrain.mobile.ui.preferences;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import name.xen0n.cytosol.config.ConfigHub;
 import name.xen0n.cytosol.config.UIConfigConstants;
 import name.xen0n.cytosol.config.UpdaterConfigUtil;
 import name.xen0n.cytosol.ui.preference.PreferenceListFragment;
@@ -26,10 +27,9 @@ import name.xen0n.cytosol.ui.preference.SummarizedListPreference;
 import name.xen0n.cytosol.updater.AppVersionHelper;
 import name.xen0n.cytosol.updater.UpdateChannel;
 import name.xen0n.cytosol.updater.UpdateInfo;
+import name.xen0n.cytosol.util.GlobalUpdaterState;
 
 import org.jnrain.mobile.R;
-import org.jnrain.mobile.config.ConfigHub;
-import org.jnrain.mobile.util.GlobalState;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -118,7 +118,7 @@ public class SettingsGeneralFragment extends PreferenceListFragment {
 
     public void addUpdateChannelPreference() {
         Activity activity = getActivity();
-        UpdateInfo updInfo = GlobalState.getUpdateInfo();
+        UpdateInfo updInfo = GlobalUpdaterState.getUpdateInfo();
         SummarizedListPreference pref = new SummarizedListPreference(
                 activity);
 

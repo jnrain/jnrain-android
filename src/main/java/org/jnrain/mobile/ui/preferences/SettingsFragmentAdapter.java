@@ -35,4 +35,10 @@ public class SettingsFragmentAdapter extends BaseSettingsFragmentAdapter {
                 R.string.prefs_title_general,
                 SettingsGeneralFragment.class);
     }
+
+    @Override
+    public int getIconResId(int arg0) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
 }

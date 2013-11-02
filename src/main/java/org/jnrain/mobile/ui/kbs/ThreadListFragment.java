@@ -15,10 +15,11 @@
  */
 package org.jnrain.mobile.ui.kbs;
 
+import name.xen0n.cytosol.app.CytosolFragment;
+
 import org.jnrain.kbs.collection.ListPosts;
 import org.jnrain.kbs.entity.Post;
 import org.jnrain.mobile.R;
-import org.jnrain.mobile.ui.base.JNRainFragment;
 
 import roboguice.inject.InjectView;
 import android.app.Activity;
@@ -39,7 +40,7 @@ import com.viewpagerindicator.TitlePageIndicator;
 import com.viewpagerindicator.TitlePageIndicator.IndicatorStyle;
 
 
-public class ThreadListFragment extends JNRainFragment<ListPosts>
+public class ThreadListFragment extends CytosolFragment<ListPosts>
         implements ThreadListFragmentListener {
 
     @InjectView(R.id.pager)
@@ -102,7 +103,10 @@ public class ThreadListFragment extends JNRainFragment<ListPosts>
             LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.dyn_pages, container, false);
+        View view = inflater.inflate(
+                name.xen0n.cytosol.R.layout.cy__dyn_pages,
+                container,
+                false);
 
         return view;
     }

@@ -36,6 +36,10 @@
 
         <!-- VPI -->
         <item name="vpiTitlePageIndicatorStyle">@style/JNRainTitlePageIndicator</item>
+
+        <!-- Cytosol -->
+        <!-- GuidedEditText -->
+        <item name="guideViewStyle">@style/Widget.JNRain.TextView.Small</item>
     </style>
 
     <style name="Theme.JNRain.DefaultLight.NoActionBar" parent="@style/Theme.Sherlock.Light.NoActionBar">

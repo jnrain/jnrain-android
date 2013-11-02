@@ -17,6 +17,13 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle" >
 
+    <!--
+    it seems setBackgroundDrawable() on API level 16- needs this,
+    or there'll be a black background...
+    adding a transparent fill color solves that problem though.
+    -->
+    <solid android:color="@android:color/transparent" />
+
     <stroke
         android:width="@dimen/edittext_border_width"
         android:color="@color/jnrain_green_dark" />

@@ -15,6 +15,7 @@
  */
 package org.jnrain.mobile.ui.nav;
 
+import name.xen0n.cytosol.app.CytosolFragment;
 import name.xen0n.cytosol.ui.widget.NavItem;
 import name.xen0n.cytosol.ui.widget.NavItemView;
 import name.xen0n.cytosol.ui.widget.NavMenuAdapter;
@@ -23,7 +24,6 @@ import org.jnrain.mobile.R;
 import org.jnrain.mobile.accounts.kbs.KBSLogoutRequest;
 import org.jnrain.mobile.accounts.kbs.KBSLogoutRequestListener;
 import org.jnrain.mobile.ui.AboutActivity;
-import org.jnrain.mobile.ui.base.JNRainFragment;
 import org.jnrain.mobile.ui.kbs.GlobalHotPostsListFragment;
 import org.jnrain.mobile.ui.kbs.SectionListFragment;
 import org.jnrain.mobile.ui.preferences.SettingsActivity;
@@ -43,7 +43,7 @@ import android.widget.TextView;
 
 
 @SuppressWarnings("rawtypes")
-public class NavFragment extends JNRainFragment
+public class NavFragment extends CytosolFragment
         implements AccountStateListener {
     @InjectView(R.id.textUserID)
     TextView textUserID;
@@ -56,7 +56,10 @@ public class NavFragment extends JNRainFragment
     public void onAttach(Activity activity) {
         super.onAttach(activity);
 
-        _menuAdapter = new NavMenuAdapter(getActivity());
+        _menuAdapter = new JNRainNavMenuAdapter(getActivity());
+
+        // register self
+        NavManager.setNavFragment(this);
     }
 
     @Override
@@ -131,6 +134,10 @@ public class NavFragment extends JNRainFragment
             @SuppressWarnings("unchecked")
             @Override
             public void onNavItemActivated(Context context) {
+                // change UID display
+                setUserName(R.string.uid_logging_out);
+
+                // make request
                 _listener.makeSpiceRequest(
                         new KBSLogoutRequest(),
                         new KBSLogoutRequestListener(getActivity(), true));
@@ -174,6 +181,10 @@ public class NavFragment extends JNRainFragment
         textUserID.setText(uid);
     }
 
+    public void setUserName(int resId) {
+        textUserID.setText(resId);
+    }
+
     @Override
     public void onAccountLoggedIn(String uid) {
         setUserName(uid);
@@ -181,7 +192,7 @@ public class NavFragment extends JNRainFragment
 
     @Override
     public void onAccountLoggedOut() {
-        // TODO: something more user-friendly
-        setUserName("");
+        // set user name
+        setUserName(R.string.uid_logged_out);
     }
 }

@@ -24,8 +24,8 @@
 
     <ListView
         android:id="@+id/listNavMenu"
-        style="@style/NavMenu"
-        tools:listitem="@layout/nav_menu_item" >
+        style="@style/Widget.Cytosol.NavMenu"
+        tools:listitem="@layout/jn_1navmenuitem" >
     </ListView>
 
 </LinearLayout>

@@ -1,4 +1,5 @@
 # Ignore the dependencies.
-ActionBarSherlock/
-Android-ViewPagerIndicator/
-SlidingMenu/
+ActionBarSherlock
+Android-ViewPagerIndicator
+SlidingMenu
+Cytosol

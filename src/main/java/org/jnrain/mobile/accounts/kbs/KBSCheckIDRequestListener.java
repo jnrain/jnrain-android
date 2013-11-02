@@ -15,7 +15,6 @@
  */
 package org.jnrain.mobile.accounts.kbs;
 
-import name.xen0n.cytosol.data.SimpleReturnCode;
 import name.xen0n.cytosol.network.listeners.ContextRequestListener;
 import name.xen0n.cytosol.ui.util.ToastHelper;
 
@@ -29,7 +28,7 @@ import com.octo.android.robospice.persistence.exception.SpiceException;
 
 
 public class KBSCheckIDRequestListener
-        extends ContextRequestListener<SimpleReturnCode> {
+        extends ContextRequestListener<KBSRegisterResult> {
     private static final String TAG = "KBSChkIDRequestListener";
     private RegisterPoint _ui;
     private long _timestamp;
@@ -48,7 +47,7 @@ public class KBSCheckIDRequestListener
     }
 
     @Override
-    public void onRequestSuccess(SimpleReturnCode result) {
+    public void onRequestSuccess(KBSRegisterResult result) {
         Log.d(TAG, "CheckIDRequest fired at " + Long.toString(_timestamp)
                 + " arrived");
         _ui.notifyUIDAvailability(result.getStatus(), _timestamp);

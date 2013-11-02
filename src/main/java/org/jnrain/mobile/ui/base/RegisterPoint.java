@@ -15,12 +15,18 @@
  */
 package org.jnrain.mobile.ui.base;
 
+import android.graphics.drawable.Drawable;
+
 public interface RegisterPoint extends ProgressDialogProvider {
-    public void fetchCaptcha();
+    public void updateCaptcha(Drawable captcha);
+
+    public void setSubmitButtonEnabled(boolean enabled);
 
     public String getUID();
 
     public void checkUIDAvailability(String uid, long timestamp);
 
     public void notifyUIDAvailability(int status, long timestamp);
+
+    public void onRegisterSuccess(String uid, String psw);
 }

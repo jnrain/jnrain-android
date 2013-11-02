@@ -53,4 +53,10 @@ class ThreadListPageFragmentAdapter
         _contents.add(frag);
         notifyDataSetChanged();
     }
+
+    @Override
+    public int getIconResId(int arg0) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
 }
