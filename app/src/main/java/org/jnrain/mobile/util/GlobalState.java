@@ -19,6 +19,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import name.xen0n.cytosol.util.GlobalUpdaterState;
+
+import org.jnrain.mobile.network.util.UserAgentHelper;
+
 import android.accounts.Account;
 import android.content.Context;
 import android.webkit.CookieSyncManager;
@@ -34,6 +37,14 @@ public class GlobalState {
     public static synchronized void possiblyInitState(Context ctx) {
         // init version info and updater
         GlobalUpdaterState.possiblyInitState(ctx);
+
+        // app User-Agent string
+        // NOTE: since usage of this component is much later than
+        // its initialization, race conditions are unlikely. So synchronized
+        // blocks or the like are not used for simplicity.
+        if (!UserAgentHelper.isUserAgentReady()) {
+            UserAgentHelper.initUserAgent(ctx);
+        }
 
         // cookie manager
         if (!getCookieInited()) {

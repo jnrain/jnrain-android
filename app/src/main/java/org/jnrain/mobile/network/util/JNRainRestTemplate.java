@@ -31,13 +31,11 @@ public class JNRainRestTemplate extends GzipRestTemplate {
             throws IOException {
         ClientHttpRequest request = super.createRequest(url, method);
 
-        // augment the default User-Agent
+        // override the default User-Agent if an app-specific one is ready
         HttpHeaders hdrs = request.getHeaders();
-        if (!UserAgentHelper.isUserAgentReady()) {
-            UserAgentHelper.initUserAgent(hdrs.getUserAgent());
+        if (UserAgentHelper.isUserAgentReady()) {
+            hdrs.setUserAgent(UserAgentHelper.getUserAgentString());
         }
-
-        hdrs.setUserAgent(UserAgentHelper.getUserAgentString());
 
         return request;
     }
