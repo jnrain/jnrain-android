@@ -70,7 +70,7 @@
     <android.version>4.1.1.4</android.version>
     <android-support.version>18.0.0</android-support.version>
 
-    <cytosol.version>1.0</cytosol.version>
+    <cytosol.version>2.0-SNAPSHOT</cytosol.version>
   </properties>
 
   <!-- Build configurations. -->
