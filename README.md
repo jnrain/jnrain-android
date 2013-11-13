@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/jnrainerds/jnrain-android.png)](https://travis-ci.org/jnrainerds/jnrain-android)
 
-这是[江南听雨 BBS](http://bbs.jnrain.com/) 的 Android 客户端。功能不算完善，十分欢迎各种形式的贡献。JNRainerds 欢迎有意愿参与的同学们加入。
+这是[江南听雨 BBS](http://bbs.jnrain.com/) 的 Android 客户端，由[江南听雨研发中心](https://github.com/jnrainerds)开发。功能不算完善，十分欢迎各种形式的贡献。江南听雨研发中心热忱欢迎同学们的加入。
 
 
 ## 许可证
@@ -26,8 +26,7 @@
 ### 编译方法
 
 *   安装 [Android SDK](http://developer.android.com/sdk/index.html)，并设置好 `$ANDROID_HOME` 环境变量（到你的 Android SDK 目录）
-*   安装并设置好 [Maven](http://maven.apache.org/download.html) 的 3.0 版本。3.1 版暂时有插件不兼容而无法构建的问题。
-*   安装好 [Gradle](http://www.gradle.org), 编译定制的依赖关系需要。
+*   安装并设置好 [Maven](http://maven.apache.org/download.html)，至少需要 3.1.1 版本。3.0 系列已经不再被最新版的 android-maven-plugin 插件支持。
 *   **重要** 去 `deps/` 目录照着 README 准备依赖关系。
 *   执行构建
 
