@@ -57,7 +57,7 @@ mvn30_version () {
 
 
 mvn_version_check () {
-    if mvn31_checked; then
+    if ${mvn31_checked}; then
         true
     else
         _mvnver="$( mvn_version )"
@@ -68,7 +68,7 @@ mvn_version_check () {
 
 
 mvn30_version_check () {
-    if mvn30_checked; then
+    if ${mvn30_checked$}; then
         true
     else
         _mvnver="$( mvn30_version )"
