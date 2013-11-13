@@ -6,6 +6,7 @@ PROJECT_NAME="jnrain-android"
 # Commands
 GIT_CMD="${GIT_CMD:-git}"
 MVN_CMD="${MVN_CMD:-mvn}"
+MVN30_CMD="${MVN30_CMD:-mvn-3.0}"
 
 
 # Semi-hardcoded dependencies
@@ -41,25 +42,57 @@ errexit () {
 
 
 # Maven version
+mvn31_checked=false
+mvn30_checked=false
+
+
 mvn_version () {
     "${MVN_CMD}" --version | head -1
 }
 
 
+mvn30_version () {
+    "${MVN30_CMD}" --version | head -1
+}
+
+
+mvn_version_check () {
+    if mvn31_checked; then
+        true
+    else
+        _mvnver="$( mvn_version )"
+        echo "${_mvnver}" | grep '^Apache Maven 3.1' > /dev/null 2>&1 || mvn_version_fail 3.1.x "${_mvnver}"
+        mvn31_checked=true
+    fi
+}
+
+
+mvn30_version_check () {
+    if mvn30_checked; then
+        true
+    else
+        _mvnver="$( mvn30_version )"
+        echo "${_mvnver}" | grep '^Apache Maven 3.0' > /dev/null 2>&1 || mvn_version_fail 3.0.x "${_mvnver}"
+        mvn30_checked=true
+    fi
+}
+
+
 mvn_version_fail () {
-    mvnver=$1
+    expected_ver=$1
+    mvnver=$2
 
     echoerr "\033[1;31m !!!\033[m Incompatible Maven version detected."
     echoerr ""
-    echoerr "Building dependencies currently requires Maven 3.0.x, but your"
+    echoerr "Building dependencies currently requires Maven ${expected_ver}, but your"
     echoerr "Maven advertised this instead:"
     echoerr ""
     echoerr "${mvnver}"
     echoerr ""
-    echoerr "Please provide a Maven 3.0.x executable via the MVN_CMD"
-    echoerr "environment variable, like this:"
+    echoerr "Please provide the Maven executables via the MVN_CMD environment"
+    echoerr "variable, like this:"
     echoerr ""
-    echoerr "    $ MVN_CMD=mvn-3.0 ./update-deps.sh"
+    echoerr "    $ MVN_CMD=mvn-3.1 MVN30_CMD=mvn-3.0 ./update-deps.sh"
 
     errexit 2 "Maven version check failed"
 }
@@ -100,7 +133,14 @@ git_co () {
 
 
 domvn () {
+    mvn_version_check
     "${MVN_CMD}" $@ || errexit 7 "domvn failed"
+}
+
+
+domvn30 () {
+    mvn30_version_check
+    "${MVN30_CMD}" $@ || errexit 8 "domvn30 failed"
 }
 
 
@@ -131,12 +171,8 @@ build_cy () {
 # Main part
 echoinfo "Using git: ${GIT_CMD}"
 echoinfo "Using mvn: ${MVN_CMD}"
+echoinfo "Using mvn 3.0.x: ${MVN30_CMD}"
 echoinfo ""
-
-_mvnver="$( mvn_version )"
-echo "${_mvnver}" | grep '^Apache Maven 3.0' > /dev/null 2>&1 || mvn_version_fail "${_mvnver}"
-unset _mvnver
-
 
 build_cy
 
