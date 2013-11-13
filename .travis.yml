@@ -18,14 +18,23 @@ before_install:
   - tar -zxf android-sdk_r22.2.1-linux.tgz
   - export ANDROID_HOME=`pwd`/android-sdk-linux
   - export PATH=${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:${PATH}
+
   # Install required Android components.
   # List of component identifiers are from result of "adb list sdk --extended --all"
   - echo y | android update sdk --filter platform-tools --no-ui --force
   - echo y | android update sdk --filter build-tools-18.1.0,build-tools-17.0.0,android-14,android-16,extra-android-m2repository --all --no-ui --force
   # Official Android Support Library Maven repo
   - mkdir -p ~/.m2/repository/com/android && ln -s ${ANDROID_HOME}/extras/android/m2repository/com/android/support/support-v4 ~/.m2/repository/com/android/support-v4
+
+  # Maven 3.1.1+
+  - wget http://www.us.apache.org/dist/maven/maven-3/3.1.1/binaries/apache-maven-3.1.1-bin.tar.gz
+  - tar xvf apache-maven-3.1.1-bin.tar.gz > /dev/null
+  - export MVN_HOME=`pwd`/apache-maven-3.1.1
+  - export PATH=${MVN_HOME}/bin/:${PATH}
+  - mvn --version
+
   # Dependencies
-  - ( cd deps && ./update-deps.sh )
+  - ( cd deps && MVN30_CMD=/usr/bin/mvn ./update-deps.sh )
 
 
 # build for individual update channels
